@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CASE, type LngLat, NISAR_TAIXI, PARCELS, type Parcel, TREND_COLOR, TREND_LABEL, type Trend, trendOf } from '../data/champi';
+import { CASE, type LngLat, NISAR_TAIXI, PARCELS, type Parcel, TREND_COLOR, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, useLang, useT } from '../i18n';
@@ -18,7 +18,7 @@ type Filter = Trend | 'all';
  * Width is fixed; height follows the true aspect ratio of the padded extent.
  */
 const PROJ = (() => {
-  const pts = PARCELS.flatMap((p) => p.ring);
+  const pts = PARCELS.flatMap((p) => polygonRings(p.geometry).flat(2));
   const lngs = pts.map((p) => p[0]);
   const lats = pts.map((p) => p[1]);
   const pad = 0.3;
@@ -37,8 +37,8 @@ const PROJ = (() => {
 })();
 
 const SHAPES = PARCELS.map((p) => {
-  const pts = p.ring.map(PROJ.xy);
-  return { id: p.id, pts, right: Math.max(...pts.map((q) => q[0])), left: Math.min(...pts.map((q) => q[0])), top: Math.min(...pts.map((q) => q[1])) };
+  const pts = polygonRings(p.geometry).flat(2).map(PROJ.xy);
+  return { id: p.id, path: geometryPath(p.geometry, PROJ.xy), right: Math.max(...pts.map((q) => q[0])), left: Math.min(...pts.map((q) => q[0])), top: Math.min(...pts.map((q) => q[1])) };
 });
 
 /** Axis-aligned placement of a NISAR scene from its corner coordinates (display only). */
@@ -117,14 +117,14 @@ function DamageMap({
   const vx = (PROJ.W - vw) / 2;
   const vy = (PROJ.H - vh) / 2;
 
-  const current = PARCELS.find((p) => p.id === selectedId) ?? PARCELS[0];
+  const current = parcelById(selectedId);
   const q = query.trim().toUpperCase();
   const visible = PARCELS.filter((p) => (filter === 'all' || trendOf(p) === filter) && (!q || p.id.includes(q)));
   const count = (k: Filter) => PARCELS.filter((p) => k === 'all' || trendOf(p) === k).length;
 
   // Map SVG uses "meet" scaling (contain), so viewBox → pixel is a uniform scale plus centering offset.
   const popupPos = useMemo(() => {
-    const shape = SHAPES.find((c) => c.id === current.id);
+    const shape = SHAPES.find((c) => c.id === current?.id);
     if (!shape || !sheet.w) return { left: 0, top: 0 };
     const s = Math.min(sheet.w / vw, sheet.h / vh);
     const ox = (sheet.w - vw * s) / 2 - vx * s;
@@ -134,7 +134,7 @@ function DamageMap({
     if (left > sheet.w - POPUP_W - 232) left = ox + shape.left * s - POPUP_W - 16;
     const top = Math.min(Math.max(80, oy + shape.top * s - 20), Math.max(80, sheet.h - 260));
     return { left: Math.max(16, left), top };
-  }, [current.id, sheet.w, sheet.h, vw, vh, vx, vy]);
+  }, [current?.id, sheet.w, sheet.h, vw, vh, vx, vy]);
 
   const sheetClass = ['sheet', !layers.trend && 'map-hide-dmg', !layers.bnd && 'map-hide-bnd'].filter(Boolean).join(' ');
   const [pre, post] = NISAR_TAIXI.scenes;
@@ -190,9 +190,10 @@ function DamageMap({
             const select = () => onSelect(p.id);
             return (
               <g key={p.id}>
-                <polygon
-                  className={`parcel${p.id === current.id ? ' sel' : ''}`}
-                  points={shape.pts.map((pt) => pt.join(',')).join(' ')}
+                <path
+                  fillRule="evenodd"
+                  className={`parcel${p.id === current?.id ? ' sel' : ''}`}
+                  d={shape.path}
                   fill={TREND_COLOR[trendOf(p)]}
                   fillOpacity={0.7}
                   onClick={select}
@@ -262,31 +263,33 @@ function DamageMap({
           </button>
         </div>
 
-        <div className="popup" style={popupPos} aria-live="polite">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <b className="mono" style={{ fontSize: 17 }}>
-              {current.id}
-            </b>
-            <TrendTag trend={trendOf(current)} />
-          </div>
-          <div className="cap">
-            {t(current.town)} · {current.areaHa} {t('公頃', 'ha')} ·{' '}
-            {farmer ? `${t('您登記的作物：', 'Your crop: ')}${cropName(farmer, lang)}` : t('作物未驗證', 'Crop unverified')}
-          </div>
-          <div className="figs">
-            <div>
-              <b>{formatDb(current.preToPost)}</b>
-              <span>{t('颱風前→後', 'Pre → post')}</span>
+        {current && (
+          <div className="popup" style={popupPos} aria-live="polite">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <b className="mono" style={{ fontSize: 17 }}>
+                {current.id}
+              </b>
+              <TrendTag trend={trendOf(current)} />
             </div>
-            <div>
-              <b>{formatDb(current.vsLastYear)}</b>
-              <span>{t('與 2025 同期', 'vs 2025')}</span>
+            <div className="cap">
+              {t(current.town)} · {current.areaHa.toFixed(4)} {t('公頃', 'ha')} ·{' '}
+              {farmer ? `${t('您登記的作物：', 'Your crop: ')}${cropName(farmer, lang)}` : t('作物未驗證', 'Crop unverified')}
             </div>
+            <div className="figs">
+              <div>
+                <b>{formatDb(current.preToPost)}</b>
+                <span>{t('颱風前→後', 'Pre → post')}</span>
+              </div>
+              <div>
+                <b>{formatDb(current.vsLastYear)}</b>
+                <span>{t('與 2025 同期', 'vs 2025')}</span>
+              </div>
+            </div>
+            <button className="btn btn-primary btn-block" onClick={() => go('compare')}>
+              {t('查看前後比對 →', 'Compare before/after →')}
+            </button>
           </div>
-          <button className="btn btn-primary btn-block" onClick={() => go('compare')}>
-            {t('查看前後比對 →', 'Compare before/after →')}
-          </button>
-        </div>
+        )}
       </div>
 
       <aside className="panel">
@@ -314,7 +317,7 @@ function DamageMap({
         </div>
         <div className="list" role="listbox" aria-label={t('候選田區', 'Candidate fields')}>
           {visible.length ? (
-            visible.map((p) => <FieldRow key={p.id} parcel={p} selected={p.id === current.id} onSelect={onSelect} />)
+            visible.map((p) => <FieldRow key={p.id} parcel={p} selected={p.id === current?.id} onSelect={onSelect} />)
           ) : (
             <p className="cap" style={{ padding: 20 }}>
               {t('沒有符合的田區', 'No matching fields')}

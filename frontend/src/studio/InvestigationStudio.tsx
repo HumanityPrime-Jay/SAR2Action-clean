@@ -5,6 +5,7 @@ import { buildEvidenceGraph, investigateLive, loadStudioAssets, makeDossier, ref
 import type { ChallengeKind } from './adapter';
 import type { FieldComparison, GraphNode, StudioAssets, StudioInvestigation, StudioMode, TraceEvent, VhObservation } from './contracts';
 import { FieldFindings } from './FieldFindings';
+import { PolygonEditor } from './PolygonEditor';
 import { NASA_GIBS_ATTRIBUTION, NASA_GIBS_BLUE_MARBLE, NASA_GIBS_LANDSAT_WELD, NASA_GIBS_WELD_ATTRIBUTION, parseNisarMapManifest } from './mapScience';
 import type { NisarMapManifest } from './mapScience';
 import './studio.css';
@@ -38,6 +39,7 @@ function FieldMap({ assets, selectedField, onSelect }: { assets: StudioAssets; s
   const tourToken = useRef(0);
   const touring = useRef(false);
   const [mapReady, setMapReady] = useState(false);
+  const drawing = useRef(false);
   const [manifest, setManifest] = useState<NisarMapManifest | null>(null);
   const [mapError, setMapError] = useState('');
   const [period, setPeriod] = useState<'PRE' | 'POST'>('PRE');
@@ -79,13 +81,14 @@ function FieldMap({ assets, selectedField, onSelect }: { assets: StudioAssets; s
         instance.addLayer({ id: 'field-selected', type: 'fill', source: 'fields', filter: ['==', ['get', 'field_id'], selectedField],
                             paint: { 'fill-color': '#ffb45b', 'fill-opacity': 0.48 } });
         instance.on('click', 'field-fill', event => {
+          if (drawing.current) return;
           const id = event.features?.[0]?.properties?.field_id;
           if (typeof id === 'string') onSelect(id);
         });
         instance.on('mouseenter', 'field-fill', () => { instance.getCanvas().style.cursor = 'pointer'; });
         instance.on('mouseleave', 'field-fill', () => { instance.getCanvas().style.cursor = ''; });
       });
-      return () => { tourToken.current += 1; map.current = null; instance.remove(); };
+      return () => { tourToken.current += 1; drawing.current = false; setMapReady(false); map.current = null; instance.remove(); };
     } catch { return; } // Field list remains usable when WebGL is unavailable.
   }, [assets, onSelect]);
   useEffect(() => {
@@ -152,6 +155,9 @@ function FieldMap({ assets, selectedField, onSelect }: { assets: StudioAssets; s
         Candidate field · EPSG:4326 · {bounds ? bounds.map(coordText).join(', ') : 'coordinates unavailable'}<br />
         Basemap is visual context, not 2026 event evidence.</div>
     </div>
+    {mapReady && map.current && import.meta.env.VITE_GIS_EDITOR !== 'false' && (
+      <PolygonEditor map={map.current} onActive={active => { drawing.current = active; }} />
+    )}
     <p className="studio-map-credit"><a href="https://earthobservatory.nasa.gov/features/BlueMarble" target="_blank" rel="noreferrer">NASA Blue Marble</a> · <a href="https://worldview.earthdata.nasa.gov/?l=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual" target="_blank" rel="noreferrer">Landsat WELD annual true color</a> · tiles served by <a href="https://www.earthdata.nasa.gov/data/tools/gibs" target="_blank" rel="noreferrer">NASA EOSDIS GIBS</a>. Candidate field boundaries: <a href="https://data.gov.tw/en/datasets/166618" target="_blank" rel="noreferrer">Taiwan Ministry of Agriculture, National Agricultural Field Block Map</a> (Open Government Data License v1); Taixi township boundary: <a href="https://maps.nlsc.gov.tw/pro/download.jsp" target="_blank" rel="noreferrer">NLSC, Ministry of the Interior</a>. Historic basemap imagery is visual context, not 2026 event evidence.</p>
     <div className="studio-radar-controls"><strong>NISAR independent observation · Taixi Township</strong>
       <div className="studio-radar-actions"><button type="button" aria-pressed={layerVisible} onClick={() => setLayerVisible(value => !value)} disabled={!manifest}>{layerVisible ? 'Hide' : 'Show'} radar layer</button>

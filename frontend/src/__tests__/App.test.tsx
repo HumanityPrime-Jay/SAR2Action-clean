@@ -2,6 +2,8 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { App } from '../App';
+import { CompareScreen } from '../screens/CompareScreen';
+import { AssistScreen } from '../screens/AssistScreen';
 
 // jsdom has no WebGL: stand in for the MapLibre globe, recording fly-to calls.
 const flyToTaiwan = vi.fn(() => Promise.resolve());
@@ -160,9 +162,22 @@ describe('App', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
     const assist = screen.getByRole('region', { name: '補助助手' });
-    // YL-CAND-01 is 12.5 ha in the official farmland map.
-    expect(within(assist).getByText('NT$ 325,000')).toBeInTheDocument();
+    // The recorded demo uses 12.52471 ha before rounding the illustrative currency.
+    expect(within(assist).getByText('NT$ 325,642')).toBeInTheDocument();
     expect(within(assist).getByText('待主管機關認定')).toBeInTheDocument();
+  });
+
+  it('rejects unknown or cross-case parcel IDs instead of falling back to the first parcel', () => {
+    const noop = vi.fn();
+    const { rerender } = render(
+      <CompareScreen selectedId="4183" onSelect={noop} go={noop} eventId={null} onEvent={noop} farmer={null} onFarmer={noop} />,
+    );
+    expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
+
+    rerender(
+      <AssistScreen selectedId="4183" onSelect={noop} go={noop} eventId={null} onEvent={noop} farmer={null} onFarmer={noop} />,
+    );
+    expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
   });
 
   it('compare screen shows the team QA, including the failed cross-version NISAR check', () => {

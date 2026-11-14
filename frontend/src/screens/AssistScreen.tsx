@@ -50,9 +50,14 @@ function initialMessages(parcel: Parcel, farmer: FarmerInfo | null, lang: Lang):
 }
 
 export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
+  const field = parcelById(selectedId);
+  if (!field) return <p role="status">Taixi field not found</p>;
+  return <RecordedAssist key={field.id} field={field} go={go} farmer={farmer} />;
+}
+
+function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'> & { field: Parcel }) {
   const t = useT();
   const { lang } = useLang();
-  const field = parcelById(selectedId);
   const [messages, setMessages] = useState<Message[]>(() => initialMessages(field, farmer, lang));
   const [draft, setDraft] = useState('');
   const msgsRef = useRef<HTMLDivElement>(null);
@@ -174,7 +179,7 @@ export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
           </div>
           <div className="line">
             <span>{t('田區面積', 'Field area')}</span>
-            <span>{field.areaHa} ha</span>
+            <span>{field.areaHa.toFixed(4)} ha</span>
           </div>
           <div className="line">
             <span>{t('核認受損面積', 'Confirmed damaged area')}</span>
