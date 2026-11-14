@@ -1,0 +1,268 @@
+{
+  "status": "OBSERVED_DESCRIPTIVE_ONLY",
+  "source": "OPERA RTC-S1 VH gamma0",
+  "date_pair_tolerance_days": 6,
+  "interpolation": "NONE",
+  "event_local_window": [
+    "2026-10-22T11:30:00+08:00",
+    "2026-10-24T14:30:00+08:00"
+  ],
+  "normal_baseline_validated": false,
+  "fields": [
+    {
+      "field_id": "YL-CAND-01",
+      "valid_observations": {
+        "2025": 3,
+        "2026": 3
+      },
+      "date_matched_pairs": [
+        {
+          "2025_evidence_id": "E-YL-VH-113C4261408E20EA",
+          "2026_evidence_id": "E-YL-VH-8A273ECF43F7941A",
+          "2025_date": "2025-10-08T21:51:54+00:00",
+          "2026_date": "2026-10-10T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": -0.32686,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-8CC4506B1A45672C",
+          "2026_evidence_id": "E-YL-VH-FE48DFEF9B16528A",
+          "2025_date": "2025-10-20T21:51:54+00:00",
+          "2026_date": "2026-10-22T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 2.95434,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-BBC6C8A62173DF2B",
+          "2026_evidence_id": "E-YL-VH-F8E369E5764FB36C",
+          "2025_date": "2025-11-01T21:51:54+00:00",
+          "2026_date": "2026-11-03T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 0.88632,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        }
+      ],
+      "cross_platform_qa": "SAME_PLATFORM_IN_MATCHED_PAIRS",
+      "unusual_change": null,
+      "typhoon_causation": "UNKNOWN"
+    },
+    {
+      "field_id": "YL-CAND-02",
+      "valid_observations": {
+        "2025": 3,
+        "2026": 3
+      },
+      "date_matched_pairs": [
+        {
+          "2025_evidence_id": "E-YL-VH-121FEA66285A0B3F",
+          "2026_evidence_id": "E-YL-VH-78019EFC766B23B1",
+          "2025_date": "2025-10-08T21:51:54+00:00",
+          "2026_date": "2026-10-10T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 1.03459,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-254AD7DF18EAF935",
+          "2026_evidence_id": "E-YL-VH-2EEA81FB3ABDE27C",
+          "2025_date": "2025-10-20T21:51:54+00:00",
+          "2026_date": "2026-10-22T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 2.0209,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-5F4A38B864D534FE",
+          "2026_evidence_id": "E-YL-VH-CC5A71527E1AF4BD",
+          "2025_date": "2025-11-01T21:51:54+00:00",
+          "2026_date": "2026-11-03T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 0.86604,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        }
+      ],
+      "cross_platform_qa": "SAME_PLATFORM_IN_MATCHED_PAIRS",
+      "unusual_change": null,
+      "typhoon_causation": "UNKNOWN"
+    },
+    {
+      "field_id": "YL-CAND-03",
+      "valid_observations": {
+        "2025": 3,
+        "2026": 3
+      },
+      "date_matched_pairs": [
+        {
+          "2025_evidence_id": "E-YL-VH-B4B01BD14B15A20B",
+          "2026_evidence_id": "E-YL-VH-E9D477B3D655BD70",
+          "2025_date": "2025-10-08T21:51:54+00:00",
+          "2026_date": "2026-10-10T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": -0.1133,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-EF74BEB8A75EF3FC",
+          "2026_evidence_id": "E-YL-VH-ACCE25C45363C48B",
+          "2025_date": "2025-10-20T21:51:54+00:00",
+          "2026_date": "2026-10-22T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 4.62831,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-48F96544E41CB940",
+          "2026_evidence_id": "E-YL-VH-42C4899A3A2B27BA",
+          "2025_date": "2025-11-01T21:51:54+00:00",
+          "2026_date": "2026-11-03T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": -1.02754,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        }
+      ],
+      "cross_platform_qa": "SAME_PLATFORM_IN_MATCHED_PAIRS",
+      "unusual_change": null,
+      "typhoon_causation": "UNKNOWN"
+    },
+    {
+      "field_id": "YL-CAND-04",
+      "valid_observations": {
+        "2025": 3,
+        "2026": 3
+      },
+      "date_matched_pairs": [
+        {
+          "2025_evidence_id": "E-YL-VH-69A462C85C16A3EF",
+          "2026_evidence_id": "E-YL-VH-6DB88CEAFCF8525A",
+          "2025_date": "2025-10-08T21:51:54+00:00",
+          "2026_date": "2026-10-10T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 0.54763,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-1EAE84879952A70A",
+          "2026_evidence_id": "E-YL-VH-B1F1BEB50BA4F333",
+          "2025_date": "2025-10-20T21:51:54+00:00",
+          "2026_date": "2026-10-22T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 3.50952,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-84BB11F51303E1D3",
+          "2026_evidence_id": "E-YL-VH-9C6594BED9C61B2D",
+          "2025_date": "2025-11-01T21:51:54+00:00",
+          "2026_date": "2026-11-03T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": -0.26527,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        }
+      ],
+      "cross_platform_qa": "SAME_PLATFORM_IN_MATCHED_PAIRS",
+      "unusual_change": null,
+      "typhoon_causation": "UNKNOWN"
+    },
+    {
+      "field_id": "YL-CAND-05",
+      "valid_observations": {
+        "2025": 3,
+        "2026": 3
+      },
+      "date_matched_pairs": [
+        {
+          "2025_evidence_id": "E-YL-VH-11F0812E6A2832AC",
+          "2026_evidence_id": "E-YL-VH-4B1DBA0272D97583",
+          "2025_date": "2025-10-08T21:51:54+00:00",
+          "2026_date": "2026-10-10T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 3.86456,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-1B219408543204C0",
+          "2026_evidence_id": "E-YL-VH-3F13C6EC2BCB1196",
+          "2025_date": "2025-10-20T21:51:54+00:00",
+          "2026_date": "2026-10-22T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 3.00591,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        },
+        {
+          "2025_evidence_id": "E-YL-VH-03A52DA0C77AA889",
+          "2026_evidence_id": "E-YL-VH-2A0166DE32363DE1",
+          "2025_date": "2025-11-01T21:51:54+00:00",
+          "2026_date": "2026-11-03T21:51:56+00:00",
+          "day_of_year_gap": 2,
+          "median_vh_difference_db": 2.54184,
+          "platforms": [
+            "Sentinel-1C",
+            "Sentinel-1C"
+          ],
+          "cross_platform": false
+        }
+      ],
+      "cross_platform_qa": "SAME_PLATFORM_IN_MATCHED_PAIRS",
+      "unusual_change": null,
+      "typhoon_causation": "UNKNOWN"
+    }
+  ]
+}

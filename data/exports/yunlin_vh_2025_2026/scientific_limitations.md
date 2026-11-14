@@ -1,0 +1,3 @@
+# Observed OPERA VH: scientific limits
+
+These are agricultural field candidates from official boundaries, not verified rice paddies. Visual checks for roads, buildings and fishponds and crop records are outstanding. Three selected dates per year demonstrate a bounded event-centered series, not a validated seasonal baseline. The selected scenes use one Sentinel-1C platform, orbit, burst, and processing version; incidence-angle effects still require review. The plot aligns calendar month/day but keeps actual acquisition dates in CSV/JSON. Harvesting, field preparation, moisture and storm effects cannot be distinguished from VH alone. No typhoon damage or crop loss is inferred.

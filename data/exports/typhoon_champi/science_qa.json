@@ -1,0 +1,168 @@
+{
+  "generated_at_utc": "2026-11-14T13:35:53.423469+00:00",
+  "case_id": "CHAMPI-YUNLIN-TAIXI",
+  "aoi_id": "10009160",
+  "aoi_kind": "ADMINISTRATIVE_TOWNSHIP_NOT_FIELD",
+  "observations": {
+    "PRE": {
+      "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+      "concept_id": "G4374517324-ASF",
+      "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+      "event_relation": "PRE_EVENT",
+      "crid": "P05023",
+      "product_maturity": "PROVISIONAL",
+      "crs": "EPSG:32651",
+      "shape": [
+        591,
+        530
+      ],
+      "grid_transform": [
+        20.0,
+        0.0,
+        208380.0,
+        0.0,
+        -20.0,
+        2630920.0
+      ],
+      "pixel_spacing_m": [
+        20.0,
+        20.0
+      ],
+      "township_pixels": 173852,
+      "quality_pixels": 173852,
+      "valid_pixels": 173852,
+      "valid_fraction_of_township_pixels": 1.0,
+      "mask_counts_in_township": {
+        "1": 173852
+      },
+      "number_of_looks": {
+        "min": 6.693748950958252,
+        "p05": 9.057287216186523,
+        "median": 9.484529495239258,
+        "mean": 9.499113082885742,
+        "p95": 9.94091796875,
+        "max": 12.428102493286133,
+        "std": 0.2891690135002136
+      },
+      "nonfinite_counts_in_township": {
+        "HHHH": 0,
+        "HVHV": 0,
+        "numberOfLooks": 0
+      },
+      "gamma0_power_positive_finite": true,
+      "radiometric_convention": "GCOV gamma0 power converted to dB using 10*log10(positive power)",
+      "mask_semantics": "1..254 fully-focused; 0 partially-focused or invalid; 255 outside acquisition",
+      "gamma0_db": {
+        "HH": {
+          "min": -20.56965446472168,
+          "p05": -11.917412614822387,
+          "median": -5.801442623138428,
+          "mean": -5.30117676670624,
+          "p95": 3.4755808711051754,
+          "max": 32.12054443359375,
+          "std": 4.840524517091019
+        },
+        "HV": {
+          "min": -30.187850952148438,
+          "p05": -24.29197540283203,
+          "median": -19.055930137634277,
+          "mean": -18.481521053627922,
+          "p95": -11.357767963409426,
+          "max": 15.007105827331543,
+          "std": 4.285033811892592
+        }
+      },
+      "outputs": [
+        "data/exports/typhoon_champi/Taixi_PRE_HH_HV_db.tif",
+        "data/exports/typhoon_champi/Taixi_PRE_HH_preview.png"
+      ]
+    },
+    "POST": {
+      "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+      "concept_id": "G4407818973-ASF",
+      "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+      "event_relation": "POST_EVENT",
+      "crid": "P05036",
+      "product_maturity": "VALIDATED",
+      "crs": "EPSG:32651",
+      "shape": [
+        591,
+        530
+      ],
+      "grid_transform": [
+        20.0,
+        0.0,
+        208380.0,
+        0.0,
+        -20.0,
+        2630920.0
+      ],
+      "pixel_spacing_m": [
+        20.0,
+        20.0
+      ],
+      "township_pixels": 173852,
+      "quality_pixels": 110287,
+      "valid_pixels": 110287,
+      "valid_fraction_of_township_pixels": 0.6343729148931275,
+      "mask_counts_in_township": {
+        "0": 63565,
+        "1": 110287
+      },
+      "number_of_looks": {
+        "min": 6.694159984588623,
+        "p05": 9.025198936462402,
+        "median": 9.48681354522705,
+        "mean": 9.498421669006348,
+        "p95": 9.972931861877441,
+        "max": 12.428319931030273,
+        "std": 0.3025137186050415
+      },
+      "nonfinite_counts_in_township": {
+        "HHHH": 0,
+        "HVHV": 0,
+        "numberOfLooks": 0
+      },
+      "gamma0_power_positive_finite": true,
+      "radiometric_convention": "GCOV gamma0 power converted to dB using 10*log10(positive power)",
+      "mask_semantics": "1..254 fully-focused; 0 partially-focused or invalid; 255 outside acquisition",
+      "gamma0_db": {
+        "HH": {
+          "min": -18.719432830810547,
+          "p05": -12.29493408203125,
+          "median": -7.073825359344482,
+          "mean": -6.512296393439261,
+          "p95": 1.6084714531898487,
+          "max": 26.934520721435547,
+          "std": 4.355634050085227
+        },
+        "HV": {
+          "min": -27.36924171447754,
+          "p05": -22.47246971130371,
+          "median": -17.715545654296875,
+          "mean": -17.09907588059903,
+          "p95": -10.321939277648926,
+          "max": 13.260046005249023,
+          "std": 3.940884919165547
+        }
+      },
+      "outputs": [
+        "data/exports/typhoon_champi/Taixi_POST_HH_HV_db.tif",
+        "data/exports/typhoon_champi/Taixi_POST_HH_preview.png"
+      ]
+    }
+  },
+  "comparability": {
+    "same_sensor_band_polarization_track_frame_orbit": true,
+    "crid_match": false,
+    "product_maturity_match": false,
+    "grid_match": true,
+    "radiometric_cross_version_validated": false,
+    "qa_decision": "SEPARATE_OBSERVATIONS_ONLY",
+    "reason": "ASF P05036 release notes warn that maturity/processing differences can affect results; cross-CRID radiometric equivalence has not been established for this pair.",
+    "release_notes_url": "https://hyp3-docs.asf.alaska.edu/nisar-docs/release-notes/",
+    "verified_typhoon_delta_allowed": false
+  },
+  "damage_attribution": "NOT_ESTABLISHED",
+  "parcel_level_loss": null
+}

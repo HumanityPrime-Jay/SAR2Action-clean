@@ -1,0 +1,45 @@
+[project]
+name = "sar2action"
+version = "0.1.0"
+description = "SAR2Action — NISAR Earth Change Intelligence (PRE_COMPETITION_RND)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.0.0",
+    "scipy>=1.14.0",
+    "h5py>=3.11.0",
+    "rasterio>=1.4.0",
+    "geopandas>=1.0.0",
+    "shapely>=2.0.0",
+    "pyproj>=3.6.0",
+    "fastapi>=0.115.0",
+    "pydantic>=2.9.0",
+    "uvicorn>=0.30.0",
+    "httpx>=0.27.0",
+    "jsonschema>=4.20.0",
+    "google-genai>=3.2.0,<4",
+    "asf_search>=7.0.0",
+]
+
+[project.optional-dependencies]
+discovery = [
+    "asf_search>=7.0.0",
+    "pystac>=1.10.0",
+]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["backend*", "sar*"]
+exclude = ["tests*", "frontend*", "data*", "SAR2Action_Agent_MVP*"]
+

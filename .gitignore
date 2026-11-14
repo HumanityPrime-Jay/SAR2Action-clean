@@ -1,0 +1,84 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+GERMINI API.txt
+*API KEY*.txt
+*API_KEY*.txt
+*.pem
+*.key
+credentials.json
+secrets.json
+*credentials*.json
+*secrets*.json
+*token*.json
+.netrc
+_netrc
+
+# Python and local model runtimes
+.venv/
+venv/
+venv_hermes/
+env/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.phase4_hermes/
+models/
+*.gguf
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Frontend and test output
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+*.tsbuildinfo
+frontend/test-results/
+frontend/playwright-report/
+
+# Scientific raw and cached data
+*.h5
+*.hdf5
+*.tif
+*.tiff
+*.nc
+*.he5
+*.vrt
+*.cog
+data/cache/*
+!data/cache/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/scenes/*
+!data/scenes/.gitkeep
+
+# Local output and archives
+logs/
+tmp/
+temp/
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.lock
+*.pid
+*.zip
+*.7z
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+
+# Local Vite transform cache
+frontend/.vite-cache/

@@ -1,0 +1,81 @@
+{
+  "created_at_utc": "2026-11-14T13:35:53.423469+00:00",
+  "status": "REAL_PRE_POST_SCENES_QA_PASSED_CROSS_CRID_DELTA_BLOCKED",
+  "inputs": [
+    {
+      "path": "data/exports/typhoon_champi/PRE_HHHH.tif",
+      "variable": "HHHH",
+      "size_bytes": 1511399,
+      "sha256": "9a098ba7346d77a039de729c4d259e0190b1e94dc6508ce0b1abed3ba5da42e6"
+    },
+    {
+      "path": "data/exports/typhoon_champi/PRE_HVHV.tif",
+      "variable": "HVHV",
+      "size_bytes": 1481963,
+      "sha256": "e380939a799d876384ec1f7b6a0a979290590b32757a238fc681179f1c8bce6b"
+    },
+    {
+      "path": "data/exports/typhoon_champi/PRE_mask.tif",
+      "variable": "mask",
+      "size_bytes": 10786,
+      "sha256": "7ce24130a0b5f7b9a127451ae821f93d8814c4721e6ae7415c22ccba784e80f6"
+    },
+    {
+      "path": "data/exports/typhoon_champi/PRE_numberOfLooks.tif",
+      "variable": "numberOfLooks",
+      "size_bytes": 1452374,
+      "sha256": "07b5f0d95e6d0a3f1768757aa554b346ebf3fe4358029abc94d14e7366563bce"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_HHHH.tif",
+      "variable": "HHHH",
+      "size_bytes": 1469721,
+      "sha256": "d94f64819f98866325f6d8f1b8fa8d14eb9dc121ad0696af7f808df4901d2cbf"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_HVHV.tif",
+      "variable": "HVHV",
+      "size_bytes": 1448175,
+      "sha256": "f2a052dd5bb9f287e77696935c395c8878f04d1d70e3965376ba3e44abd80c2b"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_mask.tif",
+      "variable": "mask",
+      "size_bytes": 11829,
+      "sha256": "187f695b476b207166cb59e1dc79e0b64f086084029e52817f3be3a0b0d5a8c1"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_numberOfLooks.tif",
+      "variable": "numberOfLooks",
+      "size_bytes": 1414852,
+      "sha256": "02099495298614f0ded7d77cf1dc8b99c0dfd81797d454725c0abdc557218b86"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/exports/typhoon_champi/Taixi_PRE_HH_HV_db.tif",
+      "size_bytes": 1175096,
+      "sha256": "0cd7a30cd871e4192f7b8810216c766960e44acaf85fd81e71eed6e008cdbc23"
+    },
+    {
+      "path": "data/exports/typhoon_champi/Taixi_PRE_HH_preview.png",
+      "size_bytes": 272584,
+      "sha256": "703dc73ba4b692e587dce4cfa8f1c9f854a18a53341922552be8f6f53a3a69bc"
+    },
+    {
+      "path": "data/exports/typhoon_champi/Taixi_POST_HH_HV_db.tif",
+      "size_bytes": 753427,
+      "sha256": "b7448e60566404bbcf07e48e475a6535f348059157b821fb4c9e81ad86e3f00e"
+    },
+    {
+      "path": "data/exports/typhoon_champi/Taixi_POST_HH_preview.png",
+      "size_bytes": 180340,
+      "sha256": "da939ed3253d491c6290363bd13701eca08694e6b5b76bde68ca1f7bf5ec6974"
+    },
+    {
+      "path": "data/exports/typhoon_champi/science_qa.json",
+      "size_bytes": 5474,
+      "sha256": "46e3caa6d4be010e718a58d28853688afa606e02c21d8448020778a097a3ce3d"
+    }
+  ]
+}

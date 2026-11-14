@@ -1,0 +1,293 @@
+{
+  "checked_at_utc": "2026-11-14T12:24:54.425829+00:00",
+  "aoi_id": "TW-01",
+  "aoi_bbox_wgs84": [
+    120.295487,
+    23.677427,
+    120.344513,
+    23.722573
+  ],
+  "aoi_status": "USER_ATTESTED_ORIGINAL",
+  "nisar": [
+    {
+      "evidence_id": "E-TW01-NISAR-CMR-T0",
+      "source_type": "NASA_CMR_GRANULE_METADATA",
+      "catalog_status": "EXACT_GRANULE_VERIFIED",
+      "raster_status": "HARMONY_SUBSET_QA_PASSED",
+      "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+      "concept_id": "G4343404696-ASF",
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4343404696-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001.h5",
+      "size_bytes": 1535115264,
+      "archive_checksum": {
+        "Value": "ea781b82ea0dae48ec752e78dddb2cf5",
+        "Algorithm": "MD5"
+      },
+      "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+      "acquisition_end_utc": "2026-10-04T10:38:26.999342Z",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "76",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "product_version": "1.0.11",
+      "product_maturity": "PROVISIONAL_COLLECTION",
+      "crid_from_filename": "P05023",
+      "crid_validation_status": "NOT_VALIDATED",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.4731,
+              25.94767
+            ],
+            [
+              118.88206,
+              23.87351
+            ],
+            [
+              121.24999,
+              23.2891
+            ],
+            [
+              121.87002,
+              25.35315
+            ],
+            [
+              119.4731,
+              25.94767
+            ]
+          ]
+        ]
+      },
+      "tw01_aoi_coverage": true,
+      "crs": "EPSG:32651",
+      "grid_alignment": "EXACT_MATCH_ALL_EIGHT_LAYERS",
+      "mask_semantics": "1..254 fully-focused subswath; 0 partially-focused/invalid; 255 outside acquisition",
+      "number_of_looks": {
+        "min": 5.559919357299805,
+        "p05": 9.161066055297852,
+        "mean": 9.61922550201416,
+        "median": 9.621868133544922,
+        "p95": 10.072914123535156,
+        "max": 13.239838600158691,
+        "std": 0.3223813772201538
+      },
+      "valid_pixel_count": 62556,
+      "gamma0_power_validated": false,
+      "nan_nodata_qa": {
+        "HHHH": 2,
+        "HVHV": 2,
+        "numberOfLooks": 2
+      },
+      "gamma0_positive_finite_qa": true
+    },
+    {
+      "evidence_id": "E-TW01-NISAR-CMR-T1",
+      "source_type": "NASA_CMR_GRANULE_METADATA",
+      "catalog_status": "EXACT_GRANULE_VERIFIED",
+      "raster_status": "HARMONY_SUBSET_QA_PASSED",
+      "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+      "concept_id": "G4374517324-ASF",
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4374517324-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001.h5",
+      "size_bytes": 1535115264,
+      "archive_checksum": {
+        "Value": "aa9fcae1de5cdc24737438ec100c31ff",
+        "Algorithm": "MD5"
+      },
+      "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+      "acquisition_end_utc": "2026-10-16T10:38:26.999342Z",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "76",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "product_version": "1.0.11",
+      "product_maturity": "PROVISIONAL_COLLECTION",
+      "crid_from_filename": "P05023",
+      "crid_validation_status": "NOT_VALIDATED",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.47876,
+              25.96426
+            ],
+            [
+              118.88671,
+              23.89032
+            ],
+            [
+              121.25014,
+              23.30704
+            ],
+            [
+              121.87515,
+              25.36983
+            ],
+            [
+              119.47876,
+              25.96426
+            ]
+          ]
+        ]
+      },
+      "tw01_aoi_coverage": true,
+      "crs": "EPSG:32651",
+      "grid_alignment": "EXACT_MATCH_ALL_EIGHT_LAYERS",
+      "mask_semantics": "1..254 fully-focused subswath; 0 partially-focused/invalid; 255 outside acquisition",
+      "number_of_looks": {
+        "min": 5.560048580169678,
+        "p05": 9.16118049621582,
+        "mean": 9.61933708190918,
+        "median": 9.621979713439941,
+        "p95": 10.073020935058594,
+        "max": 13.23993968963623,
+        "std": 0.32238033413887024
+      },
+      "valid_pixel_count": 62556,
+      "gamma0_power_validated": false,
+      "nan_nodata_qa": {
+        "HHHH": 2,
+        "HVHV": 2,
+        "numberOfLooks": 2
+      },
+      "gamma0_positive_finite_qa": true
+    }
+  ],
+  "sentinel1": [
+    {
+      "evidence_id": "E-TW01-S1-CDSE-T0",
+      "source_type": "COPERNICUS_CATALOG_PRODUCT_METADATA",
+      "catalog_status": "EXACT_PRODUCT_VERIFIED",
+      "raster_status": "NOT_DOWNLOADED",
+      "product_id": "ad0f3959-604c-4afa-bdbc-7ba742d6407d",
+      "product_name": "S1D_IW_GRDH_1SDV_20261014T100029_20261014T100058_005010_009776_6631.SAFE",
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(ad0f3959-604c-4afa-bdbc-7ba742d6407d)",
+      "acquisition_start_utc": "2026-10-14T10:00:29.006266Z",
+      "acquisition_end_utc": "2026-10-14T10:00:58.295222Z",
+      "orbit_direction": "ASCENDING",
+      "relative_orbit": 69,
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "IW_GRDH_1S",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.809021,
+              24.527048
+            ],
+            [
+              120.20089,
+              22.761396
+            ],
+            [
+              122.648117,
+              23.184328
+            ],
+            [
+              122.290726,
+              24.94664
+            ],
+            [
+              119.809021,
+              24.527048
+            ]
+          ]
+        ]
+      },
+      "tw01_aoi_coverage": true,
+      "calibrated_backscatter_available": false,
+      "valid_pixel_count": null
+    },
+    {
+      "evidence_id": "E-TW01-S1-CDSE-T1",
+      "source_type": "COPERNICUS_CATALOG_PRODUCT_METADATA",
+      "catalog_status": "EXACT_PRODUCT_VERIFIED",
+      "raster_status": "NOT_DOWNLOADED",
+      "product_id": "94c89c36-8b2e-4e0a-ba2d-34d969abd449",
+      "product_name": "S1D_IW_GRDH_1SDV_20261026T100029_20261026T100058_005185_009D7F_AA37.SAFE",
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(94c89c36-8b2e-4e0a-ba2d-34d969abd449)",
+      "acquisition_start_utc": "2026-10-26T10:00:29.066468Z",
+      "acquisition_end_utc": "2026-10-26T10:00:58.359890Z",
+      "orbit_direction": "ASCENDING",
+      "relative_orbit": 69,
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "IW_GRDH_1S",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.809196,
+              24.527056
+            ],
+            [
+              120.201103,
+              22.761131
+            ],
+            [
+              122.648338,
+              23.184023
+            ],
+            [
+              122.290909,
+              24.946608
+            ],
+            [
+              119.809196,
+              24.527056
+            ]
+          ]
+        ]
+      },
+      "tw01_aoi_coverage": true,
+      "calibrated_backscatter_available": false,
+      "valid_pixel_count": null
+    }
+  ],
+  "event": {
+    "evidence_id": "E-TW01-CWA-CHAMPI-202629",
+    "official_name": "CHAMPI (薔琵)",
+    "user_question_alias": "Chambi",
+    "source_type": "TAIWAN_CWA_TYPHOON_REPORT",
+    "source_url": "https://rdc28.cwa.gov.tw/TDB/public/typhoon_detail?typhoon_id=202629",
+    "land_warning_start_local": "2026-10-22T11:30:00+08:00",
+    "land_warning_end_local": "2026-10-24T14:30:00+08:00",
+    "yunlin_farm_damage_in_tw01_verified": false
+  },
+  "harmony": {
+    "collection_concept_id": "C2854338529-ASF",
+    "bbox_subset_supported": true,
+    "variable_subset_supported": true,
+    "required_variable_paths": [
+      "/science/LSAR/GCOV/grids/frequencyA/HHHH",
+      "/science/LSAR/GCOV/grids/frequencyA/HVHV",
+      "/science/LSAR/GCOV/grids/frequencyA/mask",
+      "/science/LSAR/GCOV/grids/frequencyA/numberOfLooks"
+    ],
+    "required_variables_listed": true,
+    "output_formats": [
+      "GEOTIFF"
+    ],
+    "source_url": "https://harmony.earthdata.nasa.gov/capabilities?collectionId=C2854338529-ASF"
+  },
+  "source_hdf5_status": "NOT_DOWNLOADED",
+  "tw03_change_status": "REAL_PROVISIONAL_SUBSET_QA_PASSED",
+  "aoi_provenance": "User supplied original TW-01 bbox in chat on 2026-11-14; independent source document unavailable",
+  "source_subset_status": "HARMONY_SUBSET_QA_PASSED"
+}

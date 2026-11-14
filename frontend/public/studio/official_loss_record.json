@@ -1,0 +1,11 @@
+{
+  "evidence_id": "E-CHAMPI-MOA-20261106",
+  "source_type": "OFFICIAL_MOA_REPORT",
+  "source_url": "https://www.moa.gov.tw/theme_data.php?id=10320&sub_theme=agri&theme=news",
+  "report_date_local": "2026-11-06",
+  "taiwan_total_ntd": 997465000,
+  "yunlin_county_ntd": 157743000,
+  "reported_scope": "Regional agricultural losses; not pixel or parcel ground truth",
+  "source_figures_unit": "NTD thousands",
+  "source_verified_in_page": true
+}

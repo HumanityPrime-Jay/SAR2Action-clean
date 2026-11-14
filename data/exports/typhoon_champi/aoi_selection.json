@@ -1,0 +1,21 @@
+{
+  "case_id": "CHAMPI-YUNLIN-TAIXI",
+  "primary_aoi": "Taixi Township",
+  "aoi_id": "10009160",
+  "aoi_kind": "ADMINISTRATIVE_TOWNSHIP_NOT_FIELD",
+  "selection_reason": "Official NLSC boundary; bounded 69.5 km2 township; full CMR footprint overlap for the exact October 16 pre-event and October 28 post-event track 061/frame 076 descending HH/HV scenes; real pixel QA completed for both scenes.",
+  "candidate_comparison": "Mailiao and Yuanchang were evaluated with official boundaries and CMR footprints, but their pixel-level coverage was not downloaded or measured. Taixi was selected for one bounded flagship analysis, not claimed to be a confirmed damage hotspot or globally optimal pixel-coverage candidate.",
+  "independent_impact_context": "MOA reports Yunlin County agricultural losses, not Taixi township or field losses.",
+  "pre_valid_pixels": 173852,
+  "post_valid_pixels": 110287,
+  "post_valid_fraction_of_township_grid_pixels": 0.6343729148931275,
+  "cross_crid_verified_comparison": false,
+  "parcel_damage_confirmed": false,
+  "source_files": [
+    "candidate_aoi_evaluation.json",
+    "candidate_aois.geojson",
+    "scene_inventory.json",
+    "science_qa.json",
+    "official_loss_record.json"
+  ]
+}

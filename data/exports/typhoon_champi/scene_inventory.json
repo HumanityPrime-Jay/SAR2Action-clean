@@ -1,0 +1,689 @@
+{
+  "generated_at_utc": "2026-11-14T13:06:58.551419+00:00",
+  "event": {
+    "official_name": "CHAMPI (薔琵)",
+    "impact_start_local": "2026-10-23T00:00:00+08:00",
+    "impact_end_local": "2026-10-24T23:59:59+08:00",
+    "source_url": "https://rdc28.cwa.gov.tw/TDB/public/typhoon_detail?typhoon_id=202629"
+  },
+  "aoi_id": "TW-01",
+  "aoi_bbox_wgs84": [
+    120.295487,
+    23.677427,
+    120.344513,
+    23.722573
+  ],
+  "aoi_provenance": "User supplied original TW-01 bbox in chat on 2026-11-14; independent source document unavailable",
+  "search": [
+    {
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "hit_count": 12,
+      "returned_count": 12
+    },
+    {
+      "collection": "NISAR_L2_GCOV_V1",
+      "hit_count": 2,
+      "returned_count": 2
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_030_039_A_013_4005_DHDH_A_20260908T212423_20260908T212501_P05023_N_F_J_001",
+      "concept_id": "G4305610347-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-09-08T21:24:23.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "ASCENDING",
+      "track": "39",
+      "frame": "13",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4305610347-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_039_A_013_4005_DHDH_A_20260908T212423_20260908T212501_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_039_A_013_4005_DHDH_A_20260908T212423_20260908T212501_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.64129,
+              21.82473
+            ],
+            [
+              120.98382,
+              24.1339
+            ],
+            [
+              118.61102,
+              23.54812
+            ],
+            [
+              119.28648,
+              21.24721
+            ],
+            [
+              121.64129,
+              21.82473
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001",
+      "concept_id": "G4309400562-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-09-10T10:37:51.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "76",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4309400562-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.48375,
+              25.98446
+            ],
+            [
+              118.87574,
+              23.85105
+            ],
+            [
+              121.23935,
+              23.26781
+            ],
+            [
+              121.88127,
+              25.38978
+            ],
+            [
+              119.48375,
+              25.98446
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_030_061_D_077_2005_DHDH_M_20260910T103822_20260910T103900_P05023_N_F_J_001",
+      "concept_id": "G4309600151-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-09-10T10:38:22.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "77",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4309600151-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_061_D_077_2005_DHDH_M_20260910T103822_20260910T103900_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_061_D_077_2005_DHDH_M_20260910T103822_20260910T103900_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.9258,
+              24.15537
+            ],
+            [
+              118.28758,
+              21.84153
+            ],
+            [
+              120.64311,
+              21.26386
+            ],
+            [
+              121.33104,
+              23.56165
+            ],
+            [
+              118.9258,
+              24.15537
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_031_039_A_013_4005_DHDH_A_20260920T212423_20260920T212501_P05023_N_F_J_001",
+      "concept_id": "G4320160862-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-09-20T21:24:23.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "ASCENDING",
+      "track": "39",
+      "frame": "13",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4320160862-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_039_A_013_4005_DHDH_A_20260920T212423_20260920T212501_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_039_A_013_4005_DHDH_A_20260920T212423_20260920T212501_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.64298,
+              21.81735
+            ],
+            [
+              120.98465,
+              24.1263
+            ],
+            [
+              118.61293,
+              23.54077
+            ],
+            [
+              119.28833,
+              21.23985
+            ],
+            [
+              121.64298,
+              21.81735
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001",
+      "concept_id": "G4321784525-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-09-22T10:37:51.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "76",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": false,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4321784525-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.49677,
+              25.98976
+            ],
+            [
+              118.93833,
+              24.03431
+            ],
+            [
+              121.29765,
+              23.45169
+            ],
+            [
+              121.88407,
+              25.39746
+            ],
+            [
+              119.49677,
+              25.98976
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_031_061_D_077_2005_DHDH_M_20260922T103822_20260922T103900_P05023_N_F_J_001",
+      "concept_id": "G4321810116-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-09-22T10:38:22.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "77",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4321810116-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_061_D_077_2005_DHDH_M_20260922T103822_20260922T103900_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_061_D_077_2005_DHDH_M_20260922T103822_20260922T103900_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.92783,
+              24.16328
+            ],
+            [
+              118.28949,
+              21.84946
+            ],
+            [
+              120.64526,
+              21.27169
+            ],
+            [
+              121.33217,
+              23.56976
+            ],
+            [
+              118.92783,
+              24.16328
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_032_039_A_013_4005_DHDH_A_20261002T212424_20261002T212501_P05023_N_F_J_001",
+      "concept_id": "G4339767768-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-10-02T21:24:24.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "ASCENDING",
+      "track": "39",
+      "frame": "13",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4339767768-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_039_A_013_4005_DHDH_A_20261002T212424_20261002T212501_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_039_A_013_4005_DHDH_A_20261002T212424_20261002T212501_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.62961,
+              21.8673
+            ],
+            [
+              120.98492,
+              24.11629
+            ],
+            [
+              118.61579,
+              23.5314
+            ],
+            [
+              119.27409,
+              21.28951
+            ],
+            [
+              121.62961,
+              21.8673
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+      "concept_id": "G4343404696-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "76",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4343404696-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.4731,
+              25.94767
+            ],
+            [
+              118.88206,
+              23.87351
+            ],
+            [
+              121.24999,
+              23.2891
+            ],
+            [
+              121.87002,
+              25.35315
+            ],
+            [
+              119.4731,
+              25.94767
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_032_061_D_077_2005_DHDH_M_20261004T103822_20261004T103901_P05023_N_F_J_001",
+      "concept_id": "G4343466551-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-10-04T10:38:22.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "77",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4343466551-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_061_D_077_2005_DHDH_M_20261004T103822_20261004T103901_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_061_D_077_2005_DHDH_M_20261004T103822_20261004T103901_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.93215,
+              24.17782
+            ],
+            [
+              118.2776,
+              21.80465
+            ],
+            [
+              120.63263,
+              21.22713
+            ],
+            [
+              121.3294,
+              23.5861
+            ],
+            [
+              118.93215,
+              24.17782
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001",
+      "concept_id": "G4370536439-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-10-14T21:24:24.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "ASCENDING",
+      "track": "39",
+      "frame": "13",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4370536439-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.63262,
+              21.85779
+            ],
+            [
+              120.9895,
+              24.10714
+            ],
+            [
+              118.61898,
+              23.52194
+            ],
+            [
+              119.27716,
+              21.28004
+            ],
+            [
+              121.63262,
+              21.85779
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+      "concept_id": "G4374517324-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "76",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4374517324-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.47876,
+              25.96426
+            ],
+            [
+              118.88671,
+              23.89032
+            ],
+            [
+              121.25014,
+              23.30704
+            ],
+            [
+              121.87515,
+              25.36983
+            ],
+            [
+              119.47876,
+              25.96426
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_033_061_D_077_2005_DHDH_M_20261016T103822_20261016T103901_P05023_N_F_J_001",
+      "concept_id": "G4374655486-ASF",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "acquisition_start_utc": "2026-10-16T10:38:22.000000Z",
+      "event_relation": "PRE_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "77",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4374655486-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_061_D_077_2005_DHDH_M_20261016T103822_20261016T103901_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_061_D_077_2005_DHDH_M_20261016T103822_20261016T103901_P05023_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              118.93682,
+              24.19463
+            ],
+            [
+              118.28209,
+              21.82148
+            ],
+            [
+              120.63729,
+              21.24389
+            ],
+            [
+              121.33933,
+              23.60153
+            ],
+            [
+              118.93682,
+              24.19463
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001",
+      "concept_id": "G4406879777-ASF",
+      "collection": "NISAR_L2_GCOV_V1",
+      "product_maturity": "VALIDATED",
+      "crid": "P05036",
+      "acquisition_start_utc": "2026-10-26T21:24:24.000000Z",
+      "event_relation": "POST_EVENT",
+      "orbit_direction": "ASCENDING",
+      "track": "39",
+      "frame": "13",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4406879777-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.63832,
+              21.83471
+            ],
+            [
+              121.00775,
+              24.08704
+            ],
+            [
+              118.62544,
+              23.49909
+            ],
+            [
+              119.28333,
+              21.25714
+            ],
+            [
+              121.63832,
+              21.83471
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+      "concept_id": "G4407818973-ASF",
+      "collection": "NISAR_L2_GCOV_V1",
+      "product_maturity": "VALIDATED",
+      "crid": "P05036",
+      "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+      "event_relation": "POST_EVENT",
+      "orbit_direction": "DESCENDING",
+      "track": "61",
+      "frame": "76",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "bbox_intersects": true,
+      "bbox_fully_covered": true,
+      "source_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4407818973-ASF",
+      "download_url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001.h5",
+      "footprint_wgs84": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              119.48591,
+              25.984
+            ],
+            [
+              118.91057,
+              23.96932
+            ],
+            [
+              121.27547,
+              23.38555
+            ],
+            [
+              121.88081,
+              25.38993
+            ],
+            [
+              119.48591,
+              25.984
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

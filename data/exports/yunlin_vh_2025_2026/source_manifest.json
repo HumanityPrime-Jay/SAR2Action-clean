@@ -1,0 +1,77 @@
+{
+  "status": "OBSERVED_MINIMUM_PIPELINE",
+  "generated_at_utc": "2026-11-14T21:55:12.785385+08:00",
+  "study_bbox_wgs84": [
+    120.14102339101669,
+    23.658014962720415,
+    120.24294585716564,
+    23.76307367960669
+  ],
+  "study_aoi_provenance": "OFFICIAL_NLSC_TAIXI_TOWNSHIP_NOT_FIELD",
+  "official_aoi_source": "data\\exports\\typhoon_champi\\candidate_aois.geojson",
+  "field_source": "data\\raw\\P雲林縣_農田坵塊圖.zip",
+  "field_source_url": "https://data.moa.gov.tw/GetOpenDataFile.aspx?id=I75&FileType=DataMore&RID=44143",
+  "field_source_sha256": "99ccfb2e333c9b1619fc54ec6924309be899e043a095ff5f5382526eb79063e1",
+  "source": "NASA OPERA RTC-S1 VH",
+  "source_product_spec": "https://d2pn8kiwq2w21t.cloudfront.net/documents/ProductSpec_RTC-S1.pdf",
+  "periods": {
+    "2025": [
+      "2025-08-01T00:00:00Z",
+      "2025-11-14T23:59:59Z"
+    ],
+    "2026": [
+      "2026-08-01T00:00:00Z",
+      "2026-11-14T23:59:59Z"
+    ]
+  },
+  "searched_scene_count": {
+    "2025": 33,
+    "2026": 20
+  },
+  "downloaded_scene_count": {
+    "2025": 3,
+    "2026": 3
+  },
+  "selected_first_field": "YL-CAND-01",
+  "source_scene_ids": [
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0"
+  ],
+  "download_manifest": "data/raw/opera_yunlin_vh/download_manifest.json",
+  "evidence_ids": [
+    "E-YL-VH-113C4261408E20EA",
+    "E-YL-VH-8CC4506B1A45672C",
+    "E-YL-VH-BBC6C8A62173DF2B",
+    "E-YL-VH-8A273ECF43F7941A",
+    "E-YL-VH-FE48DFEF9B16528A",
+    "E-YL-VH-F8E369E5764FB36C",
+    "E-YL-VH-121FEA66285A0B3F",
+    "E-YL-VH-254AD7DF18EAF935",
+    "E-YL-VH-5F4A38B864D534FE",
+    "E-YL-VH-78019EFC766B23B1",
+    "E-YL-VH-2EEA81FB3ABDE27C",
+    "E-YL-VH-CC5A71527E1AF4BD",
+    "E-YL-VH-B4B01BD14B15A20B",
+    "E-YL-VH-EF74BEB8A75EF3FC",
+    "E-YL-VH-48F96544E41CB940",
+    "E-YL-VH-E9D477B3D655BD70",
+    "E-YL-VH-ACCE25C45363C48B",
+    "E-YL-VH-42C4899A3A2B27BA",
+    "E-YL-VH-69A462C85C16A3EF",
+    "E-YL-VH-1EAE84879952A70A",
+    "E-YL-VH-84BB11F51303E1D3",
+    "E-YL-VH-6DB88CEAFCF8525A",
+    "E-YL-VH-B1F1BEB50BA4F333",
+    "E-YL-VH-9C6594BED9C61B2D",
+    "E-YL-VH-11F0812E6A2832AC",
+    "E-YL-VH-1B219408543204C0",
+    "E-YL-VH-03A52DA0C77AA889",
+    "E-YL-VH-4B1DBA0272D97583",
+    "E-YL-VH-3F13C6EC2BCB1196",
+    "E-YL-VH-2A0166DE32363DE1"
+  ]
+}

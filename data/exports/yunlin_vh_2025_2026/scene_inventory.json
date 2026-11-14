@@ -1,0 +1,2454 @@
+[
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250801T100129Z_20250802T095925Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-08-01T10:01:29+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250801T100129Z_20250802T095925Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250801T100129Z_20250802T095925Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250801T100129Z_20250802T095925Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250801T100129Z_20250802T095925Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250801T100129Z_20250802T095925Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250801T100129Z_20250802T095925Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00756,
+            23.59066
+          ],
+          [
+            120.90118,
+            23.74839
+          ],
+          [
+            120.8614,
+            23.91379
+          ],
+          [
+            119.97207,
+            23.75709
+          ],
+          [
+            120.00756,
+            23.59066
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250803T215256Z_20250804T050113Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-08-03T21:52:56+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250803T215256Z_20250804T050113Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250803T215256Z_20250804T050113Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250803T215256Z_20250804T050113Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250803T215256Z_20250804T050113Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250803T215256Z_20250804T050113Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250803T215256Z_20250804T050113Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.3394,
+            23.7798
+          ],
+          [
+            119.5547,
+            23.90978
+          ],
+          [
+            119.52244,
+            23.74328
+          ],
+          [
+            120.30618,
+            23.61315
+          ],
+          [
+            120.3394,
+            23.7798
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250809T215152Z_20250927T205315Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-08-09T21:51:52+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250809T215152Z_20250927T205315Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250809T215152Z_20250927T205315Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250809T215152Z_20250927T205315Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250809T215152Z_20250927T205315Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250809T215152Z_20250927T205315Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250809T215152Z_20250927T205315Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33623,
+            23.78052
+          ],
+          [
+            119.56602,
+            23.90813
+          ],
+          [
+            119.53379,
+            23.74188
+          ],
+          [
+            120.30306,
+            23.61412
+          ],
+          [
+            120.33623,
+            23.78052
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250813T100129Z_20250813T171154Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-08-13T10:01:29+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250813T100129Z_20250813T171154Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250813T100129Z_20250813T171154Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250813T100129Z_20250813T171154Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250813T100129Z_20250813T171154Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250813T100129Z_20250813T171154Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250813T100129Z_20250813T171154Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00742,
+            23.59069
+          ],
+          [
+            120.89759,
+            23.74783
+          ],
+          [
+            120.85778,
+            23.91335
+          ],
+          [
+            119.97191,
+            23.75724
+          ],
+          [
+            120.00742,
+            23.59069
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250815T215256Z_20250816T040309Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-08-15T21:52:56+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250815T215256Z_20250816T040309Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250815T215256Z_20250816T040309Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250815T215256Z_20250816T040309Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250815T215256Z_20250816T040309Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250815T215256Z_20250816T040309Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250815T215256Z_20250816T040309Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.34001,
+            23.7797
+          ],
+          [
+            119.55532,
+            23.90969
+          ],
+          [
+            119.52313,
+            23.74357
+          ],
+          [
+            120.30686,
+            23.61342
+          ],
+          [
+            120.34001,
+            23.7797
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250819T100026Z_20250928T035326Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-08-19T10:00:26+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250819T100026Z_20250928T035326Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250819T100026Z_20250928T035326Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250819T100026Z_20250928T035326Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250819T100026Z_20250928T035326Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250819T100026Z_20250928T035326Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250819T100026Z_20250928T035326Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.0072,
+            23.59024
+          ],
+          [
+            120.43859,
+            23.6671
+          ],
+          [
+            120.8586,
+            23.74067
+          ],
+          [
+            120.81011,
+            23.90419
+          ],
+          [
+            120.36172,
+            23.8257
+          ],
+          [
+            119.97179,
+            23.7563
+          ],
+          [
+            120.0072,
+            23.59024
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250821T215152Z_20250928T054718Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-08-21T21:51:52+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250821T215152Z_20250928T054718Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250821T215152Z_20250928T054718Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250821T215152Z_20250928T054718Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250821T215152Z_20250928T054718Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250821T215152Z_20250928T054718Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250821T215152Z_20250928T054718Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33643,
+            23.78024
+          ],
+          [
+            119.56621,
+            23.90785
+          ],
+          [
+            119.53405,
+            23.74197
+          ],
+          [
+            120.30333,
+            23.61421
+          ],
+          [
+            120.33643,
+            23.78024
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250825T100130Z_20250825T151242Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-08-25T10:01:30+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250825T100130Z_20250825T151242Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250825T100130Z_20250825T151242Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250825T100130Z_20250825T151242Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250825T100130Z_20250825T151242Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250825T100130Z_20250825T151242Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250825T100130Z_20250825T151242Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00709,
+            23.59031
+          ],
+          [
+            120.90073,
+            23.74806
+          ],
+          [
+            120.86095,
+            23.91345
+          ],
+          [
+            119.9716,
+            23.75674
+          ],
+          [
+            120.00709,
+            23.59031
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250827T215256Z_20250828T050549Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-08-27T21:52:56+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250827T215256Z_20250828T050549Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250827T215256Z_20250828T050549Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250827T215256Z_20250828T050549Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250827T215256Z_20250828T050549Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250827T215256Z_20250828T050549Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250827T215256Z_20250828T050549Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.34008,
+            23.77968
+          ],
+          [
+            119.55539,
+            23.90967
+          ],
+          [
+            119.52322,
+            23.74367
+          ],
+          [
+            120.30696,
+            23.61353
+          ],
+          [
+            120.34008,
+            23.77968
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250831T100026Z_20250928T102854Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-08-31T10:00:26+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250831T100026Z_20250928T102854Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250831T100026Z_20250928T102854Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250831T100026Z_20250928T102854Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250831T100026Z_20250928T102854Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250831T100026Z_20250928T102854Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250831T100026Z_20250928T102854Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.0062,
+            23.59035
+          ],
+          [
+            120.43761,
+            23.66722
+          ],
+          [
+            120.85764,
+            23.74081
+          ],
+          [
+            120.80906,
+            23.9047
+          ],
+          [
+            120.36065,
+            23.82619
+          ],
+          [
+            119.97071,
+            23.75678
+          ],
+          [
+            120.0062,
+            23.59035
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250902T215153Z_20250928T120733Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-09-02T21:51:53+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250902T215153Z_20250928T120733Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250902T215153Z_20250928T120733Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250902T215153Z_20250928T120733Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250902T215153Z_20250928T120733Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250902T215153Z_20250928T120733Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250902T215153Z_20250928T120733Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33712,
+            23.77994
+          ],
+          [
+            119.56693,
+            23.90757
+          ],
+          [
+            119.53474,
+            23.74157
+          ],
+          [
+            120.304,
+            23.6138
+          ],
+          [
+            120.33712,
+            23.77994
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250906T100130Z_20250906T145212Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-09-06T10:01:30+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250906T100130Z_20250906T145212Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250906T100130Z_20250906T145212Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250906T100130Z_20250906T145212Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250906T100130Z_20250906T145212Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250906T100130Z_20250906T145212Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250906T100130Z_20250906T145212Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.0074,
+            23.59045
+          ],
+          [
+            120.90106,
+            23.74821
+          ],
+          [
+            120.86133,
+            23.91336
+          ],
+          [
+            119.97197,
+            23.75663
+          ],
+          [
+            120.0074,
+            23.59045
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20250909T040417Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-09-08T21:52:56+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20250909T040417Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20250909T040417Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20250909T040417Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20250909T040417Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20250909T040417Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20250909T040417Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33999,
+            23.77989
+          ],
+          [
+            119.55527,
+            23.90988
+          ],
+          [
+            119.52308,
+            23.74376
+          ],
+          [
+            120.30684,
+            23.61362
+          ],
+          [
+            120.33999,
+            23.77989
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20251002T173937Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-09-08T21:52:56+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20251002T173937Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20251002T173937Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20251002T173937Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20251002T173937Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20251002T173937Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250908T215256Z_20251002T173937Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33999,
+            23.77989
+          ],
+          [
+            119.55527,
+            23.90988
+          ],
+          [
+            119.52308,
+            23.74376
+          ],
+          [
+            120.30684,
+            23.61362
+          ],
+          [
+            120.33999,
+            23.77989
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250914T215153Z_20250928T171710Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-09-14T21:51:53+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250914T215153Z_20250928T171710Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250914T215153Z_20250928T171710Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250914T215153Z_20250928T171710Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250914T215153Z_20250928T171710Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250914T215153Z_20250928T171710Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250914T215153Z_20250928T171710Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33651,
+            23.77967
+          ],
+          [
+            119.56631,
+            23.9073
+          ],
+          [
+            119.53412,
+            23.7413
+          ],
+          [
+            120.30338,
+            23.61352
+          ],
+          [
+            120.33651,
+            23.77967
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250918T100130Z_20260430T203020Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-09-18T10:01:30+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250918T100130Z_20260430T203020Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250918T100130Z_20260430T203020Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250918T100130Z_20260430T203020Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250918T100130Z_20260430T203020Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250918T100130Z_20260430T203020Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250918T100130Z_20260430T203020Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.0064,
+            23.59053
+          ],
+          [
+            120.90008,
+            23.74831
+          ],
+          [
+            120.86029,
+            23.9137
+          ],
+          [
+            119.97091,
+            23.75695
+          ],
+          [
+            120.0064,
+            23.59053
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250920T215257Z_20250921T092032Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-09-20T21:52:57+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250920T215257Z_20250921T092032Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250920T215257Z_20250921T092032Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250920T215257Z_20250921T092032Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250920T215257Z_20250921T092032Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250920T215257Z_20250921T092032Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250920T215257Z_20250921T092032Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.34025,
+            23.77967
+          ],
+          [
+            119.55555,
+            23.90966
+          ],
+          [
+            119.52338,
+            23.74367
+          ],
+          [
+            120.30712,
+            23.61352
+          ],
+          [
+            120.34025,
+            23.77967
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20250926T215153Z_20250927T185338Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-09-26T21:51:53+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250926T215153Z_20250927T185338Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250926T215153Z_20250927T185338Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250926T215153Z_20250927T185338Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250926T215153Z_20250927T185338Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20250926T215153Z_20250927T185338Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20250926T215153Z_20250927T185338Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33746,
+            23.7803
+          ],
+          [
+            119.56727,
+            23.90792
+          ],
+          [
+            119.53501,
+            23.74156
+          ],
+          [
+            120.30426,
+            23.61378
+          ],
+          [
+            120.33746,
+            23.7803
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20250930T100130Z_20251003T222123Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-09-30T10:01:30+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250930T100130Z_20251003T222123Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250930T100130Z_20251003T222123Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250930T100130Z_20251003T222123Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250930T100130Z_20251003T222123Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20250930T100130Z_20251003T222123Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20250930T100130Z_20251003T222123Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00636,
+            23.5908
+          ],
+          [
+            120.90003,
+            23.74859
+          ],
+          [
+            120.86027,
+            23.91386
+          ],
+          [
+            119.97089,
+            23.7571
+          ],
+          [
+            120.00636,
+            23.5908
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251002T215257Z_20251004T133909Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-10-02T21:52:57+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251002T215257Z_20251004T133909Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251002T215257Z_20251004T133909Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251002T215257Z_20251004T133909Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251002T215257Z_20251004T133909Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251002T215257Z_20251004T133909Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251002T215257Z_20251004T133909Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.34169,
+            23.7797
+          ],
+          [
+            119.55699,
+            23.90971
+          ],
+          [
+            119.52476,
+            23.74347
+          ],
+          [
+            120.3085,
+            23.6133
+          ],
+          [
+            120.34169,
+            23.7797
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-10-08T21:51:54+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33544,
+            23.78054
+          ],
+          [
+            119.56524,
+            23.90815
+          ],
+          [
+            119.53301,
+            23.7419
+          ],
+          [
+            120.30226,
+            23.61414
+          ],
+          [
+            120.33544,
+            23.78054
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20251012T100131Z_20251012T143006Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-10-12T10:01:31+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251012T100131Z_20251012T143006Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251012T100131Z_20251012T143006Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251012T100131Z_20251012T143006Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251012T100131Z_20251012T143006Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251012T100131Z_20251012T143006Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251012T100131Z_20251012T143006Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00412,
+            23.59068
+          ],
+          [
+            120.8978,
+            23.74847
+          ],
+          [
+            120.85798,
+            23.91399
+          ],
+          [
+            119.9686,
+            23.75723
+          ],
+          [
+            120.00412,
+            23.59068
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251014T215257Z_20251015T032824Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-10-14T21:52:57+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251014T215257Z_20251015T032824Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251014T215257Z_20251015T032824Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251014T215257Z_20251015T032824Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251014T215257Z_20251015T032824Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251014T215257Z_20251015T032824Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251014T215257Z_20251015T032824Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.34055,
+            23.77983
+          ],
+          [
+            119.55586,
+            23.90984
+          ],
+          [
+            119.52358,
+            23.74335
+          ],
+          [
+            120.30732,
+            23.61318
+          ],
+          [
+            120.34055,
+            23.77983
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20251018T100027Z_20251018T151847Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-10-18T10:00:27+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251018T100027Z_20251018T151847Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251018T100027Z_20251018T151847Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251018T100027Z_20251018T151847Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251018T100027Z_20251018T151847Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251018T100027Z_20251018T151847Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251018T100027Z_20251018T151847Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00615,
+            23.59042
+          ],
+          [
+            120.4376,
+            23.66729
+          ],
+          [
+            120.85766,
+            23.74088
+          ],
+          [
+            120.80903,
+            23.90501
+          ],
+          [
+            120.36059,
+            23.82651
+          ],
+          [
+            119.97061,
+            23.75709
+          ],
+          [
+            120.00615,
+            23.59042
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-10-20T21:51:54+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33624,
+            23.7805
+          ],
+          [
+            119.56606,
+            23.90811
+          ],
+          [
+            119.53382,
+            23.74186
+          ],
+          [
+            120.30306,
+            23.61411
+          ],
+          [
+            120.33624,
+            23.7805
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20251024T100130Z_20251024T142916Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-10-24T10:01:30+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251024T100130Z_20251024T142916Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251024T100130Z_20251024T142916Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251024T100130Z_20251024T142916Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251024T100130Z_20251024T142916Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251024T100130Z_20251024T142916Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251024T100130Z_20251024T142916Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00672,
+            23.59069
+          ],
+          [
+            120.90038,
+            23.74845
+          ],
+          [
+            120.86054,
+            23.91409
+          ],
+          [
+            119.97118,
+            23.75736
+          ],
+          [
+            120.00672,
+            23.59069
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251026T215257Z_20251027T072215Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-10-26T21:52:57+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251026T215257Z_20251027T072215Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251026T215257Z_20251027T072215Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251026T215257Z_20251027T072215Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251026T215257Z_20251027T072215Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251026T215257Z_20251027T072215Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251026T215257Z_20251027T072215Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.34038,
+            23.78004
+          ],
+          [
+            119.55568,
+            23.91004
+          ],
+          [
+            119.52344,
+            23.74367
+          ],
+          [
+            120.30717,
+            23.61352
+          ],
+          [
+            120.34038,
+            23.78004
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20251030T100027Z_20251030T142822Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-10-30T10:00:27+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251030T100027Z_20251030T142822Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251030T100027Z_20251030T142822Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251030T100027Z_20251030T142822Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251030T100027Z_20251030T142822Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251030T100027Z_20251030T142822Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251030T100027Z_20251030T142822Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00558,
+            23.59091
+          ],
+          [
+            120.43703,
+            23.66779
+          ],
+          [
+            120.85709,
+            23.74138
+          ],
+          [
+            120.80851,
+            23.90527
+          ],
+          [
+            120.36007,
+            23.82676
+          ],
+          [
+            119.97009,
+            23.75734
+          ],
+          [
+            120.00558,
+            23.59091
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-11-01T21:51:54+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33666,
+            23.78063
+          ],
+          [
+            119.56643,
+            23.90826
+          ],
+          [
+            119.53419,
+            23.74202
+          ],
+          [
+            120.30348,
+            23.61424
+          ],
+          [
+            120.33666,
+            23.78063
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20251105T100130Z_20251105T190518Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-11-05T10:01:30+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251105T100130Z_20251105T190518Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251105T100130Z_20251105T190518Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251105T100130Z_20251105T190518Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251105T100130Z_20251105T190518Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251105T100130Z_20251105T190518Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251105T100130Z_20251105T190518Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.0071,
+            23.59067
+          ],
+          [
+            120.90077,
+            23.74842
+          ],
+          [
+            120.86096,
+            23.91394
+          ],
+          [
+            119.97159,
+            23.75722
+          ],
+          [
+            120.0071,
+            23.59067
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251107T215256Z_20251108T042014Z_S1A_30_v1.0",
+    "acquisition_datetime": "2025-11-07T21:52:56+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1A",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251107T215256Z_20251108T042014Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251107T215256Z_20251108T042014Z_S1A_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251107T215256Z_20251108T042014Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251107T215256Z_20251108T042014Z_S1A_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251107T215256Z_20251108T042014Z_S1A_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251107T215256Z_20251108T042014Z_S1A_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.34063,
+            23.77963
+          ],
+          [
+            119.55589,
+            23.90962
+          ],
+          [
+            119.52368,
+            23.74338
+          ],
+          [
+            120.30746,
+            23.61323
+          ],
+          [
+            120.34063,
+            23.77963
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20251111T100027Z_20251114T014014Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-11-11T10:00:27+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251111T100027Z_20251114T014014Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251111T100027Z_20251114T014014Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251111T100027Z_20251114T014014Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251111T100027Z_20251114T014014Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20251111T100027Z_20251114T014014Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20251111T100027Z_20251114T014014Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00593,
+            23.59095
+          ],
+          [
+            120.43737,
+            23.66782
+          ],
+          [
+            120.85743,
+            23.7414
+          ],
+          [
+            120.8088,
+            23.90554
+          ],
+          [
+            120.36036,
+            23.82703
+          ],
+          [
+            119.97038,
+            23.75762
+          ],
+          [
+            120.00593,
+            23.59095
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251113T215153Z_20251117T230507Z_S1C_30_v1.0",
+    "acquisition_datetime": "2025-11-13T21:51:53+00:00",
+    "year": 2025,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251113T215153Z_20251117T230507Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251113T215153Z_20251117T230507Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251113T215153Z_20251117T230507Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251113T215153Z_20251117T230507Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20251113T215153Z_20251117T230507Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20251113T215153Z_20251117T230507Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33786,
+            23.78043
+          ],
+          [
+            119.56762,
+            23.90806
+          ],
+          [
+            119.53538,
+            23.74182
+          ],
+          [
+            120.30468,
+            23.61404
+          ],
+          [
+            120.33786,
+            23.78043
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20260803T100040Z_20261010T210150Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-08-03T10:00:40+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260803T100040Z_20261010T210150Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260803T100040Z_20261010T210150Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260803T100040Z_20261010T210150Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260803T100040Z_20261010T210150Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260803T100040Z_20261010T210150Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260803T100040Z_20261010T210150Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00416,
+            23.58949
+          ],
+          [
+            120.44141,
+            23.66739
+          ],
+          [
+            120.86649,
+            23.74184
+          ],
+          [
+            120.81796,
+            23.90573
+          ],
+          [
+            120.40586,
+            23.83367
+          ],
+          [
+            119.96867,
+            23.75591
+          ],
+          [
+            120.00416,
+            23.58949
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20260809T100028Z_20260809T153856Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-08-09T10:00:28+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260809T100028Z_20260809T153856Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260809T100028Z_20260809T153856Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260809T100028Z_20260809T153856Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260809T100028Z_20260809T153856Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260809T100028Z_20260809T153856Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260809T100028Z_20260809T153856Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00682,
+            23.59028
+          ],
+          [
+            120.44144,
+            23.66772
+          ],
+          [
+            120.8642,
+            23.74177
+          ],
+          [
+            120.81566,
+            23.90566
+          ],
+          [
+            120.32172,
+            23.81913
+          ],
+          [
+            119.97133,
+            23.75671
+          ],
+          [
+            120.00682,
+            23.59028
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20260811T215154Z_20260812T062544Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-08-11T21:51:54+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260811T215154Z_20260812T062544Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260811T215154Z_20260812T062544Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260811T215154Z_20260812T062544Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260811T215154Z_20260812T062544Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260811T215154Z_20260812T062544Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260811T215154Z_20260812T062544Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33704,
+            23.78067
+          ],
+          [
+            119.56683,
+            23.90829
+          ],
+          [
+            119.53459,
+            23.74205
+          ],
+          [
+            120.30386,
+            23.61428
+          ],
+          [
+            120.33704,
+            23.78067
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20260815T100041Z_20261010T153002Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-08-15T10:00:41+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260815T100041Z_20261010T153002Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260815T100041Z_20261010T153002Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260815T100041Z_20261010T153002Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260815T100041Z_20261010T153002Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260815T100041Z_20261010T153002Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260815T100041Z_20261010T153002Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00873,
+            23.59048
+          ],
+          [
+            120.44645,
+            23.66844
+          ],
+          [
+            120.87199,
+            23.74296
+          ],
+          [
+            120.82351,
+            23.90673
+          ],
+          [
+            120.36894,
+            23.82719
+          ],
+          [
+            119.97328,
+            23.75678
+          ],
+          [
+            120.00873,
+            23.59048
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20260823T215155Z_20260824T084044Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-08-23T21:51:55+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260823T215155Z_20260824T084044Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260823T215155Z_20260824T084044Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260823T215155Z_20260824T084044Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260823T215155Z_20260824T084044Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260823T215155Z_20260824T084044Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260823T215155Z_20260824T084044Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33664,
+            23.78063
+          ],
+          [
+            119.56643,
+            23.90825
+          ],
+          [
+            119.53419,
+            23.74201
+          ],
+          [
+            120.30346,
+            23.61424
+          ],
+          [
+            120.33664,
+            23.78063
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20260827T100042Z_20261010T200109Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-08-27T10:00:42+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260827T100042Z_20261010T200109Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260827T100042Z_20261010T200109Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260827T100042Z_20261010T200109Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260827T100042Z_20261010T200109Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260827T100042Z_20261010T200109Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260827T100042Z_20261010T200109Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00872,
+            23.59065
+          ],
+          [
+            120.44642,
+            23.66861
+          ],
+          [
+            120.87196,
+            23.74312
+          ],
+          [
+            120.82348,
+            23.90689
+          ],
+          [
+            120.32615,
+            23.8198
+          ],
+          [
+            119.97327,
+            23.75695
+          ],
+          [
+            120.00872,
+            23.59065
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20260904T215155Z_20260905T044612Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-09-04T21:51:55+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260904T215155Z_20260905T044612Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260904T215155Z_20260905T044612Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260904T215155Z_20260905T044612Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260904T215155Z_20260905T044612Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260904T215155Z_20260905T044612Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260904T215155Z_20260905T044612Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33692,
+            23.7809
+          ],
+          [
+            119.5667,
+            23.90852
+          ],
+          [
+            119.53437,
+            23.74178
+          ],
+          [
+            120.30365,
+            23.61401
+          ],
+          [
+            120.33692,
+            23.7809
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20260908T100042Z_20261011T035316Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-09-08T10:00:42+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260908T100042Z_20261011T035316Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260908T100042Z_20261011T035316Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260908T100042Z_20261011T035316Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260908T100042Z_20261011T035316Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260908T100042Z_20261011T035316Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260908T100042Z_20261011T035316Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00905,
+            23.59075
+          ],
+          [
+            120.44676,
+            23.66872
+          ],
+          [
+            120.8723,
+            23.74323
+          ],
+          [
+            120.82379,
+            23.90713
+          ],
+          [
+            120.36922,
+            23.82759
+          ],
+          [
+            119.97356,
+            23.75717
+          ],
+          [
+            120.00905,
+            23.59075
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20260916T215156Z_20260917T171102Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-09-16T21:51:56+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260916T215156Z_20260917T171102Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260916T215156Z_20260917T171102Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260916T215156Z_20260917T171102Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260916T215156Z_20260917T171102Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260916T215156Z_20260917T171102Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260916T215156Z_20260917T171102Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33692,
+            23.78042
+          ],
+          [
+            119.56673,
+            23.90804
+          ],
+          [
+            119.53447,
+            23.74167
+          ],
+          [
+            120.30372,
+            23.6139
+          ],
+          [
+            120.33692,
+            23.78042
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20260920T100042Z_20261011T081824Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-09-20T10:00:42+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260920T100042Z_20261011T081824Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260920T100042Z_20261011T081824Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260920T100042Z_20261011T081824Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260920T100042Z_20261011T081824Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20260920T100042Z_20261011T081824Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20260920T100042Z_20261011T081824Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00781,
+            23.59053
+          ],
+          [
+            120.45396,
+            23.66999
+          ],
+          [
+            120.88625,
+            23.74566
+          ],
+          [
+            120.83776,
+            23.90981
+          ],
+          [
+            120.37559,
+            23.82897
+          ],
+          [
+            119.97227,
+            23.7572
+          ],
+          [
+            120.00781,
+            23.59053
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20260928T215156Z_20261107T201210Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-09-28T21:51:56+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260928T215156Z_20261107T201210Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260928T215156Z_20261107T201210Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260928T215156Z_20261107T201210Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260928T215156Z_20261107T201210Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20260928T215156Z_20261107T201210Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20260928T215156Z_20261107T201210Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33657,
+            23.78014
+          ],
+          [
+            119.56637,
+            23.90775
+          ],
+          [
+            119.53411,
+            23.74139
+          ],
+          [
+            120.30337,
+            23.61362
+          ],
+          [
+            120.33657,
+            23.78014
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20261002T100042Z_20261012T181550Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-10-02T10:00:42+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261002T100042Z_20261012T181550Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261002T100042Z_20261012T181550Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261002T100042Z_20261012T181550Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261002T100042Z_20261012T181550Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261002T100042Z_20261012T181550Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261002T100042Z_20261012T181550Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00781,
+            23.5906
+          ],
+          [
+            120.45398,
+            23.67007
+          ],
+          [
+            120.88629,
+            23.74574
+          ],
+          [
+            120.83778,
+            23.91002
+          ],
+          [
+            120.37559,
+            23.82917
+          ],
+          [
+            119.97224,
+            23.7574
+          ],
+          [
+            120.00781,
+            23.5906
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-10-10T21:51:56+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33688,
+            23.7805
+          ],
+          [
+            119.56667,
+            23.90811
+          ],
+          [
+            119.53441,
+            23.74174
+          ],
+          [
+            120.30369,
+            23.61398
+          ],
+          [
+            120.33688,
+            23.7805
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-10-14T10:00:42+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00835,
+            23.59061
+          ],
+          [
+            120.45453,
+            23.67008
+          ],
+          [
+            120.88685,
+            23.74575
+          ],
+          [
+            120.83836,
+            23.9099
+          ],
+          [
+            120.37616,
+            23.82906
+          ],
+          [
+            119.97281,
+            23.75729
+          ],
+          [
+            120.00835,
+            23.59061
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261016T215209Z_20261017T072741Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-10-16T21:52:09+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261016T215209Z_20261017T072741Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261016T215209Z_20261017T072741Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261016T215209Z_20261017T072741Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261016T215209Z_20261017T072741Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261016T215209Z_20261017T072741Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261016T215209Z_20261017T072741Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.3367,
+            23.78089
+          ],
+          [
+            119.56648,
+            23.90852
+          ],
+          [
+            119.53425,
+            23.74227
+          ],
+          [
+            120.30352,
+            23.61449
+          ],
+          [
+            120.3367,
+            23.78089
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-10-22T21:51:56+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.3376,
+            23.78047
+          ],
+          [
+            119.56742,
+            23.90808
+          ],
+          [
+            119.53516,
+            23.74171
+          ],
+          [
+            120.30439,
+            23.61395
+          ],
+          [
+            120.3376,
+            23.78047
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-10-26T10:00:42+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00854,
+            23.5905
+          ],
+          [
+            120.4547,
+            23.66995
+          ],
+          [
+            120.88702,
+            23.74561
+          ],
+          [
+            120.83858,
+            23.90952
+          ],
+          [
+            120.33283,
+            23.82099
+          ],
+          [
+            119.97305,
+            23.75692
+          ],
+          [
+            120.00854,
+            23.5905
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+    "acquisition_datetime": "2026-11-03T21:51:56+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1C",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.337,
+            23.7805
+          ],
+          [
+            119.56676,
+            23.90813
+          ],
+          [
+            119.5345,
+            23.74176
+          ],
+          [
+            120.3038,
+            23.61398
+          ],
+          [
+            120.337,
+            23.7805
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20261107T100042Z_20261108T000448Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-11-07T10:00:42+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 69,
+    "orbit_direction": "ASCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "069-146197-IW1",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261107T100042Z_20261108T000448Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261107T100042Z_20261108T000448Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261107T100042Z_20261108T000448Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261107T100042Z_20261108T000448Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261107T100042Z_20261108T000448Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261107T100042Z_20261108T000448Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.00845,
+            23.59062
+          ],
+          [
+            120.45464,
+            23.67008
+          ],
+          [
+            120.88696,
+            23.74575
+          ],
+          [
+            120.83847,
+            23.9099
+          ],
+          [
+            120.37627,
+            23.82906
+          ],
+          [
+            119.97291,
+            23.75729
+          ],
+          [
+            120.00845,
+            23.59062
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  },
+  {
+    "granule_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261109T215208Z_20261110T020317Z_S1D_30_v1.0",
+    "acquisition_datetime": "2026-11-09T21:52:08+00:00",
+    "year": 2026,
+    "platform": "Sentinel-1D",
+    "relative_orbit": 105,
+    "orbit_direction": "DESCENDING",
+    "polarization": "['VV', 'VH']",
+    "product_version": "v1.0",
+    "beam_mode": "IW",
+    "burst_id": "105-224320-IW3",
+    "product_type": "RTC",
+    "vh_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261109T215208Z_20261110T020317Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261109T215208Z_20261110T020317Z_S1D_30_v1.0_VH.tif",
+    "mask_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261109T215208Z_20261110T020317Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261109T215208Z_20261110T020317Z_S1D_30_v1.0_mask.tif",
+    "data_url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T105-224320-IW3_20261109T215208Z_20261110T020317Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T105-224320-IW3_20261109T215208Z_20261110T020317Z_S1D_30_v1.0.h5",
+    "aoi_overlap_ratio": 1.0,
+    "footprint_geojson": {
+      "coordinates": [
+        [
+          [
+            120.33653,
+            23.78073
+          ],
+          [
+            119.56629,
+            23.90835
+          ],
+          [
+            119.53403,
+            23.74198
+          ],
+          [
+            120.30333,
+            23.61421
+          ],
+          [
+            120.33653,
+            23.78073
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    }
+  }
+]

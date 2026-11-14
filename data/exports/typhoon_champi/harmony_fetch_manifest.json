@@ -1,0 +1,86 @@
+{
+  "created_at_utc": "2026-11-14T13:14:07.325682+00:00",
+  "aoi": "Taixi Township",
+  "bbox_wgs84": [
+    120.141023,
+    23.658015,
+    120.242946,
+    23.763074
+  ],
+  "bbox_is_processing_extent_not_field_boundary": true,
+  "requested_variables": [
+    "HHHH",
+    "HVHV",
+    "mask",
+    "numberOfLooks"
+  ],
+  "jobs": [
+    {
+      "label": "PRE",
+      "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+      "scene_concept_id": "G4374517324-ASF",
+      "collection_concept_id": "C2854338529-ASF",
+      "job_id": "ea96d1d5-4466-4534-9207-603687a07005",
+      "status": "successful"
+    },
+    {
+      "label": "POST",
+      "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+      "scene_concept_id": "G4407818973-ASF",
+      "collection_concept_id": "C3622241360-ASF",
+      "job_id": "88627ef1-8952-413a-87d5-bbb993616d96",
+      "status": "successful"
+    }
+  ],
+  "files": [
+    {
+      "path": "data/exports/typhoon_champi/PRE_HHHH.tif",
+      "variable": "HHHH",
+      "size_bytes": 1511399,
+      "sha256": "9a098ba7346d77a039de729c4d259e0190b1e94dc6508ce0b1abed3ba5da42e6"
+    },
+    {
+      "path": "data/exports/typhoon_champi/PRE_HVHV.tif",
+      "variable": "HVHV",
+      "size_bytes": 1481963,
+      "sha256": "e380939a799d876384ec1f7b6a0a979290590b32757a238fc681179f1c8bce6b"
+    },
+    {
+      "path": "data/exports/typhoon_champi/PRE_mask.tif",
+      "variable": "mask",
+      "size_bytes": 10786,
+      "sha256": "7ce24130a0b5f7b9a127451ae821f93d8814c4721e6ae7415c22ccba784e80f6"
+    },
+    {
+      "path": "data/exports/typhoon_champi/PRE_numberOfLooks.tif",
+      "variable": "numberOfLooks",
+      "size_bytes": 1452374,
+      "sha256": "07b5f0d95e6d0a3f1768757aa554b346ebf3fe4358029abc94d14e7366563bce"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_HHHH.tif",
+      "variable": "HHHH",
+      "size_bytes": 1469721,
+      "sha256": "d94f64819f98866325f6d8f1b8fa8d14eb9dc121ad0696af7f808df4901d2cbf"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_HVHV.tif",
+      "variable": "HVHV",
+      "size_bytes": 1448175,
+      "sha256": "f2a052dd5bb9f287e77696935c395c8878f04d1d70e3965376ba3e44abd80c2b"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_mask.tif",
+      "variable": "mask",
+      "size_bytes": 11829,
+      "sha256": "187f695b476b207166cb59e1dc79e0b64f086084029e52817f3be3a0b0d5a8c1"
+    },
+    {
+      "path": "data/exports/typhoon_champi/POST_numberOfLooks.tif",
+      "variable": "numberOfLooks",
+      "size_bytes": 1414852,
+      "sha256": "02099495298614f0ded7d77cf1dc8b99c0dfd81797d454725c0abdc557218b86"
+    }
+  ],
+  "status": "DOWNLOADED_UNVALIDATED"
+}

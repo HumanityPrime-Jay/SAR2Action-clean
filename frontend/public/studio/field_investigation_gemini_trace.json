@@ -1,0 +1,2830 @@
+{
+  "agent_mode": "gemini",
+  "investigation_id": "3870ecc6-5dc6-4241-aac2-b8fe8c55cdce",
+  "selected_tools": [
+    [
+      "check_event_temporal_alignment",
+      "get_field_vh_timeseries",
+      "compare_seasonal_backscatter"
+    ]
+  ],
+  "tool_trace": [
+    {
+      "step": 1,
+      "timestamp_utc": "2026-11-14T14:38:22.283102+00:00",
+      "kind": "plan",
+      "tool": "bounded_champi_planner",
+      "status": "complete",
+      "source_references": [
+        "scene_inventory.json",
+        "science_qa.json",
+        "official_loss_record.json"
+      ],
+      "steps": [
+        "inspect_nisar_observations",
+        "inspect_official_loss_scope",
+        "test_cross_crid_compatibility",
+        "get_field_vh_timeseries",
+        "check_event_temporal_alignment",
+        "compare_seasonal_backscatter",
+        "evaluate_field_hypotheses",
+        "find_missing_observations",
+        "calculate_temporal_changes",
+        "compare_five_fields"
+      ],
+      "limit": 10,
+      "question": "Did agricultural radar observations in Taixi change after Typhoon Champi, and how does the 2026 VH series compare with 2025?"
+    },
+    {
+      "step": 2,
+      "timestamp_utc": "2026-11-14T14:38:26.913387+00:00",
+      "kind": "tool_call",
+      "tool": "GeminiModelProvider.choose_gis_tools",
+      "status": "complete",
+      "source_references": [],
+      "selected_tools": [
+        "check_event_temporal_alignment",
+        "get_field_vh_timeseries",
+        "compare_seasonal_backscatter"
+      ],
+      "model": "gemini-3.1-flash-lite"
+    },
+    {
+      "step": 3,
+      "timestamp_utc": "2026-11-14T14:38:26.913387+00:00",
+      "kind": "hypothesis",
+      "tool": "GeminiModelProvider.choose_gis_tools",
+      "status": "complete",
+      "source_references": [],
+      "proposed_ids": [
+        "storm_disturbance"
+      ],
+      "model": "gemini-3.1-flash-lite"
+    },
+    {
+      "step": 4,
+      "timestamp_utc": "2026-11-14T14:38:26.913387+00:00",
+      "kind": "tool_call",
+      "tool": "check_event_temporal_alignment",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 5,
+      "timestamp_utc": "2026-11-14T14:38:26.956261+00:00",
+      "kind": "tool_result",
+      "tool": "check_event_temporal_alignment",
+      "status": "complete",
+      "source_references": [
+        "data/exports/yunlin_vh_2025_2026/agent_evidence.json",
+        "data/exports/yunlin_vh_2025_2026/source_manifest.json"
+      ],
+      "result": {
+        "status": "OBSERVED_TEMPORAL_BRACKETING",
+        "event_window_local": [
+          "2026-10-22T11:30:00+08:00",
+          "2026-10-24T14:30:00+08:00"
+        ],
+        "pre_event": [
+          {
+            "date": "2026-10-10T21:51:56+00:00",
+            "evidence_id": "E-YL-VH-8A273ECF43F7941A"
+          }
+        ],
+        "warning_window": [
+          {
+            "date": "2026-10-22T21:51:56+00:00",
+            "evidence_id": "E-YL-VH-FE48DFEF9B16528A"
+          }
+        ],
+        "post_event": [
+          {
+            "date": "2026-11-03T21:51:56+00:00",
+            "evidence_id": "E-YL-VH-F8E369E5764FB36C"
+          }
+        ],
+        "strict_pre_warning_change_available": false,
+        "evidence_ids": [
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C"
+        ],
+        "causation": "UNKNOWN"
+      }
+    },
+    {
+      "step": 6,
+      "timestamp_utc": "2026-11-14T14:38:26.956261+00:00",
+      "kind": "tool_call",
+      "tool": "get_field_vh_timeseries",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 7,
+      "timestamp_utc": "2026-11-14T14:38:26.997260+00:00",
+      "kind": "tool_result",
+      "tool": "get_field_vh_timeseries",
+      "status": "complete",
+      "source_references": [
+        "data/exports/yunlin_vh_2025_2026/agent_evidence.json",
+        "data/exports/yunlin_vh_2025_2026/source_manifest.json"
+      ],
+      "result": {
+        "status": "OBSERVED",
+        "field_id": "YL-CAND-01",
+        "observations": [
+          {
+            "field_id": "YL-CAND-01",
+            "year": 2025,
+            "acquisition_datetime": "2025-10-08T21:51:54+00:00",
+            "vh_median_db": -29.44731,
+            "vh_mean_db": -28.95199,
+            "vh_p25_db": -31.52884,
+            "vh_p75_db": -27.79087,
+            "valid_pixel_count": 60,
+            "interior_pixel_count": 60,
+            "valid_coverage_ratio": 1.0,
+            "platform": "Sentinel-1C",
+            "relative_orbit": 105,
+            "orbit_direction": "DESCENDING",
+            "burst_id": "105-224320-IW3",
+            "product_version": "v1.0",
+            "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+            "source_vh_sha256": "6cfc01875c279b25753821a017677b0cc009d7eea43395542088d4c1af70a1ec",
+            "evidence_id": "E-YL-VH-113C4261408E20EA",
+            "qa_flags": [
+              "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-01",
+            "year": 2025,
+            "acquisition_datetime": "2025-10-20T21:51:54+00:00",
+            "vh_median_db": -28.70944,
+            "vh_mean_db": -28.06582,
+            "vh_p25_db": -30.20475,
+            "vh_p75_db": -27.54346,
+            "valid_pixel_count": 60,
+            "interior_pixel_count": 60,
+            "valid_coverage_ratio": 1.0,
+            "platform": "Sentinel-1C",
+            "relative_orbit": 105,
+            "orbit_direction": "DESCENDING",
+            "burst_id": "105-224320-IW3",
+            "product_version": "v1.0",
+            "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+            "source_vh_sha256": "4e552710092b31d638f9fa9d02ad06deb33ff44947da5665abea92aad05f95cb",
+            "evidence_id": "E-YL-VH-8CC4506B1A45672C",
+            "qa_flags": [
+              "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-01",
+            "year": 2025,
+            "acquisition_datetime": "2025-11-01T21:51:54+00:00",
+            "vh_median_db": -30.14977,
+            "vh_mean_db": -29.39078,
+            "vh_p25_db": -31.57494,
+            "vh_p75_db": -27.71166,
+            "valid_pixel_count": 60,
+            "interior_pixel_count": 60,
+            "valid_coverage_ratio": 1.0,
+            "platform": "Sentinel-1C",
+            "relative_orbit": 105,
+            "orbit_direction": "DESCENDING",
+            "burst_id": "105-224320-IW3",
+            "product_version": "v1.0",
+            "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+            "source_vh_sha256": "bfe3c016228cb17c7265e11e3b189dfb2b2190e2a504c8ca2f650537fc9a82a8",
+            "evidence_id": "E-YL-VH-BBC6C8A62173DF2B",
+            "qa_flags": [
+              "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-01",
+            "year": 2026,
+            "acquisition_datetime": "2026-10-10T21:51:56+00:00",
+            "vh_median_db": -29.77417,
+            "vh_mean_db": -29.32011,
+            "vh_p25_db": -31.10745,
+            "vh_p75_db": -28.55836,
+            "valid_pixel_count": 60,
+            "interior_pixel_count": 60,
+            "valid_coverage_ratio": 1.0,
+            "platform": "Sentinel-1C",
+            "relative_orbit": 105,
+            "orbit_direction": "DESCENDING",
+            "burst_id": "105-224320-IW3",
+            "product_version": "v1.0",
+            "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+            "source_vh_sha256": "8bd0cfc981fa7cfeac36f23d60de46de032115c0eb210600adc9390dad11d901",
+            "evidence_id": "E-YL-VH-8A273ECF43F7941A",
+            "qa_flags": [
+              "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-01",
+            "year": 2026,
+            "acquisition_datetime": "2026-10-22T21:51:56+00:00",
+            "vh_median_db": -25.7551,
+            "vh_mean_db": -25.67004,
+            "vh_p25_db": -27.72476,
+            "vh_p75_db": -24.85324,
+            "valid_pixel_count": 60,
+            "interior_pixel_count": 60,
+            "valid_coverage_ratio": 1.0,
+            "platform": "Sentinel-1C",
+            "relative_orbit": 105,
+            "orbit_direction": "DESCENDING",
+            "burst_id": "105-224320-IW3",
+            "product_version": "v1.0",
+            "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+            "source_vh_sha256": "e19d4674835ee9174afb99b171c24f2de8222e0266d270c8fc66779e5bc49d6c",
+            "evidence_id": "E-YL-VH-FE48DFEF9B16528A",
+            "qa_flags": [
+              "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-01",
+            "year": 2026,
+            "acquisition_datetime": "2026-11-03T21:51:56+00:00",
+            "vh_median_db": -29.26345,
+            "vh_mean_db": -29.03085,
+            "vh_p25_db": -30.5453,
+            "vh_p75_db": -28.0099,
+            "valid_pixel_count": 60,
+            "interior_pixel_count": 60,
+            "valid_coverage_ratio": 1.0,
+            "platform": "Sentinel-1C",
+            "relative_orbit": 105,
+            "orbit_direction": "DESCENDING",
+            "burst_id": "105-224320-IW3",
+            "product_version": "v1.0",
+            "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+            "source_vh_sha256": "f3a7c227da82ecad38e6e1edab859c9b4ae6bcc2e0f889177546f4c7d690a952",
+            "evidence_id": "E-YL-VH-F8E369E5764FB36C",
+            "qa_flags": [
+              "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+            ]
+          }
+        ],
+        "evidence_ids": [
+          "E-YL-VH-113C4261408E20EA",
+          "E-YL-VH-8CC4506B1A45672C",
+          "E-YL-VH-BBC6C8A62173DF2B",
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C"
+        ]
+      }
+    },
+    {
+      "step": 8,
+      "timestamp_utc": "2026-11-14T14:38:26.997260+00:00",
+      "kind": "tool_call",
+      "tool": "compare_seasonal_backscatter",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 9,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_result",
+      "tool": "compare_seasonal_backscatter",
+      "status": "complete",
+      "source_references": [
+        "data/exports/yunlin_vh_2025_2026/agent_evidence.json",
+        "data/exports/yunlin_vh_2025_2026/source_manifest.json"
+      ],
+      "result": {
+        "status": "OBSERVED_DESCRIPTIVE_ONLY",
+        "date_pair_tolerance_days": 6,
+        "fields": [
+          {
+            "field_id": "YL-CAND-01",
+            "valid_observations": {
+              "2025": 3,
+              "2026": 3
+            },
+            "date_matched_pairs": [
+              {
+                "2025_evidence_id": "E-YL-VH-113C4261408E20EA",
+                "2026_evidence_id": "E-YL-VH-8A273ECF43F7941A",
+                "2025_date": "2025-10-08T21:51:54+00:00",
+                "2026_date": "2026-10-10T21:51:56+00:00",
+                "day_of_year_gap": 2,
+                "median_vh_difference_db": -0.32686,
+                "platforms": [
+                  "Sentinel-1C",
+                  "Sentinel-1C"
+                ],
+                "cross_platform": false
+              },
+              {
+                "2025_evidence_id": "E-YL-VH-8CC4506B1A45672C",
+                "2026_evidence_id": "E-YL-VH-FE48DFEF9B16528A",
+                "2025_date": "2025-10-20T21:51:54+00:00",
+                "2026_date": "2026-10-22T21:51:56+00:00",
+                "day_of_year_gap": 2,
+                "median_vh_difference_db": 2.95434,
+                "platforms": [
+                  "Sentinel-1C",
+                  "Sentinel-1C"
+                ],
+                "cross_platform": false
+              },
+              {
+                "2025_evidence_id": "E-YL-VH-BBC6C8A62173DF2B",
+                "2026_evidence_id": "E-YL-VH-F8E369E5764FB36C",
+                "2025_date": "2025-11-01T21:51:54+00:00",
+                "2026_date": "2026-11-03T21:51:56+00:00",
+                "day_of_year_gap": 2,
+                "median_vh_difference_db": 0.88632,
+                "platforms": [
+                  "Sentinel-1C",
+                  "Sentinel-1C"
+                ],
+                "cross_platform": false
+              }
+            ],
+            "cross_platform_qa": "SAME_PLATFORM_IN_MATCHED_PAIRS",
+            "unusual_change": null,
+            "typhoon_causation": "UNKNOWN"
+          }
+        ],
+        "evidence_ids": [
+          "E-YL-VH-113C4261408E20EA",
+          "E-YL-VH-8CC4506B1A45672C",
+          "E-YL-VH-BBC6C8A62173DF2B",
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C"
+        ],
+        "causation": "UNKNOWN"
+      }
+    },
+    {
+      "step": 10,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_call",
+      "tool": "inspect_nisar_observations",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 11,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_result",
+      "tool": "inspect_nisar_observations",
+      "status": "complete",
+      "source_references": [
+        "science_qa.json",
+        "scene_inventory.json"
+      ],
+      "result": {
+        "pre_valid_pixels": 173852,
+        "post_valid_pixels": 110287,
+        "evidence_ids": [
+          "E-CHAMPI-NISAR-TAIXI-PRE",
+          "E-CHAMPI-NISAR-TAIXI-POST"
+        ]
+      }
+    },
+    {
+      "step": 12,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_call",
+      "tool": "inspect_official_loss_scope",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 13,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_result",
+      "tool": "inspect_official_loss_scope",
+      "status": "complete",
+      "source_references": [
+        "https://www.moa.gov.tw/theme_data.php?id=10320&sub_theme=agri&theme=news"
+      ],
+      "result": {
+        "scope": "Yunlin County",
+        "loss_ntd": 157743000,
+        "parcel_ground_truth": false,
+        "evidence_ids": [
+          "E-CHAMPI-MOA-20261106"
+        ]
+      }
+    },
+    {
+      "step": 14,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_call",
+      "tool": "test_cross_crid_compatibility",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 15,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_result",
+      "tool": "test_cross_crid_compatibility",
+      "status": "complete",
+      "source_references": [
+        "https://hyp3-docs.asf.alaska.edu/nisar-docs/release-notes/"
+      ],
+      "result": {
+        "crid_match": false,
+        "verified_delta_allowed": false,
+        "evidence_ids": [
+          "E-CHAMPI-NISAR-TAIXI-PRE",
+          "E-CHAMPI-NISAR-TAIXI-POST",
+          "E-CHAMPI-ASF-CROSS-CRID"
+        ]
+      }
+    },
+    {
+      "step": 16,
+      "timestamp_utc": "2026-11-14T14:38:27.038785+00:00",
+      "kind": "tool_call",
+      "tool": "evaluate_field_hypotheses",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 17,
+      "timestamp_utc": "2026-11-14T14:38:27.079785+00:00",
+      "kind": "tool_result",
+      "tool": "evaluate_field_hypotheses",
+      "status": "complete",
+      "source_references": [
+        "data/exports/yunlin_vh_2025_2026/agent_evidence.json",
+        "data/exports/yunlin_vh_2025_2026/source_manifest.json"
+      ],
+      "result": {
+        "status": "UNKNOWN",
+        "field_id": "YL-CAND-01",
+        "hypotheses": {
+          "harvesting": "UNRESOLVED",
+          "field_preparation": "UNRESOLVED",
+          "moisture": "UNRESOLVED",
+          "storm_disturbance": "UNRESOLVED",
+          "processing_geometry": "UNRESOLVED"
+        },
+        "temporal_evidence_ids": [
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C"
+        ],
+        "evidence_ids": [
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C"
+        ],
+        "needed": [
+          "Field planting and harvest records",
+          "Field survey or optical imagery",
+          "Incidence angle and cross-platform calibration review"
+        ]
+      }
+    },
+    {
+      "step": 18,
+      "timestamp_utc": "2026-11-14T14:38:27.079785+00:00",
+      "kind": "tool_call",
+      "tool": "find_missing_observations",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 19,
+      "timestamp_utc": "2026-11-14T14:38:27.121306+00:00",
+      "kind": "tool_result",
+      "tool": "find_missing_observations",
+      "status": "complete",
+      "source_references": [
+        "data/exports/yunlin_vh_2025_2026/agent_evidence.json",
+        "data/exports/yunlin_vh_2025_2026/source_manifest.json"
+      ],
+      "result": {
+        "status": "MINIMUM_PIPELINE_ONLY",
+        "qa_passing_counts": {
+          "2025": 3,
+          "2026": 3
+        },
+        "evidence_ids": [
+          "E-YL-VH-113C4261408E20EA",
+          "E-YL-VH-8CC4506B1A45672C",
+          "E-YL-VH-BBC6C8A62173DF2B",
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C"
+        ],
+        "missing": [
+          "Only one 2026 pre-warning observation; no pre-warning time-series change",
+          "Rice crop records",
+          "Independent harvest and event evidence"
+        ]
+      }
+    },
+    {
+      "step": 20,
+      "timestamp_utc": "2026-11-14T14:38:27.121306+00:00",
+      "kind": "tool_call",
+      "tool": "calculate_temporal_changes",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 21,
+      "timestamp_utc": "2026-11-14T14:38:27.164326+00:00",
+      "kind": "tool_result",
+      "tool": "calculate_temporal_changes",
+      "status": "complete",
+      "source_references": [
+        "data/exports/yunlin_vh_2025_2026/agent_evidence.json",
+        "data/exports/yunlin_vh_2025_2026/source_manifest.json",
+        "data/exports/yunlin_vh_2025_2026/field_comparison.json"
+      ],
+      "result": {
+        "status": "OBSERVED_DESCRIPTIVE_ONLY",
+        "field_id": "YL-CAND-01",
+        "2026_pre_warning_change": null,
+        "2026_pre_warning_status": "ONE_OBSERVATION_ONLY",
+        "2026_pre_to_warning_window": {
+          "label": "PRE_TO_WARNING_WINDOW",
+          "from_utc": "2026-10-10T21:51:56+00:00",
+          "to_utc": "2026-10-22T21:51:56+00:00",
+          "median_difference_db": 4.01907,
+          "direction": "INCREASE",
+          "evidence_ids": [
+            "E-YL-VH-8A273ECF43F7941A",
+            "E-YL-VH-FE48DFEF9B16528A"
+          ],
+          "causal_attribution": "UNKNOWN"
+        },
+        "2026_pre_to_post_warning": {
+          "label": "PRE_TO_POST_WARNING",
+          "from_utc": "2026-10-10T21:51:56+00:00",
+          "to_utc": "2026-11-03T21:51:56+00:00",
+          "median_difference_db": 0.51072,
+          "direction": "INCREASE",
+          "evidence_ids": [
+            "E-YL-VH-8A273ECF43F7941A",
+            "E-YL-VH-F8E369E5764FB36C"
+          ],
+          "causal_attribution": "UNKNOWN"
+        },
+        "2026_warning_to_post_warning": {
+          "label": "WARNING_TO_POST_WARNING",
+          "from_utc": "2026-10-22T21:51:56+00:00",
+          "to_utc": "2026-11-03T21:51:56+00:00",
+          "median_difference_db": -3.50835,
+          "direction": "DECREASE",
+          "evidence_ids": [
+            "E-YL-VH-FE48DFEF9B16528A",
+            "E-YL-VH-F8E369E5764FB36C"
+          ],
+          "causal_attribution": "UNKNOWN"
+        },
+        "2025_early_to_middle": {
+          "label": "HISTORICAL_EARLY_TO_MIDDLE",
+          "from_utc": "2025-10-08T21:51:54+00:00",
+          "to_utc": "2025-10-20T21:51:54+00:00",
+          "median_difference_db": 0.73787,
+          "direction": "INCREASE",
+          "evidence_ids": [
+            "E-YL-VH-113C4261408E20EA",
+            "E-YL-VH-8CC4506B1A45672C"
+          ],
+          "causal_attribution": "UNKNOWN"
+        },
+        "cross_year_early_to_middle_change_difference_db": 3.2812,
+        "event_reference": {
+          "kind": "CWA_LAND_WARNING_NOT_FIELD_IMPACT_TIME",
+          "start_taiwan": "2026-10-22T11:30:00+08:00",
+          "end_taiwan": "2026-10-24T14:30:00+08:00",
+          "middle_scene_utc": "2026-10-22T21:51:56+00:00",
+          "middle_scene_taiwan": "2026-10-23T05:51:56+08:00",
+          "middle_scene_relation": "WARNING_WINDOW"
+        },
+        "source": "NASA OPERA RTC-S1 VH linear gamma0 COGs",
+        "evidence_ids": [
+          "E-YL-VH-113C4261408E20EA",
+          "E-YL-VH-8CC4506B1A45672C",
+          "E-YL-VH-BBC6C8A62173DF2B",
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C"
+        ],
+        "causation": "UNKNOWN"
+      }
+    },
+    {
+      "step": 22,
+      "timestamp_utc": "2026-11-14T14:38:27.164326+00:00",
+      "kind": "tool_call",
+      "tool": "compare_five_fields",
+      "status": "executed",
+      "source_references": []
+    },
+    {
+      "step": 23,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "tool_result",
+      "tool": "compare_five_fields",
+      "status": "complete",
+      "source_references": [
+        "data/exports/yunlin_vh_2025_2026/agent_evidence.json",
+        "data/exports/yunlin_vh_2025_2026/source_manifest.json",
+        "data/exports/yunlin_vh_2025_2026/field_comparison.json"
+      ],
+      "result": {
+        "status": "OBSERVED_DESCRIPTIVE_ONLY",
+        "selected_field_id": "YL-CAND-01",
+        "fields": [
+          {
+            "field_id": "YL-CAND-01",
+            "field_area_m2": 125247.1,
+            "interior_area_m2": 53712.8,
+            "nearest_other_field_m": 693.6,
+            "distance_to_other_fields_m": {
+              "YL-CAND-02": 2926.7,
+              "YL-CAND-03": 693.6,
+              "YL-CAND-04": 708.1,
+              "YL-CAND-05": 4634.1
+            },
+            "crop_label": "UNVERIFIED_FARMLAND_CANDIDATE",
+            "spatial_support": {
+              "min_valid_pixels": 60,
+              "min_interior_pixels": 60,
+              "min_valid_coverage_ratio": 1.0,
+              "threshold_pixels": 8,
+              "threshold_coverage_ratio": 0.8,
+              "assessment": "PASS_WITH_MIXED_PIXEL_AND_NOISE_FLOOR_LIMITATIONS"
+            },
+            "observations": {
+              "2025": [
+                {
+                  "acquisition_utc": "2025-10-08T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-09T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -29.44731,
+                  "vh_mean_db": -28.95199,
+                  "vh_p25_db": -31.52884,
+                  "vh_p75_db": -27.79087,
+                  "valid_pixel_count": 60,
+                  "interior_pixel_count": 60,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-113C4261408E20EA",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-10-20T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-21T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -28.70944,
+                  "vh_mean_db": -28.06582,
+                  "vh_p25_db": -30.20475,
+                  "vh_p75_db": -27.54346,
+                  "valid_pixel_count": 60,
+                  "interior_pixel_count": 60,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-8CC4506B1A45672C",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-11-01T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-11-02T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -30.14977,
+                  "vh_mean_db": -29.39078,
+                  "vh_p25_db": -31.57494,
+                  "vh_p75_db": -27.71166,
+                  "valid_pixel_count": 60,
+                  "interior_pixel_count": 60,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-BBC6C8A62173DF2B",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ],
+              "2026": [
+                {
+                  "acquisition_utc": "2026-10-10T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-11T05:51:56+08:00",
+                  "warning_relation": "PRE_WARNING",
+                  "vh_median_db": -29.77417,
+                  "vh_mean_db": -29.32011,
+                  "vh_p25_db": -31.10745,
+                  "vh_p75_db": -28.55836,
+                  "valid_pixel_count": 60,
+                  "interior_pixel_count": 60,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-8A273ECF43F7941A",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-10-22T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-23T05:51:56+08:00",
+                  "warning_relation": "WARNING_WINDOW",
+                  "vh_median_db": -25.7551,
+                  "vh_mean_db": -25.67004,
+                  "vh_p25_db": -27.72476,
+                  "vh_p75_db": -24.85324,
+                  "valid_pixel_count": 60,
+                  "interior_pixel_count": 60,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-FE48DFEF9B16528A",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-11-03T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-11-04T05:51:56+08:00",
+                  "warning_relation": "POST_WARNING",
+                  "vh_median_db": -29.26345,
+                  "vh_mean_db": -29.03085,
+                  "vh_p25_db": -30.5453,
+                  "vh_p75_db": -28.0099,
+                  "valid_pixel_count": 60,
+                  "interior_pixel_count": 60,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-F8E369E5764FB36C",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ]
+            },
+            "matched_date_pairs": [
+              {
+                "2025_utc": "2025-10-08T21:51:54+00:00",
+                "2026_utc": "2026-10-10T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -29.44731,
+                "2026_vh_median_db": -29.77417,
+                "2026_minus_2025_db": -0.32686,
+                "evidence_ids": [
+                  "E-YL-VH-113C4261408E20EA",
+                  "E-YL-VH-8A273ECF43F7941A"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-10-20T21:51:54+00:00",
+                "2026_utc": "2026-10-22T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -28.70944,
+                "2026_vh_median_db": -25.7551,
+                "2026_minus_2025_db": 2.95434,
+                "evidence_ids": [
+                  "E-YL-VH-8CC4506B1A45672C",
+                  "E-YL-VH-FE48DFEF9B16528A"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-11-01T21:51:54+00:00",
+                "2026_utc": "2026-11-03T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -30.14977,
+                "2026_vh_median_db": -29.26345,
+                "2026_minus_2025_db": 0.88632,
+                "evidence_ids": [
+                  "E-YL-VH-BBC6C8A62173DF2B",
+                  "E-YL-VH-F8E369E5764FB36C"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              }
+            ],
+            "2025_early_to_middle": {
+              "label": "HISTORICAL_EARLY_TO_MIDDLE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-10-20T21:51:54+00:00",
+              "median_difference_db": 0.73787,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-113C4261408E20EA",
+                "E-YL-VH-8CC4506B1A45672C"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2025_early_to_late": {
+              "label": "HISTORICAL_EARLY_TO_LATE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-11-01T21:51:54+00:00",
+              "median_difference_db": -0.70246,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-113C4261408E20EA",
+                "E-YL-VH-BBC6C8A62173DF2B"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_warning_change": null,
+            "2026_pre_warning_status": "ONE_OBSERVATION_ONLY",
+            "2026_pre_to_warning_window": {
+              "label": "PRE_TO_WARNING_WINDOW",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-10-22T21:51:56+00:00",
+              "median_difference_db": 4.01907,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-8A273ECF43F7941A",
+                "E-YL-VH-FE48DFEF9B16528A"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_to_post_warning": {
+              "label": "PRE_TO_POST_WARNING",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": 0.51072,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-8A273ECF43F7941A",
+                "E-YL-VH-F8E369E5764FB36C"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_warning_to_post_warning": {
+              "label": "WARNING_TO_POST_WARNING",
+              "from_utc": "2026-10-22T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -3.50835,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-FE48DFEF9B16528A",
+                "E-YL-VH-F8E369E5764FB36C"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "cross_year_early_to_middle_change_difference_db": 3.2812,
+            "evidence_ids": [
+              "E-YL-VH-113C4261408E20EA",
+              "E-YL-VH-8CC4506B1A45672C",
+              "E-YL-VH-BBC6C8A62173DF2B",
+              "E-YL-VH-8A273ECF43F7941A",
+              "E-YL-VH-FE48DFEF9B16528A",
+              "E-YL-VH-F8E369E5764FB36C"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-02",
+            "field_area_m2": 96846.6,
+            "interior_area_m2": 45124.8,
+            "nearest_other_field_m": 2926.7,
+            "distance_to_other_fields_m": {
+              "YL-CAND-01": 2926.7,
+              "YL-CAND-03": 3347.1,
+              "YL-CAND-04": 3077.0,
+              "YL-CAND-05": 3117.9
+            },
+            "crop_label": "UNVERIFIED_FARMLAND_CANDIDATE",
+            "spatial_support": {
+              "min_valid_pixels": 54,
+              "min_interior_pixels": 54,
+              "min_valid_coverage_ratio": 1.0,
+              "threshold_pixels": 8,
+              "threshold_coverage_ratio": 0.8,
+              "assessment": "PASS_WITH_MIXED_PIXEL_AND_NOISE_FLOOR_LIMITATIONS"
+            },
+            "observations": {
+              "2025": [
+                {
+                  "acquisition_utc": "2025-10-08T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-09T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -30.21525,
+                  "vh_mean_db": -30.36136,
+                  "vh_p25_db": -31.8539,
+                  "vh_p75_db": -28.97782,
+                  "valid_pixel_count": 54,
+                  "interior_pixel_count": 54,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-121FEA66285A0B3F",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-10-20T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-21T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -26.70512,
+                  "vh_mean_db": -26.38864,
+                  "vh_p25_db": -28.05804,
+                  "vh_p75_db": -24.79135,
+                  "valid_pixel_count": 54,
+                  "interior_pixel_count": 54,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-254AD7DF18EAF935",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-11-01T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-11-02T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -30.27065,
+                  "vh_mean_db": -29.92723,
+                  "vh_p25_db": -31.31293,
+                  "vh_p75_db": -28.46925,
+                  "valid_pixel_count": 54,
+                  "interior_pixel_count": 54,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-5F4A38B864D534FE",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ],
+              "2026": [
+                {
+                  "acquisition_utc": "2026-10-10T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-11T05:51:56+08:00",
+                  "warning_relation": "PRE_WARNING",
+                  "vh_median_db": -29.18066,
+                  "vh_mean_db": -29.57752,
+                  "vh_p25_db": -31.47231,
+                  "vh_p75_db": -27.86591,
+                  "valid_pixel_count": 54,
+                  "interior_pixel_count": 54,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-78019EFC766B23B1",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-10-22T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-23T05:51:56+08:00",
+                  "warning_relation": "WARNING_WINDOW",
+                  "vh_median_db": -24.68422,
+                  "vh_mean_db": -24.55998,
+                  "vh_p25_db": -25.83893,
+                  "vh_p75_db": -22.63861,
+                  "valid_pixel_count": 54,
+                  "interior_pixel_count": 54,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-2EEA81FB3ABDE27C",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-11-03T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-11-04T05:51:56+08:00",
+                  "warning_relation": "POST_WARNING",
+                  "vh_median_db": -29.40461,
+                  "vh_mean_db": -29.32163,
+                  "vh_p25_db": -30.54338,
+                  "vh_p75_db": -27.67934,
+                  "valid_pixel_count": 54,
+                  "interior_pixel_count": 54,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-CC5A71527E1AF4BD",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ]
+            },
+            "matched_date_pairs": [
+              {
+                "2025_utc": "2025-10-08T21:51:54+00:00",
+                "2026_utc": "2026-10-10T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -30.21525,
+                "2026_vh_median_db": -29.18066,
+                "2026_minus_2025_db": 1.03459,
+                "evidence_ids": [
+                  "E-YL-VH-121FEA66285A0B3F",
+                  "E-YL-VH-78019EFC766B23B1"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-10-20T21:51:54+00:00",
+                "2026_utc": "2026-10-22T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -26.70512,
+                "2026_vh_median_db": -24.68422,
+                "2026_minus_2025_db": 2.0209,
+                "evidence_ids": [
+                  "E-YL-VH-254AD7DF18EAF935",
+                  "E-YL-VH-2EEA81FB3ABDE27C"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-11-01T21:51:54+00:00",
+                "2026_utc": "2026-11-03T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -30.27065,
+                "2026_vh_median_db": -29.40461,
+                "2026_minus_2025_db": 0.86604,
+                "evidence_ids": [
+                  "E-YL-VH-5F4A38B864D534FE",
+                  "E-YL-VH-CC5A71527E1AF4BD"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              }
+            ],
+            "2025_early_to_middle": {
+              "label": "HISTORICAL_EARLY_TO_MIDDLE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-10-20T21:51:54+00:00",
+              "median_difference_db": 3.51013,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-121FEA66285A0B3F",
+                "E-YL-VH-254AD7DF18EAF935"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2025_early_to_late": {
+              "label": "HISTORICAL_EARLY_TO_LATE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-11-01T21:51:54+00:00",
+              "median_difference_db": -0.0554,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-121FEA66285A0B3F",
+                "E-YL-VH-5F4A38B864D534FE"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_warning_change": null,
+            "2026_pre_warning_status": "ONE_OBSERVATION_ONLY",
+            "2026_pre_to_warning_window": {
+              "label": "PRE_TO_WARNING_WINDOW",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-10-22T21:51:56+00:00",
+              "median_difference_db": 4.49644,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-78019EFC766B23B1",
+                "E-YL-VH-2EEA81FB3ABDE27C"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_to_post_warning": {
+              "label": "PRE_TO_POST_WARNING",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -0.22395,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-78019EFC766B23B1",
+                "E-YL-VH-CC5A71527E1AF4BD"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_warning_to_post_warning": {
+              "label": "WARNING_TO_POST_WARNING",
+              "from_utc": "2026-10-22T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -4.72039,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-2EEA81FB3ABDE27C",
+                "E-YL-VH-CC5A71527E1AF4BD"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "cross_year_early_to_middle_change_difference_db": 0.98631,
+            "evidence_ids": [
+              "E-YL-VH-121FEA66285A0B3F",
+              "E-YL-VH-254AD7DF18EAF935",
+              "E-YL-VH-5F4A38B864D534FE",
+              "E-YL-VH-78019EFC766B23B1",
+              "E-YL-VH-2EEA81FB3ABDE27C",
+              "E-YL-VH-CC5A71527E1AF4BD"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-03",
+            "field_area_m2": 83061.3,
+            "interior_area_m2": 43241.1,
+            "nearest_other_field_m": 134.1,
+            "distance_to_other_fields_m": {
+              "YL-CAND-01": 693.6,
+              "YL-CAND-02": 3347.1,
+              "YL-CAND-04": 134.1,
+              "YL-CAND-05": 5656.0
+            },
+            "crop_label": "UNVERIFIED_FARMLAND_CANDIDATE",
+            "spatial_support": {
+              "min_valid_pixels": 48,
+              "min_interior_pixels": 48,
+              "min_valid_coverage_ratio": 1.0,
+              "threshold_pixels": 8,
+              "threshold_coverage_ratio": 0.8,
+              "assessment": "PASS_WITH_MIXED_PIXEL_AND_NOISE_FLOOR_LIMITATIONS"
+            },
+            "observations": {
+              "2025": [
+                {
+                  "acquisition_utc": "2025-10-08T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-09T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -31.133,
+                  "vh_mean_db": -31.41926,
+                  "vh_p25_db": -33.24246,
+                  "vh_p75_db": -29.10653,
+                  "valid_pixel_count": 48,
+                  "interior_pixel_count": 48,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-B4B01BD14B15A20B",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-10-20T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-21T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -28.32125,
+                  "vh_mean_db": -28.59873,
+                  "vh_p25_db": -29.53813,
+                  "vh_p75_db": -26.98333,
+                  "valid_pixel_count": 48,
+                  "interior_pixel_count": 48,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-EF74BEB8A75EF3FC",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-11-01T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-11-02T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -29.85174,
+                  "vh_mean_db": -30.14978,
+                  "vh_p25_db": -31.61666,
+                  "vh_p75_db": -28.75056,
+                  "valid_pixel_count": 48,
+                  "interior_pixel_count": 48,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-48F96544E41CB940",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ],
+              "2026": [
+                {
+                  "acquisition_utc": "2026-10-10T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-11T05:51:56+08:00",
+                  "warning_relation": "PRE_WARNING",
+                  "vh_median_db": -31.2463,
+                  "vh_mean_db": -31.37275,
+                  "vh_p25_db": -32.61309,
+                  "vh_p75_db": -29.50073,
+                  "valid_pixel_count": 48,
+                  "interior_pixel_count": 48,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-E9D477B3D655BD70",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-10-22T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-23T05:51:56+08:00",
+                  "warning_relation": "WARNING_WINDOW",
+                  "vh_median_db": -23.69294,
+                  "vh_mean_db": -23.98716,
+                  "vh_p25_db": -25.22571,
+                  "vh_p75_db": -22.64258,
+                  "valid_pixel_count": 48,
+                  "interior_pixel_count": 48,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-ACCE25C45363C48B",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-11-03T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-11-04T05:51:56+08:00",
+                  "warning_relation": "POST_WARNING",
+                  "vh_median_db": -30.87928,
+                  "vh_mean_db": -31.32878,
+                  "vh_p25_db": -32.22279,
+                  "vh_p75_db": -29.71898,
+                  "valid_pixel_count": 48,
+                  "interior_pixel_count": 48,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-42C4899A3A2B27BA",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ]
+            },
+            "matched_date_pairs": [
+              {
+                "2025_utc": "2025-10-08T21:51:54+00:00",
+                "2026_utc": "2026-10-10T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -31.133,
+                "2026_vh_median_db": -31.2463,
+                "2026_minus_2025_db": -0.1133,
+                "evidence_ids": [
+                  "E-YL-VH-B4B01BD14B15A20B",
+                  "E-YL-VH-E9D477B3D655BD70"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-10-20T21:51:54+00:00",
+                "2026_utc": "2026-10-22T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -28.32125,
+                "2026_vh_median_db": -23.69294,
+                "2026_minus_2025_db": 4.62831,
+                "evidence_ids": [
+                  "E-YL-VH-EF74BEB8A75EF3FC",
+                  "E-YL-VH-ACCE25C45363C48B"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-11-01T21:51:54+00:00",
+                "2026_utc": "2026-11-03T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -29.85174,
+                "2026_vh_median_db": -30.87928,
+                "2026_minus_2025_db": -1.02754,
+                "evidence_ids": [
+                  "E-YL-VH-48F96544E41CB940",
+                  "E-YL-VH-42C4899A3A2B27BA"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              }
+            ],
+            "2025_early_to_middle": {
+              "label": "HISTORICAL_EARLY_TO_MIDDLE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-10-20T21:51:54+00:00",
+              "median_difference_db": 2.81175,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-B4B01BD14B15A20B",
+                "E-YL-VH-EF74BEB8A75EF3FC"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2025_early_to_late": {
+              "label": "HISTORICAL_EARLY_TO_LATE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-11-01T21:51:54+00:00",
+              "median_difference_db": 1.28126,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-B4B01BD14B15A20B",
+                "E-YL-VH-48F96544E41CB940"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_warning_change": null,
+            "2026_pre_warning_status": "ONE_OBSERVATION_ONLY",
+            "2026_pre_to_warning_window": {
+              "label": "PRE_TO_WARNING_WINDOW",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-10-22T21:51:56+00:00",
+              "median_difference_db": 7.55336,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-E9D477B3D655BD70",
+                "E-YL-VH-ACCE25C45363C48B"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_to_post_warning": {
+              "label": "PRE_TO_POST_WARNING",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": 0.36702,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-E9D477B3D655BD70",
+                "E-YL-VH-42C4899A3A2B27BA"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_warning_to_post_warning": {
+              "label": "WARNING_TO_POST_WARNING",
+              "from_utc": "2026-10-22T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -7.18634,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-ACCE25C45363C48B",
+                "E-YL-VH-42C4899A3A2B27BA"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "cross_year_early_to_middle_change_difference_db": 4.74161,
+            "evidence_ids": [
+              "E-YL-VH-B4B01BD14B15A20B",
+              "E-YL-VH-EF74BEB8A75EF3FC",
+              "E-YL-VH-48F96544E41CB940",
+              "E-YL-VH-E9D477B3D655BD70",
+              "E-YL-VH-ACCE25C45363C48B",
+              "E-YL-VH-42C4899A3A2B27BA"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-04",
+            "field_area_m2": 61859.4,
+            "interior_area_m2": 25259.2,
+            "nearest_other_field_m": 134.1,
+            "distance_to_other_fields_m": {
+              "YL-CAND-01": 708.1,
+              "YL-CAND-02": 3077.0,
+              "YL-CAND-03": 134.1,
+              "YL-CAND-05": 5410.2
+            },
+            "crop_label": "UNVERIFIED_FARMLAND_CANDIDATE",
+            "spatial_support": {
+              "min_valid_pixels": 27,
+              "min_interior_pixels": 27,
+              "min_valid_coverage_ratio": 1.0,
+              "threshold_pixels": 8,
+              "threshold_coverage_ratio": 0.8,
+              "assessment": "PASS_WITH_MIXED_PIXEL_AND_NOISE_FLOOR_LIMITATIONS"
+            },
+            "observations": {
+              "2025": [
+                {
+                  "acquisition_utc": "2025-10-08T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-09T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -31.26025,
+                  "vh_mean_db": -31.97541,
+                  "vh_p25_db": -34.2089,
+                  "vh_p75_db": -29.82754,
+                  "valid_pixel_count": 27,
+                  "interior_pixel_count": 27,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-69A462C85C16A3EF",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-10-20T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-21T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -27.7038,
+                  "vh_mean_db": -27.94415,
+                  "vh_p25_db": -29.15658,
+                  "vh_p75_db": -26.46379,
+                  "valid_pixel_count": 27,
+                  "interior_pixel_count": 27,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-1EAE84879952A70A",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-11-01T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-11-02T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -30.76581,
+                  "vh_mean_db": -31.43354,
+                  "vh_p25_db": -33.03463,
+                  "vh_p75_db": -29.86266,
+                  "valid_pixel_count": 27,
+                  "interior_pixel_count": 27,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-84BB11F51303E1D3",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ],
+              "2026": [
+                {
+                  "acquisition_utc": "2026-10-10T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-11T05:51:56+08:00",
+                  "warning_relation": "PRE_WARNING",
+                  "vh_median_db": -30.71262,
+                  "vh_mean_db": -31.33724,
+                  "vh_p25_db": -32.76697,
+                  "vh_p75_db": -28.94486,
+                  "valid_pixel_count": 27,
+                  "interior_pixel_count": 27,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-6DB88CEAFCF8525A",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-10-22T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-23T05:51:56+08:00",
+                  "warning_relation": "WARNING_WINDOW",
+                  "vh_median_db": -24.19428,
+                  "vh_mean_db": -23.80276,
+                  "vh_p25_db": -25.08485,
+                  "vh_p75_db": -21.98414,
+                  "valid_pixel_count": 27,
+                  "interior_pixel_count": 27,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-B1F1BEB50BA4F333",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-11-03T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-11-04T05:51:56+08:00",
+                  "warning_relation": "POST_WARNING",
+                  "vh_median_db": -31.03108,
+                  "vh_mean_db": -31.7974,
+                  "vh_p25_db": -33.27026,
+                  "vh_p75_db": -29.91935,
+                  "valid_pixel_count": 27,
+                  "interior_pixel_count": 27,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-9C6594BED9C61B2D",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ]
+            },
+            "matched_date_pairs": [
+              {
+                "2025_utc": "2025-10-08T21:51:54+00:00",
+                "2026_utc": "2026-10-10T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -31.26025,
+                "2026_vh_median_db": -30.71262,
+                "2026_minus_2025_db": 0.54763,
+                "evidence_ids": [
+                  "E-YL-VH-69A462C85C16A3EF",
+                  "E-YL-VH-6DB88CEAFCF8525A"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-10-20T21:51:54+00:00",
+                "2026_utc": "2026-10-22T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -27.7038,
+                "2026_vh_median_db": -24.19428,
+                "2026_minus_2025_db": 3.50952,
+                "evidence_ids": [
+                  "E-YL-VH-1EAE84879952A70A",
+                  "E-YL-VH-B1F1BEB50BA4F333"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-11-01T21:51:54+00:00",
+                "2026_utc": "2026-11-03T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -30.76581,
+                "2026_vh_median_db": -31.03108,
+                "2026_minus_2025_db": -0.26527,
+                "evidence_ids": [
+                  "E-YL-VH-84BB11F51303E1D3",
+                  "E-YL-VH-9C6594BED9C61B2D"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              }
+            ],
+            "2025_early_to_middle": {
+              "label": "HISTORICAL_EARLY_TO_MIDDLE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-10-20T21:51:54+00:00",
+              "median_difference_db": 3.55645,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-69A462C85C16A3EF",
+                "E-YL-VH-1EAE84879952A70A"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2025_early_to_late": {
+              "label": "HISTORICAL_EARLY_TO_LATE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-11-01T21:51:54+00:00",
+              "median_difference_db": 0.49444,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-69A462C85C16A3EF",
+                "E-YL-VH-84BB11F51303E1D3"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_warning_change": null,
+            "2026_pre_warning_status": "ONE_OBSERVATION_ONLY",
+            "2026_pre_to_warning_window": {
+              "label": "PRE_TO_WARNING_WINDOW",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-10-22T21:51:56+00:00",
+              "median_difference_db": 6.51834,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-6DB88CEAFCF8525A",
+                "E-YL-VH-B1F1BEB50BA4F333"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_to_post_warning": {
+              "label": "PRE_TO_POST_WARNING",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -0.31846,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-6DB88CEAFCF8525A",
+                "E-YL-VH-9C6594BED9C61B2D"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_warning_to_post_warning": {
+              "label": "WARNING_TO_POST_WARNING",
+              "from_utc": "2026-10-22T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -6.8368,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-B1F1BEB50BA4F333",
+                "E-YL-VH-9C6594BED9C61B2D"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "cross_year_early_to_middle_change_difference_db": 2.96189,
+            "evidence_ids": [
+              "E-YL-VH-69A462C85C16A3EF",
+              "E-YL-VH-1EAE84879952A70A",
+              "E-YL-VH-84BB11F51303E1D3",
+              "E-YL-VH-6DB88CEAFCF8525A",
+              "E-YL-VH-B1F1BEB50BA4F333",
+              "E-YL-VH-9C6594BED9C61B2D"
+            ]
+          },
+          {
+            "field_id": "YL-CAND-05",
+            "field_area_m2": 54707.0,
+            "interior_area_m2": 25076.8,
+            "nearest_other_field_m": 3117.9,
+            "distance_to_other_fields_m": {
+              "YL-CAND-01": 4634.1,
+              "YL-CAND-02": 3117.9,
+              "YL-CAND-03": 5656.0,
+              "YL-CAND-04": 5410.2
+            },
+            "crop_label": "UNVERIFIED_FARMLAND_CANDIDATE",
+            "spatial_support": {
+              "min_valid_pixels": 26,
+              "min_interior_pixels": 26,
+              "min_valid_coverage_ratio": 1.0,
+              "threshold_pixels": 8,
+              "threshold_coverage_ratio": 0.8,
+              "assessment": "PASS_WITH_MIXED_PIXEL_AND_NOISE_FLOOR_LIMITATIONS"
+            },
+            "observations": {
+              "2025": [
+                {
+                  "acquisition_utc": "2025-10-08T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-09T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -18.69964,
+                  "vh_mean_db": -19.14786,
+                  "vh_p25_db": -20.76404,
+                  "vh_p75_db": -15.47348,
+                  "valid_pixel_count": 26,
+                  "interior_pixel_count": 26,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-11F0812E6A2832AC",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-10-20T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-10-21T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -17.89051,
+                  "vh_mean_db": -18.3263,
+                  "vh_p25_db": -20.95673,
+                  "vh_p75_db": -14.94601,
+                  "valid_pixel_count": 26,
+                  "interior_pixel_count": 26,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-1B219408543204C0",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2025-11-01T21:51:54+00:00",
+                  "acquisition_taiwan": "2025-11-02T05:51:54+08:00",
+                  "warning_relation": "HISTORICAL_REFERENCE",
+                  "vh_median_db": -18.60272,
+                  "vh_mean_db": -18.60757,
+                  "vh_p25_db": -22.40268,
+                  "vh_p75_db": -14.5975,
+                  "valid_pixel_count": 26,
+                  "interior_pixel_count": 26,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-03A52DA0C77AA889",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ],
+              "2026": [
+                {
+                  "acquisition_utc": "2026-10-10T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-11T05:51:56+08:00",
+                  "warning_relation": "PRE_WARNING",
+                  "vh_median_db": -14.83508,
+                  "vh_mean_db": -15.78421,
+                  "vh_p25_db": -17.5863,
+                  "vh_p75_db": -13.44439,
+                  "valid_pixel_count": 26,
+                  "interior_pixel_count": 26,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-4B1DBA0272D97583",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-10-22T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-10-23T05:51:56+08:00",
+                  "warning_relation": "WARNING_WINDOW",
+                  "vh_median_db": -14.8846,
+                  "vh_mean_db": -15.25416,
+                  "vh_p25_db": -16.7676,
+                  "vh_p75_db": -12.30645,
+                  "valid_pixel_count": 26,
+                  "interior_pixel_count": 26,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-3F13C6EC2BCB1196",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                },
+                {
+                  "acquisition_utc": "2026-11-03T21:51:56+00:00",
+                  "acquisition_taiwan": "2026-11-04T05:51:56+08:00",
+                  "warning_relation": "POST_WARNING",
+                  "vh_median_db": -16.06088,
+                  "vh_mean_db": -16.61437,
+                  "vh_p25_db": -18.03657,
+                  "vh_p75_db": -14.68046,
+                  "valid_pixel_count": 26,
+                  "interior_pixel_count": 26,
+                  "valid_coverage_ratio": 1.0,
+                  "evidence_id": "E-YL-VH-2A0166DE32363DE1",
+                  "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+                  "qa_flags": [
+                    "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+                  ]
+                }
+              ]
+            },
+            "matched_date_pairs": [
+              {
+                "2025_utc": "2025-10-08T21:51:54+00:00",
+                "2026_utc": "2026-10-10T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -18.69964,
+                "2026_vh_median_db": -14.83508,
+                "2026_minus_2025_db": 3.86456,
+                "evidence_ids": [
+                  "E-YL-VH-11F0812E6A2832AC",
+                  "E-YL-VH-4B1DBA0272D97583"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-10-20T21:51:54+00:00",
+                "2026_utc": "2026-10-22T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -17.89051,
+                "2026_vh_median_db": -14.8846,
+                "2026_minus_2025_db": 3.00591,
+                "evidence_ids": [
+                  "E-YL-VH-1B219408543204C0",
+                  "E-YL-VH-3F13C6EC2BCB1196"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              },
+              {
+                "2025_utc": "2025-11-01T21:51:54+00:00",
+                "2026_utc": "2026-11-03T21:51:56+00:00",
+                "calendar_gap_days": 2.0,
+                "2025_vh_median_db": -18.60272,
+                "2026_vh_median_db": -16.06088,
+                "2026_minus_2025_db": 2.54184,
+                "evidence_ids": [
+                  "E-YL-VH-03A52DA0C77AA889",
+                  "E-YL-VH-2A0166DE32363DE1"
+                ],
+                "interpretation": "DESCRIPTIVE_ONLY"
+              }
+            ],
+            "2025_early_to_middle": {
+              "label": "HISTORICAL_EARLY_TO_MIDDLE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-10-20T21:51:54+00:00",
+              "median_difference_db": 0.80913,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-11F0812E6A2832AC",
+                "E-YL-VH-1B219408543204C0"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2025_early_to_late": {
+              "label": "HISTORICAL_EARLY_TO_LATE",
+              "from_utc": "2025-10-08T21:51:54+00:00",
+              "to_utc": "2025-11-01T21:51:54+00:00",
+              "median_difference_db": 0.09692,
+              "direction": "INCREASE",
+              "evidence_ids": [
+                "E-YL-VH-11F0812E6A2832AC",
+                "E-YL-VH-03A52DA0C77AA889"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_warning_change": null,
+            "2026_pre_warning_status": "ONE_OBSERVATION_ONLY",
+            "2026_pre_to_warning_window": {
+              "label": "PRE_TO_WARNING_WINDOW",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-10-22T21:51:56+00:00",
+              "median_difference_db": -0.04952,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-4B1DBA0272D97583",
+                "E-YL-VH-3F13C6EC2BCB1196"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_pre_to_post_warning": {
+              "label": "PRE_TO_POST_WARNING",
+              "from_utc": "2026-10-10T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -1.2258,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-4B1DBA0272D97583",
+                "E-YL-VH-2A0166DE32363DE1"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "2026_warning_to_post_warning": {
+              "label": "WARNING_TO_POST_WARNING",
+              "from_utc": "2026-10-22T21:51:56+00:00",
+              "to_utc": "2026-11-03T21:51:56+00:00",
+              "median_difference_db": -1.17628,
+              "direction": "DECREASE",
+              "evidence_ids": [
+                "E-YL-VH-3F13C6EC2BCB1196",
+                "E-YL-VH-2A0166DE32363DE1"
+              ],
+              "causal_attribution": "UNKNOWN"
+            },
+            "cross_year_early_to_middle_change_difference_db": -0.85865,
+            "evidence_ids": [
+              "E-YL-VH-11F0812E6A2832AC",
+              "E-YL-VH-1B219408543204C0",
+              "E-YL-VH-03A52DA0C77AA889",
+              "E-YL-VH-4B1DBA0272D97583",
+              "E-YL-VH-3F13C6EC2BCB1196",
+              "E-YL-VH-2A0166DE32363DE1"
+            ]
+          }
+        ],
+        "cross_field_pattern": {
+          "pre_to_warning_increase_count": 4,
+          "pre_to_warning_decrease_count": 1,
+          "pre_to_post_increase_count": 2,
+          "pre_to_post_decrease_count": 3,
+          "spatial_adjacency_threshold_m": 1000,
+          "shared_response_is_causal_evidence": false
+        },
+        "event_reference": {
+          "kind": "CWA_LAND_WARNING_NOT_FIELD_IMPACT_TIME",
+          "start_taiwan": "2026-10-22T11:30:00+08:00",
+          "end_taiwan": "2026-10-24T14:30:00+08:00",
+          "middle_scene_utc": "2026-10-22T21:51:56+00:00",
+          "middle_scene_taiwan": "2026-10-23T05:51:56+08:00",
+          "middle_scene_relation": "WARNING_WINDOW"
+        },
+        "scientific_limits": [
+          "Three dates per year do not establish a calibrated anomaly probability.",
+          "One 2026 observation precedes the land warning; a strictly pre-warning change is unavailable.",
+          "The October 22 UTC scene is October 23 local, inside the warning window.",
+          "Warning time does not establish field-level impact time or damage.",
+          "Thirty-meter VH field medians may contain mixed-pixel effects.",
+          "Noise correction is tagged in the source, but a local noise-floor margin is not quantified.",
+          "Crop type and harvest records are unverified."
+        ],
+        "source": "NASA OPERA RTC-S1 VH linear gamma0 COGs",
+        "input_csv_sha256": "114a5300516e3ad94bd283ab324f43d69f2e55bfe8aabf2eb6e05d8fa25fd2b1",
+        "pixel_reverification": {
+          "status": "PASS",
+          "reextracted_field_scene_count": 30,
+          "raster_scene_count": 6,
+          "evidence_ids": [
+            "E-YL-VH-113C4261408E20EA",
+            "E-YL-VH-8CC4506B1A45672C",
+            "E-YL-VH-BBC6C8A62173DF2B",
+            "E-YL-VH-8A273ECF43F7941A",
+            "E-YL-VH-FE48DFEF9B16528A",
+            "E-YL-VH-F8E369E5764FB36C",
+            "E-YL-VH-121FEA66285A0B3F",
+            "E-YL-VH-254AD7DF18EAF935",
+            "E-YL-VH-5F4A38B864D534FE",
+            "E-YL-VH-78019EFC766B23B1",
+            "E-YL-VH-2EEA81FB3ABDE27C",
+            "E-YL-VH-CC5A71527E1AF4BD",
+            "E-YL-VH-B4B01BD14B15A20B",
+            "E-YL-VH-EF74BEB8A75EF3FC",
+            "E-YL-VH-48F96544E41CB940",
+            "E-YL-VH-E9D477B3D655BD70",
+            "E-YL-VH-ACCE25C45363C48B",
+            "E-YL-VH-42C4899A3A2B27BA",
+            "E-YL-VH-69A462C85C16A3EF",
+            "E-YL-VH-1EAE84879952A70A",
+            "E-YL-VH-84BB11F51303E1D3",
+            "E-YL-VH-6DB88CEAFCF8525A",
+            "E-YL-VH-B1F1BEB50BA4F333",
+            "E-YL-VH-9C6594BED9C61B2D",
+            "E-YL-VH-11F0812E6A2832AC",
+            "E-YL-VH-1B219408543204C0",
+            "E-YL-VH-03A52DA0C77AA889",
+            "E-YL-VH-4B1DBA0272D97583",
+            "E-YL-VH-3F13C6EC2BCB1196",
+            "E-YL-VH-2A0166DE32363DE1"
+          ],
+          "source_scene_qa": [
+            {
+              "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+              "vh_sha256": "6cfc01875c279b25753821a017677b0cc009d7eea43395542088d4c1af70a1ec",
+              "mask_sha256": "62daaf7ea503f71362b62f810cab8f7d1ad2585eb6a59002b69ad9b2e4a53d36",
+              "crs": "EPSG:32651",
+              "pixel_size_m": [
+                30.0,
+                30.0
+              ],
+              "vh_nodata": "nan",
+              "mask_nodata": "255.0",
+              "noise_correction_applied_tag": "True",
+              "local_noise_floor_margin_db": null
+            },
+            {
+              "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+              "vh_sha256": "4e552710092b31d638f9fa9d02ad06deb33ff44947da5665abea92aad05f95cb",
+              "mask_sha256": "a81ed25eb95a5d26460bf0d54b54cfaaa7e142ffd21d5b8f0abe7cef9c659454",
+              "crs": "EPSG:32651",
+              "pixel_size_m": [
+                30.0,
+                30.0
+              ],
+              "vh_nodata": "nan",
+              "mask_nodata": "255.0",
+              "noise_correction_applied_tag": "True",
+              "local_noise_floor_margin_db": null
+            },
+            {
+              "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+              "vh_sha256": "bfe3c016228cb17c7265e11e3b189dfb2b2190e2a504c8ca2f650537fc9a82a8",
+              "mask_sha256": "876c111950eec30b1cf8d25f2b727da2b21f8b818795c46cf1b33992a8b7729d",
+              "crs": "EPSG:32651",
+              "pixel_size_m": [
+                30.0,
+                30.0
+              ],
+              "vh_nodata": "nan",
+              "mask_nodata": "255.0",
+              "noise_correction_applied_tag": "True",
+              "local_noise_floor_margin_db": null
+            },
+            {
+              "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+              "vh_sha256": "8bd0cfc981fa7cfeac36f23d60de46de032115c0eb210600adc9390dad11d901",
+              "mask_sha256": "a73953df4a570c61980d2afc8e5a00bdc8fd355f6fde0a4da6fc097b0323d8ac",
+              "crs": "EPSG:32651",
+              "pixel_size_m": [
+                30.0,
+                30.0
+              ],
+              "vh_nodata": "nan",
+              "mask_nodata": "255.0",
+              "noise_correction_applied_tag": "True",
+              "local_noise_floor_margin_db": null
+            },
+            {
+              "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+              "vh_sha256": "e19d4674835ee9174afb99b171c24f2de8222e0266d270c8fc66779e5bc49d6c",
+              "mask_sha256": "6e85a5e1e39014cf4abf7e7607b566925a4b5b2a822827a4707aec2679e64184",
+              "crs": "EPSG:32651",
+              "pixel_size_m": [
+                30.0,
+                30.0
+              ],
+              "vh_nodata": "nan",
+              "mask_nodata": "255.0",
+              "noise_correction_applied_tag": "True",
+              "local_noise_floor_margin_db": null
+            },
+            {
+              "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+              "vh_sha256": "f3a7c227da82ecad38e6e1edab859c9b4ae6bcc2e0f889177546f4c7d690a952",
+              "mask_sha256": "7b1462b1ff88645e6995c1e9115036e82a325f782605b6ff81af8b1ad4db1577",
+              "crs": "EPSG:32651",
+              "pixel_size_m": [
+                30.0,
+                30.0
+              ],
+              "vh_nodata": "nan",
+              "mask_nodata": "255.0",
+              "noise_correction_applied_tag": "True",
+              "local_noise_floor_margin_db": null
+            }
+          ],
+          "checks": [
+            "VH and mask SHA-256",
+            "OPERA linear gamma0 processing tags",
+            "VH/mask CRS grid and 30 m alignment",
+            "mask 0 valid / 255 fill",
+            "35 m buffered field interior pixel centers",
+            "positive finite power to 10log10 dB",
+            "CSV medians, means, quartiles, pixel counts and Evidence IDs"
+          ]
+        },
+        "evidence_ids": [
+          "E-YL-VH-113C4261408E20EA",
+          "E-YL-VH-8CC4506B1A45672C",
+          "E-YL-VH-BBC6C8A62173DF2B",
+          "E-YL-VH-8A273ECF43F7941A",
+          "E-YL-VH-FE48DFEF9B16528A",
+          "E-YL-VH-F8E369E5764FB36C",
+          "E-YL-VH-121FEA66285A0B3F",
+          "E-YL-VH-254AD7DF18EAF935",
+          "E-YL-VH-5F4A38B864D534FE",
+          "E-YL-VH-78019EFC766B23B1",
+          "E-YL-VH-2EEA81FB3ABDE27C",
+          "E-YL-VH-CC5A71527E1AF4BD",
+          "E-YL-VH-B4B01BD14B15A20B",
+          "E-YL-VH-EF74BEB8A75EF3FC",
+          "E-YL-VH-48F96544E41CB940",
+          "E-YL-VH-E9D477B3D655BD70",
+          "E-YL-VH-ACCE25C45363C48B",
+          "E-YL-VH-42C4899A3A2B27BA",
+          "E-YL-VH-69A462C85C16A3EF",
+          "E-YL-VH-1EAE84879952A70A",
+          "E-YL-VH-84BB11F51303E1D3",
+          "E-YL-VH-6DB88CEAFCF8525A",
+          "E-YL-VH-B1F1BEB50BA4F333",
+          "E-YL-VH-9C6594BED9C61B2D",
+          "E-YL-VH-11F0812E6A2832AC",
+          "E-YL-VH-1B219408543204C0",
+          "E-YL-VH-03A52DA0C77AA889",
+          "E-YL-VH-4B1DBA0272D97583",
+          "E-YL-VH-3F13C6EC2BCB1196",
+          "E-YL-VH-2A0166DE32363DE1"
+        ],
+        "causation": "UNKNOWN"
+      }
+    },
+    {
+      "step": 24,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-CHAMPI-MOA-20261106"
+    },
+    {
+      "step": 25,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-CHAMPI-NLSC-TAIXI"
+    },
+    {
+      "step": 26,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-CHAMPI-NISAR-TAIXI-PRE"
+    },
+    {
+      "step": 27,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-CHAMPI-NISAR-TAIXI-POST"
+    },
+    {
+      "step": 28,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-CHAMPI-ASF-CROSS-CRID"
+    },
+    {
+      "step": 29,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-CHAMPI-S1-TAIXI-PRE"
+    },
+    {
+      "step": 30,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-CHAMPI-S1-TAIXI-POST"
+    },
+    {
+      "step": 31,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-113C4261408E20EA"
+    },
+    {
+      "step": 32,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-8CC4506B1A45672C"
+    },
+    {
+      "step": 33,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-BBC6C8A62173DF2B"
+    },
+    {
+      "step": 34,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-8A273ECF43F7941A"
+    },
+    {
+      "step": 35,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-FE48DFEF9B16528A"
+    },
+    {
+      "step": 36,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-F8E369E5764FB36C"
+    },
+    {
+      "step": 37,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-121FEA66285A0B3F"
+    },
+    {
+      "step": 38,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-254AD7DF18EAF935"
+    },
+    {
+      "step": 39,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-5F4A38B864D534FE"
+    },
+    {
+      "step": 40,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-78019EFC766B23B1"
+    },
+    {
+      "step": 41,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-2EEA81FB3ABDE27C"
+    },
+    {
+      "step": 42,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-CC5A71527E1AF4BD"
+    },
+    {
+      "step": 43,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-B4B01BD14B15A20B"
+    },
+    {
+      "step": 44,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-EF74BEB8A75EF3FC"
+    },
+    {
+      "step": 45,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-48F96544E41CB940"
+    },
+    {
+      "step": 46,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-E9D477B3D655BD70"
+    },
+    {
+      "step": 47,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-ACCE25C45363C48B"
+    },
+    {
+      "step": 48,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-42C4899A3A2B27BA"
+    },
+    {
+      "step": 49,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-69A462C85C16A3EF"
+    },
+    {
+      "step": 50,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-1EAE84879952A70A"
+    },
+    {
+      "step": 51,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-84BB11F51303E1D3"
+    },
+    {
+      "step": 52,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-6DB88CEAFCF8525A"
+    },
+    {
+      "step": 53,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-B1F1BEB50BA4F333"
+    },
+    {
+      "step": 54,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-9C6594BED9C61B2D"
+    },
+    {
+      "step": 55,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-11F0812E6A2832AC"
+    },
+    {
+      "step": 56,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-1B219408543204C0"
+    },
+    {
+      "step": 57,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-03A52DA0C77AA889"
+    },
+    {
+      "step": 58,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-4B1DBA0272D97583"
+    },
+    {
+      "step": 59,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-3F13C6EC2BCB1196"
+    },
+    {
+      "step": 60,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "evidence",
+      "tool": "register_source_evidence",
+      "status": "verified",
+      "source_references": [],
+      "evidence_id": "E-YL-VH-2A0166DE32363DE1"
+    },
+    {
+      "step": 61,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "test",
+      "tool": "genuine_post_event_observation",
+      "status": "PASS",
+      "source_references": [
+        "E-CHAMPI-NISAR-TAIXI-POST"
+      ],
+      "result": "October 28 NISAR acquisition follows the October 23–24 event window."
+    },
+    {
+      "step": 62,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "test",
+      "tool": "cross_crid_radiometric_compatibility",
+      "status": "FAIL",
+      "source_references": [
+        "E-CHAMPI-NISAR-TAIXI-PRE",
+        "E-CHAMPI-NISAR-TAIXI-POST",
+        "E-CHAMPI-ASF-CROSS-CRID"
+      ],
+      "result": "P05023 provisional and P05036 validated are not independently established as radiometrically equivalent."
+    },
+    {
+      "step": 63,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "test",
+      "tool": "official_loss_to_parcel_attribution",
+      "status": "FAIL",
+      "source_references": [
+        "E-CHAMPI-MOA-20261106"
+      ],
+      "result": "The Ministry reports county-level losses, with no parcel-level labels."
+    },
+    {
+      "step": 64,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "test",
+      "tool": "vh_event_bracketing",
+      "status": "PASS",
+      "source_references": [
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-F8E369E5764FB36C"
+      ],
+      "result": "Real Sentinel-1 VH acquisitions bracket the event on one platform/orbit/processing convention."
+    },
+    {
+      "step": 65,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "test",
+      "tool": "vh_unique_event_signature_falsification",
+      "status": "FAIL_UNIQUENESS_CLAIM",
+      "source_references": [
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B",
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-FE48DFEF9B16528A",
+        "E-YL-VH-F8E369E5764FB36C"
+      ],
+      "result": "A mid-season VH peak followed by decline also occurs in the 2025 same-orbit series; this challenges uniqueness, not whether the typhoon had an effect."
+    },
+    {
+      "step": 66,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "test",
+      "tool": "vh_five_field_common_change",
+      "status": "DESCRIPTIVE_MIXED",
+      "source_references": [
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B",
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-FE48DFEF9B16528A",
+        "E-YL-VH-F8E369E5764FB36C",
+        "E-YL-VH-121FEA66285A0B3F",
+        "E-YL-VH-254AD7DF18EAF935",
+        "E-YL-VH-5F4A38B864D534FE",
+        "E-YL-VH-78019EFC766B23B1",
+        "E-YL-VH-2EEA81FB3ABDE27C",
+        "E-YL-VH-CC5A71527E1AF4BD",
+        "E-YL-VH-B4B01BD14B15A20B",
+        "E-YL-VH-EF74BEB8A75EF3FC",
+        "E-YL-VH-48F96544E41CB940",
+        "E-YL-VH-E9D477B3D655BD70",
+        "E-YL-VH-ACCE25C45363C48B",
+        "E-YL-VH-42C4899A3A2B27BA",
+        "E-YL-VH-69A462C85C16A3EF",
+        "E-YL-VH-1EAE84879952A70A",
+        "E-YL-VH-84BB11F51303E1D3",
+        "E-YL-VH-6DB88CEAFCF8525A",
+        "E-YL-VH-B1F1BEB50BA4F333",
+        "E-YL-VH-9C6594BED9C61B2D",
+        "E-YL-VH-11F0812E6A2832AC",
+        "E-YL-VH-1B219408543204C0",
+        "E-YL-VH-03A52DA0C77AA889",
+        "E-YL-VH-4B1DBA0272D97583",
+        "E-YL-VH-3F13C6EC2BCB1196",
+        "E-YL-VH-2A0166DE32363DE1"
+      ],
+      "result": "4/5 fields increased from the pre-warning observation to the warning-window observation; this is a shared temporal signal, not proof of a common cause."
+    },
+    {
+      "step": 67,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "test",
+      "tool": "vh_strict_pre_warning_change",
+      "status": "NOT_TESTABLE",
+      "source_references": [
+        "E-YL-VH-8A273ECF43F7941A"
+      ],
+      "result": "Only one 2026 acquisition precedes the land warning in each field."
+    },
+    {
+      "step": 68,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "hypothesis",
+      "tool": "harvesting",
+      "status": "NOT_TESTED",
+      "source_references": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "step": 69,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "hypothesis",
+      "tool": "field_preparation",
+      "status": "NOT_TESTED",
+      "source_references": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "step": 70,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "hypothesis",
+      "tool": "moisture",
+      "status": "NOT_TESTED",
+      "source_references": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "step": 71,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "hypothesis",
+      "tool": "storm_disturbance",
+      "status": "INCONCLUSIVE",
+      "source_references": [],
+      "proposed_by_gemini": true
+    },
+    {
+      "step": 72,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "hypothesis",
+      "tool": "observation_processing",
+      "status": "INCONCLUSIVE",
+      "source_references": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "step": 73,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "validation",
+      "tool": "deterministic_evidence_guard",
+      "status": "complete",
+      "source_references": [
+        "E-CHAMPI-MOA-20261106",
+        "E-CHAMPI-NLSC-TAIXI",
+        "E-CHAMPI-NISAR-TAIXI-PRE",
+        "E-CHAMPI-NISAR-TAIXI-POST",
+        "E-CHAMPI-ASF-CROSS-CRID",
+        "E-CHAMPI-S1-TAIXI-PRE",
+        "E-CHAMPI-S1-TAIXI-POST",
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B",
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-FE48DFEF9B16528A",
+        "E-YL-VH-F8E369E5764FB36C",
+        "E-YL-VH-121FEA66285A0B3F",
+        "E-YL-VH-254AD7DF18EAF935",
+        "E-YL-VH-5F4A38B864D534FE",
+        "E-YL-VH-78019EFC766B23B1",
+        "E-YL-VH-2EEA81FB3ABDE27C",
+        "E-YL-VH-CC5A71527E1AF4BD",
+        "E-YL-VH-B4B01BD14B15A20B",
+        "E-YL-VH-EF74BEB8A75EF3FC",
+        "E-YL-VH-48F96544E41CB940",
+        "E-YL-VH-E9D477B3D655BD70",
+        "E-YL-VH-ACCE25C45363C48B",
+        "E-YL-VH-42C4899A3A2B27BA",
+        "E-YL-VH-69A462C85C16A3EF",
+        "E-YL-VH-1EAE84879952A70A",
+        "E-YL-VH-84BB11F51303E1D3",
+        "E-YL-VH-6DB88CEAFCF8525A",
+        "E-YL-VH-B1F1BEB50BA4F333",
+        "E-YL-VH-9C6594BED9C61B2D",
+        "E-YL-VH-11F0812E6A2832AC",
+        "E-YL-VH-1B219408543204C0",
+        "E-YL-VH-03A52DA0C77AA889",
+        "E-YL-VH-4B1DBA0272D97583",
+        "E-YL-VH-3F13C6EC2BCB1196",
+        "E-YL-VH-2A0166DE32363DE1"
+      ],
+      "confirmed_parcel_damage": false,
+      "verified_radiometric_delta": false
+    },
+    {
+      "step": 74,
+      "timestamp_utc": "2026-11-14T14:38:27.205762+00:00",
+      "kind": "final_recommendation",
+      "tool": "evidence_to_action_planner",
+      "status": "complete",
+      "source_references": [
+        "E-CHAMPI-MOA-20261106",
+        "E-CHAMPI-NLSC-TAIXI",
+        "E-CHAMPI-NISAR-TAIXI-PRE",
+        "E-CHAMPI-NISAR-TAIXI-POST",
+        "E-CHAMPI-ASF-CROSS-CRID",
+        "E-CHAMPI-S1-TAIXI-PRE",
+        "E-CHAMPI-S1-TAIXI-POST",
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B",
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-FE48DFEF9B16528A",
+        "E-YL-VH-F8E369E5764FB36C",
+        "E-YL-VH-121FEA66285A0B3F",
+        "E-YL-VH-254AD7DF18EAF935",
+        "E-YL-VH-5F4A38B864D534FE",
+        "E-YL-VH-78019EFC766B23B1",
+        "E-YL-VH-2EEA81FB3ABDE27C",
+        "E-YL-VH-CC5A71527E1AF4BD",
+        "E-YL-VH-B4B01BD14B15A20B",
+        "E-YL-VH-EF74BEB8A75EF3FC",
+        "E-YL-VH-48F96544E41CB940",
+        "E-YL-VH-E9D477B3D655BD70",
+        "E-YL-VH-ACCE25C45363C48B",
+        "E-YL-VH-42C4899A3A2B27BA",
+        "E-YL-VH-69A462C85C16A3EF",
+        "E-YL-VH-1EAE84879952A70A",
+        "E-YL-VH-84BB11F51303E1D3",
+        "E-YL-VH-6DB88CEAFCF8525A",
+        "E-YL-VH-B1F1BEB50BA4F333",
+        "E-YL-VH-9C6594BED9C61B2D",
+        "E-YL-VH-11F0812E6A2832AC",
+        "E-YL-VH-1B219408543204C0",
+        "E-YL-VH-03A52DA0C77AA889",
+        "E-YL-VH-4B1DBA0272D97583",
+        "E-YL-VH-3F13C6EC2BCB1196",
+        "E-YL-VH-2A0166DE32363DE1"
+      ],
+      "recommendation": "Inspect the five official farmland candidates with crop/harvest records and field survey; use the observed Sentinel-1 VH series for prioritization only, and wait for same-CRID NISAR reprocessing before NISAR delta claims."
+    }
+  ],
+  "hypothesis_tests": [
+    {
+      "test_id": "genuine_post_event_observation",
+      "status": "PASS",
+      "result": "October 28 NISAR acquisition follows the October 23–24 event window.",
+      "evidence_ids": [
+        "E-CHAMPI-NISAR-TAIXI-POST"
+      ]
+    },
+    {
+      "test_id": "cross_crid_radiometric_compatibility",
+      "status": "FAIL",
+      "result": "P05023 provisional and P05036 validated are not independently established as radiometrically equivalent.",
+      "evidence_ids": [
+        "E-CHAMPI-NISAR-TAIXI-PRE",
+        "E-CHAMPI-NISAR-TAIXI-POST",
+        "E-CHAMPI-ASF-CROSS-CRID"
+      ]
+    },
+    {
+      "test_id": "official_loss_to_parcel_attribution",
+      "status": "FAIL",
+      "result": "The Ministry reports county-level losses, with no parcel-level labels.",
+      "evidence_ids": [
+        "E-CHAMPI-MOA-20261106"
+      ]
+    },
+    {
+      "test_id": "vh_event_bracketing",
+      "status": "PASS",
+      "result": "Real Sentinel-1 VH acquisitions bracket the event on one platform/orbit/processing convention.",
+      "evidence_ids": [
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-F8E369E5764FB36C"
+      ]
+    },
+    {
+      "test_id": "vh_unique_event_signature_falsification",
+      "status": "FAIL_UNIQUENESS_CLAIM",
+      "result": "A mid-season VH peak followed by decline also occurs in the 2025 same-orbit series; this challenges uniqueness, not whether the typhoon had an effect.",
+      "evidence_ids": [
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B",
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-FE48DFEF9B16528A",
+        "E-YL-VH-F8E369E5764FB36C"
+      ]
+    },
+    {
+      "test_id": "vh_five_field_common_change",
+      "status": "DESCRIPTIVE_MIXED",
+      "result": "4/5 fields increased from the pre-warning observation to the warning-window observation; this is a shared temporal signal, not proof of a common cause.",
+      "evidence_ids": [
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B",
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-FE48DFEF9B16528A",
+        "E-YL-VH-F8E369E5764FB36C",
+        "E-YL-VH-121FEA66285A0B3F",
+        "E-YL-VH-254AD7DF18EAF935",
+        "E-YL-VH-5F4A38B864D534FE",
+        "E-YL-VH-78019EFC766B23B1",
+        "E-YL-VH-2EEA81FB3ABDE27C",
+        "E-YL-VH-CC5A71527E1AF4BD",
+        "E-YL-VH-B4B01BD14B15A20B",
+        "E-YL-VH-EF74BEB8A75EF3FC",
+        "E-YL-VH-48F96544E41CB940",
+        "E-YL-VH-E9D477B3D655BD70",
+        "E-YL-VH-ACCE25C45363C48B",
+        "E-YL-VH-42C4899A3A2B27BA",
+        "E-YL-VH-69A462C85C16A3EF",
+        "E-YL-VH-1EAE84879952A70A",
+        "E-YL-VH-84BB11F51303E1D3",
+        "E-YL-VH-6DB88CEAFCF8525A",
+        "E-YL-VH-B1F1BEB50BA4F333",
+        "E-YL-VH-9C6594BED9C61B2D",
+        "E-YL-VH-11F0812E6A2832AC",
+        "E-YL-VH-1B219408543204C0",
+        "E-YL-VH-03A52DA0C77AA889",
+        "E-YL-VH-4B1DBA0272D97583",
+        "E-YL-VH-3F13C6EC2BCB1196",
+        "E-YL-VH-2A0166DE32363DE1"
+      ]
+    },
+    {
+      "test_id": "vh_strict_pre_warning_change",
+      "status": "NOT_TESTABLE",
+      "result": "Only one 2026 acquisition precedes the land warning in each field.",
+      "evidence_ids": [
+        "E-YL-VH-8A273ECF43F7941A"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "harvesting",
+      "statement": "Harvesting may alter field radar return.",
+      "status": "UNRESOLVED",
+      "test_status": "NOT_TESTED",
+      "falsification_check": "Crop records or independent field observations are required to test this cause.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "hypothesis_id": "field_preparation",
+      "statement": "Field preparation may alter roughness or cover.",
+      "status": "UNRESOLVED",
+      "test_status": "NOT_TESTED",
+      "falsification_check": "Crop records or independent field observations are required to test this cause.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "hypothesis_id": "moisture",
+      "statement": "Moisture may alter radar return.",
+      "status": "UNRESOLVED",
+      "test_status": "NOT_TESTED",
+      "falsification_check": "Crop records or independent field observations are required to test this cause.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "hypothesis_id": "storm_disturbance",
+      "statement": "Typhoon-related disturbance may alter vegetation or surface conditions.",
+      "status": "UNRESOLVED",
+      "test_status": "INCONCLUSIVE",
+      "falsification_check": "A matched 2025 VH pattern was checked; a recurring peak/decline challenges uniqueness but cannot rule out storm effects.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B"
+      ],
+      "proposed_by_gemini": true
+    },
+    {
+      "hypothesis_id": "observation_processing",
+      "statement": "Different processing versions or geometry may affect comparison.",
+      "status": "UNRESOLVED",
+      "test_status": "INCONCLUSIVE",
+      "falsification_check": "Cross-CRID compatibility check executed; mismatch leaves processing as a plausible confound.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    }
+  ],
+  "evidence_ids": [
+    "E-CHAMPI-MOA-20261106",
+    "E-CHAMPI-NLSC-TAIXI",
+    "E-CHAMPI-NISAR-TAIXI-PRE",
+    "E-CHAMPI-NISAR-TAIXI-POST",
+    "E-CHAMPI-ASF-CROSS-CRID",
+    "E-CHAMPI-S1-TAIXI-PRE",
+    "E-CHAMPI-S1-TAIXI-POST",
+    "E-YL-VH-113C4261408E20EA",
+    "E-YL-VH-8CC4506B1A45672C",
+    "E-YL-VH-BBC6C8A62173DF2B",
+    "E-YL-VH-8A273ECF43F7941A",
+    "E-YL-VH-FE48DFEF9B16528A",
+    "E-YL-VH-F8E369E5764FB36C",
+    "E-YL-VH-121FEA66285A0B3F",
+    "E-YL-VH-254AD7DF18EAF935",
+    "E-YL-VH-5F4A38B864D534FE",
+    "E-YL-VH-78019EFC766B23B1",
+    "E-YL-VH-2EEA81FB3ABDE27C",
+    "E-YL-VH-CC5A71527E1AF4BD",
+    "E-YL-VH-B4B01BD14B15A20B",
+    "E-YL-VH-EF74BEB8A75EF3FC",
+    "E-YL-VH-48F96544E41CB940",
+    "E-YL-VH-E9D477B3D655BD70",
+    "E-YL-VH-ACCE25C45363C48B",
+    "E-YL-VH-42C4899A3A2B27BA",
+    "E-YL-VH-69A462C85C16A3EF",
+    "E-YL-VH-1EAE84879952A70A",
+    "E-YL-VH-84BB11F51303E1D3",
+    "E-YL-VH-6DB88CEAFCF8525A",
+    "E-YL-VH-B1F1BEB50BA4F333",
+    "E-YL-VH-9C6594BED9C61B2D",
+    "E-YL-VH-11F0812E6A2832AC",
+    "E-YL-VH-1B219408543204C0",
+    "E-YL-VH-03A52DA0C77AA889",
+    "E-YL-VH-4B1DBA0272D97583",
+    "E-YL-VH-3F13C6EC2BCB1196",
+    "E-YL-VH-2A0166DE32363DE1"
+  ],
+  "parcel_damage_status": "UNKNOWN"
+}

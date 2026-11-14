@@ -1,0 +1,109 @@
+{
+  "case_id": "CHAMPI-YUNLIN-TAIXI",
+  "aoi_id": "10009160",
+  "aoi_kind": "ADMINISTRATIVE_TOWNSHIP_NOT_FIELD",
+  "status": "SEPARATE_OBSERVATIONS_ONLY",
+  "cross_crid_radiometric_equivalence_verified": false,
+  "verified_typhoon_delta_allowed": false,
+  "display_method": "Independent p05/p95 stretch per scene and polarization; transparent nonfinite pixels; not a quantitative cross-date comparison",
+  "scenes": [
+    {
+      "period": "PRE",
+      "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+      "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+      "crid": "P05023",
+      "product_maturity": "PROVISIONAL",
+      "crs": "EPSG:32651",
+      "grid_shape": [
+        591,
+        530
+      ],
+      "source_sha256": "0cd7a30cd871e4192f7b8810216c766960e44acaf85fd81e71eed6e008cdbc23",
+      "coordinates": [
+        [
+          120.13888505545845,
+          23.762969606490373
+        ],
+        [
+          120.24278732403062,
+          23.764860519602106
+        ],
+        [
+          120.24502946356351,
+          23.658218958463408
+        ],
+        [
+          120.14121141170796,
+          23.65633754548637
+        ]
+      ],
+      "layers": {
+        "HH": {
+          "image": "nisar_pre_hh_map.png",
+          "valid_pixels": 173852,
+          "display_stretch_db": [
+            -11.917412614822387,
+            3.4755808711051754
+          ]
+        },
+        "HV": {
+          "image": "nisar_pre_hv_map.png",
+          "valid_pixels": 173852,
+          "display_stretch_db": [
+            -24.29197540283203,
+            -11.357767963409426
+          ]
+        }
+      }
+    },
+    {
+      "period": "POST",
+      "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+      "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+      "crid": "P05036",
+      "product_maturity": "VALIDATED",
+      "crs": "EPSG:32651",
+      "grid_shape": [
+        591,
+        530
+      ],
+      "source_sha256": "b7448e60566404bbcf07e48e475a6535f348059157b821fb4c9e81ad86e3f00e",
+      "coordinates": [
+        [
+          120.13888505545845,
+          23.762969606490373
+        ],
+        [
+          120.24278732403062,
+          23.764860519602106
+        ],
+        [
+          120.24502946356351,
+          23.658218958463408
+        ],
+        [
+          120.14121141170796,
+          23.65633754548637
+        ]
+      ],
+      "layers": {
+        "HH": {
+          "image": "nisar_post_hh_map.png",
+          "valid_pixels": 110287,
+          "display_stretch_db": [
+            -12.29493408203125,
+            1.6084714531898487
+          ]
+        },
+        "HV": {
+          "image": "nisar_post_hv_map.png",
+          "valid_pixels": 110287,
+          "display_stretch_db": [
+            -22.47246971130371,
+            -10.321939277648926
+          ]
+        }
+      }
+    }
+  ]
+}

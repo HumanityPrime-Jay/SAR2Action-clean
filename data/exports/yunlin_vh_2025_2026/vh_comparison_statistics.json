@@ -1,0 +1,9 @@
+{
+  "status": "NOT_COMPUTED",
+  "verified_field_count": 0,
+  "scene_counts": {"2025": 0, "2026": 0},
+  "scene_count_meaning": "No qualifying field-intersecting scenes were retrieved; these are not catalog scene counts.",
+  "field_statistics": [],
+  "temporal_pairing_tolerance_days": null,
+  "typhoon_attribution": "NOT_ASSESSED"
+}

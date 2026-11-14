@@ -1,0 +1,36 @@
+{
+  "name": "sar2action-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "predev": "python scripts/sync_studio_assets.py",
+    "dev": "vite --port 5173",
+    "prebuild": "python scripts/sync_studio_assets.py",
+    "build": "tsc -b && vite build",
+    "pretest": "python scripts/sync_studio_assets.py",
+    "preview": "vite preview --port 5173",
+    "test": "vitest run",
+    "test:e2e": "playwright test --config=playwright.config.ts"
+  },
+  "dependencies": {
+    "maplibre-gl": "6.18.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "6.3.0",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.6.3",
+    "vite": "8.3.8",
+    "vitest": "5.1.0"
+  },
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  }
+}

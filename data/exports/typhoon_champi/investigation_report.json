@@ -1,0 +1,555 @@
+{
+  "case_id": "CHAMPI-YUNLIN-TAIXI",
+  "aoi_id": "10009160",
+  "investigation_id": "e886b9f8-f949-4bbd-a3df-01a1b4ced1aa",
+  "question": "Did agricultural radar observations in Taixi change after Typhoon Champi, and how does the 2026 VH series compare with 2025?",
+  "data_mode": "REAL_NISAR_SEPARATE_AND_OPERA_VH_OBSERVED",
+  "observation_timeline": [
+    {
+      "mission": "NISAR",
+      "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+      "relation_to_event": "PRE_EVENT",
+      "product_maturity": "PROVISIONAL",
+      "crid": "P05023",
+      "valid_pixels": 173852,
+      "evidence_id": "E-CHAMPI-NISAR-TAIXI-PRE"
+    },
+    {
+      "mission": "NISAR",
+      "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+      "relation_to_event": "POST_EVENT",
+      "product_maturity": "VALIDATED",
+      "crid": "P05036",
+      "valid_pixels": 110287,
+      "evidence_id": "E-CHAMPI-NISAR-TAIXI-POST"
+    },
+    {
+      "mission": "Sentinel-1",
+      "acquisition_start_utc": "2026-10-14T10:00:29.006266Z",
+      "relation_to_event": "PRE_EVENT",
+      "product_maturity": "CATALOG_METADATA_ONLY",
+      "crid": null,
+      "valid_pixels": null,
+      "raster_available": false,
+      "evidence_id": "E-CHAMPI-S1-TAIXI-PRE"
+    },
+    {
+      "mission": "Sentinel-1",
+      "acquisition_start_utc": "2026-10-26T10:00:29.066468Z",
+      "relation_to_event": "POST_EVENT",
+      "product_maturity": "CATALOG_METADATA_ONLY",
+      "crid": null,
+      "valid_pixels": null,
+      "raster_available": false,
+      "evidence_id": "E-CHAMPI-S1-TAIXI-POST"
+    },
+    {
+      "mission": "Sentinel-1/OPERA",
+      "acquisition_start_utc": "2025-10-08T21:51:54+00:00",
+      "relation_to_event": "HISTORICAL_REFERENCE",
+      "product_maturity": "RTC-S1_V1.0",
+      "crid": null,
+      "valid_pixels": 60,
+      "raster_available": true,
+      "field_id": "YL-CAND-01",
+      "evidence_id": "E-YL-VH-113C4261408E20EA"
+    },
+    {
+      "mission": "Sentinel-1/OPERA",
+      "acquisition_start_utc": "2025-10-20T21:51:54+00:00",
+      "relation_to_event": "HISTORICAL_REFERENCE",
+      "product_maturity": "RTC-S1_V1.0",
+      "crid": null,
+      "valid_pixels": 60,
+      "raster_available": true,
+      "field_id": "YL-CAND-01",
+      "evidence_id": "E-YL-VH-8CC4506B1A45672C"
+    },
+    {
+      "mission": "Sentinel-1/OPERA",
+      "acquisition_start_utc": "2025-11-01T21:51:54+00:00",
+      "relation_to_event": "HISTORICAL_REFERENCE",
+      "product_maturity": "RTC-S1_V1.0",
+      "crid": null,
+      "valid_pixels": 60,
+      "raster_available": true,
+      "field_id": "YL-CAND-01",
+      "evidence_id": "E-YL-VH-BBC6C8A62173DF2B"
+    },
+    {
+      "mission": "Sentinel-1/OPERA",
+      "acquisition_start_utc": "2026-10-10T21:51:56+00:00",
+      "relation_to_event": "PRE_EVENT",
+      "product_maturity": "RTC-S1_V1.0",
+      "crid": null,
+      "valid_pixels": 60,
+      "raster_available": true,
+      "field_id": "YL-CAND-01",
+      "evidence_id": "E-YL-VH-8A273ECF43F7941A"
+    },
+    {
+      "mission": "Sentinel-1/OPERA",
+      "acquisition_start_utc": "2026-10-22T21:51:56+00:00",
+      "relation_to_event": "EVENT_WINDOW",
+      "product_maturity": "RTC-S1_V1.0",
+      "crid": null,
+      "valid_pixels": 60,
+      "raster_available": true,
+      "field_id": "YL-CAND-01",
+      "evidence_id": "E-YL-VH-FE48DFEF9B16528A"
+    },
+    {
+      "mission": "Sentinel-1/OPERA",
+      "acquisition_start_utc": "2026-11-03T21:51:56+00:00",
+      "relation_to_event": "POST_EVENT",
+      "product_maturity": "RTC-S1_V1.0",
+      "crid": null,
+      "valid_pixels": 60,
+      "raster_available": true,
+      "field_id": "YL-CAND-01",
+      "evidence_id": "E-YL-VH-F8E369E5764FB36C"
+    }
+  ],
+  "observation_statistics": {
+    "PRE": {
+      "HH_gamma0_db": {
+        "min": -20.56965446472168,
+        "p05": -11.917412614822387,
+        "median": -5.801442623138428,
+        "mean": -5.30117676670624,
+        "p95": 3.4755808711051754,
+        "max": 32.12054443359375,
+        "std": 4.840524517091019
+      },
+      "HV_gamma0_db": {
+        "min": -30.187850952148438,
+        "p05": -24.29197540283203,
+        "median": -19.055930137634277,
+        "mean": -18.481521053627922,
+        "p95": -11.357767963409426,
+        "max": 15.007105827331543,
+        "std": 4.285033811892592
+      },
+      "valid_pixels": 173852,
+      "valid_fraction": 1.0
+    },
+    "POST": {
+      "HH_gamma0_db": {
+        "min": -18.719432830810547,
+        "p05": -12.29493408203125,
+        "median": -7.073825359344482,
+        "mean": -6.512296393439261,
+        "p95": 1.6084714531898487,
+        "max": 26.934520721435547,
+        "std": 4.355634050085227
+      },
+      "HV_gamma0_db": {
+        "min": -27.36924171447754,
+        "p05": -22.47246971130371,
+        "median": -17.715545654296875,
+        "mean": -17.09907588059903,
+        "p95": -10.321939277648926,
+        "max": 13.260046005249023,
+        "std": 3.940884919165547
+      },
+      "valid_pixels": 110287,
+      "valid_fraction": 0.6343729148931275
+    }
+  },
+  "vh_timeseries": {
+    "field_id": "YL-CAND-01",
+    "status": "OBSERVED",
+    "mean_definition": "Arithmetic mean of valid pixel dB values",
+    "observations": [
+      {
+        "field_id": "YL-CAND-01",
+        "year": 2025,
+        "acquisition_datetime": "2025-10-08T21:51:54+00:00",
+        "vh_median_db": -29.44731,
+        "vh_mean_db": -28.95199,
+        "vh_p25_db": -31.52884,
+        "vh_p75_db": -27.79087,
+        "valid_pixel_count": 60,
+        "interior_pixel_count": 60,
+        "valid_coverage_ratio": 1.0,
+        "platform": "Sentinel-1C",
+        "relative_orbit": 105,
+        "orbit_direction": "DESCENDING",
+        "burst_id": "105-224320-IW3",
+        "product_version": "v1.0",
+        "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+        "source_vh_sha256": "6cfc01875c279b25753821a017677b0cc009d7eea43395542088d4c1af70a1ec",
+        "evidence_id": "E-YL-VH-113C4261408E20EA",
+        "qa_flags": [
+          "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+        ]
+      },
+      {
+        "field_id": "YL-CAND-01",
+        "year": 2025,
+        "acquisition_datetime": "2025-10-20T21:51:54+00:00",
+        "vh_median_db": -28.70944,
+        "vh_mean_db": -28.06582,
+        "vh_p25_db": -30.20475,
+        "vh_p75_db": -27.54346,
+        "valid_pixel_count": 60,
+        "interior_pixel_count": 60,
+        "valid_coverage_ratio": 1.0,
+        "platform": "Sentinel-1C",
+        "relative_orbit": 105,
+        "orbit_direction": "DESCENDING",
+        "burst_id": "105-224320-IW3",
+        "product_version": "v1.0",
+        "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+        "source_vh_sha256": "4e552710092b31d638f9fa9d02ad06deb33ff44947da5665abea92aad05f95cb",
+        "evidence_id": "E-YL-VH-8CC4506B1A45672C",
+        "qa_flags": [
+          "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+        ]
+      },
+      {
+        "field_id": "YL-CAND-01",
+        "year": 2025,
+        "acquisition_datetime": "2025-11-01T21:51:54+00:00",
+        "vh_median_db": -30.14977,
+        "vh_mean_db": -29.39078,
+        "vh_p25_db": -31.57494,
+        "vh_p75_db": -27.71166,
+        "valid_pixel_count": 60,
+        "interior_pixel_count": 60,
+        "valid_coverage_ratio": 1.0,
+        "platform": "Sentinel-1C",
+        "relative_orbit": 105,
+        "orbit_direction": "DESCENDING",
+        "burst_id": "105-224320-IW3",
+        "product_version": "v1.0",
+        "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+        "source_vh_sha256": "bfe3c016228cb17c7265e11e3b189dfb2b2190e2a504c8ca2f650537fc9a82a8",
+        "evidence_id": "E-YL-VH-BBC6C8A62173DF2B",
+        "qa_flags": [
+          "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+        ]
+      },
+      {
+        "field_id": "YL-CAND-01",
+        "year": 2026,
+        "acquisition_datetime": "2026-10-10T21:51:56+00:00",
+        "vh_median_db": -29.77417,
+        "vh_mean_db": -29.32011,
+        "vh_p25_db": -31.10745,
+        "vh_p75_db": -28.55836,
+        "valid_pixel_count": 60,
+        "interior_pixel_count": 60,
+        "valid_coverage_ratio": 1.0,
+        "platform": "Sentinel-1C",
+        "relative_orbit": 105,
+        "orbit_direction": "DESCENDING",
+        "burst_id": "105-224320-IW3",
+        "product_version": "v1.0",
+        "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+        "source_vh_sha256": "8bd0cfc981fa7cfeac36f23d60de46de032115c0eb210600adc9390dad11d901",
+        "evidence_id": "E-YL-VH-8A273ECF43F7941A",
+        "qa_flags": [
+          "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+        ]
+      },
+      {
+        "field_id": "YL-CAND-01",
+        "year": 2026,
+        "acquisition_datetime": "2026-10-22T21:51:56+00:00",
+        "vh_median_db": -25.7551,
+        "vh_mean_db": -25.67004,
+        "vh_p25_db": -27.72476,
+        "vh_p75_db": -24.85324,
+        "valid_pixel_count": 60,
+        "interior_pixel_count": 60,
+        "valid_coverage_ratio": 1.0,
+        "platform": "Sentinel-1C",
+        "relative_orbit": 105,
+        "orbit_direction": "DESCENDING",
+        "burst_id": "105-224320-IW3",
+        "product_version": "v1.0",
+        "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+        "source_vh_sha256": "e19d4674835ee9174afb99b171c24f2de8222e0266d270c8fc66779e5bc49d6c",
+        "evidence_id": "E-YL-VH-FE48DFEF9B16528A",
+        "qa_flags": [
+          "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+        ]
+      },
+      {
+        "field_id": "YL-CAND-01",
+        "year": 2026,
+        "acquisition_datetime": "2026-11-03T21:51:56+00:00",
+        "vh_median_db": -29.26345,
+        "vh_mean_db": -29.03085,
+        "vh_p25_db": -30.5453,
+        "vh_p75_db": -28.0099,
+        "valid_pixel_count": 60,
+        "interior_pixel_count": 60,
+        "valid_coverage_ratio": 1.0,
+        "platform": "Sentinel-1C",
+        "relative_orbit": 105,
+        "orbit_direction": "DESCENDING",
+        "burst_id": "105-224320-IW3",
+        "product_version": "v1.0",
+        "source_scene_id": "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0",
+        "source_vh_sha256": "f3a7c227da82ecad38e6e1edab859c9b4ae6bcc2e0f889177546f4c7d690a952",
+        "evidence_id": "E-YL-VH-F8E369E5764FB36C",
+        "qa_flags": [
+          "UNIT_VERIFIED_FROM_RASTER_PROCESSING_TAGS_LINEAR_GAMMA0"
+        ]
+      }
+    ]
+  },
+  "vh_comparison": {
+    "status": "OBSERVED_DESCRIPTIVE_ONLY",
+    "date_pair_tolerance_days": 6,
+    "fields": [
+      {
+        "field_id": "YL-CAND-01",
+        "valid_observations": {
+          "2025": 3,
+          "2026": 3
+        },
+        "date_matched_pairs": [
+          {
+            "2025_evidence_id": "E-YL-VH-113C4261408E20EA",
+            "2026_evidence_id": "E-YL-VH-8A273ECF43F7941A",
+            "2025_date": "2025-10-08T21:51:54+00:00",
+            "2026_date": "2026-10-10T21:51:56+00:00",
+            "day_of_year_gap": 2,
+            "median_vh_difference_db": -0.32686,
+            "platforms": [
+              "Sentinel-1C",
+              "Sentinel-1C"
+            ],
+            "cross_platform": false
+          },
+          {
+            "2025_evidence_id": "E-YL-VH-8CC4506B1A45672C",
+            "2026_evidence_id": "E-YL-VH-FE48DFEF9B16528A",
+            "2025_date": "2025-10-20T21:51:54+00:00",
+            "2026_date": "2026-10-22T21:51:56+00:00",
+            "day_of_year_gap": 2,
+            "median_vh_difference_db": 2.95434,
+            "platforms": [
+              "Sentinel-1C",
+              "Sentinel-1C"
+            ],
+            "cross_platform": false
+          },
+          {
+            "2025_evidence_id": "E-YL-VH-BBC6C8A62173DF2B",
+            "2026_evidence_id": "E-YL-VH-F8E369E5764FB36C",
+            "2025_date": "2025-11-01T21:51:54+00:00",
+            "2026_date": "2026-11-03T21:51:56+00:00",
+            "day_of_year_gap": 2,
+            "median_vh_difference_db": 0.88632,
+            "platforms": [
+              "Sentinel-1C",
+              "Sentinel-1C"
+            ],
+            "cross_platform": false
+          }
+        ],
+        "cross_platform_qa": "SAME_PLATFORM_IN_MATCHED_PAIRS",
+        "unusual_change": null,
+        "typhoon_causation": "UNKNOWN"
+      }
+    ],
+    "causation": "UNKNOWN"
+  },
+  "available_sensors": [
+    {
+      "mission": "NISAR",
+      "band": "L",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "source": "real Harmony AOI subsets"
+    },
+    {
+      "mission": "Sentinel-1",
+      "band": "C",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "source": "real NASA OPERA RTC-S1 VH field pixels plus Copernicus catalog metadata"
+    }
+  ],
+  "observed_changes": [
+    {
+      "kind": "SENTINEL1_OPERA_DESCRIPTIVE_PRE_POST",
+      "field_id": "YL-CAND-01",
+      "polarization": "VH",
+      "pre_date": "2026-10-10T21:51:56+00:00",
+      "post_date": "2026-11-03T21:51:56+00:00",
+      "pre_median_db": -29.77417,
+      "post_median_db": -29.26345,
+      "median_difference_db": 0.51072,
+      "source_evidence_ids": [
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-F8E369E5764FB36C"
+      ],
+      "causal_damage_status": "UNKNOWN"
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "harvesting",
+      "statement": "Harvesting may alter field radar return.",
+      "status": "UNRESOLVED",
+      "test_status": "NOT_TESTED",
+      "falsification_check": "Crop records or independent field observations are required to test this cause.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "hypothesis_id": "field_preparation",
+      "statement": "Field preparation may alter roughness or cover.",
+      "status": "UNRESOLVED",
+      "test_status": "NOT_TESTED",
+      "falsification_check": "Crop records or independent field observations are required to test this cause.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "hypothesis_id": "moisture",
+      "statement": "Moisture may alter radar return.",
+      "status": "UNRESOLVED",
+      "test_status": "NOT_TESTED",
+      "falsification_check": "Crop records or independent field observations are required to test this cause.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    },
+    {
+      "hypothesis_id": "storm_disturbance",
+      "statement": "Typhoon-related disturbance may alter vegetation or surface conditions.",
+      "status": "UNRESOLVED",
+      "test_status": "INCONCLUSIVE",
+      "falsification_check": "A matched 2025 VH pattern was checked; a recurring peak/decline challenges uniqueness but cannot rule out storm effects.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": true
+    },
+    {
+      "hypothesis_id": "observation_processing",
+      "statement": "Different processing versions or geometry may affect comparison.",
+      "status": "UNRESOLVED",
+      "test_status": "INCONCLUSIVE",
+      "falsification_check": "Cross-CRID compatibility check executed; mismatch leaves processing as a plausible confound.",
+      "supporting_evidence_ids": [],
+      "contradicting_evidence_ids": [],
+      "proposed_by_gemini": false
+    }
+  ],
+  "hypothesis_tests": [
+    {
+      "test_id": "genuine_post_event_observation",
+      "status": "PASS",
+      "result": "October 28 NISAR acquisition follows the October 23–24 event window.",
+      "evidence_ids": [
+        "E-CHAMPI-NISAR-TAIXI-POST"
+      ]
+    },
+    {
+      "test_id": "cross_crid_radiometric_compatibility",
+      "status": "FAIL",
+      "result": "P05023 provisional and P05036 validated are not independently established as radiometrically equivalent.",
+      "evidence_ids": [
+        "E-CHAMPI-NISAR-TAIXI-PRE",
+        "E-CHAMPI-NISAR-TAIXI-POST",
+        "E-CHAMPI-ASF-CROSS-CRID"
+      ]
+    },
+    {
+      "test_id": "official_loss_to_parcel_attribution",
+      "status": "FAIL",
+      "result": "The Ministry reports county-level losses, with no parcel-level labels.",
+      "evidence_ids": [
+        "E-CHAMPI-MOA-20261106"
+      ]
+    },
+    {
+      "test_id": "vh_event_bracketing",
+      "status": "PASS",
+      "result": "Real Sentinel-1 VH acquisitions bracket the event on one platform/orbit/processing convention.",
+      "evidence_ids": [
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-F8E369E5764FB36C"
+      ]
+    },
+    {
+      "test_id": "vh_unique_event_signature_falsification",
+      "status": "FAIL_UNIQUENESS_CLAIM",
+      "result": "A mid-season VH peak followed by decline also occurs in the 2025 same-orbit series; this challenges uniqueness, not whether the typhoon had an effect.",
+      "evidence_ids": [
+        "E-YL-VH-113C4261408E20EA",
+        "E-YL-VH-8CC4506B1A45672C",
+        "E-YL-VH-BBC6C8A62173DF2B",
+        "E-YL-VH-8A273ECF43F7941A",
+        "E-YL-VH-FE48DFEF9B16528A",
+        "E-YL-VH-F8E369E5764FB36C"
+      ]
+    }
+  ],
+  "evidence_ids": [
+    "E-CHAMPI-MOA-20261106",
+    "E-CHAMPI-NLSC-TAIXI",
+    "E-CHAMPI-NISAR-TAIXI-PRE",
+    "E-CHAMPI-NISAR-TAIXI-POST",
+    "E-CHAMPI-ASF-CROSS-CRID",
+    "E-CHAMPI-S1-TAIXI-PRE",
+    "E-CHAMPI-S1-TAIXI-POST",
+    "E-YL-VH-113C4261408E20EA",
+    "E-YL-VH-8CC4506B1A45672C",
+    "E-YL-VH-BBC6C8A62173DF2B",
+    "E-YL-VH-8A273ECF43F7941A",
+    "E-YL-VH-FE48DFEF9B16528A",
+    "E-YL-VH-F8E369E5764FB36C"
+  ],
+  "scientific_limitations": [
+    "P05023 provisional and P05036 validated data have not passed cross-CRID radiometric equivalence QA.",
+    "Township boundaries are administrative; the OPERA candidate polygons are official farmland boundaries, not verified rice crop labels.",
+    "County agricultural losses do not identify Taixi or individual parcel damage.",
+    "Three Sentinel-1 dates per year are a bounded comparison, not a calibrated seasonal baseline.",
+    "Separate pre/post radar values cannot isolate typhoon effects from farming, moisture, or processing."
+  ],
+  "missing_evidence": [
+    "Geolocated field crop/damage survey",
+    "Comparable same-CRID reprocessed pre-event GCOV",
+    "Verified crop and harvest records",
+    "Independent field control observations"
+  ],
+  "recommended_next_action": "Inspect the five official farmland candidates with crop/harvest records and field survey; use the observed Sentinel-1 VH series for prioritization only, and wait for same-CRID NISAR reprocessing before NISAR delta claims.",
+  "provenance_status": "REAL_NISAR_SUBSETS_QA_PASSED; REAL_OPERA_VH_OBSERVED; CROSS_CRID_NISAR_COMPARISON_BLOCKED; CROP_DAMAGE_UNKNOWN",
+  "qa": {
+    "same_sensor_band_polarization_track_frame_orbit": true,
+    "crid_match": false,
+    "product_maturity_match": false,
+    "grid_match": true,
+    "radiometric_cross_version_validated": false,
+    "qa_decision": "SEPARATE_OBSERVATIONS_ONLY",
+    "reason": "ASF P05036 release notes warn that maturity/processing differences can affect results; cross-CRID radiometric equivalence has not been established for this pair.",
+    "release_notes_url": "https://hyp3-docs.asf.alaska.edu/nisar-docs/release-notes/",
+    "verified_typhoon_delta_allowed": false
+  },
+  "official_loss_context": {
+    "taiwan_total_ntd": 997465000,
+    "yunlin_county_ntd": 157743000,
+    "parcel_loss_ntd": null,
+    "source_url": "https://www.moa.gov.tw/theme_data.php?id=10320&sub_theme=agri&theme=news",
+    "evidence_id": "E-CHAMPI-MOA-20261106"
+  },
+  "expert_report": {
+    "observed": "Real pre/post NISAR HH/HV and 2025/2026 matched-geometry Sentinel-1 VH observations exist over Taixi.",
+    "possible_interpretation": "Agriculture, moisture, storm disturbance, and processing all remain possible.",
+    "unknown": "VH change is descriptive; no confirmed crop damage, NISAR cross-CRID delta, or parcel loss can be stated.",
+    "recommended_next_evidence": "Inspect the five official farmland candidates with crop/harvest records and field survey; use the observed Sentinel-1 VH series for prioritization only, and wait for same-CRID NISAR reprocessing before NISAR delta claims."
+  }
+}

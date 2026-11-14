@@ -1,0 +1,31 @@
+{
+  "generated_at_utc": "2026-11-14T14:10:35.328058+00:00",
+  "case_id": "CHAMPI-YUNLIN-TAIXI",
+  "agent_mode": "gemini",
+  "status": "DEMO_READY_WITH_CROSS_CRID_LIMITATION",
+  "output_files": [
+    {
+      "path": "data/exports/typhoon_champi/evidence.json",
+      "sha256": "034a6837370d6f3b08c7e48fa3c8f9d7b8275cffc5620c6e4986d3f2e56e7d98",
+      "size_bytes": 37773
+    },
+    {
+      "path": "data/exports/typhoon_champi/investigation_report.json",
+      "sha256": "1fb2a6fa366de06a3a429e03f6dfc51f079a67187ce45ddde5dd32688ef8ddf3",
+      "size_bytes": 20951
+    },
+    {
+      "path": "data/exports/typhoon_champi/agent_trace.json",
+      "sha256": "4b46636a2ec02271af1dc4129fb69189007ad095d3ffda476cee2a87db420e11",
+      "size_bytes": 25659
+    },
+    {
+      "path": "data/exports/typhoon_champi/demo_response.json",
+      "sha256": "32e7c38f8688560b0f405a523066ad400446260d5ad39e56a78a58857eaee7b7",
+      "size_bytes": 46526
+    }
+  ],
+  "scientific_qa": "data/exports/typhoon_champi/science_qa.json",
+  "verified_typhoon_radiometric_delta": false,
+  "parcel_damage_confirmation": false
+}

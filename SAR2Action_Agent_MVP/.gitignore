@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+*.log
+data/live/
+*.h5
+*.hdf5
+*.npz
+*.tif
+*.tiff
+*.zip

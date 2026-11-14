@@ -1,0 +1,690 @@
+{
+  "generated_at_utc": "2026-11-14T13:09:54.853892+00:00",
+  "loss_record": "official_loss_record.json",
+  "boundary_record": "boundary_provenance.json",
+  "candidate_aoi_geojson": "candidate_aois.geojson",
+  "evaluations": [
+    {
+      "township": "Mailiao Township",
+      "aoi_id": "10009130",
+      "area_km2_utm51": 125.5195457802696,
+      "tw01_overlap_km2": 0.0,
+      "tw01_overlap_fraction_of_tw01": 0.0,
+      "same_track_frame_pre_count": 4,
+      "same_track_frame_post_count": 1,
+      "same_track_frame_pre": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        }
+      ],
+      "same_track_frame_post": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        }
+      ],
+      "all_overlapping_scenes": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_039_A_013_4005_DHDH_A_20260908T212423_20260908T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-08T21:24:23.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_077_2005_DHDH_M_20260910T103822_20260910T103900_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.903158
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_039_A_013_4005_DHDH_A_20260920T212423_20260920T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-20T21:24:23.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_077_2005_DHDH_M_20260922T103822_20260922T103900_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.967162
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_039_A_013_4005_DHDH_A_20261002T212424_20261002T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-02T21:24:24.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_077_2005_DHDH_M_20261004T103822_20261004T103901_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.997934
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-14T21:24:24.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_077_2005_DHDH_M_20261016T103822_20261016T103901_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-26T21:24:24.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        }
+      ],
+      "regional_impact_documented": true,
+      "township_or_parcel_damage_verified": false,
+      "cross_crid_comparison_required": true
+    },
+    {
+      "township": "Yuanchang Township",
+      "aoi_id": "10009170",
+      "area_km2_utm51": 72.24785093056141,
+      "tw01_overlap_km2": 5.990747708897532,
+      "tw01_overlap_fraction_of_tw01": 0.2393760765763251,
+      "same_track_frame_pre_count": 4,
+      "same_track_frame_post_count": 1,
+      "same_track_frame_pre": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.011198
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        }
+      ],
+      "same_track_frame_post": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.824713
+        }
+      ],
+      "all_overlapping_scenes": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_039_A_013_4005_DHDH_A_20260908T212423_20260908T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-08T21:24:23.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_077_2005_DHDH_M_20260910T103822_20260910T103900_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_039_A_013_4005_DHDH_A_20260920T212423_20260920T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-20T21:24:23.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.011198
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_077_2005_DHDH_M_20260922T103822_20260922T103900_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_039_A_013_4005_DHDH_A_20261002T212424_20261002T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-02T21:24:24.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_077_2005_DHDH_M_20261004T103822_20261004T103901_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-14T21:24:24.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_077_2005_DHDH_M_20261016T103822_20261016T103901_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-26T21:24:24.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.824713
+        }
+      ],
+      "regional_impact_documented": true,
+      "township_or_parcel_damage_verified": false,
+      "cross_crid_comparison_required": true
+    },
+    {
+      "township": "Taixi Township",
+      "aoi_id": "10009160",
+      "area_km2_utm51": 69.53800666889654,
+      "tw01_overlap_km2": 0.0,
+      "tw01_overlap_fraction_of_tw01": 0.0,
+      "same_track_frame_pre_count": 4,
+      "same_track_frame_post_count": 1,
+      "same_track_frame_pre": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.436957
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        }
+      ],
+      "same_track_frame_post": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        }
+      ],
+      "all_overlapping_scenes": [
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_039_A_013_4005_DHDH_A_20260908T212423_20260908T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-08T21:24:23.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_076_2005_DHDH_A_20260910T103751_20260910T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_030_061_D_077_2005_DHDH_M_20260910T103822_20260910T103900_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-10T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_039_A_013_4005_DHDH_A_20260920T212423_20260920T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-20T21:24:23.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_076_2005_DHDH_A_20260922T103751_20260922T103823_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:37:51.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 0.436957
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_031_061_D_077_2005_DHDH_M_20260922T103822_20260922T103900_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-09-22T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_039_A_013_4005_DHDH_A_20261002T212424_20261002T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-02T21:24:24.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_032_061_D_077_2005_DHDH_M_20261004T103822_20261004T103901_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-04T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-14T21:24:24.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:37:52.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_033_061_D_077_2005_DHDH_M_20261016T103822_20261016T103901_P05023_N_F_J_001",
+          "acquisition_start_utc": "2026-10-16T10:38:22.000000Z",
+          "event_relation": "PRE_EVENT",
+          "product_maturity": "PROVISIONAL",
+          "crid": "P05023",
+          "track": "61",
+          "frame": "77",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-26T21:24:24.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "39",
+          "frame": "13",
+          "orbit_direction": "ASCENDING",
+          "footprint_coverage_fraction": 1.0
+        },
+        {
+          "scene_id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+          "acquisition_start_utc": "2026-10-28T10:37:52.000000Z",
+          "event_relation": "POST_EVENT",
+          "product_maturity": "VALIDATED",
+          "crid": "P05036",
+          "track": "61",
+          "frame": "76",
+          "orbit_direction": "DESCENDING",
+          "footprint_coverage_fraction": 1.0
+        }
+      ],
+      "regional_impact_documented": true,
+      "township_or_parcel_damage_verified": false,
+      "cross_crid_comparison_required": true
+    }
+  ],
+  "selection_status": "PENDING_PIXEL_AND_CROSS_CRID_QA"
+}

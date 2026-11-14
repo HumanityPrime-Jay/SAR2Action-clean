@@ -1,0 +1,11 @@
+{
+  "source_page": "https://maps.nlsc.gov.tw/pro/download.jsp",
+  "source_zip": "https://maps.nlsc.gov.tw/download/鄉鎮市區界線(TWD97經緯度).zip",
+  "source_sha256": "e028e5a750eee48cf7913330655e5e5c5bb1f176868fbd0afdfc661fca60557c",
+  "source_layer": "TOWN_MOI_1120317",
+  "source_download_bytes": 12756907,
+  "source_agency": "Ministry of the Interior, National Land Surveying and Mapping Center",
+  "source_version_note": "Official download page labels the township boundary SHP; source layer dated 1120317",
+  "output_crs": "EPSG:4326",
+  "geometry_scope": "Townships, not agricultural parcels"
+}

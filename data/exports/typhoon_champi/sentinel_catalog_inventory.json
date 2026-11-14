@@ -1,0 +1,335 @@
+{
+  "generated_at_utc": "2026-11-14T13:37:08.479518+00:00",
+  "source": "Copernicus Data Space Ecosystem OData catalog",
+  "aoi": "Taixi Township",
+  "temporal": [
+    "2026-08-01",
+    "2026-11-14"
+  ],
+  "query_count": 40,
+  "returned_count": 40,
+  "aoi_intersecting_products": [
+    {
+      "product_id": "0f90cd66-6c09-442d-a7d9-3dd8fa3fb9d3",
+      "product_name": "S1D_IW_GRDH_1SDV_20260803T100020_20260803T100045_003960_0072F2_5EB1.SAFE",
+      "acquisition_start_utc": "2026-08-03T10:00:20.787495Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(0f90cd66-6c09-442d-a7d9-3dd8fa3fb9d3)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "52d4522a-c584-427a-b856-2421d14f4340",
+      "product_name": "S1D_IW_GRDH_1SDV_20260803T100020_20260803T100045_003960_0072F2_B825_COG.SAFE",
+      "acquisition_start_utc": "2026-08-03T10:00:20.787495Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(52d4522a-c584-427a-b856-2421d14f4340)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "13dab4a5-c6f8-4165-9e4d-6db6f40c88e5",
+      "product_name": "S1C_IW_GRDH_1SDV_20260809T100018_20260809T100043_008917_011B05_A529_COG.SAFE",
+      "acquisition_start_utc": "2026-08-09T10:00:18.784904Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(13dab4a5-c6f8-4165-9e4d-6db6f40c88e5)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "9831d964-0f96-480e-8c63-6fc4de599deb",
+      "product_name": "S1C_IW_GRDH_1SDV_20260809T100018_20260809T100043_008917_011B05_54E8.SAFE",
+      "acquisition_start_utc": "2026-08-09T10:00:18.784904Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(9831d964-0f96-480e-8c63-6fc4de599deb)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "bdc80c9b-7104-43eb-bb50-ebc36f9c760d",
+      "product_name": "S1C_IW_GRDH_1SDV_20260811T215151_20260811T215216_008953_011C35_7215_COG.SAFE",
+      "acquisition_start_utc": "2026-08-11T21:51:51.911955Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(bdc80c9b-7104-43eb-bb50-ebc36f9c760d)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "c805c4f4-9184-426a-ad87-a92108f10d27",
+      "product_name": "S1C_IW_GRDH_1SDV_20260811T215151_20260811T215216_008953_011C35_4A65.SAFE",
+      "acquisition_start_utc": "2026-08-11T21:51:51.911955Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(c805c4f4-9184-426a-ad87-a92108f10d27)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "5983e7c2-ff7a-4d96-9c99-29a6e967f289",
+      "product_name": "S1D_IW_GRDH_1SDV_20260815T100027_20260815T100057_004135_0078F7_8A81.SAFE",
+      "acquisition_start_utc": "2026-08-15T10:00:27.726401Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(5983e7c2-ff7a-4d96-9c99-29a6e967f289)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "d2fff9f2-a8a0-4839-b987-40cb07232c18",
+      "product_name": "S1D_IW_GRDH_1SDV_20260815T100027_20260815T100057_004135_0078F7_C6E5_COG.SAFE",
+      "acquisition_start_utc": "2026-08-15T10:00:27.726401Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(d2fff9f2-a8a0-4839-b987-40cb07232c18)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "4f7daee7-51ad-48ef-a62a-54777015a44f",
+      "product_name": "S1C_IW_GRDH_1SDV_20260823T215152_20260823T215217_009128_0121FA_3D44.SAFE",
+      "acquisition_start_utc": "2026-08-23T21:51:52.532388Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(4f7daee7-51ad-48ef-a62a-54777015a44f)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "89d38803-16e1-4234-bc90-15315a18fc5a",
+      "product_name": "S1C_IW_GRDH_1SDV_20260823T215152_20260823T215217_009128_0121FA_FBA9_COG.SAFE",
+      "acquisition_start_utc": "2026-08-23T21:51:52.532388Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(89d38803-16e1-4234-bc90-15315a18fc5a)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "092a6d76-859e-4253-b616-d8343a03574a",
+      "product_name": "S1D_IW_GRDH_1SDV_20260827T100028_20260827T100057_004310_007F1A_3DFA_COG.SAFE",
+      "acquisition_start_utc": "2026-08-27T10:00:28.403741Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(092a6d76-859e-4253-b616-d8343a03574a)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "dd236424-a408-4db2-86a1-d4994c6570d1",
+      "product_name": "S1D_IW_GRDH_1SDV_20260827T100028_20260827T100057_004310_007F1A_6472.SAFE",
+      "acquisition_start_utc": "2026-08-27T10:00:28.403741Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(dd236424-a408-4db2-86a1-d4994c6570d1)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "0f451de5-4535-4e48-999e-667cd5f3097d",
+      "product_name": "S1C_IW_GRDH_1SDV_20260904T215152_20260904T215217_009303_0127E4_008E.SAFE",
+      "acquisition_start_utc": "2026-09-04T21:51:52.906906Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(0f451de5-4535-4e48-999e-667cd5f3097d)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "629aa067-05e3-4414-8818-f7b442609ed9",
+      "product_name": "S1C_IW_GRDH_1SDV_20260904T215152_20260904T215217_009303_0127E4_AC6F_COG.SAFE",
+      "acquisition_start_utc": "2026-09-04T21:51:52.906906Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(629aa067-05e3-4414-8818-f7b442609ed9)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "07048426-a4fc-4a21-9a45-15e2c8aca499",
+      "product_name": "S1D_IW_GRDH_1SDV_20260908T100028_20260908T100057_004485_008536_AE84_COG.SAFE",
+      "acquisition_start_utc": "2026-09-08T10:00:28.577830Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(07048426-a4fc-4a21-9a45-15e2c8aca499)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "e0464dbb-14a2-416b-8911-eacc9c57e180",
+      "product_name": "S1D_IW_GRDH_1SDV_20260908T100028_20260908T100057_004485_008536_17B2.SAFE",
+      "acquisition_start_utc": "2026-09-08T10:00:28.577830Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(e0464dbb-14a2-416b-8911-eacc9c57e180)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "9b11638f-bbf5-4763-a7a7-6e3e7daa1d76",
+      "product_name": "S1C_IW_GRDH_1SDV_20260916T215153_20260916T215218_009478_012DA9_EEA8.SAFE",
+      "acquisition_start_utc": "2026-09-16T21:51:53.143333Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(9b11638f-bbf5-4763-a7a7-6e3e7daa1d76)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "aca271d1-e7e2-4288-bab4-d59254bfa240",
+      "product_name": "S1C_IW_GRDH_1SDV_20260916T215153_20260916T215218_009478_012DA9_5BC5_COG.SAFE",
+      "acquisition_start_utc": "2026-09-16T21:51:53.143333Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(aca271d1-e7e2-4288-bab4-d59254bfa240)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "57c81463-f849-4394-a4ee-bc7fe487fbe8",
+      "product_name": "S1D_IW_GRDH_1SDV_20260920T100028_20260920T100058_004660_008B41_C700_COG.SAFE",
+      "acquisition_start_utc": "2026-09-20T10:00:28.963743Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(57c81463-f849-4394-a4ee-bc7fe487fbe8)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "e4d61776-dc52-4d35-acbb-dad9a19e5e3a",
+      "product_name": "S1D_IW_GRDH_1SDV_20260920T100028_20260920T100058_004660_008B41_E4B4.SAFE",
+      "acquisition_start_utc": "2026-09-20T10:00:28.963743Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(e4d61776-dc52-4d35-acbb-dad9a19e5e3a)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "a384d301-53b5-4001-a660-25c7fd5c285a",
+      "product_name": "S1C_IW_GRDH_1SDV_20260928T215153_20260928T215218_009653_01336F_247E_COG.SAFE",
+      "acquisition_start_utc": "2026-09-28T21:51:53.440240Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(a384d301-53b5-4001-a660-25c7fd5c285a)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "e42538ea-2162-4d07-9509-cb7267707ba9",
+      "product_name": "S1C_IW_GRDH_1SDV_20260928T215153_20260928T215218_009653_01336F_1AB0.SAFE",
+      "acquisition_start_utc": "2026-09-28T21:51:53.440240Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(e42538ea-2162-4d07-9509-cb7267707ba9)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "52bfc8e7-7b51-4c71-9ad6-2acc4ea66b8a",
+      "product_name": "S1D_IW_GRDH_1SDV_20261002T100029_20261002T100058_004835_009159_779E.SAFE",
+      "acquisition_start_utc": "2026-10-02T10:00:29.024532Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(52bfc8e7-7b51-4c71-9ad6-2acc4ea66b8a)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "f58c574e-5a4f-4429-aadd-4606f50dbe58",
+      "product_name": "S1D_IW_GRDH_1SDV_20261002T100029_20261002T100058_004835_009159_639D_COG.SAFE",
+      "acquisition_start_utc": "2026-10-02T10:00:29.024532Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(f58c574e-5a4f-4429-aadd-4606f50dbe58)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "2e4ab49c-02a4-43da-8550-6d3efd3dba36",
+      "product_name": "S1C_IW_GRDH_1SDV_20261010T215153_20261010T215218_009828_013950_29FD.SAFE",
+      "acquisition_start_utc": "2026-10-10T21:51:53.488995Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(2e4ab49c-02a4-43da-8550-6d3efd3dba36)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "fc65f8e9-33ad-4f61-a48b-e3a4ef173c5f",
+      "product_name": "S1C_IW_GRDH_1SDV_20261010T215153_20261010T215218_009828_013950_F292_COG.SAFE",
+      "acquisition_start_utc": "2026-10-10T21:51:53.488995Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(fc65f8e9-33ad-4f61-a48b-e3a4ef173c5f)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "07060821-7469-4b50-bb57-85b573c8b535",
+      "product_name": "S1D_IW_GRDH_1SDV_20261014T100029_20261014T100058_005010_009776_E8DF_COG.SAFE",
+      "acquisition_start_utc": "2026-10-14T10:00:29.006266Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(07060821-7469-4b50-bb57-85b573c8b535)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "ad0f3959-604c-4afa-bdbc-7ba742d6407d",
+      "product_name": "S1D_IW_GRDH_1SDV_20261014T100029_20261014T100058_005010_009776_6631.SAFE",
+      "acquisition_start_utc": "2026-10-14T10:00:29.006266Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(ad0f3959-604c-4afa-bdbc-7ba742d6407d)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "9f58ef11-21c2-4b74-9988-ec45cf4e2822",
+      "product_name": "S1D_IW_GRDH_1SDV_20261016T215209_20261016T215242_005046_0098A1_D5F6_COG.SAFE",
+      "acquisition_start_utc": "2026-10-16T21:52:09.215876Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(9f58ef11-21c2-4b74-9988-ec45cf4e2822)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "cf1cddf7-84d4-471a-a62a-fe199e7fb8a8",
+      "product_name": "S1D_IW_GRDH_1SDV_20261016T215209_20261016T215242_005046_0098A1_D429.SAFE",
+      "acquisition_start_utc": "2026-10-16T21:52:09.215876Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(cf1cddf7-84d4-471a-a62a-fe199e7fb8a8)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "d396b0bd-94e2-40fb-82a7-1591fec1c127",
+      "product_name": "S1C_IW_GRDH_1SDV_20261022T215153_20261022T215218_010003_013F4D_DB2A_COG.SAFE",
+      "acquisition_start_utc": "2026-10-22T21:51:53.124919Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(d396b0bd-94e2-40fb-82a7-1591fec1c127)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "e617a031-2408-4925-a967-f50fb22f0bb2",
+      "product_name": "S1C_IW_GRDH_1SDV_20261022T215153_20261022T215218_010003_013F4D_437E.SAFE",
+      "acquisition_start_utc": "2026-10-22T21:51:53.124919Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(e617a031-2408-4925-a967-f50fb22f0bb2)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "94c89c36-8b2e-4e0a-ba2d-34d969abd449",
+      "product_name": "S1D_IW_GRDH_1SDV_20261026T100029_20261026T100058_005185_009D7F_AA37.SAFE",
+      "acquisition_start_utc": "2026-10-26T10:00:29.066468Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(94c89c36-8b2e-4e0a-ba2d-34d969abd449)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "d046476c-95fc-4d01-84d6-44ba03e1f8a2",
+      "product_name": "S1D_IW_GRDH_1SDV_20261026T100029_20261026T100058_005185_009D7F_B267_COG.SAFE",
+      "acquisition_start_utc": "2026-10-26T10:00:29.066468Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(d046476c-95fc-4d01-84d6-44ba03e1f8a2)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "78c22194-055a-4371-83ce-09c620244756",
+      "product_name": "S1C_IW_GRDH_1SDV_20261103T215153_20261103T215218_010178_01450F_A0FF.SAFE",
+      "acquisition_start_utc": "2026-11-03T21:51:53.086238Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(78c22194-055a-4371-83ce-09c620244756)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "a86c3a8b-de1a-425d-83f5-4b5f41f513ae",
+      "product_name": "S1C_IW_GRDH_1SDV_20261103T215153_20261103T215218_010178_01450F_7BAC_COG.SAFE",
+      "acquisition_start_utc": "2026-11-03T21:51:53.086238Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(a86c3a8b-de1a-425d-83f5-4b5f41f513ae)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "4ba8863a-84ac-4e2a-a668-c84808e02c4d",
+      "product_name": "S1D_IW_GRDH_1SDV_20261107T100028_20261107T100058_005360_00A378_EBBC_COG.SAFE",
+      "acquisition_start_utc": "2026-11-07T10:00:28.756287Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(4ba8863a-84ac-4e2a-a668-c84808e02c4d)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "fea9b706-6198-4f78-ab90-53012a4622ff",
+      "product_name": "S1D_IW_GRDH_1SDV_20261107T100028_20261107T100058_005360_00A378_AAAA.SAFE",
+      "acquisition_start_utc": "2026-11-07T10:00:28.756287Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(fea9b706-6198-4f78-ab90-53012a4622ff)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "8c56a386-5607-47c1-a5a3-45744b369d49",
+      "product_name": "S1D_IW_GRDH_1SDV_20261109T215208_20261109T215242_005396_00A4AB_2081_COG.SAFE",
+      "acquisition_start_utc": "2026-11-09T21:52:08.761913Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(8c56a386-5607-47c1-a5a3-45744b369d49)",
+      "raster_status": "NOT_DOWNLOADED"
+    },
+    {
+      "product_id": "f74cdda8-a8d8-4455-8d5f-8994ee371ee0",
+      "product_name": "S1D_IW_GRDH_1SDV_20261109T215208_20261109T215242_005396_00A4AB_B61B.SAFE",
+      "acquisition_start_utc": "2026-11-09T21:52:08.761913Z",
+      "aoi_coverage_fraction": 1.0,
+      "source_url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products(f74cdda8-a8d8-4455-8d5f-8994ee371ee0)",
+      "raster_status": "NOT_DOWNLOADED"
+    }
+  ],
+  "metadata_only": true,
+  "no_sentinel_pixels_claimed": true
+}

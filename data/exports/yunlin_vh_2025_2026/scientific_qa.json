@@ -1,0 +1,39 @@
+{
+  "status": "OBSERVED_OPERA_RTC_S1",
+  "aoi": "Taixi Township",
+  "aoi_kind": "OFFICIAL_ADMINISTRATIVE_BOUNDARY_NOT_FIELD",
+  "candidate_field_count": 5,
+  "field_status": "OFFICIAL_FARMLAND_BOUNDARY_CROP_UNVERIFIED",
+  "observed_scene_count": 6,
+  "observed_field_scene_count": 30,
+  "qa_passing_field_scene_count": 30,
+  "source_platforms": [
+    "Sentinel-1C"
+  ],
+  "relative_orbits": [
+    "105"
+  ],
+  "orbit_directions": [
+    "DESCENDING"
+  ],
+  "product_versions": [
+    "v1.0"
+  ],
+  "burst_ids": [
+    "105-224320-IW3"
+  ],
+  "radiometric_convention": "OPERA RTC-S1 linear gamma0; positive finite power converted with 10*log10 before pixel statistics",
+  "mean_definition": "Arithmetic mean of valid pixel dB values",
+  "temporal_interpolation": "NONE",
+  "crop_damage_status": "UNKNOWN",
+  "cross_year_baseline_validated": false,
+  "source_file_sha256": "99ccfb2e333c9b1619fc54ec6924309be899e043a095ff5f5382526eb79063e1",
+  "selected_scene_ids": [
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20251008T215154Z_20251009T011425Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20251020T215154Z_20251021T015140Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20251101T215154Z_20251102T011849Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20261010T215156Z_20261011T203150Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20261022T215156Z_20261023T065025Z_S1C_30_v1.0",
+    "OPERA_L2_RTC-S1_T105-224320-IW3_20261103T215156Z_20261105T191651Z_S1C_30_v1.0"
+  ]
+}

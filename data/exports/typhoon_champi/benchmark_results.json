@@ -1,0 +1,27 @@
+{
+  "generated_at_utc": "2026-11-14T14:10:10.934247+00:00",
+  "case_id": "CHAMPI-YUNLIN-TAIXI",
+  "evaluation_type": "DETERMINISTIC_GUARD_CHECKS",
+  "not_end_to_end_llm_accuracy": true,
+  "scenario_count": 15,
+  "passed": 15,
+  "checks": {
+    "real_post_event_timestamp": true,
+    "cross_crid_delta_blocked": true,
+    "county_loss_not_parcel_truth": true,
+    "missing_sentinel_pixels_explicit": true,
+    "tool_trace_authentic_structure": true,
+    "hypotheses_unconfirmed": true,
+    "evidence_links_registered": true,
+    "sensor_polarizations_separated": true,
+    "real_vh_three_dates_each_year": true,
+    "vh_geometry_consistent": true,
+    "vh_valid_pixels": true,
+    "vh_db_units_and_mean_defined": true,
+    "vh_event_bracketed": true,
+    "vh_alternative_pattern_checked": true,
+    "vh_damage_not_confirmed": true
+  },
+  "gemini_live_demo_trace": "agent_trace.json",
+  "gemini_demo_limit": "One live case; no statistical accuracy estimate or parcel truth."
+}
