@@ -1,0 +1,43 @@
+{
+  "law_id": "M0090019",
+  "law_name": "農業天然災害救助辦法",
+  "official_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?PCODE=M0090019",
+  "auxiliary_official_url": "https://law.moa.gov.tw/LawContent.aspx?id=FL014287",
+  "revision_date": "2026-06-29",
+  "effective_date": "2026-06-29",
+  "retrieved_at": "2026-11-14T18:00:03.661600+00:00",
+  "source_sha256": "945710dd305df316cecf49ae35147e473aabcc0e40dcf11765b96fa78364f6e0",
+  "source_status": "VERIFIED_OFFICIAL_MOJ_SOURCE",
+  "article_count": 38,
+  "provision_row_count": 149,
+  "appendix_versions": [
+    {
+      "appendix_id": "M0090019-APPENDIX-01",
+      "version": "2026-06-29",
+      "title": "附表一 以產季認定之長期作農產品品項.PDF",
+      "source_pdf_url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000382579&lan=C",
+      "verification_status": "EXTRACTION_REQUIRES_REVIEW"
+    },
+    {
+      "appendix_id": "M0090019-APPENDIX-02",
+      "version": "2026-06-29",
+      "title": "附表二 農業天然災害現金救助項目及額度.PDF",
+      "source_pdf_url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000420312&lan=C",
+      "verification_status": "EXTRACTION_REQUIRES_REVIEW"
+    },
+    {
+      "appendix_id": "M0090019-APPENDIX-03",
+      "version": "2026-06-29",
+      "title": "附表三 農業天然災害低利貸款項目及額度.PDF",
+      "source_pdf_url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000420313&lan=C",
+      "verification_status": "EXTRACTION_REQUIRES_REVIEW"
+    },
+    {
+      "appendix_id": "M0090019-APPENDIX-04",
+      "version": "2026-06-29",
+      "title": "附表四 一年一收長期作農產品品項及額外現金救助額度計算方式.PDF",
+      "source_pdf_url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000414643&lan=C",
+      "verification_status": "EXTRACTION_REQUIRES_REVIEW"
+    }
+  ]
+}
