@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 460" width="100%" role="img" aria-label="SAR2Action Scientific Agent V3 Architecture and Experimental Modules">
+  <defs>
+    <linearGradient id="archBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B12"/>
+      <stop offset="100%" stop-color="#0C1524"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38BDF8"/>
+    </marker>
+    <marker id="arrMuted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="460" rx="16" fill="url(#archBg)" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="32" y="38" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" letter-spacing="2">SYSTEM &amp; SCIENTIFIC AGENT ARCHITECTURE</text>
+  <rect x="734" y="22" width="164" height="24" rx="12" fill="#0F2937" stroke="#22D3EE" stroke-width="1"/>
+  <text x="816" y="38" text-anchor="middle" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="10.5" font-weight="700">PRODUCTION / VERIFIED</text>
+  <rect x="912" y="22" width="176" height="24" rx="12" fill="#1F1A14" stroke="#F59E0B" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="1000" y="38" text-anchor="middle" fill="#FBBF24" font-family="'SFMono-Regular', Consolas, monospace" font-size="10.5" font-weight="700">EXPERIMENTAL</text>
+  <line x1="32" y1="56" x2="1088" y2="56" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Row 1: Frontend & API -->
+  <g transform="translate(36, 82)">
+    <rect width="230" height="84" rx="10" fill="#0F172A" stroke="#22D3EE" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">PRESENTATION</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="15" font-weight="700">React 18 + MapLibre</text>
+    <text x="18" y="70" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">RadarMapCanvas · 3D Globe</text>
+  </g>
+
+  <line x1="268" y1="124" x2="306" y2="124" stroke="#38BDF8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <g transform="translate(312, 82)">
+    <rect width="230" height="84" rx="10" fill="#0F172A" stroke="#22D3EE" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">WORKSPACE</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="15" font-weight="700">Investigation Studio</text>
+    <text x="18" y="70" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">/studio · 6-Step Story Mode</text>
+  </g>
+
+  <line x1="544" y1="124" x2="582" y2="124" stroke="#38BDF8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <g transform="translate(588, 82)">
+    <rect width="220" height="84" rx="10" fill="#0F172A" stroke="#38BDF8" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#38BDF8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">API GATEWAY</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="15" font-weight="700">FastAPI Service</text>
+    <text x="18" y="70" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">/api/agent/investigate-v3</text>
+  </g>
+
+  <line x1="810" y1="124" x2="848" y2="124" stroke="#38BDF8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <g transform="translate(854, 82)">
+    <rect width="230" height="84" rx="10" fill="#0F172A" stroke="#EF4444" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#FCA5A5" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">ORCHESTRATOR</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="15" font-weight="700">Scientific Agent V3</text>
+    <text x="18" y="70" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">investigation_v3.py</text>
+  </g>
+
+  <!-- Vertical connector down from Agent V3 to Row 2 -->
+  <line x1="969" y1="168" x2="969" y2="212" stroke="#38BDF8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Row 2: Deterministic Tools -> QA -> Ledger -> Dossier (Right to Left flow or Left to Right? Let's keep Left to Right with clean routing!) -->
+  <g transform="translate(854, 218)">
+    <rect width="230" height="92" rx="10" fill="#0F172A" stroke="#2DD4BF" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#2DD4BF" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">EXECUTION</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14.5" font-weight="700">Deterministic Tools</text>
+    <text x="18" y="72" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">10 allowlisted science tools</text>
+  </g>
+
+  <line x1="852" y1="264" x2="814" y2="264" stroke="#38BDF8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <g transform="translate(588, 218)">
+    <rect width="220" height="92" rx="10" fill="#0F172A" stroke="#38BDF8" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#38BDF8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">INTEGRITY GATES</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14.5" font-weight="700">Scientific QA</text>
+    <text x="18" y="72" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">Cross-CRID · SHA-256 · Trace</text>
+  </g>
+
+  <line x1="586" y1="264" x2="548" y2="264" stroke="#38BDF8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <g transform="translate(312, 218)">
+    <rect width="230" height="92" rx="10" fill="#0F172A" stroke="#22D3EE" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">PROVENANCE</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14.5" font-weight="700">Evidence Ledger</text>
+    <text x="18" y="72" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">Immutable E-YL-VH / CHAMPI IDs</text>
+  </g>
+
+  <line x1="310" y1="264" x2="272" y2="264" stroke="#38BDF8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <g transform="translate(36, 218)">
+    <rect width="230" height="92" rx="10" fill="#0F172A" stroke="#22D3EE" stroke-width="1.4"/>
+    <text x="18" y="30" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">OUTPUT</text>
+    <text x="18" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14.5" font-weight="700">Investigation Dossier</text>
+    <text x="18" y="72" fill="#94A3B8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">Claims · Hypotheses · Limits</text>
+  </g>
+
+  <!-- Row 3: Data Layer + Experimental Advanced Modules -->
+  <g transform="translate(36, 344)">
+    <rect width="506" height="86" rx="10" fill="#0B1320" stroke="#334155" stroke-width="1.2"/>
+    <text x="18" y="28" fill="#7DD3FC" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">DATA &amp; MODEL BOUNDARIES</text>
+    <text x="18" y="50" fill="#CBD5E1" font-family="system-ui, sans-serif" font-size="11.5">• Recorded JSON/PNG (clean checkout) vs. SAR2ACTION_DATA_ROOT (GeoTIFF/COG)</text>
+    <text x="18" y="70" fill="#CBD5E1" font-family="system-ui, sans-serif" font-size="11.5">• Optional Gemini (google-genai) writes prose only; cannot alter tool outputs</text>
+  </g>
+
+  <g transform="translate(588, 344)">
+    <rect width="496" height="86" rx="10" fill="#17140E" stroke="#F59E0B" stroke-width="1.4" stroke-dasharray="6,4"/>
+    <text x="18" y="28" fill="#FBBF24" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">EXPERIMENTAL · NOT INTEGRATED INTO STUDIO</text>
+    <text x="18" y="50" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="12.5">backend/app/advanced/experimentation/ (Autonomous Experiment Design,</text>
+    <text x="18" y="70" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="12.5">Falsification Loop, Scoring) — parallel R&amp;D track, not yet wired to V3</text>
+  </g>
+
+  <line x1="969" y1="344" x2="969" y2="314" stroke="#64748B" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrMuted)"/>
+</svg>

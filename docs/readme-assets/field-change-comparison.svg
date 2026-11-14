@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 430" width="100%" role="img" aria-label="Five-Field SAR Backscatter Comparison: Observed OPERA RTC-S1 VH median change from 2026 pre-warning to warning-period">
+  <defs>
+    <linearGradient id="chartBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B12"/>
+      <stop offset="100%" stop-color="#0C1524"/>
+    </linearGradient>
+    <linearGradient id="barCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0891B2"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="barHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#F87171"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1120" height="430" rx="16" fill="url(#chartBg)" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="36" y="40" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700">Five-Field SAR Backscatter Comparison</text>
+  <text x="36" y="64" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13">Observed OPERA RTC-S1 VH Change (dB) · Pre-warning (2026-10-10 UTC) → Warning-period (2026-10-22 UTC / 2026-10-23 05:51+08:00)</text>
+
+  <!-- Caution Pill -->
+  <rect x="786" y="24" width="298" height="30" rx="15" fill="#2A1215" stroke="#991B1B" stroke-width="1.2"/>
+  <text x="935" y="43" text-anchor="middle" fill="#FCA5A5" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">NOT CONFIRMED CROP DAMAGE</text>
+
+  <line x1="36" y1="84" x2="1084" y2="84" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Grid lines: 0 dB at x=250, scale: 1 dB = 82 px (range -1 to +9 => 250 + 8*82 = 906) -->
+  <g stroke="#1E293B" stroke-width="1" stroke-dasharray="4,4">
+    <line x1="250" y1="104" x2="250" y2="344"/>
+    <line x1="414" y1="104" x2="414" y2="344"/>
+    <line x1="578" y1="104" x2="578" y2="344"/>
+    <line x1="742" y1="104" x2="742" y2="344"/>
+    <line x1="906" y1="104" x2="906" y2="344"/>
+  </g>
+  <!-- Solid 0 dB baseline -->
+  <line x1="250" y1="100" x2="250" y2="348" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Axis Labels -->
+  <g fill="#64748B" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" text-anchor="middle">
+    <text x="250" y="366">0 dB</text>
+    <text x="414" y="366">+2 dB</text>
+    <text x="578" y="366">+4 dB</text>
+    <text x="742" y="366">+6 dB</text>
+    <text x="906" y="366">+8 dB</text>
+  </g>
+
+  <!-- Row 1: YL-CAND-01 (+4.019 dB => 4.01907 * 82 = 329.56 px) -->
+  <g transform="translate(0, 112)">
+    <text x="36" y="22" fill="#E2E8F0" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">YL-CAND-01</text>
+    <text x="36" y="38" fill="#64748B" font-family="system-ui, sans-serif" font-size="11">125,247 m² · 60 px min</text>
+    <rect x="250" y="6" width="330" height="28" rx="6" fill="url(#barCyan)"/>
+    <text x="594" y="25" fill="#7DD3FC" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">+4.019 dB</text>
+  </g>
+
+  <!-- Row 2: YL-CAND-02 (+4.496 dB => 4.49644 * 82 = 368.71 px) -->
+  <g transform="translate(0, 160)">
+    <text x="36" y="22" fill="#E2E8F0" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">YL-CAND-02</text>
+    <text x="36" y="38" fill="#64748B" font-family="system-ui, sans-serif" font-size="11">Taixi farmland candidate</text>
+    <rect x="250" y="6" width="369" height="28" rx="6" fill="url(#barCyan)"/>
+    <text x="633" y="25" fill="#7DD3FC" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">+4.496 dB</text>
+  </g>
+
+  <!-- Row 3: YL-CAND-03 (+7.553 dB => 7.55336 * 82 = 619.38 px) -->
+  <g transform="translate(0, 208)">
+    <rect x="24" y="-2" width="1072" height="44" rx="8" fill="#1E1B24" fill-opacity="0.7" stroke="#7F1D1D" stroke-width="1"/>
+    <text x="36" y="20" fill="#F8FAFC" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">YL-CAND-03</text>
+    <text x="36" y="36" fill="#FCA5A5" font-family="system-ui, sans-serif" font-size="11">83,061 m² · 48 px min</text>
+    <rect x="250" y="6" width="619" height="28" rx="6" fill="url(#barHighlight)"/>
+    <text x="883" y="25" fill="#FCA5A5" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">+7.553 dB (largest shift)</text>
+  </g>
+
+  <!-- Row 4: YL-CAND-04 (+6.518 dB => 6.51834 * 82 = 534.50 px) -->
+  <g transform="translate(0, 256)">
+    <text x="36" y="22" fill="#E2E8F0" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">YL-CAND-04</text>
+    <text x="36" y="38" fill="#64748B" font-family="system-ui, sans-serif" font-size="11">134 m from YL-CAND-03</text>
+    <rect x="250" y="6" width="535" height="28" rx="6" fill="url(#barCyan)"/>
+    <text x="799" y="25" fill="#7DD3FC" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">+6.518 dB</text>
+  </g>
+
+  <!-- Row 5: YL-CAND-05 (-0.050 dB => -0.04952 * 82 = -4.06 px) -->
+  <g transform="translate(0, 304)">
+    <text x="36" y="22" fill="#E2E8F0" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">YL-CAND-05</text>
+    <text x="36" y="38" fill="#64748B" font-family="system-ui, sans-serif" font-size="11">Taixi farmland candidate</text>
+    <rect x="242" y="6" width="8" height="28" rx="3" fill="#94A3B8"/>
+    <text x="266" y="25" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="14" font-weight="700">-0.050 dB</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="36" y1="382" x2="1084" y2="382" stroke="#1E293B" stroke-width="1"/>
+  <text x="36" y="406" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="11.5">Source: data/exports/yunlin_vh_2025_2026/field_comparison.json · Sentinel-1C Orbit 105 Burst 105-224320-IW3 · Descriptive VH median difference only; causal_attribution = UNKNOWN.</text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 300" width="100%" role="img" aria-label="Five-stage Scientific Investigation Pipeline: Observe, Investigate, Challenge, Verify, Act">
+  <defs>
+    <linearGradient id="pipeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B12"/>
+      <stop offset="100%" stop-color="#0C1524"/>
+    </linearGradient>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#22D3EE"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="300" rx="16" fill="url(#pipeBg)" stroke="#1E293B" stroke-width="1.5"/>
+
+  <text x="32" y="38" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" letter-spacing="2">SCIENTIFIC INVESTIGATION PIPELINE · DETERMINISTIC TRACEABILITY</text>
+  <line x1="32" y1="54" x2="1088" y2="54" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Stage 1: OBSERVE -->
+  <g transform="translate(28, 80)">
+    <rect width="186" height="190" rx="12" fill="#0F172A" stroke="#1E3A5F" stroke-width="1.4"/>
+    <circle cx="32" cy="34" r="14" fill="#0E7490" fill-opacity="0.28" stroke="#22D3EE" stroke-width="1.4"/>
+    <circle cx="32" cy="34" r="4" fill="#22D3EE"/>
+    <text x="56" y="38" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">01</text>
+    <text x="18" y="76" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700">OBSERVE</text>
+    <text x="18" y="104" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">NISAR L2 GCOV</text>
+    <text x="18" y="122" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">OPERA RTC-S1 VH</text>
+    <text x="18" y="140" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Geospatial Polygons</text>
+    <rect x="18" y="156" width="150" height="20" rx="5" fill="#132238"/>
+    <text x="93" y="170" text-anchor="middle" fill="#7DD3FC" font-family="'SFMono-Regular', Consolas, monospace" font-size="10">MapLibre + GeoJSON</text>
+  </g>
+
+  <line x1="216" y1="175" x2="242" y2="175" stroke="#22D3EE" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Stage 2: INVESTIGATE -->
+  <g transform="translate(248, 80)">
+    <rect width="186" height="190" rx="12" fill="#0F172A" stroke="#1E3A5F" stroke-width="1.4"/>
+    <circle cx="32" cy="34" r="14" fill="#0F766E" fill-opacity="0.28" stroke="#2DD4BF" stroke-width="1.4"/>
+    <path d="M 27 34 L 32 29 L 37 34 L 32 39 Z" fill="#2DD4BF"/>
+    <text x="56" y="38" fill="#2DD4BF" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">02</text>
+    <text x="18" y="76" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700">INVESTIGATE</text>
+    <text x="18" y="104" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Scientific Agent V3</text>
+    <text x="18" y="122" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">10 Allowlisted Tools</text>
+    <text x="18" y="140" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">2025 vs 2026 Series</text>
+    <rect x="18" y="156" width="150" height="20" rx="5" fill="#132238"/>
+    <text x="93" y="170" text-anchor="middle" fill="#5EEAD4" font-family="'SFMono-Regular', Consolas, monospace" font-size="10">investigation_v3.py</text>
+  </g>
+
+  <line x1="436" y1="175" x2="462" y2="175" stroke="#22D3EE" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Stage 3: CHALLENGE -->
+  <g transform="translate(468, 80)">
+    <rect width="186" height="190" rx="12" fill="#0F172A" stroke="#7F1D1D" stroke-width="1.4"/>
+    <circle cx="32" cy="34" r="14" fill="#991B1B" fill-opacity="0.28" stroke="#F87171" stroke-width="1.4"/>
+    <path d="M 32 27 L 32 35 M 32 39 L 32 41" stroke="#F87171" stroke-width="2" stroke-linecap="round"/>
+    <text x="56" y="38" fill="#FCA5A5" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">03</text>
+    <text x="18" y="76" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700">CHALLENGE</text>
+    <text x="18" y="104" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Competing Hypotheses</text>
+    <text x="18" y="122" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Active Falsification</text>
+    <text x="18" y="140" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Missing Data Gaps</text>
+    <rect x="18" y="156" width="150" height="20" rx="5" fill="#2A1215"/>
+    <text x="93" y="170" text-anchor="middle" fill="#FCA5A5" font-family="'SFMono-Regular', Consolas, monospace" font-size="10">5 Alternative Causes</text>
+  </g>
+
+  <line x1="656" y1="175" x2="682" y2="175" stroke="#22D3EE" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Stage 4: VERIFY -->
+  <g transform="translate(688, 80)">
+    <rect width="186" height="190" rx="12" fill="#0F172A" stroke="#1E3A5F" stroke-width="1.4"/>
+    <circle cx="32" cy="34" r="14" fill="#0369A1" fill-opacity="0.28" stroke="#38BDF8" stroke-width="1.4"/>
+    <path d="M 26 34 L 30 38 L 38 30" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="56" y="38" fill="#38BDF8" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">04</text>
+    <text x="18" y="76" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700">VERIFY</text>
+    <text x="18" y="104" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Evidence Ledger</text>
+    <text x="18" y="122" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Cross-CRID Guardrail</text>
+    <text x="18" y="140" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">SHA-256 &amp; Trace QA</text>
+    <rect x="18" y="156" width="150" height="20" rx="5" fill="#132238"/>
+    <text x="93" y="170" text-anchor="middle" fill="#7DD3FC" font-family="'SFMono-Regular', Consolas, monospace" font-size="10">validate_tool_trace()</text>
+  </g>
+
+  <line x1="876" y1="175" x2="902" y2="175" stroke="#22D3EE" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Stage 5: ACT -->
+  <g transform="translate(908, 80)">
+    <rect width="184" height="190" rx="12" fill="#0F172A" stroke="#1E3A5F" stroke-width="1.4"/>
+    <circle cx="32" cy="34" r="14" fill="#0E7490" fill-opacity="0.28" stroke="#22D3EE" stroke-width="1.4"/>
+    <rect x="27" y="28" width="10" height="12" rx="1.5" fill="none" stroke="#22D3EE" stroke-width="1.6"/>
+    <text x="56" y="38" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="700">05</text>
+    <text x="18" y="76" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700">ACT</text>
+    <text x="18" y="104" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Investigation Dossier</text>
+    <text x="18" y="122" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">6-Step Story Mode</text>
+    <text x="18" y="140" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12">Bounded Next Steps</text>
+    <rect x="18" y="156" width="148" height="20" rx="5" fill="#132238"/>
+    <text x="92" y="170" text-anchor="middle" fill="#7DD3FC" font-family="'SFMono-Regular', Consolas, monospace" font-size="10">Evidence-Backed</text>
+  </g>
+</svg>

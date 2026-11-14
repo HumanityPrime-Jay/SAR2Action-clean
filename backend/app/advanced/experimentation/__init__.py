@@ -1,0 +1,62 @@
+"""SAR2Action Workstream A: Autonomous Experimentation & Falsification."""
+from backend.app.advanced.experimentation.adapter import (
+    build_v3_context,
+    design_experiments,
+    evaluate_experiment,
+    rank_experiments,
+    revise_hypotheses,
+    run_bounded_investigation,
+    execute_experiment,
+    to_v3_adapter_payload,
+)
+from backend.app.advanced.experimentation.falsification import default_hypotheses
+from backend.app.advanced.experimentation.models import (
+    BoundedInvestigationResult,
+    EvidenceItem,
+    ExperimentEvaluation,
+    ExperimentPlan,
+    ExperimentResult,
+    ExperimentScoreBreakdown,
+    ExperimentStatus,
+    FeasibilityStatus,
+    HypothesisCategory,
+    HypothesisState,
+    HypothesisStatus,
+    InvestigationContext,
+    ToolSpec,
+    ToolTraceEntry,
+)
+from backend.app.advanced.experimentation.tool_registry import (
+    ScientificToolRegistry,
+    ToolExecutionTimeoutError,
+    UnauthorizedToolError,
+)
+
+__all__ = [
+    "BoundedInvestigationResult",
+    "EvidenceItem",
+    "ExperimentEvaluation",
+    "ExperimentPlan",
+    "ExperimentResult",
+    "ExperimentScoreBreakdown",
+    "ExperimentStatus",
+    "FeasibilityStatus",
+    "HypothesisCategory",
+    "HypothesisState",
+    "HypothesisStatus",
+    "InvestigationContext",
+    "ScientificToolRegistry",
+    "ToolExecutionTimeoutError",
+    "ToolSpec",
+    "ToolTraceEntry",
+    "UnauthorizedToolError",
+    "build_v3_context",
+    "default_hypotheses",
+    "design_experiments",
+    "evaluate_experiment",
+    "execute_experiment",
+    "rank_experiments",
+    "revise_hypotheses",
+    "run_bounded_investigation",
+    "to_v3_adapter_payload",
+]

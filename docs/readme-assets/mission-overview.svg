@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 310" width="100%" role="img" aria-label="SAR2Action Mission Overview: 2 NISAR dates, 6 OPERA RTC-S1 scenes, 5 agricultural candidates, 30 real observations, and Scientific Agent V3">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B12"/>
+      <stop offset="100%" stop-color="#0C1524"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111C2E"/>
+      <stop offset="100%" stop-color="#0B1320"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1120" height="310" rx="16" fill="url(#bgGrad)" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Header bar -->
+  <circle cx="34" cy="34" r="5" fill="#22D3EE"/>
+  <text x="50" y="39" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" letter-spacing="2">MISSION TELEMETRY · TAIXI TOWNSHIP, YUNLIN, TAIWAN</text>
+  <rect x="926" y="21" width="164" height="24" rx="12" fill="#132238" stroke="#1E3A5F" stroke-width="1"/>
+  <text x="1008" y="37" text-anchor="middle" fill="#22D3EE" font-family="'SFMono-Regular', Consolas, monospace" font-size="11" font-weight="600">VERIFIED DATASET</text>
+
+  <line x1="28" y1="58" x2="1092" y2="58" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Card 1: NISAR -->
+  <g transform="translate(28, 78)">
+    <rect width="198" height="202" rx="12" fill="url(#cardGrad)" stroke="#1E3A5F" stroke-width="1.2"/>
+    <rect x="0" y="0" width="198" height="3" rx="1.5" fill="#22D3EE"/>
+    <text x="18" y="34" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">NISAR L2 GCOV</text>
+    <text x="18" y="96" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="48" font-weight="700">2</text>
+    <text x="18" y="124" fill="#22D3EE" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600">acquisition dates</text>
+    <line x1="18" y1="142" x2="180" y2="142" stroke="#1E293B" stroke-width="1"/>
+    <text x="18" y="162" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">2026-10-16 · P05023</text>
+    <text x="18" y="180" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">2026-10-28 · P05036</text>
+  </g>
+
+  <!-- Card 2: OPERA RTC-S1 -->
+  <g transform="translate(244, 78)">
+    <rect width="198" height="202" rx="12" fill="url(#cardGrad)" stroke="#1E3A5F" stroke-width="1.2"/>
+    <rect x="0" y="0" width="198" height="3" rx="1.5" fill="#14B8A6"/>
+    <text x="18" y="34" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">OPERA RTC-S1</text>
+    <text x="18" y="96" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="48" font-weight="700">6</text>
+    <text x="18" y="124" fill="#2DD4BF" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600">selected scenes</text>
+    <line x1="18" y1="142" x2="180" y2="142" stroke="#1E293B" stroke-width="1"/>
+    <text x="18" y="162" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">3 in 2025 · 3 in 2026</text>
+    <text x="18" y="180" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">Sentinel-1C · Orbit 105</text>
+  </g>
+
+  <!-- Card 3: Agricultural Candidates -->
+  <g transform="translate(460, 78)">
+    <rect width="198" height="202" rx="12" fill="url(#cardGrad)" stroke="#1E3A5F" stroke-width="1.2"/>
+    <rect x="0" y="0" width="198" height="3" rx="1.5" fill="#38BDF8"/>
+    <text x="18" y="34" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">FIELD CANDIDATES</text>
+    <text x="18" y="96" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="48" font-weight="700">5</text>
+    <text x="18" y="124" fill="#38BDF8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600">field polygons</text>
+    <line x1="18" y1="142" x2="180" y2="142" stroke="#1E293B" stroke-width="1"/>
+    <text x="18" y="162" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">YL-CAND-01 to 05</text>
+    <text x="18" y="180" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">Crop type unverified</text>
+  </g>
+
+  <!-- Card 4: Observations -->
+  <g transform="translate(676, 78)">
+    <rect width="198" height="202" rx="12" fill="url(#cardGrad)" stroke="#1E3A5F" stroke-width="1.2"/>
+    <rect x="0" y="0" width="198" height="3" rx="1.5" fill="#22D3EE"/>
+    <text x="18" y="34" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">OBSERVATIONS</text>
+    <text x="18" y="96" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="48" font-weight="700">30</text>
+    <text x="18" y="124" fill="#22D3EE" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600">real field-scene obs.</text>
+    <line x1="18" y1="142" x2="180" y2="142" stroke="#1E293B" stroke-width="1"/>
+    <text x="18" y="162" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">30 / 30 QA passing</text>
+    <text x="18" y="180" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">Linear gamma0 -&gt; dB</text>
+  </g>
+
+  <!-- Card 5: Scientific Agent -->
+  <g transform="translate(892, 78)">
+    <rect width="200" height="202" rx="12" fill="url(#cardGrad)" stroke="#7F1D1D" stroke-width="1.2"/>
+    <rect x="0" y="0" width="200" height="3" rx="1.5" fill="#EF4444"/>
+    <text x="18" y="34" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">SCIENTIFIC AGENT</text>
+    <text x="18" y="96" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="700">V3</text>
+    <text x="18" y="124" fill="#FCA5A5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600">evidence-grounded</text>
+    <line x1="18" y1="142" x2="182" y2="142" stroke="#1E293B" stroke-width="1"/>
+    <text x="18" y="162" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">10 allowlisted tools</text>
+    <text x="18" y="180" fill="#CBD5E1" font-family="'SFMono-Regular', Consolas, monospace" font-size="11">5 competing hypotheses</text>
+  </g>
+</svg>
