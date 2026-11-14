@@ -1,28 +1,59 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { EVENTS, REGIONS, type RegionKey, eventLabel } from '../data/events';
+import { CROPS, type CropKey, type FarmerInfo } from '../data/farmer';
 import { PARCELS } from '../data/champi';
 import { NISAR_SCENE } from '../data/nisar';
+import { useLang, useT } from '../i18n';
 
-/** Two-step event choice for the damage map: region first, then an event in that region. */
-export function EventPicker({ initialId, onPick }: { initialId: string | null; onPick: (id: string) => void }) {
+interface Props {
+  initialId: string | null;
+  initialFarmer: FarmerInfo | null;
+  onPick: (id: string, farmer: FarmerInfo) => void;
+}
+
+/** Event choice for the damage map (region → event), plus the farmer's own field info. */
+export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
+  const t = useT();
+  const { lang } = useLang();
   const initial = EVENTS.find((e) => e.id === initialId);
   const [region, setRegion] = useState<RegionKey | ''>(initial?.region ?? '');
   const [eventId, setEventId] = useState(initial?.id ?? '');
+  const [cadastral, setCadastral] = useState(initialFarmer?.cadastral ?? '');
+  const [crop, setCrop] = useState<CropKey | ''>(initialFarmer?.crop ?? '');
+  const [cropOther, setCropOther] = useState(initialFarmer?.cropOther ?? '');
+  const [showErrors, setShowErrors] = useState(false);
+  const cropRef = useRef<HTMLSelectElement>(null);
+  const otherRef = useRef<HTMLInputElement>(null);
   const options = EVENTS.filter((e) => e.region === region);
   const chosen = EVENTS.find((e) => e.id === eventId);
+
+  const cropMissing = !crop;
+  const otherMissing = crop === 'other' && !cropOther.trim();
+
+  const submit = () => {
+    if (!chosen) return;
+    if (cropMissing || otherMissing) {
+      setShowErrors(true);
+      (cropMissing ? cropRef : otherRef).current?.focus();
+      return;
+    }
+    onPick(chosen.id, { cadastral: cadastral.trim(), crop: crop as CropKey, cropOther: cropOther.trim() });
+  };
 
   return (
     <div className="picker">
       <div className="picker-head">
-        <span className="eyebrow">STEP 1 · 選擇災害事件</span>
-        <h1 className="h1">要查看哪一次災害？</h1>
-        <p className="body">先選地區，再選該地區的災害事件，就會開啟該事件的受災地圖。</p>
+        <span className="eyebrow">{t('STEP 1 · 選擇災害事件', 'STEP 1 · CHOOSE AN EVENT')}</span>
+        <h1 className="h1">{t('要查看哪一次災害？', 'Which disaster do you want to look at?')}</h1>
+        <p className="body">
+          {t('先選地區，再選該地區的災害事件，就會開啟該事件的受災地圖。', 'Pick a region, then an event in that region, to open its damage map.')}
+        </p>
       </div>
 
       <div className="picker-steps">
         <label className="picker-field box">
           <span className="no mono">01</span>
-          <span className="lbl">地區</span>
+          <span className="lbl">{t('地區', 'Region')}</span>
           <select
             value={region}
             onChange={(e) => {
@@ -31,11 +62,11 @@ export function EventPicker({ initialId, onPick }: { initialId: string | null; o
             }}
           >
             <option value="" disabled>
-              請選擇地區
+              {t('請選擇地區', 'Choose a region')}
             </option>
             {REGIONS.map((r) => (
               <option key={r.key} value={r.key}>
-                {r.label}（{r.counties}）
+                {t(`${r.label.zh}（${r.counties.zh}）`, `${r.label.en} (${r.counties.en})`)}
               </option>
             ))}
           </select>
@@ -47,45 +78,121 @@ export function EventPicker({ initialId, onPick }: { initialId: string | null; o
 
         <label className={`picker-field box${region ? '' : ' off'}`}>
           <span className="no mono">02</span>
-          <span className="lbl">災害事件</span>
+          <span className="lbl">{t('災害事件', 'Disaster event')}</span>
           <select value={eventId} disabled={!region || !options.length} onChange={(e) => setEventId(e.target.value)}>
             <option value="" disabled>
-              {!region ? '請先選擇地區' : options.length ? '請選擇事件' : '此地區尚無事件'}
+              {!region ? t('請先選擇地區', 'Choose a region first') : options.length ? t('請選擇事件', 'Choose an event') : t('此地區尚無事件', 'No events yet')}
             </option>
             {options.map((e) => (
               <option key={e.id} value={e.id}>
-                {eventLabel(e)}
+                {eventLabel(e, lang)}
               </option>
             ))}
           </select>
         </label>
       </div>
 
-      {region && !options.length && <p className="cap picker-empty">這個地區目前還沒有處理好的災害事件。</p>}
+      {region && !options.length && (
+        <p className="cap picker-empty">{t('這個地區目前還沒有處理好的災害事件。', 'No processed disaster events for this region yet.')}</p>
+      )}
+
+      <fieldset className="farmer-card">
+        <legend className="sr-only">{t('我是農民', 'I am a farmer')}</legend>
+        <div className="farmer-head">
+          <span className="eyebrow">{t('FOR FARMERS · 農民登記', 'FOR FARMERS')}</span>
+          <h2 className="h3">{t('我是農民', 'I am a farmer')}</h2>
+          <p className="cap">
+            {t(
+              '告訴我們您的田種了什麼，補助助手會依您的作物說明可以申請的救助。',
+              'Tell us what you grow, and the relief assistant will explain the support that applies to your crop.',
+            )}
+          </p>
+        </div>
+        <div className="farmer-fields">
+          <label className="farmer-field">
+            <span className="lbl">
+              {t('土地地籍', 'Land parcel no.')} <span className="opt">{t('選填', 'Optional')}</span>
+            </span>
+            <input
+              value={cadastral}
+              onChange={(e) => setCadastral(e.target.value)}
+              placeholder={t('例：台西鄉 海口段 0123 地號', 'e.g. Taixi, Haikou section, lot 0123')}
+              autoComplete="off"
+              aria-describedby="cadastral-hint"
+            />
+            <span id="cadastral-hint" className="hint">
+              {t('可在土地權狀上找到', 'Shown on your land title deed')}
+            </span>
+          </label>
+          <div className="farmer-field">
+            <label htmlFor="farmer-crop" className="lbl">
+              {t('這塊田種的作物', 'Crop on this field')} <span className="req">{t('必填', 'Required')}</span>
+            </label>
+            <select
+              id="farmer-crop"
+              ref={cropRef}
+              value={crop}
+              required
+              aria-invalid={showErrors && cropMissing}
+              aria-describedby={showErrors && cropMissing ? 'crop-error' : undefined}
+              onChange={(e) => setCrop(e.target.value as CropKey)}
+            >
+              <option value="" disabled>
+                {t('請選擇作物', 'Choose a crop')}
+              </option>
+              {CROPS.map((c) => (
+                <option key={c.key} value={c.key}>
+                  {t(c.label)}
+                </option>
+              ))}
+            </select>
+            {crop === 'other' && (
+              <input
+                ref={otherRef}
+                value={cropOther}
+                onChange={(e) => setCropOther(e.target.value)}
+                placeholder={t('請填寫作物名稱', 'Name of the crop')}
+                aria-label={t('其他作物名稱', 'Other crop name')}
+                aria-invalid={showErrors && otherMissing}
+                aria-describedby={showErrors && otherMissing ? 'crop-error' : undefined}
+                required
+              />
+            )}
+            {showErrors && (cropMissing || otherMissing) && (
+              <span id="crop-error" className="error" role="alert">
+                {cropMissing ? t('請選擇作物，才能進入受災地圖。', 'Choose a crop to open the damage map.') : t('請填寫作物名稱。', 'Enter the crop name.')}
+              </span>
+            )}
+          </div>
+        </div>
+      </fieldset>
 
       {chosen && (
         <div className="picker-summary">
           <div>
             <span className="eyebrow">
-              {chosen.kind} · {chosen.intlName}
+              {t(chosen.kind)} · {chosen.intlName}
             </span>
-            <b>
-              {chosen.county} {chosen.name}
-            </b>
-            <span className="cap">暴風圈影響台灣陸地：{chosen.period}</span>
+            <b>{lang === 'zh' ? `${chosen.county.zh} ${chosen.name.zh}` : `${chosen.name.en}, ${chosen.county.en}`}</b>
+            <span className="cap">
+              {t('暴風圈影響台灣陸地：', 'Storm over Taiwan: ')}
+              {chosen.period}
+            </span>
             {chosen.hasImagery && (
               <span className="cap">
-                NISAR 影像：{NISAR_SCENE.preDate}（颱風前）／{NISAR_SCENE.postDate}（颱風後） · Track {NISAR_SCENE.track}
+                {t('NISAR 影像：', 'NISAR scenes: ')}
+                {NISAR_SCENE.preDate} {t('（颱風前）', '(pre)')} ／ {NISAR_SCENE.postDate} {t('（颱風後）', '(post)')} · Track {NISAR_SCENE.track}
               </span>
             )}
             {chosen.hasImagery && (
               <span className="cap">
-                調查範圍：{chosen.town} · {PARCELS.length} 塊候選田區（農田坵塊圖）
+                {t('調查範圍：', 'Study area: ')}
+                {t(chosen.town)} · {PARCELS.length} {t('塊候選田區（農田坵塊圖）', 'candidate fields (official farmland map)')}
               </span>
             )}
           </div>
-          <button className="btn btn-primary" onClick={() => onPick(chosen.id)}>
-            進入受災地圖 →
+          <button className="btn btn-primary" onClick={submit}>
+            {t('進入受災地圖 →', 'Open damage map →')}
           </button>
         </div>
       )}

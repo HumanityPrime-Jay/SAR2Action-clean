@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } f
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { NISAR_FRAME_CORNERS, NISAR_IMG, NISAR_SCENE } from '../data/nisar';
+import type { Lang } from '../i18n';
 // Let Vite bundle MapLibre's module worker (with its shared chunk) and hand MapLibre the URL;
 // its default `new URL('./maplibre-gl-worker.mjs', import.meta.url)` breaks under dependency pre-bundling.
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
@@ -35,9 +36,12 @@ function fitZoom(el: HTMLElement) {
  * 3D Earth on MapLibre's globe projection with NASA GIBS Blue Marble imagery.
  * Spins slowly until the user grabs it; WebGL failures fall back to a static message.
  */
-const Globe = forwardRef<GlobeHandle, { borders: boolean }>(function Globe({ borders }, ref) {
+const MARKER_LABEL: Record<Lang, string> = { zh: '雲林台西 · Taiwan', en: 'Taixi, Yunlin · Taiwan' };
+
+const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function Globe({ borders, lang }, ref) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const labelRef = useRef<HTMLSpanElement | null>(null);
   const spinningRef = useRef(false);
   const [failed, setFailed] = useState(false);
 
@@ -113,7 +117,8 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean }>(function Globe({ bor
     // Taiwan marker with label.
     const markerEl = document.createElement('div');
     markerEl.className = 'globe-marker';
-    markerEl.innerHTML = '<span class="globe-pulse"></span><span class="globe-dot"></span><span class="globe-label">雲林台西 · Taiwan</span>';
+    markerEl.innerHTML = '<span class="globe-pulse"></span><span class="globe-dot"></span><span class="globe-label"></span>';
+    labelRef.current = markerEl.querySelector('.globe-label');
     new maplibregl.Marker({ element: markerEl, anchor: 'left', offset: [-8, 0] }).setLngLat(YUNLIN).addTo(map);
 
     // Slow idle spin; any user interaction stops it for good.
@@ -143,6 +148,10 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean }>(function Globe({ bor
   }, []);
 
   useEffect(() => {
+    if (labelRef.current) labelRef.current.textContent = MARKER_LABEL[lang];
+  }, [lang]);
+
+  useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
     const apply = () => map.setLayoutProperty('borders', 'visibility', borders ? 'visible' : 'none');
@@ -152,12 +161,14 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean }>(function Globe({ bor
 
   if (failed) {
     return (
-      <div className="globe globe-fallback" role="img" aria-label="3D 地球無法載入">
-        <p className="cap">這個瀏覽器無法顯示 3D 地球（需要 WebGL）。下方按鈕仍可使用。</p>
+      <div className="globe globe-fallback" role="img" aria-label={lang === 'zh' ? '3D 地球無法載入' : '3D globe unavailable'}>
+        <p className="cap">
+          {lang === 'zh' ? '這個瀏覽器無法顯示 3D 地球（需要 WebGL）。下方按鈕仍可使用。' : 'This browser cannot show the 3D globe (WebGL needed). The buttons below still work.'}
+        </p>
       </div>
     );
   }
-  return <div ref={containerRef} className="globe" role="application" aria-label="3D 地球：拖曳旋轉、滾輪縮放，標記為台灣雲林台西" />;
+  return <div ref={containerRef} className="globe" role="application" aria-label={lang === 'zh' ? '3D 地球：拖曳旋轉、滾輪縮放，標記為台灣雲林台西' : '3D globe: drag to rotate, scroll to zoom; marker at Taixi, Yunlin, Taiwan'} />;
 });
 
 export default Globe;

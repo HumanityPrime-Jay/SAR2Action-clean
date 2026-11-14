@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { type LngLat, NISAR_TAIXI, type Parcel, QA_TESTS, type VhPoint, WARNING, parcelById } from '../data/champi';
 import { NISAR_SCENE } from '../data/nisar';
+import { cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
+import { type Lang, useLang, useT } from '../i18n';
 import { Icon } from '../ui/shared';
 import type { ScreenProps } from './types';
 
@@ -43,12 +45,16 @@ function SceneView({ scene, pol, parcel, label }: { scene: Scene; pol: Pol; parc
   );
 }
 
-const sceneLabel = (s: Scene, pol: Pol, parcel: Parcel) =>
-  `NISAR ${pol} 雷達影像，${s.date}（${s.period === 'PRE' ? '颱風前' : '颱風後'}），田區 ${parcel.id} 周邊 2.4 公里`;
+const sceneLabel = (s: Scene, pol: Pol, parcel: Parcel, lang: Lang) =>
+  lang === 'zh'
+    ? `NISAR ${pol} 雷達影像，${s.date}（${s.period === 'PRE' ? '颱風前' : '颱風後'}），田區 ${parcel.id} 周邊 2.4 公里`
+    : `NISAR ${pol} radar image, ${s.date} (${s.period === 'PRE' ? 'pre-typhoon' : 'post-typhoon'}), 2.4 km around field ${parcel.id}`;
 
 const md = (d: string) => d.slice(5).replace('-', '/');
 
 function SwipeViewer({ pol, parcel }: { pol: Pol; parcel: Parcel }) {
+  const t = useT();
+  const { lang } = useLang();
   const [pre, post] = NISAR_TAIXI.scenes;
   const [pct, setPct] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
@@ -70,7 +76,7 @@ function SwipeViewer({ pol, parcel }: { pol: Pol; parcel: Parcel }) {
       onPointerMove={(e) => dragging.current && update(e.clientX)}
       onPointerUp={() => (dragging.current = false)}
       role="slider"
-      aria-label="颱風前後影像滑桿"
+      aria-label={t('颱風前後影像滑桿', 'Before/after image slider')}
       aria-valuenow={Math.round(pct)}
       aria-valuemin={0}
       aria-valuemax={100}
@@ -81,7 +87,7 @@ function SwipeViewer({ pol, parcel }: { pol: Pol; parcel: Parcel }) {
       }}
     >
       <div className="layer">
-        <SceneView scene={post} pol={pol} parcel={parcel} label={sceneLabel(post, pol, parcel)} />
+        <SceneView scene={post} pol={pol} parcel={parcel} label={sceneLabel(post, pol, parcel, lang)} />
       </div>
       <div className="layer" style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}>
         <SceneView scene={pre} pol={pol} parcel={parcel} />
@@ -94,7 +100,9 @@ function SwipeViewer({ pol, parcel }: { pol: Pol; parcel: Parcel }) {
   );
 }
 
-export function CompareScreen({ selectedId, go }: ScreenProps) {
+export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
+  const t = useT();
+  const { lang } = useLang();
   const [mode, setMode] = useState<Mode>('side');
   const [pol, setPol] = useState<Pol>('HH');
   const parcel = parcelById(selectedId);
@@ -106,31 +114,32 @@ export function CompareScreen({ selectedId, go }: ScreenProps) {
         <div className="cmp-head">
           <button className="back" onClick={() => go('map')}>
             <Icon name="back" size={16} />
-            地圖
+            {t('地圖', 'Map')}
           </button>
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
               <h1 className="h2">
-                田區 <span className="mono">{parcel.id}</span>
+                {t('田區', 'Field')} <span className="mono">{parcel.id}</span>
               </h1>
-              <span className="seal neutral">OBSERVED · 原因未知</span>
+              <span className="seal neutral">{t('OBSERVED · 原因未知', 'OBSERVED · cause unknown')}</span>
             </div>
             <div className="cap">
-              雲林縣{parcel.town} · {parcel.areaHa} 公頃 · 作物未驗證
+              {lang === 'zh' ? `雲林縣${parcel.town.zh}` : `${parcel.town.en}, Yunlin`} · {parcel.areaHa} {t('公頃', 'ha')} ·{' '}
+              {farmer ? `${t('農民登記作物：', 'Farmer-reported crop: ')}${cropName(farmer, lang)}${t('（待驗證）', ' (unverified)')}` : t('作物未驗證', 'Crop unverified')}
             </div>
           </div>
-          <div className="seg" role="group" aria-label="極化">
+          <div className="seg" role="group" aria-label={t('極化', 'Polarization')}>
             {(['HH', 'HV'] as const).map((p) => (
               <button key={p} aria-pressed={pol === p} onClick={() => setPol(p)}>
                 {p}
               </button>
             ))}
           </div>
-          <div className="seg" role="group" aria-label="比對模式">
+          <div className="seg" role="group" aria-label={t('比對模式', 'Compare mode')}>
             {(
               [
-                ['side', '並排'],
-                ['swipe', '滑桿'],
+                ['side', t('並排', 'Side by side')],
+                ['swipe', t('滑桿', 'Slider')],
               ] as const
             ).map(([m, label]) => (
               <button key={m} aria-pressed={mode === m} onClick={() => setMode(m)}>
@@ -149,10 +158,10 @@ export function CompareScreen({ selectedId, go }: ScreenProps) {
                 <span className="cap-tl">
                   {s.period} · NISAR L-BAND · {s.date}
                 </span>
-                <SceneView scene={s} pol={pol} parcel={parcel} label={sceneLabel(s, pol, parcel)} />
+                <SceneView scene={s} pol={pol} parcel={parcel} label={sceneLabel(s, pol, parcel, lang)} />
                 <span className="ticks" />
                 <span className="cap-br">
-                  {pol} · {s.crid} {s.maturity === 'PROVISIONAL' ? '暫定版' : '驗證版'}
+                  {pol} · {s.crid} {s.maturity === 'PROVISIONAL' ? t('暫定版', 'provisional') : t('驗證版', 'validated')}
                 </span>
               </div>
             ))
@@ -160,30 +169,32 @@ export function CompareScreen({ selectedId, go }: ScreenProps) {
         </div>
 
         <p className="cap scene-src">
-          真實 {NISAR_SCENE.mission} 影像（Track {NISAR_SCENE.track} Frame {NISAR_SCENE.frame}），藍色虛線為農田坵塊圖的田區邊界。兩期各自調整亮度，且處理版本不同、尚未通過跨版本
-          QA，所以亮度不能直接相比，也不提供 NISAR 差異圖。
+          {t(
+            `真實 ${NISAR_SCENE.mission} 影像（Track ${NISAR_SCENE.track} Frame ${NISAR_SCENE.frame}），藍色虛線為農田坵塊圖的田區邊界。兩期各自調整亮度，且處理版本不同、尚未通過跨版本 QA，所以亮度不能直接相比，也不提供 NISAR 差異圖。`,
+            `Real ${NISAR_SCENE.mission} imagery (Track ${NISAR_SCENE.track} Frame ${NISAR_SCENE.frame}); the dashed blue line is the official field boundary. Each scene has its own contrast stretch and a different processing version that has not passed cross-version QA, so brightness is not comparable and no NISAR difference image is shown.`,
+          )}
         </p>
 
         <div className="metrics">
           <div className="metric">
-            <div className="eyebrow">VH 颱風前→後</div>
+            <div className="eyebrow">{t('VH 颱風前→後', 'VH pre → post')}</div>
             <div className="v">{formatDb(parcel.preToPost)}</div>
             <div className="cap">Sentinel-1 · 10/11 → 11/04</div>
           </div>
           <div className="metric">
-            <div className="eyebrow">VH 颱風前→警報中</div>
+            <div className="eyebrow">{t('VH 颱風前→警報中', 'VH pre → warning')}</div>
             <div className="v">{formatDb(parcel.preToWarning)}</div>
             <div className="cap">10/11 → 10/23</div>
           </div>
           <div className="metric">
-            <div className="eyebrow">與 2025 同期差</div>
+            <div className="eyebrow">{t('與 2025 同期差', 'vs same period 2025')}</div>
             <div className="v">{formatDb(parcel.vsLastYear)}</div>
-            <div className="cap">11/04 對 2025-11-02</div>
+            <div className="cap">{t('11/04 對 2025-11-02', '11/04 vs 2025-11-02')}</div>
           </div>
           <div className="metric">
-            <div className="eyebrow">判定</div>
-            <div className="v">原因未知</div>
-            <div className="cap">需作物紀錄與現勘</div>
+            <div className="eyebrow">{t('判定', 'Verdict')}</div>
+            <div className="v">{t('原因未知', 'Unknown')}</div>
+            <div className="cap">{t('需作物紀錄與現勘', 'Needs crop records and a site visit')}</div>
           </div>
         </div>
       </div>
@@ -191,32 +202,32 @@ export function CompareScreen({ selectedId, go }: ScreenProps) {
       <aside className="panel">
         <div className="panel-head">
           <div className="eyebrow">Evidence QA</div>
-          <h2 className="h3">判讀檢核</h2>
+          <h2 className="h3">{t('判讀檢核', 'Evidence checks')}</h2>
         </div>
         <ul className="qa-list">
-          {QA_TESTS.map((t) => (
-            <li key={t.id}>
-              <span className={`qa-mark ${t.pass ? 'pass' : 'fail'}`}>{t.pass ? '通過' : '未通過'}</span>
+          {QA_TESTS.map((q) => (
+            <li key={q.id}>
+              <span className={`qa-mark ${q.pass ? 'pass' : 'fail'}`}>{q.pass ? t('通過', 'Pass') : t('未通過', 'Fail')}</span>
               <span>
-                <b>{t.label}</b>
-                <span className="cap">{t.result}</span>
+                <b>{t(q.label)}</b>
+                <span className="cap">{t(q.result)}</span>
               </span>
             </li>
           ))}
         </ul>
         <div style={{ padding: '8px 20px 0' }}>
           <div className="eyebrow" style={{ marginBottom: 6 }}>
-            VH 回波時序 (dB) · {parcel.id}
+            {t('VH 回波時序 (dB)', 'VH backscatter (dB)')} · {parcel.id}
           </div>
           <VhChart parcel={parcel} />
         </div>
         <div style={{ flex: 1 }} />
         <div className="panel-foot">
           <button className="btn btn-primary btn-block" onClick={() => go('assist')}>
-            用此田區試算補助 →
+            {t('用此田區試算補助 →', 'Estimate relief for this field →')}
           </button>
           <button className="btn btn-line btn-block" onClick={() => window.print()}>
-            匯出證據報告 PDF
+            {t('匯出證據報告 PDF', 'Export evidence report (PDF)')}
           </button>
         </div>
       </aside>
@@ -231,6 +242,7 @@ const seasonDay = (date: string) => {
 };
 
 function VhChart({ parcel }: { parcel: Parcel }) {
+  const t = useT();
   const all = [...parcel.vh2025, ...parcel.vh2026].map((p) => p.db);
   const lo = Math.floor(Math.min(...all) - 1);
   const hi = Math.ceil(Math.max(...all) + 1);
@@ -244,10 +256,10 @@ function VhChart({ parcel }: { parcel: Parcel }) {
   const wEnd = X(seasonDay(WARNING.end));
   const desc = parcel.vh2026.map((p) => `${md(p.date)} ${p.db.toFixed(1)}`).join('、');
   return (
-    <svg viewBox="0 0 300 130" width="100%" role="img" aria-label={`VH 回波時序：2026 年 ${desc} dB；灰線為 2025 年同期`}>
+    <svg viewBox="0 0 300 130" width="100%" role="img" aria-label={t(`VH 回波時序：2026 年 ${desc} dB；灰線為 2025 年同期`, `VH backscatter 2026: ${desc} dB; grey line is the same period in 2025`)}>
       <rect x={wStart} y={10} width={Math.max(4, wEnd - wStart)} height={92} fill="rgba(215,50,42,.12)" />
       <text x={wStart + 2} y={9} fontFamily="Noto Sans TC" fontSize="9" fill="#D7322A">
-        颱風警報
+        {t('颱風警報', 'Typhoon warning')}
       </text>
       <g stroke="rgba(0,0,0,.12)" strokeWidth="1">
         {ticks.map((t) => (

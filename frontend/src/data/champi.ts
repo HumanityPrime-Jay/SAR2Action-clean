@@ -10,6 +10,7 @@ import fieldsGeojson from '../../public/studio/fields.geojson?raw';
 import nisarMap from '../../public/studio/nisar_map_manifest.json';
 import official from '../../public/studio/official_loss_record.json';
 import investigation from '../../public/studio/recorded_investigation.json';
+import type { Lang, Text } from '../i18n';
 
 export type LngLat = [number, number];
 
@@ -21,7 +22,7 @@ export interface VhPoint {
 
 export interface Parcel {
   id: string;
-  town: string;
+  town: Text;
   areaHa: number;
   /** Outer ring of the official farmland polygon (農田坵塊圖). */
   ring: LngLat[];
@@ -37,7 +38,7 @@ export interface Parcel {
 
 export type Trend = 'up' | 'down';
 export const trendOf = (p: Parcel): Trend => (p.preToPost >= 0 ? 'up' : 'down');
-export const TREND_LABEL: Record<Trend, string> = { up: 'VH 上升', down: 'VH 下降' };
+export const TREND_LABEL: Record<Trend, Text> = { up: { zh: 'VH 上升', en: 'VH up' }, down: { zh: 'VH 下降', en: 'VH down' } };
 export const TREND_COLOR: Record<Trend, string> = { up: '#4D8DFF', down: '#F28C3B' };
 
 interface FeatureLike {
@@ -59,7 +60,7 @@ export const PARCELS: Parcel[] = comparison.fields.map((f) => {
   const pairs = f.matched_date_pairs;
   return {
     id: f.field_id,
-    town: '台西鄉',
+    town: { zh: '台西鄉', en: 'Taixi' },
     areaHa: Math.round(f.field_area_m2 / 1000) / 10,
     ring: rings.get(f.field_id) ?? [],
     vh2025: series(f.observations['2025']),
@@ -80,54 +81,53 @@ export const WARNING = {
 
 export const CASE = {
   id: investigation.case_id,
-  town: '雲林縣 台西鄉',
+  town: { zh: '雲林縣 台西鄉', en: 'Taixi, Yunlin' } as Text,
   provenance: investigation.provenance_status,
 };
 
-/** Team QA tests, with Chinese summaries of each recorded result. */
-const TEST_ZH: Record<string, { label: string; result: string }> = {
+/** Team QA tests, with bilingual summaries of each recorded result. */
+const TEST_TEXT: Record<string, { label: Text; result: Text }> = {
   genuine_post_event_observation: {
-    label: '颱風後確實有 NISAR 觀測',
-    result: '10/28 的 NISAR 影像拍攝於 10/23–24 颱風之後。',
+    label: { zh: '颱風後確實有 NISAR 觀測', en: 'A NISAR scene exists after the typhoon' },
+    result: { zh: '10/28 的 NISAR 影像拍攝於 10/23–24 颱風之後。', en: 'The Oct 28 NISAR acquisition follows the Oct 23–24 event window.' },
   },
   cross_crid_radiometric_compatibility: {
-    label: 'NISAR 前後兩期可直接比較強度',
-    result: '10/16（P05023 暫定版）與 10/28（P05036 驗證版）處理版本不同，尚未證實可直接相減。',
+    label: { zh: 'NISAR 前後兩期可直接比較強度', en: 'NISAR pre/post values are directly comparable' },
+    result: {
+      zh: '10/16（P05023 暫定版）與 10/28（P05036 驗證版）處理版本不同，尚未證實可直接相減。',
+      en: 'Oct 16 (P05023, provisional) and Oct 28 (P05036, validated) use different processing; equivalence is not established.',
+    },
   },
   official_loss_to_parcel_attribution: {
-    label: '官方損失可對應到個別田區',
-    result: '農業部只公布縣市層級損失，沒有田區層級資料。',
+    label: { zh: '官方損失可對應到個別田區', en: 'Official losses map to individual fields' },
+    result: { zh: '農業部只公布縣市層級損失，沒有田區層級資料。', en: 'The Ministry reports county-level losses only, with no parcel labels.' },
   },
   vh_event_bracketing: {
-    label: 'Sentinel-1 VH 觀測涵蓋颱風前後',
-    result: '同一顆衛星、同一軌道、同一處理方式，在颱風前後都有觀測。',
+    label: { zh: 'Sentinel-1 VH 觀測涵蓋颱風前後', en: 'Sentinel-1 VH brackets the typhoon' },
+    result: { zh: '同一顆衛星、同一軌道、同一處理方式，在颱風前後都有觀測。', en: 'Same platform, orbit and processing before and after the event.' },
   },
   vh_unique_event_signature_falsification: {
-    label: 'VH 變化是颱風特有的訊號',
-    result: '2025 年同期也出現「先升後降」，無法證明是颱風特有；但也不能排除颱風影響。',
+    label: { zh: 'VH 變化是颱風特有的訊號', en: 'The VH change is unique to the typhoon' },
+    result: {
+      zh: '2025 年同期也出現「先升後降」，無法證明是颱風特有；但也不能排除颱風影響。',
+      en: 'A similar rise-then-fall occurs in 2025, so uniqueness fails; a typhoon effect is not ruled out.',
+    },
   },
 };
 
 export interface QaTest {
   id: string;
   pass: boolean;
-  label: string;
-  result: string;
+  label: Text;
+  result: Text;
 }
 
 export const QA_TESTS: QaTest[] = investigation.hypothesis_tests.map((t) => ({
   id: t.test_id,
   pass: t.status === 'PASS',
-  label: TEST_ZH[t.test_id]?.label ?? t.test_id,
-  result: TEST_ZH[t.test_id]?.result ?? t.result,
+  label: TEST_TEXT[t.test_id]?.label ?? { zh: t.test_id, en: t.test_id },
+  result: TEST_TEXT[t.test_id]?.result ?? { zh: t.result, en: t.result },
 }));
-
-/** Chinese summary of `expert_report`. */
-export const FINDINGS = {
-  observed: '台西鄉有真實的 NISAR HH/HV 颱風前後影像，以及 2025、2026 同幾何的 Sentinel-1 VH 觀測。',
-  unknown: 'VH 變化僅為描述性觀測；目前不能宣稱作物受損、NISAR 前後差異或田區損失。',
-  next: '用作物／收穫紀錄與現地勘查檢查這 5 塊候選田區；VH 序列只用於排定優先順序。',
-};
 
 /** Two separate NISAR scenes over Taixi; each is stretched on its own, so not comparable in value. */
 export const NISAR_TAIXI = {
@@ -152,5 +152,5 @@ export const OFFICIAL_LOSS = {
   taiwanNtd: official.taiwan_total_ntd,
 };
 
-/** NT$ amount in 億 (100 million), e.g. 1.58 億. */
-export const toYi = (ntd: number) => `${(ntd / 1e8).toFixed(2)} 億`;
+/** Large NT$ amount: 1.58 億 / 157.7 million. */
+export const bigNtd = (ntd: number, lang: Lang) => (lang === 'zh' ? `${(ntd / 1e8).toFixed(2)} 億` : `${(ntd / 1e6).toFixed(1)} million`);

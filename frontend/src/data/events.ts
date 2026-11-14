@@ -4,24 +4,37 @@
  * Curated by hand for now. Later this list can be fed from 中央氣象署 typhoon warnings
  * plus 農業部 relief announcements (which counties qualify for cash relief).
  */
+import type { Lang, Text } from '../i18n';
 
 export type RegionKey = 'north' | 'central' | 'south';
 
-export const REGIONS: { key: RegionKey; label: string; counties: string }[] = [
-  { key: 'north', label: '北部', counties: '基隆・台北・新北・桃園・新竹・宜蘭' },
-  { key: 'central', label: '中部', counties: '苗栗・台中・彰化・南投・雲林' },
-  { key: 'south', label: '南部', counties: '嘉義・台南・高雄・屏東' },
+export const REGIONS: { key: RegionKey; label: Text; counties: Text }[] = [
+  {
+    key: 'north',
+    label: { zh: '北部', en: 'Northern' },
+    counties: { zh: '基隆・台北・新北・桃園・新竹・宜蘭', en: 'Keelung, Taipei, New Taipei, Taoyuan, Hsinchu, Yilan' },
+  },
+  {
+    key: 'central',
+    label: { zh: '中部', en: 'Central' },
+    counties: { zh: '苗栗・台中・彰化・南投・雲林', en: 'Miaoli, Taichung, Changhua, Nantou, Yunlin' },
+  },
+  {
+    key: 'south',
+    label: { zh: '南部', en: 'Southern' },
+    counties: { zh: '嘉義・台南・高雄・屏東', en: 'Chiayi, Tainan, Kaohsiung, Pingtung' },
+  },
 ];
 
 export interface DisasterEvent {
   id: string;
   region: RegionKey;
-  /** Chinese and international names, e.g. 薔琵 / CHAMPI. */
-  name: string;
+  /** Chinese and international names, e.g. 薔琵颱風 / Typhoon CHAMPI. */
+  name: Text;
   intlName: string;
-  kind: '颱風';
-  county: string;
-  town: string;
+  kind: Text;
+  county: Text;
+  town: Text;
   /** Period the storm circle was over Taiwan's land (CWA). */
   period: string;
   /** Whether NISAR scenes for this event are already processed. */
@@ -32,14 +45,25 @@ export const EVENTS: DisasterEvent[] = [
   {
     id: 'champi-2026-yunlin',
     region: 'central',
-    name: '薔琵颱風',
+    name: { zh: '薔琵颱風', en: 'Typhoon Champi' },
     intlName: 'CHAMPI',
-    kind: '颱風',
-    county: '雲林縣',
-    town: '台西鄉',
+    kind: { zh: '颱風', en: 'Typhoon' },
+    county: { zh: '雲林縣', en: 'Yunlin County' },
+    town: { zh: '台西鄉', en: 'Taixi Township' },
     period: '2026-10-23 – 10-24',
     hasImagery: true,
   },
 ];
 
-export const eventLabel = (e: DisasterEvent) => `${e.county} ${e.name}（${e.intlName}，${e.period.slice(0, 4)} 年 ${Number(e.period.slice(5, 7))} 月）`;
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export function eventLabel(e: DisasterEvent, lang: Lang) {
+  const year = e.period.slice(0, 4);
+  const month = Number(e.period.slice(5, 7));
+  return lang === 'zh'
+    ? `${e.county.zh} ${e.name.zh}（${e.intlName}，${year} 年 ${month} 月）`
+    : `${e.name.en}, ${e.county.en} (${MONTHS[month - 1]} ${year})`;
+}
+
+/** Short label for the top bar, e.g. 薔琵颱風 · 雲林縣. */
+export const eventShort = (e: DisasterEvent, lang: Lang) => `${e.name[lang]} · ${e.county[lang]}`;

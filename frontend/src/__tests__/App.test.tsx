@@ -23,6 +23,7 @@ function openChampiMap() {
   const map = screen.getByRole('region', { name: '受災地圖' });
   fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
   fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+  fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'garlic' } });
   fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
   return map;
 }
@@ -30,6 +31,7 @@ function openChampiMap() {
 describe('App', () => {
   beforeEach(() => {
     window.location.hash = '';
+    localStorage.clear();
     flyToTaiwan.mockClear();
     (globalThis as { ResizeObserver?: unknown }).ResizeObserver = ResizeObserverStub;
   });
@@ -85,9 +87,44 @@ describe('App', () => {
     expect(event).toBeEnabled();
     expect(within(event).getByRole('option', { name: /薔琵颱風/ })).toBeInTheDocument();
     fireEvent.change(event, { target: { value: 'champi-2026-yunlin' } });
+    fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'rice' } });
     fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
     expect(within(map).getByRole('listbox', { name: '候選田區' })).toBeInTheDocument();
     expect(screen.getByRole('banner')).toHaveTextContent('薔琵颱風 · 雲林縣');
+  });
+
+  it('farmer card: crop is required, land parcel number is optional and reaches the estimate', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '受災地圖' }));
+    const map = screen.getByRole('region', { name: '受災地圖' });
+    fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
+    fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+    fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
+    expect(within(map).getByRole('alert')).toHaveTextContent('請選擇作物');
+    expect(within(map).getByRole('combobox', { name: /這塊田種的作物/ })).toHaveAttribute('aria-invalid', 'true');
+
+    fireEvent.change(within(map).getByRole('textbox', { name: /土地地籍/ }), { target: { value: '海口段 0123 地號' } });
+    fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'garlic' } });
+    fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
+    expect(within(map).getByRole('listbox', { name: '候選田區' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
+    const assist = screen.getByRole('region', { name: '補助助手' });
+    expect(within(assist).getByText('海口段 0123 地號')).toBeInTheDocument();
+    expect(within(assist).getByText('大蒜（農民登記）')).toBeInTheDocument();
+  });
+
+  it('switches the whole interface to English', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: 'EN' }));
+    const nav = screen.getByRole('navigation', { name: 'Main menu' });
+    expect(within(nav).getByRole('button', { name: 'Damage map' })).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe('en');
+    fireEvent.click(within(nav).getByRole('button', { name: 'Relief assistant' }));
+    const assist = screen.getByRole('region', { name: 'Relief assistant' });
+    expect(within(assist).getByText('Decided by the authority')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '中' }));
+    expect(within(screen.getByRole('navigation', { name: '主選單' })).getByRole('button', { name: '受災地圖' })).toBeInTheDocument();
   });
 
   it('selecting a parcel on the map list updates the comparison screen', () => {

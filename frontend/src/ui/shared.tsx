@@ -1,6 +1,7 @@
 import React from 'react';
 import { type Parcel, TREND_LABEL, type Trend, trendOf } from '../data/champi';
 import { formatDb } from '../demo/fields';
+import { useT } from '../i18n';
 
 /** Hidden SVG defs shared by every screen: SAR speckle, damage hatch, cut-paper earth. */
 export function SvgDefs() {
@@ -82,15 +83,17 @@ export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
 }
 
 export function TrendTag({ trend }: { trend: Trend }) {
+  const t = useT();
   return (
     <span className={`dmg ${trend}`}>
       <i />
-      {TREND_LABEL[trend]}
+      {t(TREND_LABEL[trend])}
     </span>
   );
 }
 
 export function FieldRow({ parcel, selected, onSelect }: { parcel: Parcel; selected: boolean; onSelect: (id: string) => void }) {
+  const t = useT();
   return (
     <div
       className="row"
@@ -103,7 +106,7 @@ export function FieldRow({ parcel, selected, onSelect }: { parcel: Parcel; selec
       <div className="grow">
         <div className="id">{parcel.id}</div>
         <div className="meta">
-          {parcel.town} · {parcel.areaHa.toFixed(1)} 公頃 · {formatDb(parcel.preToPost)}
+          {t(parcel.town)} · {parcel.areaHa.toFixed(1)} {t('公頃', 'ha')} · {formatDb(parcel.preToPost)}
         </div>
       </div>
       <TrendTag trend={trendOf(parcel)} />

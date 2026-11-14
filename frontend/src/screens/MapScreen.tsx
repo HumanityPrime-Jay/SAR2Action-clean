@@ -1,6 +1,8 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CASE, type LngLat, NISAR_TAIXI, PARCELS, type Parcel, TREND_COLOR, TREND_LABEL, type Trend, trendOf } from '../data/champi';
+import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
+import { type Lang, useLang, useT } from '../i18n';
 import { FieldRow, Icon, TrendTag } from '../ui/shared';
 import { EventPicker } from './EventPicker';
 import type { ScreenProps } from './types';
@@ -62,9 +64,12 @@ function useElementSize<T extends HTMLElement>() {
   return [ref, size] as const;
 }
 
-function downloadCsv(rows: Parcel[]) {
-  const header = '田區編號,鄉鎮,面積(公頃),VH變化 颱風前→後(dB),VH變化 颱風前→警報期間(dB),與2025同期差(dB)';
-  const body = rows.map((p) => [p.id, p.town, p.areaHa, p.preToPost, p.preToWarning, p.vsLastYear].join(','));
+function downloadCsv(rows: Parcel[], lang: Lang) {
+  const header =
+    lang === 'zh'
+      ? '田區編號,鄉鎮,面積(公頃),VH變化 颱風前→後(dB),VH變化 颱風前→警報期間(dB),與2025同期差(dB)'
+      : 'Field ID,Township,Area (ha),VH change pre→post (dB),VH change pre→warning (dB),Difference vs 2025 (dB)';
+  const body = rows.map((p) => [p.id, p.town[lang], p.areaHa, p.preToPost, p.preToWarning, p.vsLastYear].join(','));
   const blob = new Blob(['﻿' + [header, ...body].join('\n')], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -74,24 +79,34 @@ function downloadCsv(rows: Parcel[]) {
   URL.revokeObjectURL(url);
 }
 
-export function MapScreen({ eventId, onEvent, ...props }: ScreenProps) {
+export function MapScreen({ eventId, onEvent, farmer, onFarmer, ...props }: ScreenProps) {
   const [changing, setChanging] = useState(false);
   if (!eventId || changing) {
     return (
       <EventPicker
         initialId={eventId}
-        onPick={(id) => {
+        initialFarmer={farmer}
+        onPick={(id, info) => {
           onEvent(id);
+          onFarmer(info);
           setChanging(false);
         }}
       />
     );
   }
-  return <DamageMap {...props} onChangeEvent={() => setChanging(true)} />;
+  return <DamageMap {...props} farmer={farmer} onChangeEvent={() => setChanging(true)} />;
 }
 
 // Mounted only once an event is chosen, so its size observer sees the real sheet.
-function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps, 'selectedId' | 'onSelect' | 'go'> & { onChangeEvent: () => void }) {
+function DamageMap({
+  selectedId,
+  onSelect,
+  go,
+  farmer,
+  onChangeEvent,
+}: Pick<ScreenProps, 'selectedId' | 'onSelect' | 'go' | 'farmer'> & { onChangeEvent: () => void }) {
+  const t = useT();
+  const { lang } = useLang();
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
   const [layers, setLayers] = useState({ trend: true, post: true, pre: false, bnd: true });
@@ -132,7 +147,7 @@ function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps
   return (
     <>
       <div className={sheetClass} ref={sheetRef}>
-        <svg className="map" viewBox={`${vx} ${vy} ${vw} ${vh}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: 'visible' }} aria-label="候選田區地圖">
+        <svg className="map" viewBox={`${vx} ${vy} ${vw} ${vh}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: 'visible' }} aria-label={t('候選田區地圖', 'Candidate field map')}>
           {([['pre', pre], ['post', post]] as const).map(
             ([key, scene]) =>
               layers[key] && (
@@ -182,7 +197,7 @@ function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps
                   fillOpacity={0.7}
                   onClick={select}
                   tabIndex={0}
-                  aria-label={`田區 ${p.id}，${TREND_LABEL[trendOf(p)]} ${formatDb(p.preToPost)}`}
+                  aria-label={`${t('田區', 'Field')} ${p.id}, ${t(TREND_LABEL[trendOf(p)])} ${formatDb(p.preToPost)}`}
                   onKeyDown={(e) => e.key === 'Enter' && select()}
                 />
                 <text className="parcel-label" x={shape.right + 4} y={shape.top + 10}>
@@ -196,9 +211,9 @@ function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps
         <div className="sheet-title">
           {CASE.id}
           <div className="sheet-title-row">
-            <b>{CASE.town}</b>
+            <b>{t(CASE.town)}</b>
             <button className="btn change-event" onClick={onChangeEvent}>
-              更換事件
+              {t('更換事件', 'Change event')}
             </button>
           </div>
           {`${((PROJ.north + PROJ.south) / 2).toFixed(2)}°N ${((PROJ.west + PROJ.east) / 2).toFixed(2)}°E`}
@@ -206,14 +221,14 @@ function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps
 
         <div className="bp-card layers" style={{ right: 16, top: 16, width: 200 }}>
           <div className="eyebrow" style={{ marginBottom: 4 }}>
-            LAYERS 圖層
+            {t('LAYERS 圖層', 'LAYERS')}
           </div>
           {(
             [
-              ['trend', 'VH 變化（田區著色）'],
-              ['post', `NISAR 颱風後 ${md(post.date)}`],
-              ['pre', `NISAR 颱風前 ${md(pre.date)}`],
-              ['bnd', '田區邊界'],
+              ['trend', t('VH 變化（田區著色）', 'VH change (field colour)')],
+              ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}`],
+              ['pre', `NISAR ${t('颱風前', 'pre')} ${md(pre.date)}`],
+              ['bnd', t('田區邊界', 'Field boundaries')],
             ] as const
           ).map(([key, label]) => (
             <label key={key}>
@@ -224,25 +239,25 @@ function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps
         </div>
 
         <div className="bp-card" style={{ left: 16, bottom: 16, maxWidth: 'calc(100% - 120px)' }}>
-          <div className="eyebrow">Sentinel-1 VH · 颱風前 10/11 → 後 11/04</div>
+          <div className="eyebrow">{t('Sentinel-1 VH · 颱風前 10/11 → 後 11/04', 'Sentinel-1 VH · pre 10/11 → post 11/04')}</div>
           <div className="legend">
-            {(['up', 'down'] as const).map((t) => (
-              <span key={t}>
-                <i style={{ background: TREND_COLOR[t] }} />
-                {TREND_LABEL[t]}
+            {(['up', 'down'] as const).map((k) => (
+              <span key={k}>
+                <i style={{ background: TREND_COLOR[k] }} />
+                {t(TREND_LABEL[k])}
               </span>
             ))}
           </div>
           <div className="cap" style={{ marginTop: 4 }}>
-            描述性觀測，不代表受損判定
+            {t('描述性觀測，不代表受損判定', 'Descriptive observation, not a damage verdict')}
           </div>
         </div>
 
         <div className="zoom">
-          <button aria-label="放大" disabled={zoom >= 2.5} onClick={() => setZoom((z) => Math.min(2.5, z + 0.5))}>
+          <button aria-label={t('放大', 'Zoom in')} disabled={zoom >= 2.5} onClick={() => setZoom((z) => Math.min(2.5, z + 0.5))}>
             +
           </button>
-          <button aria-label="縮小" disabled={zoom <= 1} onClick={() => setZoom((z) => Math.max(1, z - 0.5))}>
+          <button aria-label={t('縮小', 'Zoom out')} disabled={zoom <= 1} onClick={() => setZoom((z) => Math.max(1, z - 0.5))}>
             −
           </button>
         </div>
@@ -255,39 +270,40 @@ function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps
             <TrendTag trend={trendOf(current)} />
           </div>
           <div className="cap">
-            {current.town} · {current.areaHa} 公頃 · 作物未驗證
+            {t(current.town)} · {current.areaHa} {t('公頃', 'ha')} ·{' '}
+            {farmer ? `${t('您登記的作物：', 'Your crop: ')}${cropName(farmer, lang)}` : t('作物未驗證', 'Crop unverified')}
           </div>
           <div className="figs">
             <div>
               <b>{formatDb(current.preToPost)}</b>
-              <span>颱風前→後</span>
+              <span>{t('颱風前→後', 'Pre → post')}</span>
             </div>
             <div>
               <b>{formatDb(current.vsLastYear)}</b>
-              <span>與 2025 同期</span>
+              <span>{t('與 2025 同期', 'vs 2025')}</span>
             </div>
           </div>
           <button className="btn btn-primary btn-block" onClick={() => go('compare')}>
-            查看前後比對 →
+            {t('查看前後比對 →', 'Compare before/after →')}
           </button>
         </div>
       </div>
 
       <aside className="panel">
         <div className="panel-head" style={{ paddingBottom: 0, border: 0 }}>
-          <div className="eyebrow">Candidate fields · 農田坵塊圖</div>
-          <h2 className="h2">候選田區</h2>
+          <div className="eyebrow">{t('Candidate fields · 農田坵塊圖', 'Official farmland map')}</div>
+          <h2 className="h2">{t('候選田區', 'Candidate fields')}</h2>
         </div>
         <label className="search">
           <Icon name="search" />
-          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="搜尋田區編號，例如 YL-CAND-03" aria-label="搜尋田區編號" />
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('搜尋田區編號，例如 YL-CAND-03', 'Search field ID, e.g. YL-CAND-03')} aria-label={t('搜尋田區編號', 'Search field ID')} />
         </label>
         <div className="chips">
           {(
             [
-              ['all', '全部'],
-              ['up', 'VH 上升'],
-              ['down', 'VH 下降'],
+              ['all', t('全部', 'All')],
+              ['up', t(TREND_LABEL.up)],
+              ['down', t(TREND_LABEL.down)],
             ] as const
           ).map(([k, label]) => (
             <button key={k} className="chip" aria-pressed={filter === k} onClick={() => setFilter(k)}>
@@ -296,19 +312,19 @@ function DamageMap({ selectedId, onSelect, go, onChangeEvent }: Pick<ScreenProps
             </button>
           ))}
         </div>
-        <div className="list" role="listbox" aria-label="候選田區">
+        <div className="list" role="listbox" aria-label={t('候選田區', 'Candidate fields')}>
           {visible.length ? (
             visible.map((p) => <FieldRow key={p.id} parcel={p} selected={p.id === current.id} onSelect={onSelect} />)
           ) : (
             <p className="cap" style={{ padding: 20 }}>
-              沒有符合的田區
+              {t('沒有符合的田區', 'No matching fields')}
             </p>
           )}
         </div>
         <div className="panel-foot">
-          <button className="btn btn-cut btn-block" onClick={() => downloadCsv(visible)}>
+          <button className="btn btn-cut btn-block" onClick={() => downloadCsv(visible, lang)}>
             <Icon name="download" />
-            匯出候選清單 CSV
+            {t('匯出候選清單 CSV', 'Export candidates CSV')}
           </button>
         </div>
       </aside>
