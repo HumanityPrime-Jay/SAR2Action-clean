@@ -37,7 +37,11 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
       (cropMissing ? cropRef : otherRef).current?.focus();
       return;
     }
-    onPick(chosen.id, { cadastral: cadastral.trim(), crop: crop as CropKey, cropOther: cropOther.trim() });
+    onPick(chosen.id, {
+      cadastral: cadastral.trim(),
+      crop: crop as CropKey,
+      cropOther: cropOther.trim(),
+    });
   };
 
   return (
@@ -81,7 +85,11 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
           <span className="lbl">{t('災害事件', 'Disaster event')}</span>
           <select value={eventId} disabled={!region || !options.length} onChange={(e) => setEventId(e.target.value)}>
             <option value="" disabled>
-              {!region ? t('請先選擇地區', 'Choose a region first') : options.length ? t('請選擇事件', 'Choose an event') : t('此地區尚無事件', 'No events yet')}
+              {!region
+                ? t('請先選擇地區', 'Choose a region first')
+                : options.length
+                  ? t('請選擇事件', 'Choose an event')
+                  : t('此地區尚無事件', 'No events yet')}
             </option>
             {options.map((e) => (
               <option key={e.id} value={e.id}>
@@ -96,105 +104,110 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
         <p className="cap picker-empty">{t('這個地區目前還沒有處理好的災害事件。', 'No processed disaster events for this region yet.')}</p>
       )}
 
-      <fieldset className="farmer-card">
-        <legend className="sr-only">{t('我是農民', 'I am a farmer')}</legend>
-        <div className="farmer-head">
-          <span className="eyebrow">{t('FOR FARMERS · 農民登記', 'FOR FARMERS')}</span>
-          <h2 className="h3">{t('我是農民', 'I am a farmer')}</h2>
-          <p className="cap">
-            {t(
-              '告訴我們您的田種了什麼，補助助手會依您的作物說明可以申請的救助。',
-              'Tell us what you grow, and the relief assistant will explain the support that applies to your crop.',
-            )}
-          </p>
-        </div>
-        <div className="farmer-fields">
-          <label className="farmer-field">
-            <span className="lbl">
-              {t('土地地籍', 'Land parcel no.')} <span className="opt">{t('選填', 'Optional')}</span>
-            </span>
-            <input
-              value={cadastral}
-              onChange={(e) => setCadastral(e.target.value)}
-              placeholder={t('例：台西鄉 海口段 0123 地號', 'e.g. Taixi, Haikou section, lot 0123')}
-              autoComplete="off"
-              aria-describedby="cadastral-hint"
-            />
-            <span id="cadastral-hint" className="hint">
-              {t('可在土地權狀上找到', 'Shown on your land title deed')}
-            </span>
-          </label>
-          <div className="farmer-field">
-            <label htmlFor="farmer-crop" className="lbl">
-              {t('這塊田種的作物', 'Crop on this field')} <span className="req">{t('必填', 'Required')}</span>
-            </label>
-            <select
-              id="farmer-crop"
-              ref={cropRef}
-              value={crop}
-              required
-              aria-invalid={showErrors && cropMissing}
-              aria-describedby={showErrors && cropMissing ? 'crop-error' : undefined}
-              onChange={(e) => setCrop(e.target.value as CropKey)}
-            >
-              <option value="" disabled>
-                {t('請選擇作物', 'Choose a crop')}
-              </option>
-              {CROPS.map((c) => (
-                <option key={c.key} value={c.key}>
-                  {t(c.label)}
-                </option>
-              ))}
-            </select>
-            {crop === 'other' && (
-              <input
-                ref={otherRef}
-                value={cropOther}
-                onChange={(e) => setCropOther(e.target.value)}
-                placeholder={t('請填寫作物名稱', 'Name of the crop')}
-                aria-label={t('其他作物名稱', 'Other crop name')}
-                aria-invalid={showErrors && otherMissing}
-                aria-describedby={showErrors && otherMissing ? 'crop-error' : undefined}
-                required
-              />
-            )}
-            {showErrors && (cropMissing || otherMissing) && (
-              <span id="crop-error" className="error" role="alert">
-                {cropMissing ? t('請選擇作物，才能進入受災地圖。', 'Choose a crop to open the damage map.') : t('請填寫作物名稱。', 'Enter the crop name.')}
-              </span>
-            )}
-          </div>
-        </div>
-      </fieldset>
-
       {chosen && (
-        <div className="picker-summary">
-          <div>
-            <span className="eyebrow">
-              {t(chosen.kind)} · {chosen.intlName}
-            </span>
-            <b>{lang === 'zh' ? `${chosen.county.zh} ${chosen.name.zh}` : `${chosen.name.en}, ${chosen.county.en}`}</b>
-            <span className="cap">
-              {t('暴風圈影響台灣陸地：', 'Storm over Taiwan: ')}
-              {chosen.period}
-            </span>
-            {chosen.hasImagery && (
-              <span className="cap">
-                {t('NISAR 影像：', 'NISAR scenes: ')}
-                {NISAR_SCENE.preDate} {t('（颱風前）', '(pre)')} ／ {NISAR_SCENE.postDate} {t('（颱風後）', '(post)')} · Track {NISAR_SCENE.track}
+        <>
+          <div className="picker-summary">
+            <div>
+              <span className="eyebrow">
+                {t(chosen.kind)} · {chosen.intlName}
               </span>
-            )}
-            {chosen.hasImagery && (
+              <b>{lang === 'zh' ? `${chosen.county.zh} ${chosen.name.zh}` : `${chosen.name.en}, ${chosen.county.en}`}</b>
               <span className="cap">
-                {t('調查範圍：', 'Study area: ')}
-                {t(chosen.town)} · {PARCELS.length} {t('塊候選田區（農田坵塊圖）', 'candidate fields (official farmland map)')}
+                {t('暴風圈影響台灣陸地：', 'Storm over Taiwan: ')}
+                {chosen.period}
               </span>
-            )}
+              {chosen.hasImagery && (
+                <span className="cap">
+                  {t('NISAR 影像：', 'NISAR scenes: ')}
+                  {NISAR_SCENE.preDate} {t('（颱風前）', '(pre)')} ／ {NISAR_SCENE.postDate} {t('（颱風後）', '(post)')} · Track {NISAR_SCENE.track}
+                </span>
+              )}
+              {chosen.hasImagery && (
+                <span className="cap">
+                  {t('調查範圍：', 'Study area: ')}
+                  {t(chosen.town)} · {PARCELS.length} {t('塊候選田區（農田坵塊圖）', 'candidate fields (official farmland map)')}
+                </span>
+              )}
+            </div>
           </div>
-          <button className="btn btn-primary" onClick={submit}>
-            {t('進入受災地圖 →', 'Open damage map →')}
-          </button>
-        </div>
+
+          <fieldset className="farmer-card">
+            <legend className="sr-only">{t('我是農民', 'I am a farmer')}</legend>
+            <div className="farmer-head">
+              <span className="eyebrow">{t('FOR FARMERS · 農民登記', 'FOR FARMERS')}</span>
+              <h2 className="h3">{t('我是農民', 'I am a farmer')}</h2>
+              <p className="cap">
+                {t(
+                  '告訴我們您的田種了什麼，補助助手會依您的作物說明可以申請的救助。',
+                  'Tell us what you grow, and the relief assistant will explain the support that applies to your crop.',
+                )}
+              </p>
+            </div>
+            <div className="farmer-fields">
+              <label className="farmer-field">
+                <span className="lbl">
+                  {t('土地地籍', 'Land parcel no.')} <span className="opt">{t('選填', 'Optional')}</span>
+                </span>
+                <input
+                  value={cadastral}
+                  onChange={(e) => setCadastral(e.target.value)}
+                  placeholder={t('例：台西鄉 海口段 0123 地號', 'e.g. Taixi, Haikou section, lot 0123')}
+                  autoComplete="off"
+                  aria-describedby="cadastral-hint"
+                />
+                <span id="cadastral-hint" className="hint">
+                  {t('可在土地權狀上找到', 'Shown on your land title deed')}
+                </span>
+              </label>
+              <div className="farmer-field">
+                <label htmlFor="farmer-crop" className="lbl">
+                  {t('這塊田種的作物', 'Crop on this field')} <span className="req">{t('必填', 'Required')}</span>
+                </label>
+                <select
+                  id="farmer-crop"
+                  ref={cropRef}
+                  value={crop}
+                  required
+                  aria-invalid={showErrors && cropMissing}
+                  aria-describedby={showErrors && cropMissing ? 'crop-error' : undefined}
+                  onChange={(e) => setCrop(e.target.value as CropKey)}
+                >
+                  <option value="" disabled>
+                    {t('請選擇作物', 'Choose a crop')}
+                  </option>
+                  {CROPS.map((c) => (
+                    <option key={c.key} value={c.key}>
+                      {t(c.label)}
+                    </option>
+                  ))}
+                </select>
+                {crop === 'other' && (
+                  <input
+                    ref={otherRef}
+                    value={cropOther}
+                    onChange={(e) => setCropOther(e.target.value)}
+                    placeholder={t('請填寫作物名稱', 'Name of the crop')}
+                    aria-label={t('其他作物名稱', 'Other crop name')}
+                    aria-invalid={showErrors && otherMissing}
+                    aria-describedby={showErrors && otherMissing ? 'crop-error' : undefined}
+                    required
+                  />
+                )}
+                {showErrors && (cropMissing || otherMissing) && (
+                  <span id="crop-error" className="error" role="alert">
+                    {cropMissing ? t('請選擇作物，才能進入受災地圖。', 'Choose a crop to open the damage map.') : t('請填寫作物名稱。', 'Enter the crop name.')}
+                  </span>
+                )}
+              </div>
+            </div>
+          </fieldset>
+
+          <div className="picker-actions">
+            <button className="btn btn-primary" onClick={submit}>
+              {t('進入受災地圖 →', 'Open damage map →')}
+            </button>
+          </div>
+        </>
       )}
     </div>
   );
