@@ -1,0 +1,66 @@
+# Same rules as .gcloudignore, for local builds with Docker/OrbStack.
+.dockerignore
+.git/
+.gitignore
+
+# Secrets — never upload
+.env
+.env.*
+!.env.example
+GERMINI API.txt
+*API KEY*.txt
+*API_KEY*.txt
+*.pem
+*.key
+credentials.json
+secrets.json
+*credentials*.json
+*secrets*.json
+*token*.json
+.netrc
+_netrc
+
+# Built inside the container
+node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+
+# Local environments and caches
+.venv/
+venv/
+venv_hermes/
+env/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.phase4_hermes/
+models/
+*.gguf
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Raw scientific data (too large; Demo A only needs data/cache/)
+*.h5
+*.hdf5
+*.tif
+*.tiff
+*.nc
+*.he5
+data/raw/
+data/scenes/
+data/processed/
+
+# Misc
+logs/
+tmp/
+*.log
+*.zip
+*.7z
+.DS_Store
+.vscode/
+.idea/

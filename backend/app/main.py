@@ -6,11 +6,15 @@ Radar Fingerprint statistics, Claim-to-Evidence records, and georeferenced RGBA 
 
 from __future__ import annotations
 
+import os
 import threading
+from pathlib import Path
 from typing import Literal
 from pydantic import BaseModel
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import Response
 
 from backend.app.schemas.api import (
@@ -49,13 +53,17 @@ app = FastAPI(
     ),
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# SAR2ACTION_CORS_ORIGINS: comma-separated origins. Unset keeps the local-dev default ("*");
+# set it to an empty string when the frontend is served from this same app (Cloud Run).
+_cors_origins = [o.strip() for o in os.environ.get("SAR2ACTION_CORS_ORIGINS", "*").split(",") if o.strip()]
+if _cors_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=_cors_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 science_service = ScienceService()
 agent_orchestrator = AgentOrchestrator(science_service)
@@ -295,3 +303,16 @@ def get_layer_image(layer_id: str) -> Response:
     """Serve the georeferenced EPSG:4326 RGBA PNG overlay for MapLibre GL JS."""
     png_bytes = science_service.get_layer_png_bytes(layer_id)
     return Response(content=png_bytes, media_type="image/png")
+
+
+# Serve the built React app (frontend/dist) from the same origin as the API. Mounted last so
+# every /api route above takes precedence. Absent in local dev, where Vite serves the frontend.
+_frontend_dist = Path(os.environ.get(
+    "SAR2ACTION_FRONTEND_DIST", Path(__file__).resolve().parents[2] / "frontend" / "dist"))
+if _frontend_dist.is_dir():
+    @app.get("/studio", include_in_schema=False)
+    def studio_page() -> FileResponse:
+        """Investigation Studio is a client-side page; its JSON assets stay under /studio/."""
+        return FileResponse(_frontend_dist / "index.html")
+
+    app.mount("/", StaticFiles(directory=_frontend_dist, html=True), name="frontend")
