@@ -199,6 +199,25 @@ describe('App', () => {
     expect(within(compare).getByRole('heading', { name: /YL-CAND-03/ })).toBeInTheDocument();
   });
 
+  it('loads the farmland layer only when it is switched on', async () => {
+    const square = [[[120.18, 23.72], [120.19, 23.72], [120.19, 23.73], [120.18, 23.72]]];
+    const fetchMock = vi.fn((url: string) =>
+      url === '/studio/landuse_farmland_taixi.geojson'
+        ? Promise.resolve(new Response(JSON.stringify({ features: [{ properties: { class: 'paddy' }, geometry: { type: 'Polygon', coordinates: square } }] })))
+        : Promise.reject(new Error('offline')),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    const map = openChampiMap();
+    expect(fetchMock).not.toHaveBeenCalledWith('/studio/landuse_farmland_taixi.geojson');
+    fireEvent.click(within(map).getByRole('checkbox', { name: /農地類型/ }));
+    expect(fetchMock).toHaveBeenCalledWith('/studio/landuse_farmland_taixi.geojson');
+    expect(await within(map).findByText(/5 塊候選田都不在圖層內/)).toBeInTheDocument();
+    expect(within(map).getByText('水田')).toBeInTheDocument();
+    expect(map.querySelectorAll('.landuse path')).toHaveLength(1);
+    vi.unstubAllGlobals();
+  });
+
   it('shows the five real candidate fields and filters them by VH trend', () => {
     render(<App />);
     const map = openChampiMap();

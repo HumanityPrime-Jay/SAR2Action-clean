@@ -267,6 +267,10 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .legend{display:flex;gap:14px;margin-top:6px;flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:6px;font-size:13px}
 .legend i{width:12px;height:12px}
+.legend i.hollow{box-sizing:border-box;border:1.5px solid}
+.landuse-key{margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.landuse-key .legend{gap:10px}
+.landuse-key .cap{margin:6px 0 0;color:#BFD0F5;line-height:1.5}
 .zoom{position:absolute;right:16px;bottom:16px;display:flex;flex-direction:column;border:1px solid var(--border);background:rgba(0,0,0,.82)}
 .zoom button{width:var(--tap);height:var(--tap);font-family:var(--f-mono);font-size:20px;color:var(--white);text-align:center}
 .zoom button:hover:not(:disabled){background:var(--surface-2)}
