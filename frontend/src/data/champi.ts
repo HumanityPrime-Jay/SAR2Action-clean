@@ -284,6 +284,9 @@ export const OFFICIAL_LOSS = {
   cropAreaHa: official.taiwan_crop_damaged_area_ha,
   damagePct: official.taiwan_crop_damage_level_pct,
   noHarvestHa: official.taiwan_crop_no_harvest_equiv_ha,
+  /** Crop loss only (the totals also count facilities). */
+  taiwanCropNtd: official.taiwan_crop_ntd,
+  yunlinCropNtd: official.yunlin_crop_ntd,
   yunlinSharePct: official.yunlin_share_pct,
   yunlinRank: official.yunlin_rank,
 };

@@ -14,6 +14,10 @@ const md = (d: string) => d.slice(5).replace('-', '/');
 const round100 = (ha: number) => Math.max(100, Math.round(ha / 100) * 100);
 const changedHa = round100(YUNLIN_AREA.excessHa);
 const [flatLow, flatHigh] = YUNLIN_AREA.flattenedHa.map(round100);
+/** National crop loss per no-harvest hectare: what one fully lost hectare cost, from the MOA report. */
+const lossPerHa = OFFICIAL_LOSS.taiwanCropNtd / OFFICIAL_LOSS.noHarvestHa;
+const lossHigh = flatHigh * lossPerHa;
+const lossGapPct = Math.round(((lossHigh - OFFICIAL_LOSS.yunlinCropNtd) / OFFICIAL_LOSS.yunlinCropNtd) * 100);
 
 type Filter = Trend | 'all';
 
@@ -386,10 +390,20 @@ function DamageMap({
             </b>
             {t('整片倒伏或淹水。', ' of it was flattened or flooded.')}
           </p>
+          <p className="loss-line">
+            {t(
+              `以全台每公頃無收穫損失約 ${Math.round(lossPerHa / 1e4)} 萬元換算，損失最多約 `,
+              `At NT$${Math.round(lossPerHa / 1e3)}k per fully lost hectare (Taiwan average), the loss is at most about `,
+            )}
+            <b>{lang === 'zh' ? `${(lossHigh / 1e8).toFixed(1)} 億元` : `NT$${Math.round(lossHigh / 1e6)} million`}</b>
+            {lang === 'zh'
+              ? `；官方雲林農作物損失 ${bigNtd(OFFICIAL_LOSS.yunlinCropNtd, lang)}，相差約 ${Math.abs(lossGapPct)}%。`
+              : `; Yunlin's official crop loss is NT$${bigNtd(OFFICIAL_LOSS.yunlinCropNtd, lang)}, about ${Math.abs(lossGapPct)}% apart.`}
+          </p>
           <p className="loss-official">
             {t(
-              `官方（農業部 ${OFFICIAL_LOSS.date}）：全台農作物受害 ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} 公頃，雲林損失 ${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}。`,
-              `Official (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged in Taiwan; Yunlin lost NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}.`,
+              `官方（農業部 ${OFFICIAL_LOSS.date}）：全台農作物受害 ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} 公頃、損失 ${bigNtd(OFFICIAL_LOSS.taiwanCropNtd, lang)}，換算無收穫 ${OFFICIAL_LOSS.noHarvestHa.toLocaleString()} 公頃。`,
+              `Official (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged in Taiwan, NT$${bigNtd(OFFICIAL_LOSS.taiwanCropNtd, lang)} lost, ${OFFICIAL_LOSS.noHarvestHa.toLocaleString()} ha no-harvest equivalent.`,
             )}{' '}
             <a href={OFFICIAL_LOSS.url} target="_blank" rel="noreferrer">
               {t('原始報告', 'Source')}

@@ -244,8 +244,10 @@ describe('App', () => {
     const map = openChampiMap();
     const summary = within(map).getByRole('region', { name: '這次颱風的受損面積' });
     expect(within(summary).getByText(/全雲林農地/)).toBeInTheDocument();
-    expect(summary.querySelector('.loss-line')).toHaveTextContent('颱風期間約 2,800 公頃農地雷達明顯變化，其中約 100–600 公頃整片倒伏或淹水。');
-    expect(within(summary).getByText(/官方（農業部/)).toHaveTextContent('全台農作物受害 12,938 公頃');
+    const [area, amount] = summary.querySelectorAll('.loss-line');
+    expect(area).toHaveTextContent('颱風期間約 2,800 公頃農地雷達明顯變化，其中約 100–600 公頃整片倒伏或淹水。');
+    expect(amount).toHaveTextContent('以全台每公頃無收穫損失約 28 萬元換算，損失最多約 1.7 億元；官方雲林農作物損失 1.58 億，相差約 9%。');
+    expect(within(summary).getByText(/官方（農業部/)).toHaveTextContent('全台農作物受害 12,938 公頃、損失 7.56 億，換算無收穫 2,652 公頃');
     expect(within(summary).getByRole('link', { name: '原始報告' })).toHaveAttribute('href', expect.stringContaining('moa.gov.tw'));
   });
 

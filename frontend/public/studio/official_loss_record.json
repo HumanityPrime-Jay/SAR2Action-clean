@@ -15,5 +15,7 @@
   "yunlin_rank": 2,
   "county_area_reported": false,
   "report_pdf_url": "https://www.moa.gov.tw/redirect_files.php?id=62031",
-  "area_note": "Areas are national totals from the MOA final report (115-11-06 17:00); the report gives county losses in NTD only, not county areas."
+  "area_note": "Areas are national totals from the MOA final report (115-11-06 17:00); the report gives county losses in NTD only, not county areas.",
+  "taiwan_crop_ntd": 755637000,
+  "yunlin_crop_ntd": 157553000
 }
