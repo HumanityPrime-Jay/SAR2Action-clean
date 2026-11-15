@@ -321,7 +321,13 @@ class FarmerConversationService:
             ann = self.announcement_service.search_official_relief_announcement(
                 county=session.county, township=session.township, crop=session.crop
             )
-            legal = self.legal_service.query(message, event_date="2026-10-23", region=session.county, crop=session.crop)
+            legal = self.legal_service.query(
+                message,
+                event_date="2026-10-23",
+                region=session.county,
+                crop=session.crop,
+                use_gemini=self.use_gemini,
+            )
             est = self.relief_estimator.calculate_potential_relief(
                 crop=session.crop,
                 verified_announcement=ann,

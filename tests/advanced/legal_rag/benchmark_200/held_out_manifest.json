@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "official_law_version": "2026-06-29",
+  "total_cases": 200,
+  "dev_count": 120,
+  "final_held_out_count": 80,
+  "verified_against_official_text_count": 187,
+  "human_review_required_count": 13,
+  "sha256": {
+    "legal_evaluation_200.jsonl": "7eb72d8e254fc8c4553eccd1ac9a5668f7eeee5a022383612fd776cad2c29768",
+    "dev_120.jsonl": "2e9020c3f5e0524e5a8fc63411fc3bd74ecddae567d9750daffb0400b0665bdc",
+    "final_held_out_80.jsonl": "11d3a60258c3dbc395def4142f4c98214a1a0a3f4cee6357707ca1690d5762d4"
+  },
+  "held_out_lock_note": "final_held_out_80.jsonl is locked; do NOT tune ontology or retriever on held-out questions."
+}

@@ -10,16 +10,30 @@ from backend.app.advanced.legal_rag.database import LegalDatabase
 from backend.app.advanced.legal_rag.parser import LAW_NAME
 from backend.app.advanced.legal_rag.retriever import HybridLegalRetriever
 from backend.app.advanced.legal_rag.rules.engine import evaluate_legal_rules
+from backend.app.advanced.legal_rag.semantic_planner import (
+    SEMANTIC_TOPIC_ARTICLE_ROUTES,
+    GeminiLegalSemanticPlanner,
+)
 
 PROMPT_INJECTION_PATTERNS = (
-    "ignore previous", "ignore all", "ignore instructions", "忽略之前", "忽略規則",
+    "ignore previous", "ignore all", "ignore instructions", "忽略之前", "忽略前面",
+    "忽略規則", "所有限制", "直接告訴我政府已經核准",
     "無視規則", "編造", "虛構", "直接核准", "假裝已核准", "override",
     "system prompt", "jailbreak", "approve 500000", "approve 100000",
 )
 
 OUT_OF_SCOPE_LAWS = (
-    "勞動基準法", "勞基法", "民法", "刑法", "所得稅法", "建築法", "公司法", "交通", "健保",
+    "勞動基準法", "勞基法", "民法", "刑法", "所得稅法", "建築法", "交通", "健保",
+    "水土保持法", "農民健康保險條例", "農保條例", "農業發展條例第",
 )
+
+
+def _is_out_of_scope_law(question: str) -> bool:
+    if any(law in question for law in OUT_OF_SCOPE_LAWS):
+        return True
+    if re.search(r"公司法(?!人)", question):
+        return True
+    return False
 
 
 @dataclass
@@ -55,9 +69,15 @@ class LegalRAGResponse:
 class LegalRAGService:
     """High-accuracy Legal RAG restricted strictly to《農業天然災害救助辦法》."""
 
-    def __init__(self, db: LegalDatabase | None = None, retriever: HybridLegalRetriever | None = None):
+    def __init__(
+        self,
+        db: LegalDatabase | None = None,
+        retriever: HybridLegalRetriever | None = None,
+        semantic_planner: GeminiLegalSemanticPlanner | None = None,
+    ):
         self.db = db or LegalDatabase()
         self.retriever = retriever or HybridLegalRetriever(self.db)
+        self.semantic_planner = semantic_planner or GeminiLegalSemanticPlanner()
 
     def _build_citation(self, hit: dict[str, Any]) -> VerifiedCitation:
         cid = hit.get("citation_id") or hit["article_id"]
@@ -99,6 +119,7 @@ class LegalRAGService:
         crop: str | None = None,
         available_evidence: dict[str, Any] | None = None,
         top_k: int = 5,
+        use_gemini: bool = False,
     ) -> LegalRAGResponse:
         q_lower = question.lower()
         ev = available_evidence or {}
@@ -141,7 +162,7 @@ class LegalRAGService:
                 citation_verification={"verified": True, "checked_count": 0, "errors": []},
             )
 
-        if any(law in question for law in OUT_OF_SCOPE_LAWS):
+        if _is_out_of_scope_law(question):
             rules = evaluate_legal_rules(applicable_version_verified=True)
             return LegalRAGResponse(
                 status="OUT_OF_SCOPE",
@@ -158,8 +179,30 @@ class LegalRAGService:
                 citation_verification={"verified": True, "checked_count": 0, "errors": []},
             )
 
-        # 3. Model-Free Deterministic Semantic Retrieval
-        retrieval = self.retriever.hybrid_search(question, top_k=top_k)
+        # 3. Hybrid Legal Retrieval (Deterministic + optional Gemini Semantic Planner)
+        extra_queries: list[str] = []
+        candidate_articles: list[str] = []
+        planner_trace_dict: dict[str, Any] | None = None
+        semantic_intent = None
+        if use_gemini:
+            semantic_intent, p_trace = self.semantic_planner.plan(question)
+            planner_trace_dict = p_trace.to_dict()
+            if semantic_intent is not None:
+                if semantic_intent.normalized_question_zh_tw:
+                    extra_queries.append(semantic_intent.normalized_question_zh_tw)
+                if semantic_intent.search_concepts:
+                    extra_queries.append(" ".join(semantic_intent.search_concepts))
+                routed = SEMANTIC_TOPIC_ARTICLE_ROUTES.get(semantic_intent.legal_topic, [])
+                candidate_articles = list(dict.fromkeys([*routed, *semantic_intent.suggested_article_ids]))
+
+        retrieval = self.retriever.hybrid_search(
+            question,
+            top_k=top_k,
+            extra_queries=extra_queries or None,
+            candidate_articles=candidate_articles or None,
+        )
+        if planner_trace_dict is not None:
+            retrieval["gemini_planner"] = planner_trace_dict
         hits = retrieval["hits"]
         citations_obj = [self._build_citation(h) for h in hits]
         verification = self.verify_citations(citations_obj, version_info["version"])
@@ -204,6 +247,25 @@ class LegalRAGService:
         if len(citations_obj) > 1:
             also = "、".join(c.article for c in citations_obj[1:3])
             answer_parts.append(f"相關條文另包含：{also}。")
+
+        topic = semantic_intent.legal_topic if semantic_intent is not None else ""
+        if topic == "LOAN_DISBURSEMENT" or any(k in question for k in ("匯進戶頭", "入帳", "撥款", "撥付")):
+            answer_parts.append(
+                "本辦法未規定個別銀行或公所固定入帳天數（例如3天或7天入帳），"
+                "實際撥款與入帳日期無法僅憑法條確認，請向受理鄉鎮公所或貸款經辦機構查詢。"
+            )
+        elif topic in ("FALLOW_LAND", "ACTUAL_AGRICULTURAL_PRODUCTION") or any(
+            k in q_lower for k in ("休耕", "沒種", "not cultivated", "fallow")
+        ):
+            answer_parts.append(
+                "依第12-1條，未實際從事農業生產者不予救助；但須區分長期未耕作、暫時休耕或收成後尚未復耕等實際狀態，"
+                "仍須依公告項目與現場實際受損查證認定。"
+            )
+        elif topic == "REPLANTING_LOSS" or any(k in q_lower for k in ("復耕", "翻土再種", "replanting")):
+            answer_parts.append(
+                "短期作物復耕或轉作損失依第9條規定估算，仍須以實際受災作物、官方公告及現場勘查認定為準。"
+            )
+
         if rules["missing_information"]:
             answer_parts.append(
                 "注意：依規則檢核，目前仍缺少下列必要資料，尚無法單憑現有資訊認定符合救助資格："
@@ -231,10 +293,15 @@ class LegalRAGService:
                 "附表金額與計算單位標記為 EXTRACTION_REQUIRES_REVIEW，未經人工核對前不直接代入試算。",
             ],
             retrieval_trace={
-                "retrieval_mode": retrieval.get("retrieval_mode", "MODEL_FREE_DETERMINISTIC_SEMANTIC"),
+                "retrieval_mode": (
+                    "GEMINI_ASSISTED_SEMANTIC_PLUS_DETERMINISTIC"
+                    if planner_trace_dict and planner_trace_dict.get("gemini_succeeded")
+                    else retrieval.get("retrieval_mode", "MODEL_FREE_DETERMINISTIC_SEMANTIC")
+                ),
                 "ontology_id": retrieval.get("ontology_id"),
                 "structured_query": retrieval.get("structured_query"),
                 "top_article_ids": [h["article_id"] for h in hits],
+                "gemini_planner": planner_trace_dict,
                 "uses_neural_models": False,
                 "requires_gpu": False,
             },

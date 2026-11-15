@@ -22,6 +22,21 @@ class HybridLegalRetriever(DeterministicSemanticRetriever):
     def __init__(self, db: LegalDatabase | None = None, concept_dict: LegalConceptDictionary | None = None):
         super().__init__(db=db, concept_dict=concept_dict)
 
-    def hybrid_search(self, query: str, *, top_k: int = 5, use_reranker: bool = False, rrf_k: int = 60) -> dict[str, Any]:
+    def hybrid_search(
+        self,
+        query: str,
+        *,
+        top_k: int = 5,
+        use_reranker: bool = False,
+        rrf_k: int = 60,
+        extra_queries: list[str] | None = None,
+        candidate_articles: list[str] | None = None,
+    ) -> dict[str, Any]:
         del use_reranker  # Unused: retrieval is 100% deterministic & model-free
-        return self.retrieve(query, top_k=top_k, rrf_k=rrf_k)
+        return self.retrieve(
+            query,
+            top_k=top_k,
+            rrf_k=rrf_k,
+            extra_queries=extra_queries,
+            candidate_articles=candidate_articles,
+        )
