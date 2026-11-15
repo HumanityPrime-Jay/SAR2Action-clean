@@ -65,9 +65,9 @@ On the map you can switch NISAR false-colour images from before and after (R=HH,
 
 ### Field compare
 
-<img src="docs/readme-assets/04-field-compare.en.png" alt="Field compare: NISAR ascending 10/14 and 10/26 side by side, with the VH time series and possible causes on the right" width="100%" />
+<img src="docs/readme-assets/04-field-compare.en.png" alt="Field compare slider: the line runs through the field, 10/14 before the typhoon on the left, 10/26 after on the right" width="100%" />
 
-Click a candidate field to see NISAR before and after, side by side or with a slider, in HH or HV. We use the ascending pair 10/14 → 10/26 because both passes cover all of Taixi. On the right: the field's Sentinel-1 VH time series, how it compares to the same time last year, and the causes we can't rule out yet.
+Click a candidate field to see NISAR before and after. Drag the slider: 10/14 (before) is on the left, 10/26 (after) on the right. Put the line through the field (blue dashed outline) and you can see the change on the same field right away. You can switch HH/HV or go side by side. Both passes are ascending and cover all of Taixi. On the right: the field's Sentinel-1 VH time series, how it compares to the same time last year, and the causes we can't rule out yet.
 
 ---
 
