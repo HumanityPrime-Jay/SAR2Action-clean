@@ -1,0 +1,126 @@
+{
+  "ontology_id": "M0090019-LEGAL-CONCEPTS-V1",
+  "law_id": "M0090019",
+  "law_name": "農業天然災害救助辦法",
+  "law_version": "2026-06-29",
+  "official_source_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=M0090019",
+  "concepts": [
+    {
+      "concept_id": "CASH_RELIEF",
+      "label_zh": "現金救助與額度",
+      "colloquial_triggers": [
+        "政府補助", "農損補助", "現金救助", "可以領多少", "救助金額",
+        "政府會賠嗎", "會賠嗎", "拿多少補助", "領多少錢", "每公頃多少", "補助"
+      ],
+      "formal_synonyms": ["現金救助", "救助項目及額度", "附表二", "補助"],
+      "linked_articles": ["6", "6-1", "4", "12-1"],
+      "linked_appendices": ["APPENDIX_02"],
+      "rule_dimensions": ["relief_types", "appendix_amount"]
+    },
+    {
+      "concept_id": "AGRICULTURAL_DAMAGE",
+      "label_zh": "農業災害損失",
+      "colloquial_triggers": [
+        "田壞了", "稻子倒了", "被吹倒", "作物受損", "農損",
+        "田淹水", "淹水", "受災", "倒伏", "減產"
+      ],
+      "formal_synonyms": ["農業損失", "農作物", "災損", "被害面積"],
+      "linked_articles": ["9", "6", "12", "12-1"],
+      "linked_appendices": [],
+      "rule_dimensions": ["loss_estimation", "crop_categories"]
+    },
+    {
+      "concept_id": "APPLICATION_PROCEDURE",
+      "label_zh": "申請程序與期限",
+      "colloquial_triggers": [
+        "去哪裡申請", "哪裡申請", "怎麼辦", "怎麼申請", "要帶什麼",
+        "申請期限", "申請截止日", "截止日", "公告日期", "幾天內", "來得及嗎", "公所", "逾期", "展延"
+      ],
+      "formal_synonyms": ["鄉（鎮、市、區）公所", "十個工作日", "公告救助地區之翌日", "受理", "展延"],
+      "linked_articles": ["12", "12-2"],
+      "linked_appendices": [],
+      "rule_dimensions": ["deadline", "application_procedure"]
+    },
+    {
+      "concept_id": "DISASTER_DEFINITION",
+      "label_zh": "天然災害認定範圍",
+      "colloquial_triggers": [
+        "天然災害", "算不算", "颱風", "豪雨", "寒流",
+        "地震", "旱災", "焚風", "龍捲風", "冰雹", "淹水"
+      ],
+      "formal_synonyms": ["本辦法所稱天然災害", "中央主管機關", "專案認定"],
+      "linked_articles": ["4", "2", "3"],
+      "linked_appendices": [],
+      "rule_dimensions": ["disaster_definition"]
+    },
+    {
+      "concept_id": "LOSS_THRESHOLD_AND_EXCEPTIONS",
+      "label_zh": "損失率百分之二十門檻與例外",
+      "colloquial_triggers": [
+        "不到兩成", "未達兩成", "兩成", "20%", "百分之二十",
+        "損失率", "未達", "門檻", "不能申請", "免勘查", "天氣參數"
+      ],
+      "formal_synonyms": ["百分之二十", "天氣參數", "客觀證明文件", "抽樣勘查", "不予救助", "畜牧"],
+      "linked_articles": ["12-1", "12"],
+      "linked_appendices": [],
+      "rule_dimensions": ["loss_threshold", "exceptions"]
+    },
+    {
+      "concept_id": "APPLICANT_ELIGIBILITY",
+      "label_zh": "救助對象與地號耕作資格",
+      "colloquial_triggers": [
+        "誰可以申請", "資格", "符合對象", "沒有地號", "地號",
+        "租的田", "承租", "沒實際種", "未實際", "誤導勘查"
+      ],
+      "formal_synonyms": ["救助對象", "實際從事農、林、漁、牧生產", "土地", "不符地點"],
+      "linked_articles": ["5", "12-1", "12"],
+      "linked_appendices": [],
+      "rule_dimensions": ["applicant_eligibility"]
+    },
+    {
+      "concept_id": "LOW_INTEREST_LOAN",
+      "label_zh": "農業天然災害低利貸款",
+      "colloquial_triggers": [
+        "低利貸款", "貸款", "借錢", "利率", "貸款期限", "寬緩"
+      ],
+      "formal_synonyms": ["低利貸款", "貸款額度", "貸款期限", "附表三"],
+      "linked_articles": ["7", "19", "10", "3"],
+      "linked_appendices": ["APPENDIX_03"],
+      "rule_dimensions": ["relief_types"]
+    },
+    {
+      "concept_id": "LOSS_ESTIMATION",
+      "label_zh": "農林漁牧損失金額估算方式",
+      "colloquial_triggers": [
+        "怎麼估算", "損失金額", "短期作物", "復耕", "轉作",
+        "長期作物", "無收穫物", "養殖漁業", "魚塭", "農林漁牧"
+      ],
+      "formal_synonyms": ["農業損失金額估算", "生產總費用", "成園費", "農作物", "林業", "漁業", "畜牧"],
+      "linked_articles": ["9", "6"],
+      "linked_appendices": [],
+      "rule_dimensions": ["loss_estimation"]
+    },
+    {
+      "concept_id": "EXTRA_RELIEF_LONG_TERM",
+      "label_zh": "一年一收長期作額外現金救助",
+      "colloquial_triggers": [
+        "一年一收", "額外現金救助", "多次受災", "產季"
+      ],
+      "formal_synonyms": ["一年一收長期作農產品", "額外現金救助", "附表一", "附表四"],
+      "linked_articles": ["6-3", "6", "5"],
+      "linked_appendices": ["APPENDIX_01", "APPENDIX_04"],
+      "rule_dimensions": ["appendix_amount"]
+    },
+    {
+      "concept_id": "SURVEY_AND_APPROVAL",
+      "label_zh": "勘查、科學輔助與核定程序",
+      "colloquial_triggers": [
+        "公所勘查", "幾天完成", "抽樣勘查", "科學技術", "衛星", "遙測", "核定"
+      ],
+      "formal_synonyms": ["實地勘查", "抽樣勘查", "科學技術輔助", "主管機關核定"],
+      "linked_articles": ["12", "13"],
+      "linked_appendices": [],
+      "rule_dimensions": ["survey_procedure"]
+    }
+  ]
+}
