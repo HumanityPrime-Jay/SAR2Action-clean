@@ -43,6 +43,7 @@ from backend.app.services.investigation_v3 import InvestigationV3Service, get_ch
 from backend.app.services.agent_orchestrator import AgentOrchestrator, InvestigateRequest, StoryRequest as AgentStoryRequest
 from backend.app.services.spatial_ranking import SpatialRequest, SpatialDataUnavailable
 from backend.app.api.gis import router as gis_router
+from backend.app.auth.router import router_from_env as auth_router_from_env
 from backend.app.schemas.taiwan_agro import (
     TwAgroOverviewResponse,
     TwAgroParcelOpticalMetrics,
@@ -81,6 +82,7 @@ if _cors_origins:
     )
 
 app.include_router(gis_router)
+app.include_router(auth_router_from_env())
 science_service = ScienceService()
 taiwan_agro_service = TaiwanAgroService()
 agent_orchestrator = AgentOrchestrator(science_service, taiwan_agro_service)

@@ -56,3 +56,12 @@ CREATE TABLE IF NOT EXISTS relief_estimates (
   created_at        timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS relief_estimates_user_time ON relief_estimates (user_id, created_at DESC);
+
+-- Sign-in sessions. The browser holds a random token in an HttpOnly cookie; only its SHA-256 is stored.
+CREATE TABLE IF NOT EXISTS sessions (
+  token_hash  bytea PRIMARY KEY,
+  user_id     uuid NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  expires_at  timestamptz NOT NULL
+);
+CREATE INDEX IF NOT EXISTS sessions_user ON sessions (user_id);

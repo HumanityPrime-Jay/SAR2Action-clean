@@ -420,4 +420,39 @@ describe('App', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(opener).toHaveFocus();
   });
+
+  it('shows no sign-in at all when the server has it off', async () => {
+    const fetchMock = vi.fn((url: string) =>
+      url === '/api/auth/config' ? Promise.resolve(new Response(JSON.stringify({ enabled: false, google_client_id: null }))) : Promise.reject(new Error('offline')),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    await act(async () => {});
+    expect(fetchMock).toHaveBeenCalledWith('/api/auth/config');
+    expect(document.querySelector('.account')).toBeNull();
+    expect(fetchMock).not.toHaveBeenCalledWith('/api/me', expect.anything());
+    vi.unstubAllGlobals();
+  });
+
+  it('a signed-in authority sees their name and role, and can sign out', async () => {
+    const calls: string[] = [];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((url: string, init?: RequestInit) => {
+        calls.push(`${init?.method ?? 'GET'} ${url}`);
+        if (url === '/api/auth/config') return Promise.resolve(new Response(JSON.stringify({ enabled: true, google_client_id: 'cid.apps.googleusercontent.com' })));
+        if (url === '/api/me') return Promise.resolve(new Response(JSON.stringify({ email: 'officer@example.com', name: 'Officer Lin', role: 'authority' })));
+        if (url === '/api/auth/logout') return Promise.resolve(new Response(null, { status: 204 }));
+        return Promise.reject(new Error('offline'));
+      }),
+    );
+    render(<App />);
+    const who = await screen.findByText('Officer Lin');
+    expect(within(who.closest('summary')!).getByText('農政')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '登出' }));
+    await act(async () => {});
+    expect(calls).toContain('POST /api/auth/logout');
+    expect(screen.queryByText('Officer Lin')).not.toBeInTheDocument();
+    vi.unstubAllGlobals();
+  });
 });

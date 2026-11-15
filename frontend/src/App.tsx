@@ -9,6 +9,7 @@ import { HomeScreen } from './screens/HomeScreen';
 import { MapScreen } from './screens/MapScreen';
 import type { ScreenKey, ScreenProps } from './screens/types';
 import { MascotProvider } from './mascot/Mascot';
+import { Account } from './ui/Account';
 import { Earth, Icon, SvgDefs } from './ui/shared';
 
 const SCREENS: { key: ScreenKey; label: Text; drill?: boolean; Component: (p: ScreenProps) => React.ReactElement }[] = [
@@ -100,6 +101,7 @@ function Shell() {
           ))}
         </div>
         <span className="stamp">{t('PROTOTYPE · 研究原型', 'PROTOTYPE')}</span>
+        <Account />
       </header>
 
       <MascotProvider screen={screen} eventId={eventId} go={go}>
