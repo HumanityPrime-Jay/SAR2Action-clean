@@ -31,7 +31,7 @@ const estimate = (over: Partial<tw05Api.TwAgroReliefEstimateResponse>): tw05Api.
   ...over,
 });
 
-const farmerWith = (crop: FarmerInfo['crop']): FarmerInfo => ({ cadastral: '', crop, cropOther: '' });
+const farmerWith = (crop: FarmerInfo['crop']): FarmerInfo => ({ crop, cropOther: '' });
 
 function renderAssist(farmer: FarmerInfo | null) {
   const noop = vi.fn();

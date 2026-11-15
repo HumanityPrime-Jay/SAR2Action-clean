@@ -297,12 +297,6 @@ function Assistant({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer' | 'e
               {field.id} {t(field.town)}
             </span>
           </div>
-          {farmer?.cadastral && (
-            <div className="line">
-              <span>{t('土地地籍', 'Land parcel no.')}</span>
-              <span>{farmer.cadastral}</span>
-            </div>
-          )}
           <div className="line">
             <span>{t('作物', 'Crop')}</span>
             <span>{farmer ? `${cropName(farmer, lang)}${t('（農民登記）', ' (farmer)')}` : t('待驗證', 'Unverified')}</span>
