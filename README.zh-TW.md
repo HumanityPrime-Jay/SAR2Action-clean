@@ -20,6 +20,11 @@ https://github.com/user-attachments/assets/6068ceac-13d7-4829-bceb-581330ae08d3
 
 ---
 
+**Dancing with the SARs: Evidence-first AI for a changing Earth**<br />
+團隊：**SARAPHIM** &nbsp;·&nbsp; 成員：曾少杰 · 陳鴻程 · 黃智佳 · 謝宸源
+
+---
+
 ## 1. 痛點與架構
 
 **颱風過後，農損要靠公所人員一塊一塊田去勘查，人力和時間都吃緊。農民要申請救助，又得自己從公告、法規和附表裡找規則，資訊多又雜。**

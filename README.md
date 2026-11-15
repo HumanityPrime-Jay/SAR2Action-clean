@@ -20,6 +20,11 @@ https://github.com/user-attachments/assets/6068ceac-13d7-4829-bceb-581330ae08d3
 
 ---
 
+**Dancing with the SARs: Evidence-first AI for a changing Earth**<br />
+Team: **SARAPHIM** &nbsp;·&nbsp; Members: Shao-Chieh Tseng · Hong-Cheng Chen · Zhi-Jia Huang · Chen-Yuan Xie
+
+---
+
 ## 1. The problem and how it works
 
 **After a typhoon, township staff check crop damage field by field, which takes a lot of people and time. Farmers who want relief have to dig the rules out of notices, regulations and tables, and it's a lot to sort through.**
