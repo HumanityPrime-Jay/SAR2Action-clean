@@ -94,6 +94,9 @@ export const WARNING = {
   end: comparison.event_reference.end_taiwan.slice(0, 10),
 };
 
+/** A day inside the warning window, for the home globe's daily NASA GIBS layers. */
+export const TYPHOON_DAY = '2026-10-23';
+
 export const CASE = {
   id: investigation.case_id,
   town: { zh: '雲林縣 台西鄉', en: 'Taixi, Yunlin' } as Text,
@@ -143,6 +146,94 @@ export const QA_TESTS: QaTest[] = investigation.hypothesis_tests.map((t) => ({
   label: TEST_TEXT[t.test_id]?.label ?? { zh: t.test_id, en: t.test_id },
   result: TEST_TEXT[t.test_id]?.result ?? { zh: t.result, en: t.result },
 }));
+
+/** The field the recorded investigation was run on; other fields share its scene-level tests. */
+export const INVESTIGATED_FIELD = investigation.vh_timeseries.field_id;
+
+/** Causes the investigation keeps open, with bilingual summaries of what was checked. */
+const CAUSE_TEXT: Record<string, { label: Text; check: Text }> = {
+  storm_disturbance: {
+    label: { zh: '颱風擾動作物或地表', en: 'Typhoon disturbed crops or ground' },
+    check: {
+      zh: '2025 年同期也有相同起伏，無法證明是颱風造成，也無法排除。',
+      en: 'The same rise and fall shows in 2025, so the typhoon is neither shown nor ruled out.',
+    },
+  },
+  observation_processing: {
+    label: { zh: '衛星處理版本不同', en: 'Different satellite processing' },
+    check: { zh: 'NISAR 前後兩期版本不同，仍可能影響比較。', en: 'The two NISAR scenes use different versions, which may still skew the comparison.' },
+  },
+  harvesting: {
+    label: { zh: '收割', en: 'Harvest' },
+    check: { zh: '需要作物或收割紀錄。', en: 'Needs crop or harvest records.' },
+  },
+  field_preparation: {
+    label: { zh: '整地', en: 'Field preparation' },
+    check: { zh: '需要作物紀錄或現勘。', en: 'Needs crop records or a field visit.' },
+  },
+  moisture: {
+    label: { zh: '土壤濕度變化', en: 'Soil moisture' },
+    check: { zh: '需要現勘或其他觀測。', en: 'Needs a field visit or other observations.' },
+  },
+};
+
+/** Recorded tests that bear on each cause (the same pairing as the Investigation Studio). */
+const CAUSE_TESTS: Record<string, (testId: string) => boolean> = {
+  storm_disturbance: (id) => id.startsWith('vh_'),
+  observation_processing: (id) => id === 'cross_crid_radiometric_compatibility',
+};
+
+export interface Cause {
+  id: string;
+  /** Every cause is still open; `tested` says whether any recorded test touched it. */
+  tested: boolean;
+  label: Text;
+  check: Text;
+  testIds: string[];
+}
+
+export const CAUSES: Cause[] = investigation.hypotheses
+  .map((h) => {
+    const testIds = QA_TESTS.map((q) => q.id).filter(CAUSE_TESTS[h.hypothesis_id] ?? (() => false));
+    return {
+      id: h.hypothesis_id,
+      tested: h.test_status !== 'NOT_TESTED',
+      label: CAUSE_TEXT[h.hypothesis_id]?.label ?? { zh: h.statement, en: h.statement },
+      check: CAUSE_TEXT[h.hypothesis_id]?.check ?? { zh: h.falsification_check, en: h.falsification_check },
+      testIds,
+    };
+  })
+  .sort((a, b) => Number(b.tested) - Number(a.tested));
+
+/** Data sources the recorded tests cite. */
+export interface EvidenceSource {
+  id: string;
+  label: Text;
+}
+
+const SOURCE_TEXT: Record<string, Text> = {
+  'E-CHAMPI-MOA-20261106': { zh: '農業部災損公告 11/06', en: 'Ministry loss report, Nov 6' },
+  'E-CHAMPI-NLSC-TAIXI': { zh: '國土測繪中心田區界線', en: 'NLSC field boundaries' },
+  'E-CHAMPI-ASF-CROSS-CRID': { zh: 'ASF 處理版本紀錄', en: 'ASF processing versions' },
+};
+
+const observationLabel = new Map(
+  investigation.observation_timeline.map((o) => {
+    const date = o.acquisition_start_utc.slice(0, 10);
+    const name = o.mission.startsWith('Sentinel-1/OPERA') ? 'Sentinel-1 VH' : o.mission;
+    return [o.evidence_id, { zh: `${name} ${date}`, en: `${name} ${date}` } as Text];
+  }),
+);
+
+/** Which sources each recorded test cites. */
+export const TEST_SOURCES: Record<string, string[]> = Object.fromEntries(
+  investigation.hypothesis_tests.map((t) => [t.test_id, t.evidence_ids ?? []]),
+);
+
+export const EVIDENCE_SOURCES: EvidenceSource[] = [...new Set(Object.values(TEST_SOURCES).flat())].map((id) => ({
+  id,
+  label: SOURCE_TEXT[id] ?? observationLabel.get(id) ?? { zh: id, en: id },
+})).sort((a, b) => a.label.en.localeCompare(b.label.en));
 
 /** Two separate NISAR scenes over Taixi; each is stretched on its own, so not comparable in value. */
 export const NISAR_TAIXI = {

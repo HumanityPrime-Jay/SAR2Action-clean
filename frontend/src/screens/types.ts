@@ -11,5 +11,5 @@ export interface ScreenProps {
   onEvent: (id: string) => void;
   /** Farmer's own field info from the event picker; null when not given. */
   farmer: FarmerInfo | null;
-  onFarmer: (info: FarmerInfo) => void;
+  onFarmer: (info: FarmerInfo | null) => void;
 }

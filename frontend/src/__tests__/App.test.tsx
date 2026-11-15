@@ -25,10 +25,67 @@ function openChampiMap() {
   const map = screen.getByRole('region', { name: '受災地圖' });
   fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
   fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+  fireEvent.click(within(map).getByRole('checkbox', { name: /我是農民/ }));
   fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'garlic' } });
   fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
   return map;
 }
+
+const ARTICLE_12 = '農業天然災害現金救助除第十二條之二規定情形外，其作業程序及辦理期限如下：';
+
+/** An authority-mode reply shaped like `POST /api/agent/chat`, trimmed to what the assistant reads. */
+function authorityReply() {
+  return {
+    mode: 'AUTHORITY',
+    field_id: 'YL-CAND-01',
+    summary: '【科學觀測】YL-CAND-01 於警報前至警報期間之 Sentinel-1 VH 中位數變化為 +4.019 dB（狀態：OBSERVED）。',
+    scientific_evidence: {
+      crop_damage_confirmed: false,
+      vh_change: { status: 'OBSERVED', median_change_db: 4.01907, pre_median_db: -29.77, warning_median_db: -25.76, post_median_db: -29.26 },
+      sar_quality: { qa_passed: true, valid_pixels: 60, valid_coverage_ratio: 1 },
+      spatial_reference_matching: { matched_fields: [{ field_id: 'YL-CAND-02' }], excluded_fields: [{ field_id: 'YL-CAND-05' }] },
+    },
+    legal_authority: {
+      status: 'ANSWERED',
+      applicable_law_version: { version: '2026-06-29' },
+      citations: [
+        {
+          law_name: '農業天然災害救助辦法',
+          article: '第12條',
+          version: '2026-06-29',
+          official_url: 'https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=M0090019&flno=12',
+          exact_source_text: ARTICLE_12,
+          source_id: 'M0090019-ARTICLE-12',
+        },
+      ],
+      rule_evaluations: {
+        overall_status: 'INSUFFICIENT_FACTS_FOR_ELIGIBILITY_DETERMINATION',
+        rule_evaluations: [
+          { rule_id: '1_disaster_type', rule_name: 'Disaster Type', state: 'TRUE', citation_id: 'M0090019-ARTICLE-2', reason: '', missing_fields: [] },
+          { rule_id: '10_crop_eligibility', rule_name: 'Crop', state: 'UNKNOWN', citation_id: 'M0090019-ARTICLE-6', reason: '', missing_fields: [] },
+        ],
+        missing_information: ['Relief type'],
+      },
+    },
+    required_follow_up: {
+      farmer: ['確認實際耕作作物種類與種植/養殖客觀證明文件'],
+      authority: ['核對農業部或地方政府是否已正式公告雲林縣台西鄉為救助地區與品項'],
+      field_survey: [],
+    },
+    limitations: ['DECISION_SUPPORT_ONLY'],
+  };
+}
+
+/** fetch that answers the relief agent with `reply`; every other request (e.g. the relief catalog) fails. */
+function agentFetch(reply: unknown) {
+  return vi.fn((url: string) =>
+    url.endsWith('/api/agent/chat') ? Promise.resolve(new Response(JSON.stringify(reply), { status: 200 })) : Promise.reject(new TypeError('offline')),
+  );
+}
+
+/** The body sent to the relief agent. */
+const agentBody = (fetchMock: ReturnType<typeof agentFetch>) =>
+  JSON.parse((fetchMock.mock.calls.find(([url]) => url.endsWith('/api/agent/chat')) as unknown as [string, RequestInit])[1].body as string);
 
 describe('App', () => {
   beforeEach(() => {
@@ -54,12 +111,33 @@ describe('App', () => {
     expect(within(actions).getAllByRole('button')).toHaveLength(3);
   });
 
+  it('home opens with clouds, rain and coastlines on, and the scan ring off', async () => {
+    render(<App />);
+    await screen.findByTestId('globe');
+    const layers = screen.getByRole('group', { name: '地球圖層' });
+    for (const on of ['颱風雲圖', '降雨強度', '海岸線']) expect(within(layers).getByRole('checkbox', { name: new RegExp(on) })).toBeChecked();
+    expect(within(layers).getByRole('checkbox', { name: '掃描光環' })).not.toBeChecked();
+  });
+
+  it('the event picker has the pixel crop playground, hidden from assistive tech, and the map does not', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '受災地圖' }));
+    const map = screen.getByRole('region', { name: '受災地圖' });
+    const playground = map.querySelector('.playground');
+    expect(playground).toHaveAttribute('aria-hidden', 'true');
+    expect(playground!.querySelectorAll('.prop')).toHaveLength(14);
+    fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
+    fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+    fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
+    expect(map.querySelector('.playground')).toBeNull();
+  });
+
   it('an entry button flies to Taiwan, then opens its screen', async () => {
     render(<App />);
     await screen.findByTestId('globe');
     const actions = screen.getByRole('navigation', { name: '開始使用' });
     await act(async () => {
-      fireEvent.click(within(actions).getByRole('button', { name: /田區比對/ }));
+      fireEvent.click(within(actions).getByRole('button', { name: /田區雷達影像比對/ }));
     });
     expect(flyToTaiwan).toHaveBeenCalledTimes(1);
     expect(screen.getByRole('region', { name: '田區比對' })).toHaveClass('active');
@@ -84,23 +162,26 @@ describe('App', () => {
     const event = within(map).getByRole('combobox', { name: /災害事件/ });
     expect(event).toBeDisabled();
     fireEvent.change(region, { target: { value: 'north' } });
-    expect(within(map).getByText('這個地區目前還沒有處理好的災害事件。')).toBeInTheDocument();
+    expect(event).toBeDisabled();
+    expect(within(event).getByText('此地區尚無事件')).toBeInTheDocument();
     fireEvent.change(region, { target: { value: 'central' } });
     expect(event).toBeEnabled();
     expect(within(event).getByRole('option', { name: /薔琵颱風/ })).toBeInTheDocument();
     fireEvent.change(event, { target: { value: 'champi-2026-yunlin' } });
-    fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'rice' } });
+    // Not a farmer: no crop needed.
+    expect(within(map).queryByRole('combobox', { name: /這塊田種的作物/ })).not.toBeInTheDocument();
     fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
     expect(within(map).getByRole('listbox', { name: '候選田區' })).toBeInTheDocument();
     expect(screen.getByRole('banner')).toHaveTextContent('薔琵颱風 · 雲林縣');
   });
 
-  it('farmer card: crop is required, land parcel number is optional and reaches the estimate', () => {
+  it('farmer card: optional, but once ticked the crop is required; the land parcel number reaches the estimate', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '受災地圖' }));
     const map = screen.getByRole('region', { name: '受災地圖' });
     fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
     fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+    fireEvent.click(within(map).getByRole('checkbox', { name: /我是農民/ }));
     fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
     expect(within(map).getByRole('alert')).toHaveTextContent('請選擇作物');
     expect(within(map).getByRole('combobox', { name: /這塊田種的作物/ })).toHaveAttribute('aria-invalid', 'true');
@@ -139,6 +220,25 @@ describe('App', () => {
     expect(within(compare).getByRole('heading', { name: /YL-CAND-03/ })).toBeInTheDocument();
   });
 
+  it('loads the farmland layer only when it is switched on', async () => {
+    const square = [[[120.18, 23.72], [120.19, 23.72], [120.19, 23.73], [120.18, 23.72]]];
+    const fetchMock = vi.fn((url: string) =>
+      url === '/studio/landuse_farmland_taixi.geojson'
+        ? Promise.resolve(new Response(JSON.stringify({ features: [{ properties: { class: 'paddy' }, geometry: { type: 'Polygon', coordinates: square } }] })))
+        : Promise.reject(new Error('offline')),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    const map = openChampiMap();
+    expect(fetchMock).not.toHaveBeenCalledWith('/studio/landuse_farmland_taixi.geojson');
+    fireEvent.click(within(map).getByRole('checkbox', { name: /農地類型/ }));
+    expect(fetchMock).toHaveBeenCalledWith('/studio/landuse_farmland_taixi.geojson');
+    expect(await within(map).findByText(/5 塊候選田都不在圖層內/)).toBeInTheDocument();
+    expect(within(map).getByText('水田')).toBeInTheDocument();
+    expect(map.querySelectorAll('.landuse path')).toHaveLength(1);
+    vi.unstubAllGlobals();
+  });
+
   it('shows the five real candidate fields and filters them by VH trend', () => {
     render(<App />);
     const map = openChampiMap();
@@ -158,51 +258,62 @@ describe('App', () => {
     expect(send).toBeEnabled();
   });
 
-  it('relief assistant asks the backend agent and shows the cited article', async () => {
-    const fetchMock = vi.fn(() =>
-      Promise.resolve(
-        new Response(
-          JSON.stringify({
-            reply: '要帶身分證、印章、土地或耕作證明。',
-            intent: 'REQUIRED_DOCUMENTS',
-            conversation_state: 'APPLICATION_GUIDANCE_PROVIDED',
-            sources: ['M0090019-ARTICLE-12'],
-            result_cards: [],
-          }),
-          { status: 200 },
-        ),
-      ),
-    );
+  it('relief assistant: a farmer gets plain words, the law stays verbatim, and the switch shows the authority view', async () => {
+    const fetchMock = agentFetch(authorityReply());
     vi.stubGlobal('fetch', fetchMock);
     render(<App />);
     openChampiMap();
     fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
     const assist = screen.getByRole('region', { name: '補助助手' });
+    const viewSwitch = within(assist).getByRole('switch', { name: '農政專業模式' });
+    expect(viewSwitch).toHaveAttribute('aria-checked', 'false');
+
     fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
-    expect(await within(assist).findByText('要帶身分證、印章、土地或耕作證明。')).toBeInTheDocument();
-    expect(within(assist).getByRole('link', { name: '農業天然災害救助辦法 第 12 條' })).toHaveAttribute('href', expect.stringContaining('flno=12'));
-    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
-    expect(url).toBe('/api/farmer/chat');
-    expect(JSON.parse(init.body as string)).toMatchObject({ message: '申請需要哪些文件？', crop: '大蒜', optional_event_id: 'champi-2026-yunlin' });
+    expect(await within(assist).findByText(/回波升高 \+4\.02 dB/)).toBeInTheDocument();
+    expect(within(assist).getByText('你登記的作物是大蒜；能不能申請，要看政府有沒有公告這個品項。')).toBeInTheDocument();
+    expect(within(assist).getByText('資料不足，還不能判斷是否符合救助資格。')).toBeInTheDocument();
+    expect(within(assist).getByText('準備實際種植的作物種類和種植證明文件')).toBeInTheDocument();
+    expect(within(assist).getByRole('link', { name: '《農業天然災害救助辦法》第12條' })).toHaveAttribute('href', expect.stringContaining('flno=12'));
+    expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
+    expect(within(assist).getByText(/公告救助地區的隔天起 10 個工作日內/)).toBeInTheDocument();
+    expect(agentBody(fetchMock)).toMatchObject({ mode: 'AUTHORITY', message: '申請需要哪些文件？', field_id: 'YL-CAND-01', crop: '大蒜', lang: 'zh' });
+
+    fireEvent.click(viewSwitch);
+    expect(viewSwitch).toHaveAttribute('aria-checked', 'true');
+    expect(within(assist).getByText(/【科學觀測】YL-CAND-01 警報前至警報期間，Sentinel-1 VH 中位數變化 \+4\.02 dB/)).toBeInTheDocument();
+    expect(within(assist).getByText(/【法規檢核】依《農業天然災害救助辦法》2026-06-29 版/)).toHaveTextContent('資料不足，還不能判斷是否符合救助資格。');
+    expect(within(assist).getByText(/符合 1 · 待確認 1/)).toBeInTheDocument();
+    expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
+    expect(within(assist).queryByText(/公告救助地區的隔天起 10 個工作日內/)).not.toBeInTheDocument();
     vi.unstubAllGlobals();
   });
 
-  it('relief assistant asks for English and flags a reply that stayed in Chinese', async () => {
-    const reply = (text: string, lang: 'zh' | 'en') =>
-      new Response(JSON.stringify({ reply: text, intent: 'X', conversation_state: 'X', sources: [], result_cards: [], reply_language: lang }), { status: 200 });
-    const fetchMock = vi.fn().mockResolvedValueOnce(reply('Bring your ID.', 'en')).mockResolvedValueOnce(reply('要帶身分證。', 'zh'));
+  it('relief assistant says plainly when no article matches, instead of citing nothing', async () => {
+    const reply = authorityReply();
+    reply.legal_authority.status = 'INSUFFICIENT_LEGAL_BASIS';
+    reply.legal_authority.citations = [];
+    vi.stubGlobal('fetch', agentFetch(reply));
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
+    const assist = screen.getByRole('region', { name: '補助助手' });
+    fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
+    expect(await within(assist).findByText('《農業天然災害救助辦法》裡找不到能完整對應這個問題的條文。')).toBeInTheDocument();
+    vi.unstubAllGlobals();
+  });
+
+  it('relief assistant in English: authority view by default, Chinese law text kept as the official wording', async () => {
+    const fetchMock = agentFetch(authorityReply());
     vi.stubGlobal('fetch', fetchMock);
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: 'EN' }));
     fireEvent.click(screen.getByRole('button', { name: 'Relief assistant' }));
     const assist = screen.getByRole('region', { name: 'Relief assistant' });
+    expect(within(assist).getByRole('switch', { name: 'Authority view' })).toHaveAttribute('aria-checked', 'true');
     fireEvent.click(within(assist).getByRole('button', { name: 'What documents do I need?' }));
-    expect(await within(assist).findByText('Bring your ID.')).toBeInTheDocument();
-    expect(JSON.parse((fetchMock.mock.calls[0] as unknown as [string, RequestInit])[1].body as string)).toMatchObject({ lang: 'en' });
-    expect(within(assist).queryByText(/Shown in Chinese/)).not.toBeInTheDocument();
-    fireEvent.click(within(assist).getByRole('button', { name: 'When is the deadline?' }));
-    expect(await within(assist).findByText('要帶身分證。')).toBeInTheDocument();
-    expect(within(assist).getByText(/Shown in Chinese/)).toBeInTheDocument();
+    expect(await within(assist).findByText(/\[Observation\] YL-CAND-01/)).toBeInTheDocument();
+    expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
+    expect(within(assist).getByText('Official text in Chinese.')).toBeInTheDocument();
+    expect(agentBody(fetchMock)).toMatchObject({ lang: 'en' });
     vi.unstubAllGlobals();
   });
 
@@ -217,19 +328,30 @@ describe('App', () => {
     vi.unstubAllGlobals();
   });
 
-  it('relief estimate is a ceiling from field area, with eligibility left to the authority', () => {
+  it('the helpers greet on the home screen and can be hidden', () => {
+    render(<App />);
+    expect(screen.getByText('嗨！先選一場災害吧。')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '隱藏小幫手' }));
+    expect(screen.queryByText('嗨！先選一場災害吧。')).not.toBeInTheDocument();
+    expect(localStorage.getItem('sar2action.mascot')).toBe('hidden');
+    fireEvent.click(screen.getByRole('button', { name: '顯示小幫手' }));
+    expect(screen.getByRole('button', { name: /小幫手：農民和農會人員/ })).toBeInTheDocument();
+  });
+
+  it('the helpers apologise when the agent fails', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))));
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
     const assist = screen.getByRole('region', { name: '補助助手' });
-    // The recorded demo uses 12.52471 ha before rounding the illustrative currency.
-    expect(within(assist).getByText('NT$ 325,642')).toBeInTheDocument();
-    expect(within(assist).getByText('待主管機關認定')).toBeInTheDocument();
+    fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
+    expect(await screen.findByText('抱歉，現在連不上。')).toBeInTheDocument();
+    vi.unstubAllGlobals();
   });
 
   it('rejects unknown or cross-case parcel IDs instead of falling back to the first parcel', () => {
     const noop = vi.fn();
     const { rerender } = render(
-      <CompareScreen selectedId="4183" onSelect={noop} go={noop} eventId={null} onEvent={noop} farmer={null} onFarmer={noop} />,
+      <CompareScreen selectedId="4183" onSelect={noop} go={noop} eventId="champi-2026-yunlin" onEvent={noop} farmer={null} onFarmer={noop} />,
     );
     expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
 
@@ -239,10 +361,98 @@ describe('App', () => {
     expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
   });
 
-  it('compare screen shows the team QA, including the failed cross-version NISAR check', () => {
+  it('the comparison waits for a disaster picked on the damage map', () => {
     render(<App />);
     const compare = screen.getByRole('region', { name: '田區比對' });
-    expect(within(compare).getByText('NISAR 前後兩期可直接比較強度')).toBeInTheDocument();
-    expect(within(compare).getAllByText('未通過').length).toBeGreaterThan(0);
+    expect(within(compare).getByRole('heading', { name: '先在受災地圖選一場災害' })).toBeInTheDocument();
+    fireEvent.click(within(compare).getByRole('button', { name: /到受災地圖/ }));
+    expect(screen.getByRole('region', { name: '受災地圖' })).toHaveClass('active');
+  });
+
+  it('compare screen notes what the VH series shows, each point numbered on the chart', () => {
+    render(<App />);
+    openChampiMap();
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    const notes = within(within(compare).getByRole('region', { name: '看出什麼' })).getAllByRole('listitem');
+    expect(notes).toHaveLength(3);
+    expect(notes[0]).toHaveTextContent('警報期間回波升高 +4.02 dB');
+    expect(notes[1]).toHaveTextContent('颱風後回到接近颱風前');
+    expect(notes[2]).toHaveTextContent('去年同期變化');
+  });
+
+  it('compare screen shows the team QA, including the failed cross-version NISAR check', () => {
+    render(<App />);
+    openChampiMap();
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    fireEvent.click(within(compare).getByRole('button', { name: /5 項檢驗：2 通過、3 未通過/ }));
+    const graph = screen.getByRole('dialog', { name: '證據關係圖' });
+    expect(within(graph).getByRole('button', { name: /NISAR 前後兩期可直接比較強度/ })).toHaveTextContent('未通過');
+  });
+
+  it('compare screen lists the open causes; none is presented as confirmed', () => {
+    render(<App />);
+    openChampiMap();
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    const causes = within(compare).getByRole('region', { name: '可能原因' });
+    expect(within(causes).getByText('不確定').nextElementSibling).toHaveTextContent('颱風擾動作物或地表、衛星處理版本不同');
+    expect(within(causes).getByText('未檢驗').nextElementSibling).toHaveTextContent('收割、整地、土壤濕度變化');
+    expect(within(compare).getByText('原因未知')).toBeInTheDocument();
+  });
+
+  it('the evidence graph opens only on request and links a cause to its checks', () => {
+    render(<App />);
+    openChampiMap();
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    const opener = within(compare).getByRole('button', { name: /5 項檢驗/ });
+    opener.focus();
+    fireEvent.click(opener);
+    const dialog = screen.getByRole('dialog', { name: '證據關係圖' });
+    expect(within(dialog).getByRole('button', { name: '關閉' })).toHaveFocus();
+
+    fireEvent.click(within(dialog).getByRole('button', { name: '衛星處理版本不同' }));
+    expect(within(dialog).getByRole('button', { name: /NISAR 前後兩期可直接比較強度/ })).not.toHaveClass('dim');
+    expect(within(dialog).getByRole('button', { name: /官方損失可對應到個別田區/ })).toHaveClass('dim');
+    expect(within(dialog).getByRole('button', { name: 'ASF 處理版本紀錄' })).not.toHaveClass('dim');
+    expect(dialog).toHaveTextContent('NISAR 前後兩期版本不同');
+
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(opener).toHaveFocus();
+  });
+
+  it('shows no sign-in at all when the server has it off', async () => {
+    const fetchMock = vi.fn((url: string) =>
+      url === '/api/auth/config' ? Promise.resolve(new Response(JSON.stringify({ enabled: false, google_client_id: null }))) : Promise.reject(new Error('offline')),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    await act(async () => {});
+    expect(fetchMock).toHaveBeenCalledWith('/api/auth/config');
+    expect(document.querySelector('.account')).toBeNull();
+    expect(fetchMock).not.toHaveBeenCalledWith('/api/me', expect.anything());
+    vi.unstubAllGlobals();
+  });
+
+  it('a signed-in authority sees their name and role, and can sign out', async () => {
+    const calls: string[] = [];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((url: string, init?: RequestInit) => {
+        calls.push(`${init?.method ?? 'GET'} ${url}`);
+        if (url === '/api/auth/config') return Promise.resolve(new Response(JSON.stringify({ enabled: true, google_client_id: 'cid.apps.googleusercontent.com' })));
+        if (url === '/api/me') return Promise.resolve(new Response(JSON.stringify({ email: 'officer@example.com', name: 'Officer Lin', role: 'authority' })));
+        if (url === '/api/auth/logout') return Promise.resolve(new Response(null, { status: 204 }));
+        return Promise.reject(new Error('offline'));
+      }),
+    );
+    render(<App />);
+    const who = await screen.findByText('Officer Lin');
+    expect(within(who.closest('summary')!).getByText('農政')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '登出' }));
+    await act(async () => {});
+    expect(calls).toContain('POST /api/auth/logout');
+    expect(screen.queryByText('Officer Lin')).not.toBeInTheDocument();
+    vi.unstubAllGlobals();
   });
 });

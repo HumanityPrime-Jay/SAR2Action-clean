@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CASE, type LngLat, NISAR_TAIXI, PARCELS, type Parcel, TREND_COLOR, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
-import { type Lang, useLang, useT } from '../i18n';
+import { type Lang, type Text, useLang, useT } from '../i18n';
 import { FieldRow, Icon, TrendTag } from '../ui/shared';
+import { PixelPlayground } from '../ui/PixelPlayground';
 import { EventPicker } from './EventPicker';
 import type { ScreenProps } from './types';
 
@@ -40,6 +41,31 @@ const SHAPES = PARCELS.map((p) => {
   const pts = polygonRings(p.geometry).flat(2).map(PROJ.xy);
   return { id: p.id, path: geometryPath(p.geometry, PROJ.xy), right: Math.max(...pts.map((q) => q[0])), left: Math.min(...pts.map((q) => q[0])), top: Math.min(...pts.map((q) => q[1])) };
 });
+
+type Landuse = 'paddy' | 'dry' | 'orchard';
+
+/** 國土利用現況調查 level-3 farmland classes, clipped to this map's extent (public/studio/landuse_farmland_taixi.geojson). */
+const LANDUSE_COLOR: Record<Landuse, string> = { paddy: '#7EE8FA', dry: '#F5E663', orchard: '#8BE38B' };
+const LANDUSE_LABEL: Record<Landuse, Text> = { paddy: { zh: '水田', en: 'Paddy' }, dry: { zh: '旱田', en: 'Dry field' }, orchard: { zh: '果園', en: 'Orchard' } };
+
+/** Loads the farmland layer the first time it is switched on; null until then, 'error' if it failed. */
+function useLanduse(on: boolean) {
+  const [shapes, setShapes] = useState<{ cls: Landuse; d: string }[] | null | 'error'>(null);
+  useEffect(() => {
+    if (!on || shapes !== null) return;
+    let live = true;
+    fetch('/studio/landuse_farmland_taixi.geojson')
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+      .then((fc: { features: { properties: { class: Landuse }; geometry: Parcel['geometry'] }[] }) => {
+        if (live) setShapes(fc.features.map((f) => ({ cls: f.properties.class, d: geometryPath(f.geometry, PROJ.xy) })));
+      })
+      .catch(() => live && setShapes('error'));
+    return () => {
+      live = false;
+    };
+  }, [on, shapes]);
+  return shapes;
+}
 
 /** Axis-aligned placement of a NISAR scene from its corner coordinates (display only). */
 function sceneRect(corners: LngLat[]) {
@@ -83,15 +109,18 @@ export function MapScreen({ eventId, onEvent, farmer, onFarmer, ...props }: Scre
   const [changing, setChanging] = useState(false);
   if (!eventId || changing) {
     return (
-      <EventPicker
-        initialId={eventId}
-        initialFarmer={farmer}
-        onPick={(id, info) => {
-          onEvent(id);
-          onFarmer(info);
-          setChanging(false);
-        }}
-      />
+      <>
+        <EventPicker
+          initialId={eventId}
+          initialFarmer={farmer}
+          onPick={(id, info) => {
+            onEvent(id);
+            onFarmer(info);
+            setChanging(false);
+          }}
+        />
+        <PixelPlayground />
+      </>
     );
   }
   return <DamageMap {...props} farmer={farmer} onChangeEvent={() => setChanging(true)} />;
@@ -109,7 +138,8 @@ function DamageMap({
   const { lang } = useLang();
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
-  const [layers, setLayers] = useState({ trend: true, post: true, pre: false, bnd: true });
+  const [layers, setLayers] = useState({ trend: true, post: true, pre: false, bnd: true, landuse: false });
+  const landuse = useLanduse(layers.landuse);
   const [sheetRef, sheet] = useElementSize<HTMLDivElement>();
   const [zoom, setZoom] = useState(1);
   const vw = PROJ.W / zoom;
@@ -153,6 +183,13 @@ function DamageMap({
               layers[key] && (
                 <image key={key} href={scene.image.HH} {...sceneRect(scene.corners)} preserveAspectRatio="none" opacity={0.85} style={{ imageRendering: 'pixelated' }} />
               ),
+          )}
+          {layers.landuse && Array.isArray(landuse) && (
+            <g className="landuse" aria-hidden="true">
+              {landuse.map((f, i) => (
+                <path key={i} d={f.d} fill={LANDUSE_COLOR[f.cls]} fillOpacity={0.22} stroke={LANDUSE_COLOR[f.cls]} strokeWidth={1} vectorEffect="non-scaling-stroke" />
+              ))}
+            </g>
           )}
           <g stroke="#BFD0F5" strokeOpacity=".25" strokeWidth="1">
             {gridLngs.map((lng) => {
@@ -230,6 +267,7 @@ function DamageMap({
               ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}`],
               ['pre', `NISAR ${t('颱風前', 'pre')} ${md(pre.date)}`],
               ['bnd', t('田區邊界', 'Field boundaries')],
+              ['landuse', t('農地類型（國土利用）', 'Farmland type (land use)')],
             ] as const
           ).map(([key, label]) => (
             <label key={key}>
@@ -237,6 +275,27 @@ function DamageMap({
               {label}
             </label>
           ))}
+          {layers.landuse && (
+            <div className="landuse-key">
+              {landuse === 'error' ? (
+                <p role="status">{t('農地圖層載入失敗。', 'The farmland layer failed to load.')}</p>
+              ) : (
+                <>
+                  <div className="legend">
+                    {(Object.keys(LANDUSE_COLOR) as Landuse[]).map((k) => (
+                      <span key={k}>
+                        <i className="hollow" style={{ borderColor: LANDUSE_COLOR[k], background: `${LANDUSE_COLOR[k]}38` }} />
+                        {t(LANDUSE_LABEL[k])}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="cap">
+                    {t('國土利用現況調查 2024/11，只含農作使用。5 塊候選田都不在圖層內。', 'Land Use Survey, Nov 2024, farmland only. No candidate field is inside it.')}
+                  </p>
+                </>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="bp-card" style={{ left: 16, bottom: 16, maxWidth: 'calc(100% - 120px)' }}>
@@ -248,9 +307,6 @@ function DamageMap({
                 {t(TREND_LABEL[k])}
               </span>
             ))}
-          </div>
-          <div className="cap" style={{ marginTop: 4 }}>
-            {t('描述性觀測，不代表受損判定', 'Descriptive observation, not a damage verdict')}
           </div>
         </div>
 

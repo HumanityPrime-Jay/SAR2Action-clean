@@ -143,11 +143,15 @@ def handle_agent_chat(payload: dict[str, Any]) -> dict[str, Any]:
     if not message.strip():
         raise ValueError("message is required")
     if mode == "AUTHORITY":
+        # Legal retrieval reads Chinese; an English question is translated first (unchanged if Gemini is off).
+        if str(payload.get("lang") or "zh") == "en":
+            message = _farmer_service._to_chinese(message)
         res = _sci_legal.analyze(
             message,
             field_id=str(payload.get("field_id") or "YL-CAND-03"),
             aoi_id=str(payload.get("aoi_id") or "10009160"),
             event_date=payload.get("event_date", "2026-10-23"),
+            crop=payload.get("crop") or None,
         )
         return {"mode": "AUTHORITY", **res.to_dict()}
     return {"mode": "FARMER", **handle_farmer_chat(payload)}
@@ -226,6 +230,8 @@ def create_fastapi_router():
         selected_field_id: str | None = None
         aoi_id: str = "10009160"
         event_date: str | None = "2026-10-23"
+        crop: str | None = Field(default=None, max_length=50)
+        lang: Literal["zh", "en"] = "zh"
 
     class MapActionReq(BaseModel):
         action_type: str
