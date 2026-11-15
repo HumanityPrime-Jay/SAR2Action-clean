@@ -87,6 +87,7 @@ function Shell() {
           ))}
         </nav>
         <div className="spacer" />
+        <a className="link" href={`${import.meta.env.BASE_URL}studio`}>Investigation Studio</a>
         <div className="event">
           <span>EVENT</span>
           <b>{event ? eventShort(event, lang) : t('尚未選擇', 'Not selected')}</b>
@@ -117,7 +118,7 @@ function Shell() {
         ))}
       </main>
 
-      <div className="demo-note">{t('雷達資料為真實觀測 · 救助金額為示意試算', 'Radar data are real observations · relief amounts are illustrative')}</div>
+      <div className="demo-note">{t('臺西 CHAMPI-YUNLIN-TAIXI · 雷達資料為真實觀測 · 救助金額為示意試算', 'CHAMPI-YUNLIN-TAIXI · Radar data are real observations · relief amounts are illustrative')}</div>
     </div>
   );
 }

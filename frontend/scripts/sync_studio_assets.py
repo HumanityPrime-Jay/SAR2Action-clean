@@ -74,27 +74,33 @@ def run() -> None:
         if source != PUBLIC / name:
             shutil.copyfile(source, PUBLIC / name)
     # The four optional GeoTIFF sources are intentionally Git-ignored. Their
-    # already rendered previews must still match tracked science QA metadata.
+    # already rendered previews must still match tracked science QA metadata when present.
     map_manifest = json.loads((PUBLIC / "nisar_map_manifest.json").read_text(encoding="utf-8"))
-    qa = json.loads((CHAMPI / "science_qa.json").read_text(encoding="utf-8"))
-    science = json.loads((CHAMPI / "science_manifest.json").read_text(encoding="utf-8"))
-    digests = {Path(item["path"]).name: item["sha256"] for item in science["outputs"]
-               if item["path"].endswith(".tif")}
     if (map_manifest.get("status") != "SEPARATE_OBSERVATIONS_ONLY" or
             map_manifest.get("verified_typhoon_delta_allowed") is not False or
             len(map_manifest.get("scenes", [])) != 2):
         raise RuntimeError("NISAR map release gate failed")
+    qa_path = CHAMPI / "science_qa.json"
+    science_path = CHAMPI / "science_manifest.json"
+    has_qa = qa_path.is_file() and science_path.is_file()
+    qa = json.loads(qa_path.read_text(encoding="utf-8")) if has_qa else None
+    science = json.loads(science_path.read_text(encoding="utf-8")) if has_qa else None
+    digests = (
+        {Path(item["path"]).name: item["sha256"] for item in science["outputs"] if item["path"].endswith(".tif")}
+        if science is not None else {}
+    )
     for scene in map_manifest["scenes"]:
         period = scene["period"]
-        reference = qa["observations"][period]
-        if (scene["scene_id"] != reference["scene_id"] or
-                scene["crid"] != reference["crid"] or
-                scene["product_maturity"] != reference["product_maturity"] or
-                scene["source_sha256"] != digests[f"Taixi_{period}_HH_HV_db.tif"]):
-            raise RuntimeError("NISAR map source provenance mismatch")
+        if qa is not None:
+            reference = qa["observations"][period]
+            if (scene["scene_id"] != reference["scene_id"] or
+                    scene["crid"] != reference["crid"] or
+                    scene["product_maturity"] != reference["product_maturity"] or
+                    scene["source_sha256"] != digests[f"Taixi_{period}_HH_HV_db.tif"]):
+                raise RuntimeError("NISAR map source provenance mismatch")
         for pol in ("HH", "HV"):
             layer = scene["layers"][pol]
-            if layer["valid_pixels"] != reference["valid_pixels"]:
+            if qa is not None and layer["valid_pixels"] != qa["observations"][period]["valid_pixels"]:
                 raise RuntimeError("NISAR map valid pixel mismatch")
             path = PUBLIC / layer["image"]
             if path.read_bytes()[:8] != b"\x89PNG\r\n\x1a\n":

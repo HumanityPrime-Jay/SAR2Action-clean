@@ -15,6 +15,15 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: process.env.SAR2ACTION_BACKEND_URL || 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+    },
+  },
   test: {
     include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
     environment: 'jsdom',

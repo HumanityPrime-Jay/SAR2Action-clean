@@ -42,6 +42,23 @@ from backend.app.schemas.investigation_v3 import InvestigationV3Request, Investi
 from backend.app.services.investigation_v3 import InvestigationV3Service, get_champi_evidence
 from backend.app.services.agent_orchestrator import AgentOrchestrator, InvestigateRequest, StoryRequest as AgentStoryRequest
 from backend.app.services.spatial_ranking import SpatialRequest, SpatialDataUnavailable
+from backend.app.services.gis_service import (
+    MeasureGeometryRequest,
+    MeasureGeometryResponse,
+    TransformPointRequest,
+    TransformPointResponse,
+    measure_geometry,
+    transform_point,
+)
+from backend.app.services.tw05_compat import (
+    Tw05InvestigateRequest,
+    TwAgroReliefEstimateRequest,
+    build_agent_status_extras,
+    estimate_relief as estimate_tw_agro_relief,
+    get_parcel_optical as get_tw_agro_parcel_optical,
+    get_relief_catalog as get_tw_agro_relief_catalog,
+    investigate_tw05 as run_tw05_investigation,
+)
 from fastapi import HTTPException
 
 app = FastAPI(
@@ -157,9 +174,58 @@ def get_investigation_evidence_graph(investigation_id: str) -> EvidenceGraph:
 
 @app.get('/api/agent/status', tags=['Agent'])
 def agent_status():
-    return {'agent': agent_orchestrator.model.status(), 'demo_available': True,
-            'cached_evidence': ScienceEvidenceProvider('cache').status(),
-            'spatial_manifest_configured': bool(__import__('os').environ.get('SAR2ACTION_SPATIAL_MANIFEST'))}
+    return {
+        'agent': agent_orchestrator.model.status(),
+        'demo_available': True,
+        'cached_evidence': ScienceEvidenceProvider('cache').status(),
+        'spatial_manifest_configured': bool(os.environ.get('SAR2ACTION_SPATIAL_MANIFEST')),
+        **build_agent_status_extras(),
+    }
+
+
+@app.post('/api/agent/tw05/investigate', tags=['Agent'])
+def tw05_investigate(request: Tw05InvestigateRequest) -> dict:
+    """Compatibility adapter for TW-05 agricultural parcel investigation."""
+    try:
+        return run_tw05_investigation(request)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@app.get('/api/tw-agro/relief-catalog', tags=['Relief'])
+def tw_agro_relief_catalog() -> dict:
+    """Return statutory relief schedule under 《農業天然災害救助辦法》."""
+    return get_tw_agro_relief_catalog()
+
+
+@app.post('/api/tw-agro/relief-estimate', tags=['Relief'])
+def tw_agro_relief_estimate(request: TwAgroReliefEstimateRequest) -> dict:
+    """Compute conditional statutory relief estimate under user assumptions."""
+    return estimate_tw_agro_relief(request)
+
+
+@app.get('/api/tw-agro/parcels/{parcel_feature_id}/optical', tags=['Relief'])
+def tw_agro_parcel_optical(parcel_feature_id: int) -> dict:
+    """Return structured parcel-level optical raster availability status."""
+    return get_tw_agro_parcel_optical(parcel_feature_id)
+
+
+@app.post('/api/gis/transform-point', response_model=TransformPointResponse, tags=['GIS'])
+def gis_transform_point(request: TransformPointRequest) -> TransformPointResponse:
+    """Transform a 2D point between supported CRS (EPSG:4326 <-> EPSG:3826)."""
+    try:
+        return transform_point(request)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@app.post('/api/gis/measure', response_model=MeasureGeometryResponse, tags=['GIS'])
+def gis_measure_geometry(request: MeasureGeometryRequest) -> MeasureGeometryResponse:
+    """Measure polygon area and perimeter in TWD97 (EPSG:3826)."""
+    try:
+        return measure_geometry(request)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 @app.get('/api/agent/operations/{session_id}', tags=['Agent'])

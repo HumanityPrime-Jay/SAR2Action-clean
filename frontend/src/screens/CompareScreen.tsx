@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { type LngLat, NISAR_TAIXI, type Parcel, QA_TESTS, type VhPoint, WARNING, parcelById } from '../data/champi';
+import { type LngLat, NISAR_TAIXI, type Parcel, QA_TESTS, type VhPoint, WARNING, geometryPath, parcelById, polygonRings } from '../data/champi';
 import { NISAR_SCENE } from '../data/nisar';
 import { cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
@@ -24,7 +24,7 @@ function projector(ring: LngLat[]) {
 
 /** Real NISAR scene around the parcel, with the official field boundary on top. */
 function SceneView({ scene, pol, parcel, label }: { scene: Scene; pol: Pol; parcel: Parcel; label?: string }) {
-  const xy = projector(parcel.ring);
+  const xy = projector(polygonRings(parcel.geometry).flat(2));
   const c = scene.corners.map(xy);
   const xs = c.map((p) => p[0]);
   const ys = c.map((p) => p[1]);
@@ -40,7 +40,7 @@ function SceneView({ scene, pol, parcel, label }: { scene: Scene; pol: Pol; parc
         preserveAspectRatio="none"
         style={{ imageRendering: 'pixelated' }}
       />
-      <polygon points={parcel.ring.map((p) => xy(p).join(',')).join(' ')} fill="none" stroke="#7FA6FF" strokeWidth={2.5} strokeDasharray="7 5" vectorEffect="non-scaling-stroke" />
+      <path d={geometryPath(parcel.geometry, xy)} fill="none" stroke="#7FA6FF" strokeWidth={2.5} strokeDasharray="7 5" vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }
@@ -55,6 +55,7 @@ const md = (d: string) => d.slice(5).replace('-', '/');
 function SwipeViewer({ pol, parcel }: { pol: Pol; parcel: Parcel }) {
   const t = useT();
   const { lang } = useLang();
+  if (!parcel) return <p role="status">Taixi field not found</p>;
   const [pre, post] = NISAR_TAIXI.scenes;
   const [pct, setPct] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
@@ -106,6 +107,7 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
   const [mode, setMode] = useState<Mode>('side');
   const [pol, setPol] = useState<Pol>('HH');
   const parcel = parcelById(selectedId);
+  if (!parcel) return <p role="status">Taixi field not found</p>;
   const [pre, post] = NISAR_TAIXI.scenes;
 
   return (
@@ -124,7 +126,7 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
               <span className="seal neutral">{t('OBSERVED · 原因未知', 'OBSERVED · cause unknown')}</span>
             </div>
             <div className="cap">
-              {lang === 'zh' ? `雲林縣${parcel.town.zh}` : `${parcel.town.en}, Yunlin`} · {parcel.areaHa} {t('公頃', 'ha')} ·{' '}
+              {lang === 'zh' ? `雲林縣${parcel.town.zh}` : `${parcel.town.en}, Yunlin`} · {parcel.areaHa.toFixed(4)} {t('公頃', 'ha')} ·{' '}
               {farmer ? `${t('農民登記作物：', 'Farmer-reported crop: ')}${cropName(farmer, lang)}${t('（待驗證）', ' (unverified)')}` : t('作物未驗證', 'Crop unverified')}
             </div>
           </div>

@@ -13,6 +13,18 @@ import investigation from '../../public/studio/recorded_investigation.json';
 import type { Lang, Text } from '../i18n';
 
 export type LngLat = [number, number];
+export type FieldGeometry =
+  | { type: 'Polygon'; coordinates: LngLat[][] }
+  | { type: 'MultiPolygon'; coordinates: LngLat[][][] };
+
+export const polygonRings = (geometry: FieldGeometry) =>
+  geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+
+export function geometryPath(geometry: FieldGeometry, project: (point: LngLat) => LngLat) {
+  return polygonRings(geometry).flatMap((polygon) =>
+    polygon.map((ring) => `M${ring.map((point) => project(point).join(',')).join('L')}Z`),
+  ).join(' ');
+}
 
 export interface VhPoint {
   /** Taiwan local date, YYYY-MM-DD. */
@@ -24,8 +36,10 @@ export interface Parcel {
   id: string;
   town: Text;
   areaHa: number;
-  /** Outer ring of the official farmland polygon (農田坵塊圖). */
-  ring: LngLat[];
+  sourceAreaM2: number;
+  areaSource: 'SOURCE_FARMLAND';
+  /** Full polygon/multipolygon geometry (including interior rings) from official farmland boundaries. */
+  geometry: FieldGeometry;
   vh2025: VhPoint[];
   vh2026: VhPoint[];
   /** Sentinel-1 VH median change, dB: pre-warning (10/11) → post-warning (11/04). */
@@ -43,14 +57,11 @@ export const TREND_COLOR: Record<Trend, string> = { up: '#4D8DFF', down: '#F28C3
 
 interface FeatureLike {
   properties: { field_id: string };
-  geometry: { type: 'Polygon' | 'MultiPolygon'; coordinates: unknown };
+  geometry: FieldGeometry;
 }
 
-const rings = new Map<string, LngLat[]>(
-  (JSON.parse(fieldsGeojson).features as FeatureLike[]).map((f) => {
-    const c = f.geometry.coordinates as LngLat[][] | LngLat[][][];
-    return [f.properties.field_id, (f.geometry.type === 'Polygon' ? (c as LngLat[][])[0] : (c as LngLat[][][])[0][0]) as LngLat[]];
-  }),
+const geometries = new Map(
+  (JSON.parse(fieldsGeojson).features as FeatureLike[]).map((f) => [f.properties.field_id, f.geometry]),
 );
 
 const series = (obs: { acquisition_taiwan: string; vh_median_db: number }[]): VhPoint[] =>
@@ -58,11 +69,15 @@ const series = (obs: { acquisition_taiwan: string; vh_median_db: number }[]): Vh
 
 export const PARCELS: Parcel[] = comparison.fields.map((f) => {
   const pairs = f.matched_date_pairs;
+  const geometry = geometries.get(f.field_id);
+  if (!geometry) throw new Error(`Missing geometry for ${f.field_id}`);
   return {
     id: f.field_id,
     town: { zh: '台西鄉', en: 'Taixi' },
-    areaHa: Math.round(f.field_area_m2 / 1000) / 10,
-    ring: rings.get(f.field_id) ?? [],
+    areaHa: f.field_area_m2 / 10_000,
+    sourceAreaM2: f.field_area_m2,
+    areaSource: 'SOURCE_FARMLAND',
+    geometry,
     vh2025: series(f.observations['2025']),
     vh2026: series(f.observations['2026']),
     preToPost: f['2026_pre_to_post_warning'].median_difference_db,
@@ -71,7 +86,7 @@ export const PARCELS: Parcel[] = comparison.fields.map((f) => {
   };
 });
 
-export const parcelById = (id: string) => PARCELS.find((p) => p.id === id) ?? PARCELS[0];
+export const parcelById = (id: string) => PARCELS.find((p) => p.id === id);
 
 /** CWA land-warning window (not a field impact time). */
 export const WARNING = {

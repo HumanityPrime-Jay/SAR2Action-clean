@@ -8,8 +8,13 @@ import './styles.css';
 
 setWorkerUrl(maplibreWorkerUrl);
 
+const studioPath = `${import.meta.env.BASE_URL}studio`;
+const showStudio =
+  new URLSearchParams(window.location.search).get('view') === 'studio' ||
+  window.location.pathname.replace(/\/$/, '') === studioPath;
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    {window.location.pathname === '/studio' ? <InvestigationStudio /> : <App />}
+    {showStudio ? <InvestigationStudio /> : <App />}
   </React.StrictMode>
 );
