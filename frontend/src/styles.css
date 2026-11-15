@@ -483,7 +483,10 @@ button:disabled{cursor:not-allowed;opacity:.4}
 
 /* Narrow screens: stack main area and side panel, let the page scroll. */
 @media (max-width: 1000px){
-  .playground{display:none}
+  /* The page scrolls here, so the crops get their own strip under the form. */
+  .screen-map:has(.playground){position:relative}
+  .screen-map .picker:has(~ .playground){padding-bottom:300px}
+  .playground{right:0;height:280px}
   .stage{height:auto;min-height:100%;overflow:visible}
   .topbar{flex-wrap:wrap;height:auto;gap:8px 16px;padding:10px 16px}
   .tabs{height:var(--tap);order:3;width:100%;overflow-x:auto}
@@ -557,6 +560,7 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .graph-node.dim{opacity:.3}
 .graph-detail{margin:0;padding:12px 20px 16px;border-top:1px solid var(--border);font-size:14px;line-height:1.55;color:var(--text-2);min-height:48px}
 .graph-detail b{color:var(--text-1);margin-right:6px}
+@media (max-width: 600px){.playground{display:none}.screen-map .picker:has(~ .playground){padding-bottom:32px}}
 @media (max-width: 1000px){.graph-backdrop{padding:0}.graph-dialog{height:100%;border:0}}
 @media (prefers-reduced-motion: reduce){.graph-lines path,.graph-node{transition:none}}
 
