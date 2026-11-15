@@ -421,15 +421,39 @@ class EvidenceGapNavigator:
             )
 
         try:
-            scenes = self.searcher.search(query)
-            scene_dicts = [s.to_dict() for s in scenes]
+            raw = self.searcher.search(query)
+            if isinstance(raw, dict):
+                status = str(raw.get("status", "OK"))
+                if status == "SEARCH_ERROR":
+                    return CatalogSearchResponse(
+                        event_id=req.event_id,
+                        product_family=req.product_family,
+                        search_executed=True,
+                        network_status=f"CMR_UNAVAILABLE: {raw.get('error', 'SEARCH_ERROR')}",
+                        scenes=[],
+                        compatibility_summary="NASA CMR catalog could not be reached; zero scenes fabricated.",
+                        download_permitted=False,
+                        provenance=ProvenanceMeta(
+                            data_status="DATA_UNAVAILABLE",
+                            scientific_limitations=[f"Catalog query failed honestly: {raw.get('error')}"],
+                            error_code="CMR_NETWORK_UNAVAILABLE",
+                        ),
+                    )
+                scene_dicts = [s if isinstance(s, dict) else s.to_dict() for s in (raw.get("scenes") or [])]
+            else:
+                scene_dicts = [s if isinstance(s, dict) else s.to_dict() for s in raw]
+            net_status = "FOUND" if len(scene_dicts) > 0 else "NO_RESULT"
             return CatalogSearchResponse(
                 event_id=req.event_id,
                 product_family=req.product_family,
                 search_executed=True,
-                network_status="CMR_LIVE_OK",
+                network_status=net_status,
                 scenes=scene_dicts,
-                compatibility_summary=f"Found {len(scene_dicts)} catalog scenes from NASA CMR (metadata only; not downloaded or analyzed).",
+                compatibility_summary=(
+                    f"Found {len(scene_dicts)} catalog scenes from NASA CMR (metadata only; not downloaded or analyzed)."
+                    if scene_dicts
+                    else f"0 scenes returned from NASA CMR for {req.product_family} in requested window (metadata only)."
+                ),
                 download_permitted=False,
                 provenance=ProvenanceMeta(
                     data_status="CATALOG_ONLY",

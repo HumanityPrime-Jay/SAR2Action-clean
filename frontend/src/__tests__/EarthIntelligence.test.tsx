@@ -289,7 +289,8 @@ describe('EarthIntelligenceScreen & 8 Feature Modules', () => {
         { action: 'SWITCH_LENS', params: { lens: 'HYPOTHESES' } },
       ],
       validated_actions_count: 2,
-      rejected_actions_count: 0,
+      rejected_actions: [],
+      facts_used: ['YL-CAND-03 +7.55336 dB'],
       provenance: PROV,
     });
 
@@ -302,28 +303,28 @@ describe('EarthIntelligenceScreen & 8 Feature Modules', () => {
       user_mode: 'FARMER',
       chapters: [
         {
-          chapter_id: 'CH-1',
-          chapter_index: 1,
+          chapter_number: 1,
+          chapter_code: 'CHAPTER 01 · THE PLACE',
           title: '1. Signal Detection',
           narrative: 'YL-CAND-03 recorded +7.55336 dB.',
-          lens_mode: 'OBSERVED',
+          lens: 'OBSERVED',
           camera: { lon: 120.1945, lat: 23.7025, zoom: 13 },
-          region_id: 'YL-CAND-03',
+          active_layers: ['vh-change'],
+          metrics: [{ delta_vh_db: 7.55336 }],
           evidence_ids: ['EV-YL-CAND-03'],
-          scientific_status: 'OBSERVED',
-          key_takeaways: ['+7.55336 dB VH shift'],
+          limitations: ['Crop Damage: NOT CONFIRMED'],
         },
         {
-          chapter_id: 'CH-2',
-          chapter_index: 2,
+          chapter_number: 2,
+          chapter_code: 'CHAPTER 02 · HYPOTHESES',
           title: '2. Competing Hypotheses',
           narrative: 'Typhoon Cause remains UNRESOLVED.',
-          lens_mode: 'HYPOTHESES',
+          lens: 'HYPOTHESES',
           camera: { lon: 120.1945, lat: 23.7025, zoom: 13.5 },
-          region_id: 'YL-CAND-03',
+          active_layers: ['vh-change'],
+          metrics: [],
           evidence_ids: ['EV-YL-CAND-03'],
-          scientific_status: 'UNRESOLVED',
-          key_takeaways: ['Crop Damage: NOT CONFIRMED'],
+          limitations: ['Crop Damage: NOT CONFIRMED'],
         },
       ],
       provenance: PROV,
@@ -342,7 +343,7 @@ describe('EarthIntelligenceScreen & 8 Feature Modules', () => {
         eventId="CHAMPI-YUNLIN-TAIXI"
         onEvent={vi.fn()}
         go={vi.fn()}
-        farmer={{ county: 'Yunlin', township: 'Taixi', crop: 'Rice', areaHa: 1.0, disaster: 'Typhoon' }}
+        farmer={null}
         onFarmer={vi.fn()}
       />
     );
