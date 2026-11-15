@@ -6,7 +6,7 @@
 
 **用衛星雷達估算颱風後的農地受損面積與金額，再告訴農民能申請什麼救助。**
 
-[線上版本](https://sar2action-cd27vrua4a-de.a.run.app) · [架構](#1-痛點與架構) · [首頁](#2-首頁) · [受災地圖與田區比對](#3-受災地圖與田區比對) · [補助助手](#4-補助助手) · [本機執行](#本機執行)
+[English](README.en.md) · [線上版本](https://sar2action-cd27vrua4a-de.a.run.app) · [架構](#1-痛點與架構) · [首頁](#2-首頁) · [受災地圖與田區比對](#3-受災地圖與田區比對) · [補助助手](#4-補助助手) · [本機執行](#本機執行)
 
 <img src="docs/readme-assets/03-damage-map.png" alt="受災地圖：雲林台西鄉的 NISAR 雷達底圖、候選田區與全縣受損面積和金額估算" width="100%" />
 
@@ -115,6 +115,9 @@ python scripts/estimate_yunlin_nisar_change.py <雲林農地.shp> <雲林鄉鎮.
 
 # NISAR 地圖與田區比對影像
 python scripts/render_nisar_map.py --ascending-pair <10/14 granule URL> <10/26 granule URL>
+
+# 架構圖（中、英文）
+python docs/readme-assets/architecture.py
 ```
 
 結果在 `data/exports/`，每塊田的變化量都有 CSV。

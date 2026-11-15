@@ -1,127 +1,108 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif">
-  <title>SAR2Action 架構：衛星與官方資料 → 逐田計算 → FastAPI 後端 → 四個畫面</title>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#0A0A0A"/>
-    </marker>
-    <style>
-      .mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
-      .eyebrow{font-size:12px;letter-spacing:1.6px;fill:#5F6672}
-      .h{font-size:20px;font-weight:800;fill:#0A0A0A}
-      .item{font-size:15px;font-weight:600;fill:#0A0A0A}
-      .sub{font-size:13px;fill:#3D4350}
-      .box{fill:#FFFFFF;stroke:rgba(0,0,0,.55);stroke-width:1.5}
-      .card{fill:#F6F7F9;stroke:rgba(0,0,0,.14);stroke-width:1}
-      .flow{stroke:#0A0A0A;stroke-width:2;fill:none}
-    </style>
-  </defs>
-
-  <rect width="1200" height="720" fill="#FFFFFF"/>
-
-  <!-- top bar, as in the app -->
-  <rect width="1200" height="64" fill="#000"/>
-  <circle cx="40" cy="32" r="13" fill="#0B3D91"/>
-  <path d="M33,28 q6,-6 12,0 q-2,6 -8,8 z M40,36 q5,-1 7,3" fill="#3FA34D"/>
-  <text x="64" y="40" font-size="22" font-weight="800" fill="#FFF">SAR2Action</text>
-  <text x="220" y="39" class="mono" font-size="13" letter-spacing="1.6" fill="#C3C8D1">ARCHITECTURE · 系統架構</text>
-  <rect x="1000" y="18" width="176" height="28" fill="#D7322A"/>
-  <text x="1088" y="37" text-anchor="middle" class="mono" font-size="12" font-weight="600" letter-spacing="1" fill="#FFF">PROTOTYPE · 研究原型</text>
-
-  <!-- column 1: data -->
-  <text x="40" y="108" class="mono eyebrow">01 · DATA · 資料來源</text>
-  <rect x="40" y="120" width="250" height="400" class="box"/>
-  <g transform="translate(60,150)">
-    <text class="item">NISAR L2 GCOV</text>
-    <text y="20" class="sub">L 波段 HH/HV · 上升、下降軌道</text>
-    <text y="62" class="item">Sentinel-1 RTC</text>
-    <text y="82" class="sub">C 波段 VV/VH · 每 12 天</text>
-    <text y="124" class="item">國土利用現況調查</text>
-    <text y="144" class="sub">雲林 71,514 塊農地</text>
-    <text y="186" class="item">農業部災情報告</text>
-    <text y="206" class="sub">縣市損失金額 · 全台受害面積</text>
-    <text y="248" class="item">農業天然災害救助辦法</text>
-    <text y="268" class="sub">救助品項與單價（附表）</text>
-    <text y="310" class="item">NLSC 鄉鎮界線</text>
-    <text y="330" class="sub">20 個鄉鎮</text>
-  </g>
-
-  <!-- column 2: processing -->
-  <text x="330" y="108" class="mono eyebrow">02 · COMPUTE · 逐田計算</text>
-  <rect x="330" y="120" width="250" height="400" class="box"/>
-  <g transform="translate(350,150)">
-    <text class="item">每塊田的雷達變化</text>
-    <text y="20" class="sub">颱風前後中位數，單位 dB</text>
-    <text y="62" class="item">扣掉「平常 12 天」</text>
-    <text y="82" class="sub">同軌道、颱風前的對照期</text>
-    <text y="124" class="item">受影響面積</text>
-    <text y="144" class="sub">比平常多出來的變化 × 農地面積</text>
-    <text y="186" class="item">損失金額</text>
-    <text y="206" class="sub">面積 × 全台每公頃損失</text>
-  </g>
-  <rect x="350" y="400" width="210" height="96" fill="#0B3D91"/>
-  <text x="366" y="428" class="mono" font-size="12" letter-spacing="1.4" fill="#C9D6F5">NO TRAINED MODEL</text>
-  <text x="366" y="455" font-size="16" font-weight="700" fill="#FFF">公式計算，不訓練模型</text>
-  <text x="366" y="478" font-size="13" fill="#DCE4F7">每個參數都能追到來源</text>
-
-  <!-- column 3: backend -->
-  <text x="620" y="108" class="mono eyebrow">03 · BACKEND · FastAPI</text>
-  <rect x="620" y="120" width="250" height="400" class="box"/>
-  <g transform="translate(640,150)">
-    <text class="item">救助試算</text>
-    <text y="20" class="sub">伺服器端重算，依法規版本</text>
-    <text y="62" class="item">法規檢索</text>
-    <text y="82" class="sub">固定規則，不交給 AI 判斷</text>
-    <text y="124" class="item">Gemini</text>
-    <text y="144" class="sub">對話與英文翻譯</text>
-    <text y="186" class="item">Google 登入</text>
-    <text y="206" class="sub">存下作物、問答、試算</text>
-  </g>
-  <rect x="640" y="400" width="210" height="96" class="card"/>
-  <text x="656" y="428" class="mono" font-size="12" letter-spacing="1.4" fill="#5F6672">GOOGLE CLOUD</text>
-  <text x="656" y="455" font-size="15" font-weight="700" fill="#0A0A0A">Cloud Run · Cloud SQL</text>
-  <text x="656" y="478" font-size="13" fill="#3D4350">Secret Manager 保管金鑰</text>
-
-  <!-- column 4: screens -->
-  <text x="910" y="108" class="mono eyebrow">04 · SCREENS · 畫面</text>
-  <g>
-    <rect x="910" y="120" width="250" height="88" fill="#D7322A"/>
-    <text x="928" y="148" class="mono" font-size="12" fill="#FFE1DE">01</text>
-    <text x="928" y="176" font-size="18" font-weight="800" fill="#FFF">首頁</text>
-    <text x="928" y="196" font-size="13" fill="#FFE1DE">3D 地球 · 颱風雲圖與雨量</text>
-
-    <rect x="910" y="224" width="250" height="88" class="box"/>
-    <text x="928" y="252" class="mono" font-size="12" fill="#5F6672">02</text>
-    <text x="928" y="280" font-size="18" font-weight="800" fill="#0A0A0A">受災地圖</text>
-    <text x="928" y="300" font-size="13" fill="#3D4350">全縣受損面積 · 金額 · 候選田區</text>
-
-    <rect x="910" y="328" width="250" height="88" class="box"/>
-    <text x="928" y="356" class="mono" font-size="12" fill="#5F6672">03</text>
-    <text x="928" y="384" font-size="18" font-weight="800" fill="#0A0A0A">田區比對</text>
-    <text x="928" y="404" font-size="13" fill="#3D4350">NISAR 颱風前後 · VH 時序</text>
-
-    <rect x="910" y="432" width="250" height="88" class="box"/>
-    <text x="928" y="460" class="mono" font-size="12" fill="#5F6672">04</text>
-    <text x="928" y="488" font-size="18" font-weight="800" fill="#0A0A0A">補助助手</text>
-    <text x="928" y="508" font-size="13" fill="#3D4350">能不能申請 · 文件 · 期限 · 試算</text>
-  </g>
-
-  <!-- flow arrows -->
-  <path d="M290,320 H326" class="flow" marker-end="url(#arrow)"/>
-  <path d="M580,320 H616" class="flow" marker-end="url(#arrow)"/>
-  <path d="M870,320 H890 V164 H906 M890,268 H906 M890,372 H906 M890,476 H906" class="flow"/>
-  <path d="M898,164 H906" class="flow" marker-end="url(#arrow)"/>
-  <path d="M898,268 H906" class="flow" marker-end="url(#arrow)"/>
-  <path d="M898,372 H906" class="flow" marker-end="url(#arrow)"/>
-  <path d="M898,476 H906" class="flow" marker-end="url(#arrow)"/>
-
-  <!-- users -->
-  <text x="40" y="580" class="mono eyebrow">WHO USES IT · 使用者</text>
-  <rect x="40" y="594" width="555" height="86" class="card"/>
-  <rect x="40" y="594" width="5" height="86" fill="#0B3D91"/>
-  <text x="64" y="628" font-size="17" font-weight="800" fill="#0A0A0A">農民</text>
-  <text x="64" y="656" font-size="14" fill="#3D4350">我的田有沒有受損？能申請多少救助？要準備什麼、何時截止？</text>
-  <rect x="605" y="594" width="555" height="86" class="card"/>
-  <rect x="605" y="594" width="5" height="86" fill="#D7322A"/>
-  <text x="629" y="628" font-size="17" font-weight="800" fill="#0A0A0A">農政人員</text>
-  <text x="629" y="656" font-size="14" fill="#3D4350">全縣大概損失多少面積與金額？先去哪幾塊田現場勘查？</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 728" width="1280" height="728" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif" lang="zh-Hant">
+<title>SAR2Action 架構：衛星與官方資料 → 逐田計算 → FastAPI 後端 → 四個畫面</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0A0A0A"/></marker><style>.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace}.eyebrow{font-size:12px;letter-spacing:1.6px;fill:#5F6672}.badge{font-size:12px;letter-spacing:1.4px}.item{font-size:15px;font-weight:700;fill:#0A0A0A}.sub{font-size:13px;fill:#3D4350}.cardtitle{font-size:16px;font-weight:700}.screen{font-size:18px;font-weight:800}.flow{stroke:#0A0A0A;stroke-width:2;fill:none}</style></defs>
+<rect width="1280" height="728" fill="#FFFFFF"/>
+<rect width="1280" height="64" fill="#000"/>
+<circle cx="40" cy="32" r="13" fill="#0B3D91"/><path d="M33,28 q6,-6 12,0 q-2,6 -8,8 z" fill="#3FA34D"/>
+<text x="64" y="40" font-size="22" font-weight="800" fill="#FFF">SAR2Action</text>
+<text x="222" y="39" class="mono" font-size="13" letter-spacing="1.6" fill="#C3C8D1">ARCHITECTURE · 系統架構</text>
+<rect x="1056" y="18" width="184" height="28" fill="#D7322A"/>
+<text x="1148" y="37" text-anchor="middle" class="mono" font-size="12" font-weight="600" letter-spacing="1" fill="#FFF" data-max="1240">PROTOTYPE · 研究原型</text>
+<text x="40" y="112" class="mono eyebrow" text-anchor="start" data-max="310">01 · DATA · 資料來源</text>
+<text x="350" y="112" class="mono eyebrow" text-anchor="start" data-max="620">02 · COMPUTE · 逐田計算</text>
+<text x="660" y="112" class="mono eyebrow" text-anchor="start" data-max="930">03 · BACKEND · FastAPI</text>
+<text x="970" y="112" class="mono eyebrow" text-anchor="start" data-max="1240">04 · SCREENS · 畫面</text>
+<rect x="40" y="124" width="270" height="410" fill="#FFF" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/>
+<rect x="350" y="124" width="270" height="410" fill="#FFF" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/>
+<rect x="660" y="124" width="270" height="410" fill="#FFF" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/>
+<g transform="translate(58,156) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10 10 7l7 7-3 3z"/><path d="M3 6l3-3 3 3-3 3zM15 18l3-3 3 3-3 3zM14 21a7 7 0 0 0 7-7"/></g>
+<text x="94" y="174" class="item" text-anchor="start" data-max="300">NISAR L2 GCOV</text>
+<text x="94" y="194" class="sub" text-anchor="start" data-max="300">L 波段 HH/HV · 上升、下降軌道</text>
+<g transform="translate(58,218) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 13v8M8 21h8"/><path d="M8.5 9.5a5 5 0 0 1 7 0M5.5 6.5a9 9 0 0 1 13 0"/><circle cx="12" cy="13" r="1.3"/></g>
+<text x="94" y="236" class="item" text-anchor="start" data-max="300">Sentinel-1 RTC</text>
+<text x="94" y="256" class="sub" text-anchor="start" data-max="300">C 波段 VV/VH · 每 12 天</text>
+<g transform="translate(58,280) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17"/><path d="M3.5 10.5h9v-7M12.5 10.5v10M12.5 15h8"/></g>
+<text x="94" y="298" class="item" text-anchor="start" data-max="300">國土利用現況調查</text>
+<text x="94" y="318" class="sub" text-anchor="start" data-max="300">雲林 71,514 塊農地</text>
+<g transform="translate(58,342) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h7"/></g>
+<text x="94" y="360" class="item" text-anchor="start" data-max="300">農業部災情報告</text>
+<text x="94" y="380" class="sub" text-anchor="start" data-max="300">縣市損失金額 · 全台受害面積</text>
+<g transform="translate(58,404) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M7 20h10M5 7h14"/><path d="M5 7l-2.5 6h5zM19 7l-2.5 6h5z"/></g>
+<text x="94" y="422" class="item" text-anchor="start" data-max="300">農業天然災害救助辦法</text>
+<text x="94" y="442" class="sub" text-anchor="start" data-max="300">救助品項與單價（附表）</text>
+<g transform="translate(58,466) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l6-3 10 4-2 10-9 2-5-6z" stroke-dasharray="3 2.5"/></g>
+<text x="94" y="484" class="item" text-anchor="start" data-max="300">NLSC 鄉鎮界線</text>
+<text x="94" y="504" class="sub" text-anchor="start" data-max="300">雲林 20 個鄉鎮</text>
+<g transform="translate(368,156) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 19.5h17"/><path d="M5 15l4-5 4 3 6-7"/></g>
+<text x="404" y="174" class="item" text-anchor="start" data-max="610">每塊田的雷達變化</text>
+<text x="404" y="194" class="sub" text-anchor="start" data-max="610">颱風前後中位數，單位 dB</text>
+<g transform="translate(368,218) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15"/><path d="M3.5 9.5h17M8 3v4M16 3v4M9 15h6"/></g>
+<text x="404" y="236" class="item" text-anchor="start" data-max="610">扣掉「平常 12 天」</text>
+<text x="404" y="256" class="sub" text-anchor="start" data-max="610">同軌道、颱風前的對照期</text>
+<g transform="translate(368,280) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.2"/><path d="M8 16 16 8M8 11l3-3M13 16l3-3"/></g>
+<text x="404" y="298" class="item" text-anchor="start" data-max="610">受影響面積</text>
+<text x="404" y="318" class="sub" text-anchor="start" data-max="610">多出來的變化 × 農地面積</text>
+<g transform="translate(368,342) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M14.6 9.4c-.6-.8-1.5-1.2-2.6-1.2-1.5 0-2.6.8-2.6 1.9s1.1 1.6 2.6 1.9 2.6.8 2.6 1.9-1.1 1.9-2.6 1.9c-1.1 0-2-.4-2.6-1.2M12 6.5v11"/></g>
+<text x="404" y="360" class="item" text-anchor="start" data-max="610">損失金額</text>
+<text x="404" y="380" class="sub" text-anchor="start" data-max="610">面積 × 全台每公頃損失</text>
+<g transform="translate(678,156) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18"/><path d="M8 7h8M8 12h1M11.5 12h1M15 12h1M8 16h1M11.5 16h1M15 16h1"/></g>
+<text x="714" y="174" class="item" text-anchor="start" data-max="920">救助試算</text>
+<text x="714" y="194" class="sub" text-anchor="start" data-max="920">伺服器端重算，依法規版本</text>
+<g transform="translate(678,218) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C6 4 9 4 12 6c3-2 6-2 8-.5V19c-2-1.5-5-1.5-8 .5-3-2-6-2-8-.5z"/><path d="M12 6v13.5"/></g>
+<text x="714" y="236" class="item" text-anchor="start" data-max="920">法規檢索</text>
+<text x="714" y="256" class="sub" text-anchor="start" data-max="920">固定規則，不交給 AI 判斷</text>
+<g transform="translate(678,280) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.6 4.5 4.5 8.4 9 9-4.5.6-8.4 4.5-9 9-.6-4.5-4.5-8.4-9-9 4.5-.6 8.4-4.5 9-9z"/></g>
+<text x="714" y="298" class="item" text-anchor="start" data-max="920">Gemini</text>
+<text x="714" y="318" class="sub" text-anchor="start" data-max="920">對話與英文翻譯</text>
+<g transform="translate(678,342) scale(1.0)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/></g>
+<text x="714" y="360" class="item" text-anchor="start" data-max="920">Google 登入</text>
+<text x="714" y="380" class="sub" text-anchor="start" data-max="920">存下作物、問答、試算</text>
+<rect x="370" y="418" width="230" height="96" fill="#0B3D91" stroke="none"/>
+<g transform="translate(560,432) scale(0.9166666666666666)" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c-2 0-3 1-3.4 3L8 18c-.4 2-1.4 3-3.4 3M6.5 10H14"/><path d="M15 13l5 6M20 13l-5 6"/></g>
+<text x="386" y="446" class="mono badge" text-anchor="start" data-max="554" style="fill:#C9D6F5">NO TRAINED MODEL</text>
+<text x="386" y="474" class="cardtitle" text-anchor="start" data-max="590" style="fill:#FFFFFF">公式計算，不訓練模型</text>
+<text x="386" y="497" class="sub" text-anchor="start" data-max="590" style="fill:#DCE4F7">每個參數都能追到來源</text>
+<rect x="680" y="418" width="230" height="96" fill="#F6F7F9" stroke="rgba(0,0,0,.14)"/>
+<g transform="translate(870,432) scale(0.9166666666666666)" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 18.5z"/></g>
+<text x="696" y="446" class="mono badge" text-anchor="start" data-max="864" style="fill:#5F6672">GOOGLE CLOUD</text>
+<text x="696" y="474" class="cardtitle" text-anchor="start" data-max="900" style="fill:#0A0A0A">Cloud Run · Cloud SQL</text>
+<text x="696" y="497" class="sub" text-anchor="start" data-max="900" style="fill:#3D4350">Secret Manager 保管金鑰</text>
+<rect x="970" y="124" width="270" height="92" fill="#D7322A" stroke="none" stroke-width="1.5"/>
+<g transform="translate(1196,140) scale(1.0833333333333333)" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.8 12 3.8l8.6 7v9.2h-5.6v-6h-6v6H3.5z"/></g>
+<text x="988" y="151" class="mono badge" text-anchor="start" data-max="1030" style="fill:#FFE1DE">01</text>
+<text x="988" y="180" class="screen" text-anchor="start" data-max="1186" style="fill:#FFFFFF">首頁</text>
+<text x="988" y="201" class="sub" text-anchor="start" data-max="1230" style="fill:#FFE1DE">3D 地球 · 颱風雲圖與雨量</text>
+<rect x="970" y="230" width="270" height="92" fill="#FFF" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/>
+<g transform="translate(1196,246) scale(1.0833333333333333)" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.2 3.2 6.1v13.8L9 18l6 2 5.8-1.9V4.3L15 6.1z"/><path d="M9 4.2V18M15 6.1v13.8"/></g>
+<text x="988" y="257" class="mono badge" text-anchor="start" data-max="1030" style="fill:#5F6672">02</text>
+<text x="988" y="286" class="screen" text-anchor="start" data-max="1186" style="fill:#0A0A0A">受災地圖</text>
+<text x="988" y="307" class="sub" text-anchor="start" data-max="1230" style="fill:#3D4350">全縣受損面積 · 金額 · 候選田區</text>
+<rect x="970" y="336" width="270" height="92" fill="#FFF" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/>
+<g transform="translate(1196,352) scale(1.0833333333333333)" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="4.2" width="17.6" height="15.6"/><path d="M12 4.2v15.6"/></g>
+<text x="988" y="363" class="mono badge" text-anchor="start" data-max="1030" style="fill:#5F6672">03</text>
+<text x="988" y="392" class="screen" text-anchor="start" data-max="1186" style="fill:#0A0A0A">田區比對</text>
+<text x="988" y="413" class="sub" text-anchor="start" data-max="1230" style="fill:#3D4350">NISAR 颱風前後 · VH 時序</text>
+<rect x="970" y="442" width="270" height="92" fill="#FFF" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/>
+<g transform="translate(1196,458) scale(1.0833333333333333)" fill="none" stroke="#0A0A0A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></g>
+<text x="988" y="469" class="mono badge" text-anchor="start" data-max="1030" style="fill:#5F6672">04</text>
+<text x="988" y="498" class="screen" text-anchor="start" data-max="1186" style="fill:#0A0A0A">補助助手</text>
+<text x="988" y="519" class="sub" text-anchor="start" data-max="1230" style="fill:#3D4350">能不能申請 · 文件 · 期限 · 試算</text>
+<path d="M310,329.0 H346" class="flow" marker-end="url(#arrow)"/>
+<path d="M620,329.0 H656" class="flow" marker-end="url(#arrow)"/>
+<path d="M930,329.0 H950 M950,170.0 V488.0" class="flow"/>
+<path d="M950,170.0 H966" class="flow" marker-end="url(#arrow)"/>
+<path d="M950,276.0 H966" class="flow" marker-end="url(#arrow)"/>
+<path d="M950,382.0 H966" class="flow" marker-end="url(#arrow)"/>
+<path d="M950,488.0 H966" class="flow" marker-end="url(#arrow)"/>
+<text x="40" y="590" class="mono eyebrow" text-anchor="start" data-max="400">WHO USES IT · 使用者</text>
+<rect x="40.0" y="604" width="595.0" height="92" fill="#F6F7F9" stroke="rgba(0,0,0,.14)"/>
+<rect x="40.0" y="604" width="5" height="92" fill="#0B3D91"/>
+<g transform="translate(64.0,622) scale(1.0833333333333333)" fill="none" stroke="#0B3D91" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5h18M6 12.5c0-4 2.5-7 6-7s6 3 6 7"/><path d="M8 12.5v2a4 4 0 0 0 8 0v-2"/></g>
+<text x="102.0" y="642" class="cardtitle" text-anchor="start" data-max="619.0" style="fill:#0A0A0A">農民</text>
+<text x="64.0" y="674" class="sub" text-anchor="start" data-max="619.0">我的田有沒有受損？能申請多少救助？要準備什麼、何時截止？</text>
+<rect x="645.0" y="604" width="595.0" height="92" fill="#F6F7F9" stroke="rgba(0,0,0,.14)"/>
+<rect x="645.0" y="604" width="5" height="92" fill="#D7322A"/>
+<g transform="translate(669.0,622) scale(1.0833333333333333)" fill="none" stroke="#D7322A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 9h16L12 3.5z"/><path d="M6.5 9v9M10.5 9v9M13.5 9v9M17.5 9v9"/></g>
+<text x="707.0" y="642" class="cardtitle" text-anchor="start" data-max="1224.0" style="fill:#0A0A0A">農政人員</text>
+<text x="669.0" y="674" class="sub" text-anchor="start" data-max="1224.0">全縣大概損失多少面積與金額？先去哪幾塊田現場勘查？</text>
 </svg>
