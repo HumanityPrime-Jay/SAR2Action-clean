@@ -1,7 +1,8 @@
-"""Single, deterministic investigator over the existing NISAR science service.
+# Ported from SAR2Action-clean-main.zip::backend/app/services/agent_orchestrator.py
+"""Single, deterministic investigator over the existing NISAR and TW-05 science services.
 
-The model is deliberately outside this execution path. Only typed science-service
-calls can create claims; UI actions are assembled from registered layer IDs.
+The model is deliberately outside execution paths. Only typed science-service
+and TW-05 adapter calls can create claims; UI actions are assembled from registered layer IDs.
 """
 from __future__ import annotations
 
@@ -15,11 +16,19 @@ from typing import Literal
 from pydantic import BaseModel, Field, model_validator
 
 from backend.app.schemas.api import RadarFingerprintRequest, ValidatePairRequest
+from backend.app.schemas.tw05_agent import (
+    ALLOWED_TW05_EVIDENCE_ID_PATTERN,
+    Tw05EvidenceCitation,
+    Tw05InvestigationRequest,
+    Tw05InvestigationResponse,
+)
+from backend.app.services.claim_validator import validate_science_claim
+from backend.app.services.gemini_provider import GeminiModelProvider
+from backend.app.services.model_provider import ModelProvider
 from backend.app.services.science_service import ScienceService
 from backend.app.services.spatial_ranking import SpatialRankingService, SpatialRequest
-from backend.app.services.model_provider import ModelProvider
-from backend.app.services.gemini_provider import GeminiModelProvider
-from backend.app.services.claim_validator import validate_science_claim
+from backend.app.services.taiwan_agro_service import TaiwanAgroService
+from backend.app.services.tw05_agent_adapter import Tw05AgentToolAdapter
 
 
 class InvestigateRequest(BaseModel):
@@ -49,16 +58,24 @@ class StoryRequest(BaseModel):
 
 
 class AgentOrchestrator:
-    def __init__(self, science: ScienceService):
+    def __init__(self, science: ScienceService, taiwan_agro: TaiwanAgroService | None = None):
         self.science = science
+        self.taiwan_agro = taiwan_agro or TaiwanAgroService()
         self.spatial = SpatialRankingService(science)
-        self.model = (GeminiModelProvider() if os.getenv('SAR2ACTION_LLM_PROVIDER', '').lower() == 'gemini'
-                      else ModelProvider())
+        self.gemini_model = GeminiModelProvider()
+        self.model = (
+            self.gemini_model
+            if os.getenv('SAR2ACTION_LLM_PROVIDER', '').lower() == 'gemini'
+            else ModelProvider()
+        )
+        self.tw05_adapter = Tw05AgentToolAdapter(self.taiwan_agro)
         self._lock = threading.Lock()
         self.sessions: dict[str, dict] = {}
         self.stories: dict[str, dict] = {}
         self.operations: dict[str, list[dict]] = {}
         self.cancel_events: dict[str, threading.Event] = {}
+        self.tw05_investigations: dict[str, Tw05InvestigationResponse] = {}
+        self.tw05_evidence_index: dict[str, Tw05EvidenceCitation] = {}
 
     def cancel(self, session_id: str) -> None:
         self.cancel_events.setdefault(session_id, threading.Event()).set()
@@ -70,6 +87,37 @@ class AgentOrchestrator:
     def _signature(case_id: str, bbox: list[float], evidence_id: str, aoi_id: str | None, polarizations: list[str] | None) -> str:
         blob = json.dumps([case_id, bbox, evidence_id, aoi_id, polarizations], sort_keys=True)
         return hashlib.sha256(blob.encode()).hexdigest()[:20]
+
+    def investigate_tw05(self, req: Tw05InvestigationRequest) -> Tw05InvestigationResponse:
+        """Execute bounded Gemini Function Calling or deterministic tool retrieval for TW-05."""
+        from backend.app.services.real_agent_runtime import RealAgentRuntime
+
+        result = RealAgentRuntime(self).run_tw05(req, self.tw05_adapter)
+        with self._lock:
+            if len(self.tw05_investigations) >= 64:
+                self.tw05_investigations.pop(next(iter(self.tw05_investigations)))
+            self.tw05_investigations[result.investigation_id] = result
+            for rec in result.evidence_records:
+                if len(self.tw05_evidence_index) >= 512:
+                    self.tw05_evidence_index.pop(next(iter(self.tw05_evidence_index)))
+                self.tw05_evidence_index[rec.evidence_id] = rec
+        return result
+
+    def get_tw05_evidence(self, evidence_id: str) -> Tw05EvidenceCitation | None:
+        """Retrieve a TW-05 Evidence record after validating allowlist and resolving statelessly."""
+        if not re.match(ALLOWED_TW05_EVIDENCE_ID_PATTERN, evidence_id or ''):
+            raise ValueError('Invalid or cross-case Evidence ID: must match TW-01/TW-03/TW-07/TW-08A allowlist.')
+        with self._lock:
+            cached = self.tw05_evidence_index.get(evidence_id)
+        if cached is not None:
+            return cached
+        resolved = self.tw05_adapter.resolve_evidence_by_id(evidence_id)
+        if resolved is not None:
+            with self._lock:
+                if len(self.tw05_evidence_index) >= 512:
+                    self.tw05_evidence_index.pop(next(iter(self.tw05_evidence_index)))
+                self.tw05_evidence_index[evidence_id] = resolved
+        return resolved
 
     def investigate(self, req: InvestigateRequest) -> dict:
         if req.data_mode == 'cache':
@@ -124,6 +172,7 @@ class AgentOrchestrator:
                 self._trace(req.session_id, result['trace'])
             return result
         trace = [{'tool': 'classify_intent', 'status': 'complete', 'source': source}]
+
         def step(tool: str, fn):
             trace.append({'tool': tool, 'status': 'running'})
             self._trace(req.session_id, trace)

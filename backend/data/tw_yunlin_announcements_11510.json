@@ -1,0 +1,62 @@
+{
+  "as_of_date_iso": "2026-11-14",
+  "primary_deadline_expired_warning": "【法定受理期限已屆滿（截至 2026-11-14）】農業部 1151112527F 號公告受理至 115/11/09 止、1151112552B 號公告（洋蔥苗圃）受理至 115/11/13 止，兩項公告之一般申請窗口均已截止。請農民勿誤認目前仍可透過本介面提出一般新案申請。",
+  "statutory_exception_notice": "【法定例外合併審理說明】依農業部 115年10月26日農糧字第1151112527F號公告附註，雲林縣2期作較晚種植之落花生（於6月下旬至8月上旬向公所完成申報種植者），若於前次115年8月下旬豪雨時已向鄉鎮市區公所申報救助有案者，得免重複提出申請，由公所逕予合併審理。實際資格與例外適用仍以公所及農業部官方最新認定為準。",
+  "announcements": [
+    {
+      "doc_id": "MOA-1151112527F",
+      "doc_number": "農業部 115年10月26日農糧字第1151112527F號公告",
+      "county": "雲林縣",
+      "disaster_event": "115年10月下旬颱風及外圍環流強風豪雨農業天然災害",
+      "applicable_items_text": "雲林縣全縣農產業現金救助及低利貸款品項：雜糧（一）～（三）、蔬菜（一）～（七）（非屬森林副產物之竹筍除外）、原料甘蔗、青割玉米、塑膠布溫網室及水平棚架網室。",
+      "excluded_items_text": "非屬森林副產物之竹筍除外。",
+      "application_start_roc": "115年10月27日",
+      "application_end_roc": "115年11月9日",
+      "application_start_iso": "2026-10-27",
+      "application_end_iso": "2026-11-09",
+      "expired_as_of_reference_date": true,
+      "statutory_exception": "雲林縣2期作較晚種植之落花生（6月下旬至8月上旬向公所申報種植者），於前次8月下旬豪雨已向公所申請有案者得免重複申請，由公所合併審理。",
+      "competent_authority": "農業部／農業部農糧署／雲林縣政府及各鄉鎮市區公所",
+      "official_url": "https://www.afa.gov.tw/cht/index.php?code=list&ids=717"
+    },
+    {
+      "doc_id": "MOA-1151112552B",
+      "doc_number": "農業部 115年10月30日農糧字第1151112552B號公告",
+      "county": "雲林縣",
+      "disaster_event": "115年10月下旬颱風及豪雨農業天然災害（增列洋蔥苗圃）",
+      "applicable_items_text": "增列雲林縣全縣「洋蔥苗圃」為農業天然災害現金救助及低利貸款項目（每公頃 373,000 元，損害率達 20% 以上）。",
+      "excluded_items_text": "僅限洋蔥苗圃項目，不含其他未公告育苗作物。",
+      "application_start_roc": "115年10月31日",
+      "application_end_roc": "115年11月13日",
+      "application_start_iso": "2026-10-31",
+      "application_end_iso": "2026-11-13",
+      "expired_as_of_reference_date": true,
+      "statutory_exception": "無額外免申請規定；受理截止日為 115年11月13日，截至 2026-11-14 已屆滿。",
+      "competent_authority": "農業部／農業部農糧署／雲林縣政府及各鄉鎮市區公所",
+      "official_url": "https://www.afa.gov.tw/cht/index.php?code=list&ids=717"
+    }
+  ],
+  "framework_separation": [
+    {
+      "framework_id": "government_cash_relief",
+      "title": "① 政府農業天然災害現金救助（本模組範圍）",
+      "basis": "《農業天然災害救助辦法》115/06/29 版本第5、6、12、12-1條及第六條附表二",
+      "calculation_rule": "法定定額（元／公頃）× 假設符合資格核認面積（公頃，第5條規定單筆≥0.01公頃或相毗鄰合併）。第12-1條一般案件須損失率≥20%，但依第12條第1項第3款公告災損天氣參數或災損嚴重辦理免勘查／抽樣勘查簡化程序者依法不受個別20%限制。20%為門檻，非折減係數。",
+      "in_scope": true
+    },
+    {
+      "framework_id": "agricultural_insurance",
+      "title": "② 農業保險理賠（非本模組範圍）",
+      "basis": "農業部核定之各類商業／政策性農業保險保單（如水稻區域收穫險、玉米險、設施颱風風速險、高溫／降水量參數險）",
+      "calculation_rule": "依個別農民是否投保、保額、起賠點、氣象站參數或實際抽樣產量計算理賠金，與政府現金救助制度各自獨立、不得混算。",
+      "in_scope": false
+    },
+    {
+      "framework_id": "economic_production_loss",
+      "title": "③ 農業經濟產值損失估算（非本模組範圍）",
+      "basis": "農糧署縣級農損速報（如雲林縣通報金額）或產地批發價格 × 單位面積預估產量減損",
+      "calculation_rule": "反映市場產值與農家營收減損，遠高於政府定額復耕現金救助標準，不得將經濟損失金額直接當作可領救助金。",
+      "in_scope": false
+    }
+  ]
+}
