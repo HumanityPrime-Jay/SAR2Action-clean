@@ -7,10 +7,10 @@ import type { ScreenKey, ScreenProps } from './types';
 // MapLibre is large; load it only for the home globe.
 const Globe = lazy(() => import('../ui/Globe'));
 
-const ACTIONS: { to: ScreenKey; label: Text; caption: Text; icon: 'map' | 'compare' | 'assist' }[] = [
-  { to: 'map', label: { zh: '受災地圖', en: 'Damage map' }, caption: { zh: '找出受損田區', en: 'Find affected fields' }, icon: 'map' },
-  { to: 'compare', label: { zh: '田區比對', en: 'Field compare' }, caption: { zh: '颱風前後雷達影像', en: 'Radar before and after' }, icon: 'compare' },
-  { to: 'assist', label: { zh: '補助助手', en: 'Relief assistant' }, caption: { zh: '估算可申請補助', en: 'Estimate relief' }, icon: 'assist' },
+const ACTIONS: { to: ScreenKey; label: Text; icon: 'map' | 'compare' | 'assist' }[] = [
+  { to: 'map', label: { zh: '受災田區地圖', en: 'Damaged field map' }, icon: 'map' },
+  { to: 'compare', label: { zh: '田區雷達影像比對', en: 'Field radar comparison' }, icon: 'compare' },
+  { to: 'assist', label: { zh: '補助助手', en: 'Relief assistant' }, icon: 'assist' },
 ];
 
 export function HomeScreen({ go }: ScreenProps) {
@@ -45,12 +45,6 @@ export function HomeScreen({ go }: ScreenProps) {
           <br />
           {t('哪幾塊田受到影響？', 'which fields were hit?')}
         </h1>
-        <p className="body">
-          {t(
-            '從太空比對颱風前後的雷達影像，找出受影響的田區、整理證據、估算補助。',
-            'Compare radar images from space before and after the storm to find affected fields, gather evidence and estimate relief.',
-          )}
-        </p>
       </div>
 
       <div className="globe-tools">
@@ -60,8 +54,6 @@ export function HomeScreen({ go }: ScreenProps) {
         </label>
       </div>
 
-      <p className="globe-hint mono">{t('拖曳旋轉 · 滾輪縮放', 'Drag to rotate · scroll to zoom')}</p>
-
       <nav className="globe-actions" aria-label={t('開始使用', 'Get started')}>
         {ACTIONS.map((a, i) => (
           <button key={a.to} className={`globe-action box${i === 0 ? ' primary' : ''}`} onClick={() => open(a.to)} disabled={flying}>
@@ -69,7 +61,6 @@ export function HomeScreen({ go }: ScreenProps) {
             <Icon name={a.icon} size={22} />
             <span className="txt">
               <b>{t(a.label)}</b>
-              <span>{t(a.caption)}</span>
             </span>
             <span className="arrow" aria-hidden="true">
               →

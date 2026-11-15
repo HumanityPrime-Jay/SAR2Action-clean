@@ -2,22 +2,23 @@ import React, { useRef, useState } from 'react';
 import { EVENTS, REGIONS, type RegionKey, eventLabel } from '../data/events';
 import { CROPS, type CropKey, type FarmerInfo } from '../data/farmer';
 import { PARCELS } from '../data/champi';
-import { NISAR_SCENE } from '../data/nisar';
 import { useLang, useT } from '../i18n';
 
 interface Props {
   initialId: string | null;
   initialFarmer: FarmerInfo | null;
-  onPick: (id: string, farmer: FarmerInfo) => void;
+  /** `farmer` is null when the user does not say they are a farmer. */
+  onPick: (id: string, farmer: FarmerInfo | null) => void;
 }
 
-/** Event choice for the damage map (region → event), plus the farmer's own field info. */
+/** Event choice for the damage map (region → event), plus, optionally, the farmer's own field info. */
 export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
   const t = useT();
   const { lang } = useLang();
   const initial = EVENTS.find((e) => e.id === initialId);
   const [region, setRegion] = useState<RegionKey | ''>(initial?.region ?? '');
   const [eventId, setEventId] = useState(initial?.id ?? '');
+  const [isFarmer, setIsFarmer] = useState(!!initialFarmer);
   const [cadastral, setCadastral] = useState(initialFarmer?.cadastral ?? '');
   const [crop, setCrop] = useState<CropKey | ''>(initialFarmer?.crop ?? '');
   const [cropOther, setCropOther] = useState(initialFarmer?.cropOther ?? '');
@@ -27,8 +28,9 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
   const options = EVENTS.filter((e) => e.region === region);
   const chosen = EVENTS.find((e) => e.id === eventId);
 
-  const cropMissing = !crop;
-  const otherMissing = crop === 'other' && !cropOther.trim();
+  // The crop is only required once the user says they are a farmer.
+  const cropMissing = isFarmer && !crop;
+  const otherMissing = isFarmer && crop === 'other' && !cropOther.trim();
 
   const submit = () => {
     if (!chosen) return;
@@ -37,11 +39,7 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
       (cropMissing ? cropRef : otherRef).current?.focus();
       return;
     }
-    onPick(chosen.id, {
-      cadastral: cadastral.trim(),
-      crop: crop as CropKey,
-      cropOther: cropOther.trim(),
-    });
+    onPick(chosen.id, isFarmer ? { cadastral: cadastral.trim(), crop: crop as CropKey, cropOther: cropOther.trim() } : null);
   };
 
   return (
@@ -49,9 +47,6 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
       <div className="picker-head">
         <span className="eyebrow">{t('STEP 1 · 選擇災害事件', 'STEP 1 · CHOOSE AN EVENT')}</span>
         <h1 className="h1">{t('要查看哪一次災害？', 'Which disaster do you want to look at?')}</h1>
-        <p className="body">
-          {t('先選地區，再選該地區的災害事件，就會開啟該事件的受災地圖。', 'Pick a region, then an event in that region, to open its damage map.')}
-        </p>
       </div>
 
       <div className="picker-steps">
@@ -100,10 +95,6 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
         </label>
       </div>
 
-      {region && !options.length && (
-        <p className="cap picker-empty">{t('這個地區目前還沒有處理好的災害事件。', 'No processed disaster events for this region yet.')}</p>
-      )}
-
       {chosen && (
         <>
           <div className="picker-summary">
@@ -113,93 +104,83 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
               </span>
               <b>{lang === 'zh' ? `${chosen.county.zh} ${chosen.name.zh}` : `${chosen.name.en}, ${chosen.county.en}`}</b>
               <span className="cap">
-                {t('暴風圈影響台灣陸地：', 'Storm over Taiwan: ')}
                 {chosen.period}
+                {chosen.hasImagery && ` · ${t(chosen.town)} · ${PARCELS.length} ${t('塊田', 'fields')}`}
               </span>
-              {chosen.hasImagery && (
-                <span className="cap">
-                  {t('NISAR 影像：', 'NISAR scenes: ')}
-                  {NISAR_SCENE.preDate} {t('（颱風前）', '(pre)')} ／ {NISAR_SCENE.postDate} {t('（颱風後）', '(post)')} · Track {NISAR_SCENE.track}
-                </span>
-              )}
-              {chosen.hasImagery && (
-                <span className="cap">
-                  {t('調查範圍：', 'Study area: ')}
-                  {t(chosen.town)} · {PARCELS.length} {t('塊候選田區（農田坵塊圖）', 'candidate fields (official farmland map)')}
-                </span>
-              )}
             </div>
           </div>
 
-          <fieldset className="farmer-card">
+          <fieldset className={`farmer-card${isFarmer ? ' open' : ''}`}>
             <legend className="sr-only">{t('我是農民', 'I am a farmer')}</legend>
-            <div className="farmer-head">
-              <span className="eyebrow">{t('FOR FARMERS · 農民登記', 'FOR FARMERS')}</span>
-              <h2 className="h3">{t('我是農民', 'I am a farmer')}</h2>
-              <p className="cap">
-                {t(
-                  '告訴我們您的田種了什麼，補助助手會依您的作物說明可以申請的救助。',
-                  'Tell us what you grow, and the relief assistant will explain the support that applies to your crop.',
-                )}
-              </p>
-            </div>
-            <div className="farmer-fields">
-              <label className="farmer-field">
-                <span className="lbl">
-                  {t('土地地籍', 'Land parcel no.')} <span className="opt">{t('選填', 'Optional')}</span>
-                </span>
-                <input
-                  value={cadastral}
-                  onChange={(e) => setCadastral(e.target.value)}
-                  placeholder={t('例：台西鄉 海口段 0123 地號', 'e.g. Taixi, Haikou section, lot 0123')}
-                  autoComplete="off"
-                  aria-describedby="cadastral-hint"
-                />
-                <span id="cadastral-hint" className="hint">
-                  {t('可在土地權狀上找到', 'Shown on your land title deed')}
-                </span>
-              </label>
-              <div className="farmer-field">
-                <label htmlFor="farmer-crop" className="lbl">
-                  {t('這塊田種的作物', 'Crop on this field')} <span className="req">{t('必填', 'Required')}</span>
-                </label>
-                <select
-                  id="farmer-crop"
-                  ref={cropRef}
-                  value={crop}
-                  required
-                  aria-invalid={showErrors && cropMissing}
-                  aria-describedby={showErrors && cropMissing ? 'crop-error' : undefined}
-                  onChange={(e) => setCrop(e.target.value as CropKey)}
-                >
-                  <option value="" disabled>
-                    {t('請選擇作物', 'Choose a crop')}
-                  </option>
-                  {CROPS.map((c) => (
-                    <option key={c.key} value={c.key}>
-                      {t(c.label)}
-                    </option>
-                  ))}
-                </select>
-                {crop === 'other' && (
-                  <input
-                    ref={otherRef}
-                    value={cropOther}
-                    onChange={(e) => setCropOther(e.target.value)}
-                    placeholder={t('請填寫作物名稱', 'Name of the crop')}
-                    aria-label={t('其他作物名稱', 'Other crop name')}
-                    aria-invalid={showErrors && otherMissing}
-                    aria-describedby={showErrors && otherMissing ? 'crop-error' : undefined}
-                    required
-                  />
-                )}
-                {showErrors && (cropMissing || otherMissing) && (
-                  <span id="crop-error" className="error" role="alert">
-                    {cropMissing ? t('請選擇作物，才能進入受災地圖。', 'Choose a crop to open the damage map.') : t('請填寫作物名稱。', 'Enter the crop name.')}
+            <label className="farmer-toggle">
+              <input
+                type="checkbox"
+                checked={isFarmer}
+                onChange={(e) => {
+                  setIsFarmer(e.target.checked);
+                  setShowErrors(false);
+                }}
+              />
+              <span className="h3">{t('我是農民', 'I am a farmer')}</span>
+              <span className="opt">{t('選填', 'Optional')}</span>
+            </label>
+            {isFarmer && (
+              <div className="farmer-fields">
+                <label className="farmer-field">
+                  <span className="lbl">
+                    {t('土地地籍', 'Land parcel no.')} <span className="opt">{t('選填', 'Optional')}</span>
                   </span>
-                )}
+                  <input
+                    value={cadastral}
+                    onChange={(e) => setCadastral(e.target.value)}
+                    placeholder={t('例：台西鄉 海口段 0123 地號', 'e.g. Taixi, Haikou section, lot 0123')}
+                    autoComplete="off"
+                  />
+                </label>
+                <div className="farmer-field">
+                  <label htmlFor="farmer-crop" className="lbl">
+                    {t('這塊田種的作物', 'Crop on this field')} <span className="req">{t('必填', 'Required')}</span>
+                  </label>
+                  <select
+                    id="farmer-crop"
+                    ref={cropRef}
+                    value={crop}
+                    required
+                    aria-invalid={showErrors && cropMissing}
+                    aria-describedby={showErrors && cropMissing ? 'crop-error' : undefined}
+                    onChange={(e) => setCrop(e.target.value as CropKey)}
+                  >
+                    <option value="" disabled>
+                      {t('請選擇作物', 'Choose a crop')}
+                    </option>
+                    {CROPS.map((c) => (
+                      <option key={c.key} value={c.key}>
+                        {t(c.label)}
+                      </option>
+                    ))}
+                  </select>
+                  {crop === 'other' && (
+                    <input
+                      ref={otherRef}
+                      value={cropOther}
+                      onChange={(e) => setCropOther(e.target.value)}
+                      placeholder={t('請填寫作物名稱', 'Name of the crop')}
+                      aria-label={t('其他作物名稱', 'Other crop name')}
+                      aria-invalid={showErrors && otherMissing}
+                      aria-describedby={showErrors && otherMissing ? 'crop-error' : undefined}
+                      required
+                    />
+                  )}
+                  {showErrors && (cropMissing || otherMissing) && (
+                    <span id="crop-error" className="error" role="alert">
+                      {cropMissing
+                        ? t('請選擇作物，才能進入受災地圖。', 'Choose a crop to open the damage map.')
+                        : t('請填寫作物名稱。', 'Enter the crop name.')}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </fieldset>
 
           <div className="picker-actions">

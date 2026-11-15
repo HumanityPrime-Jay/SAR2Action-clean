@@ -3,6 +3,7 @@ import { describeSource, farmerChat, replySources } from '../api/farmerAgent';
 import { CASE, OFFICIAL_LOSS, type Parcel, bigNtd, parcelById } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
+import { useMascotCue } from '../mascot/Mascot';
 import { type Lang, type Text, useLang, useT } from '../i18n';
 import { Earth, Icon } from '../ui/shared';
 import type { ScreenProps } from './types';
@@ -42,34 +43,31 @@ function withCitations(text: string) {
   return text.split(/(\[\d+\])/g).map((part, i) => (/^\[\d+\]$/.test(part) ? <sup key={i}>{part}</sup> : part));
 }
 
-const CITATIONS: { title: Text; kind: Text; url?: string }[] = [
-  { title: { zh: `SAR 調查報告 ${CASE.id}`, en: `SAR investigation ${CASE.id}` }, kind: { zh: '團隊雷達觀測與 QA', en: 'Team radar observations and QA' } },
+const CITATIONS: { title: Text; url?: string }[] = [
+  { title: { zh: `SAR 調查報告 ${CASE.id}`, en: `SAR investigation ${CASE.id}` } },
   {
     title: { zh: `農業部災損統計（${OFFICIAL_LOSS.date}）`, en: `MOA loss report (${OFFICIAL_LOSS.date})` },
-    kind: { zh: '官方公告', en: 'Official release' },
     url: OFFICIAL_LOSS.url,
   },
-  { title: { zh: '農業天然災害救助辦法', en: 'Agricultural Natural Disaster Relief Regulations' }, kind: { zh: '法規資料庫 · RAG', en: 'Law database · RAG' } },
+  { title: { zh: '農業天然災害救助辦法', en: 'Agricultural Natural Disaster Relief Regulations' } },
 ];
 
-function initialMessages(parcel: Parcel, farmer: FarmerInfo | null, lang: Lang): Message[] {
+function initialMessages(parcel: Parcel, lang: Lang): Message[] {
   const yunlin = bigNtd(OFFICIAL_LOSS.yunlinNtd, lang);
   if (lang === 'en') {
-    const crop = farmer ? `You reported ${cropName(farmer, lang).toLowerCase()}; that still needs verification.` : 'The crop type is not verified yet.';
     return [
       { role: 'user', text: `Was ${parcel.id} damaged by Typhoon Champi? Can I apply for relief?` },
       {
         role: 'bot',
-        text: `Satellite radar saw a VH change of ${formatDb(parcel.preToPost)} on field ${parcel.id} across the typhoon, but a similar swing happened in 2025, so typhoon damage cannot be confirmed. ${crop}[1]\n\nThe Ministry of Agriculture reported about NT$ ${yunlin} of farm losses in Yunlin on ${OFFICIAL_LOSS.date}, but that is a county total and does not map to this field.[2]\n\nCash relief depends on the announced areas, eligible crops and the area confirmed by an on-site inspection; the authority makes the final decision.[3] The panel on the right shows the ceiling if the whole field were confirmed.`,
+        text: `Radar shows ${formatDb(parcel.preToPost)} on ${parcel.id}, but 2025 looked similar, so it may not be the typhoon.[1]\n\nYunlin lost about NT$ ${yunlin} county-wide.[2] Relief depends on the announcement and a site inspection.[3]`,
       },
     ];
   }
-  const crop = farmer ? `您登記的作物是${cropName(farmer, lang)}，仍需查證。` : '作物種類也還沒驗證。';
   return [
     { role: 'user', text: `${parcel.id} 這次薔琵颱風有受損嗎？可以申請補助嗎？` },
     {
       role: 'bot',
-      text: `衛星雷達在颱風前後觀測到田區 ${parcel.id} 的 VH 回波變化 ${formatDb(parcel.preToPost)}，但 2025 年同期也有類似起伏，目前無法確定是颱風造成的受損。${crop}[1]\n\n農業部 ${OFFICIAL_LOSS.date} 公布雲林縣農業損失約 ${yunlin} 元，但這是全縣的數字，不能直接對應到這塊田。[2]\n\n能不能申請現金救助，要看公告範圍、作物品項與現場勘查核認的面積，最後由主管機關認定。[3] 右側是假設全區核認時的試算上限。`,
+      text: `${parcel.id} 颱風前後雷達變化 ${formatDb(parcel.preToPost)}，但去年同期也差不多，不一定是颱風造成的。[1]\n\n雲林縣農損約 ${yunlin} 元（全縣）。[2] 能不能申請救助，要看公告和現場勘查。[3]`,
     },
   ];
 }
@@ -89,9 +87,10 @@ export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
 function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' | 'farmer' | 'eventId'> & { field: Parcel }) {
   const t = useT();
   const { lang } = useLang();
-  const [messages, setMessages] = useState<Message[]>(() => initialMessages(field, farmer, lang));
+  const [messages, setMessages] = useState<Message[]>(() => initialMessages(field, lang));
   const [draft, setDraft] = useState('');
   const [busy, setBusy] = useState(false);
+  const cue = useMascotCue();
   const msgsRef = useRef<HTMLDivElement>(null);
   const session = useRef(newSessionId());
   const inflight = useRef<AbortController | null>(null);
@@ -150,7 +149,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
     session.current = newSessionId();
     setBusy(false);
     if (activeScope === 'taixi') {
-      setMessages(initialMessages(field, farmer, lang));
+      setMessages(initialMessages(field, lang));
     } else {
       const pInfo = TW05_PRESET_PARCELS.find((p) => p.id === tw05ParcelId);
       const area = pInfo?.areaHa ?? 0.453978;
@@ -217,6 +216,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
       const ctrl = new AbortController();
       inflight.current = ctrl;
       setBusy(true);
+      cue('think');
       setMessages((m) => [...m, { role: 'user', text: shown }, { role: 'bot', text: t('助手查詢法規中…', 'Checking the regulations…'), pending: true }]);
       let answer: Message;
       try {
@@ -232,15 +232,14 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
           ctrl.signal,
         );
         answer = { role: 'bot', text: r.reply, sources: replySources(r), untranslated: lang === 'en' && r.reply_language !== 'en' };
+        cue('happy');
       } catch (err) {
         if ((err as Error).name === 'AbortError') return;
+        cue('sorry');
         answer = {
           role: 'bot',
           error: true,
-          text: t(
-            'Agent 目前無法使用：後端沒有回應或 AI 金鑰無效，所以這題沒有回答。請稍後再試，或直接洽詢鄉鎮公所。',
-            'The agent is unavailable: the backend did not respond or the AI key is invalid, so this question has no answer. Try again later, or ask your township office.',
-          ),
+          text: t('現在連不上，請稍後再試。', "Can't connect right now. Please try again later."),
         };
       }
       if (inflight.current !== ctrl) return;
@@ -255,6 +254,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
     const ctrl = new AbortController();
     abortCtrl.current = ctrl;
     setBusy(true);
+    cue('think');
 
     setMessages((m) => [
       ...m,
@@ -291,6 +291,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
           duration_ms: tr.duration_ms,
         }));
 
+        cue(res.status === 'blocked' ? 'sorry' : 'happy');
         let botReplyText = '';
         if (res.status === 'blocked') {
           botReplyText = `[${res.execution_mode}] ${res.error?.message || 'Agent blocked request.'}`;
@@ -318,6 +319,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
       })
       .catch((err: Error) => {
         if (err.name === 'AbortError' || abortCtrl.current !== ctrl) return;
+        cue('sorry');
         setMessages((m) => [
           ...m.slice(0, -1),
           {
@@ -361,9 +363,6 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
                   DEMO · TAIXI
                 </span>
               )}
-            </div>
-            <div className="cap">
-              {t('依農業災害救助相關法規回答，並附上依據的條文', 'Answers from the agricultural relief regulations, with the articles they rely on')}
             </div>
           </div>
 
@@ -441,7 +440,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
               </div>
             ) : (
               <div key={i} className={`msg ${m.role}`}>
-                {m.untranslated && <span className="eyebrow note">Shown in Chinese: English translation is unavailable right now</span>}
+                {m.untranslated && <span className="eyebrow note">Shown in Chinese</span>}
                 {m.role === 'bot' && !m.sources ? withCitations(m.text) : m.text}
 
                 {/* Additional Agent Inspection Badges & Details for TW-05 */}
@@ -614,12 +613,12 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
               <span>{t('待現場勘查', 'Pending inspection')}</span>
             </div>
             <div className="line">
-              <span>{t('救助單價（示意）', 'Rate (illustrative)')}</span>
+              <span>{t('救助單價', 'Rate')}</span>
               <span>{RELIEF_RATE_PER_HA.toLocaleString()} /ha</span>
             </div>
             <hr />
             <div className="total">
-              <span className="cap">{t('試算上限（若全區核認）', 'Ceiling (if the whole field is confirmed)')}</span>
+              <span className="cap">{t('試算上限', 'Estimated ceiling')}</span>
               <b>NT$ {ceiling.toLocaleString()}</b>
             </div>
             <div className="line">
@@ -633,7 +632,6 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
               <span>
                 {t('雲林縣', 'Yunlin')} <b>NT$ {bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}</b> · {t('全國', 'Taiwan')} NT$ {bigNtd(OFFICIAL_LOSS.taiwanNtd, lang)}
               </span>
-              <span className="cap">{t('縣市層級統計，不代表個別田區損失', 'County-level totals, not losses of individual fields')}</span>
             </div>
           </div>
         ) : (
@@ -751,22 +749,12 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
               ) : (
                 t(c.title)
               )}
-              <br />
-              <span className="cap" style={{ fontSize: 12 }}>
-                {t(c.kind)}
-              </span>
             </span>
           </div>
         ))}
 
         <div style={{ flex: 1 }} />
         <div className="panel-foot">
-          <button className="btn btn-primary btn-block" disabled aria-describedby="apply-soon">
-            {t('產生申請資料', 'Prepare application')}
-          </button>
-          <p id="apply-soon" className="soon">
-            {t('申請資料產生功能即將推出', 'Coming soon')}
-          </p>
           <button className="btn btn-line btn-block" onClick={() => go('compare')}>
             {t('← 回到田區比對', '← Back to field compare')}
           </button>

@@ -25,6 +25,7 @@ function openChampiMap() {
   const map = screen.getByRole('region', { name: '受災地圖' });
   fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
   fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+  fireEvent.click(within(map).getByRole('checkbox', { name: /我是農民/ }));
   fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'garlic' } });
   fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
   return map;
@@ -59,7 +60,7 @@ describe('App', () => {
     await screen.findByTestId('globe');
     const actions = screen.getByRole('navigation', { name: '開始使用' });
     await act(async () => {
-      fireEvent.click(within(actions).getByRole('button', { name: /田區比對/ }));
+      fireEvent.click(within(actions).getByRole('button', { name: /田區雷達影像比對/ }));
     });
     expect(flyToTaiwan).toHaveBeenCalledTimes(1);
     expect(screen.getByRole('region', { name: '田區比對' })).toHaveClass('active');
@@ -84,23 +85,26 @@ describe('App', () => {
     const event = within(map).getByRole('combobox', { name: /災害事件/ });
     expect(event).toBeDisabled();
     fireEvent.change(region, { target: { value: 'north' } });
-    expect(within(map).getByText('這個地區目前還沒有處理好的災害事件。')).toBeInTheDocument();
+    expect(event).toBeDisabled();
+    expect(within(event).getByText('此地區尚無事件')).toBeInTheDocument();
     fireEvent.change(region, { target: { value: 'central' } });
     expect(event).toBeEnabled();
     expect(within(event).getByRole('option', { name: /薔琵颱風/ })).toBeInTheDocument();
     fireEvent.change(event, { target: { value: 'champi-2026-yunlin' } });
-    fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'rice' } });
+    // Not a farmer: no crop needed.
+    expect(within(map).queryByRole('combobox', { name: /這塊田種的作物/ })).not.toBeInTheDocument();
     fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
     expect(within(map).getByRole('listbox', { name: '候選田區' })).toBeInTheDocument();
     expect(screen.getByRole('banner')).toHaveTextContent('薔琵颱風 · 雲林縣');
   });
 
-  it('farmer card: crop is required, land parcel number is optional and reaches the estimate', () => {
+  it('farmer card: optional, but once ticked the crop is required; the land parcel number reaches the estimate', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '受災地圖' }));
     const map = screen.getByRole('region', { name: '受災地圖' });
     fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
     fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+    fireEvent.click(within(map).getByRole('checkbox', { name: /我是農民/ }));
     fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
     expect(within(map).getByRole('alert')).toHaveTextContent('請選擇作物');
     expect(within(map).getByRole('combobox', { name: /這塊田種的作物/ })).toHaveAttribute('aria-invalid', 'true');
@@ -214,6 +218,26 @@ describe('App', () => {
     fireEvent.change(within(assist).getByRole('textbox', { name: '輸入問題' }), { target: { value: '門檻是多少？' } });
     fireEvent.click(within(assist).getByRole('button', { name: '送出' }));
     expect(await within(assist).findByRole('alert')).toHaveTextContent('AGENT 無法使用');
+    vi.unstubAllGlobals();
+  });
+
+  it('the helpers greet on the home screen and can be hidden', () => {
+    render(<App />);
+    expect(screen.getByText('嗨！先選一場災害吧。')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '隱藏小幫手' }));
+    expect(screen.queryByText('嗨！先選一場災害吧。')).not.toBeInTheDocument();
+    expect(localStorage.getItem('sar2action.mascot')).toBe('hidden');
+    fireEvent.click(screen.getByRole('button', { name: '顯示小幫手' }));
+    expect(screen.getByRole('button', { name: /小幫手：農民和農會人員/ })).toBeInTheDocument();
+  });
+
+  it('the helpers apologise when the agent fails', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))));
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
+    const assist = screen.getByRole('region', { name: '補助助手' });
+    fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
+    expect(await screen.findByText('抱歉，現在連不上。')).toBeInTheDocument();
     vi.unstubAllGlobals();
   });
 

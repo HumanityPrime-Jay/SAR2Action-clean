@@ -249,9 +249,6 @@ function DamageMap({
               </span>
             ))}
           </div>
-          <div className="cap" style={{ marginTop: 4 }}>
-            {t('描述性觀測，不代表受損判定', 'Descriptive observation, not a damage verdict')}
-          </div>
         </div>
 
         <div className="zoom">

@@ -8,6 +8,7 @@ import { CompareScreen } from './screens/CompareScreen';
 import { HomeScreen } from './screens/HomeScreen';
 import { MapScreen } from './screens/MapScreen';
 import type { ScreenKey, ScreenProps } from './screens/types';
+import { MascotProvider } from './mascot/Mascot';
 import { Earth, Icon, SvgDefs } from './ui/shared';
 
 const SCREENS: { key: ScreenKey; label: Text; drill?: boolean; Component: (p: ScreenProps) => React.ReactElement }[] = [
@@ -102,23 +103,23 @@ function Shell() {
         <span className="stamp">{t('PROTOTYPE · 研究原型', 'PROTOTYPE')}</span>
       </header>
 
-      <main className="screens">
-        {SCREENS.map(({ key, label, drill, Component }) => (
-          <section
-            key={key}
-            ref={(el) => (sectionRefs.current[key] = el)}
-            className={`screen screen-${key}${drill ? ' drill' : ''}${screen === key ? ' active' : ''}`}
-            aria-label={t(label)}
-            tabIndex={-1}
-            // Hidden screens stay mounted for the page transition but must not be reachable.
-            {...(screen !== key ? { inert: '' } : {})}
-          >
-            <Component selectedId={selectedId} onSelect={setSelectedId} go={go} eventId={eventId} onEvent={setEventId} farmer={farmer} onFarmer={setFarmer} />
-          </section>
-        ))}
-      </main>
-
-      <div className="demo-note">{t('臺西 CHAMPI-YUNLIN-TAIXI · 雷達資料為真實觀測 · 救助金額為示意試算', 'CHAMPI-YUNLIN-TAIXI · Radar data are real observations · relief amounts are illustrative')}</div>
+      <MascotProvider screen={screen} eventId={eventId} go={go}>
+        <main className="screens">
+          {SCREENS.map(({ key, label, drill, Component }) => (
+            <section
+              key={key}
+              ref={(el) => (sectionRefs.current[key] = el)}
+              className={`screen screen-${key}${drill ? ' drill' : ''}${screen === key ? ' active' : ''}`}
+              aria-label={t(label)}
+              tabIndex={-1}
+              // Hidden screens stay mounted for the page transition but must not be reachable.
+              {...(screen !== key ? { inert: '' } : {})}
+            >
+              <Component selectedId={selectedId} onSelect={setSelectedId} go={go} eventId={eventId} onEvent={setEventId} farmer={farmer} onFarmer={setFarmer} />
+            </section>
+          ))}
+        </main>
+      </MascotProvider>
     </div>
   );
 }

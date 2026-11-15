@@ -237,9 +237,11 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .picker-empty{margin:0}
 /* Farmer card: dashed outline + soft shadow marks it as the farmer's own input */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.farmer-card{margin:0;min-width:0;border:2px dashed var(--border-strong);background:var(--surface);box-shadow:0 10px 28px rgba(11,61,145,.12);padding:20px 22px;display:grid;grid-template-columns:minmax(200px,1fr) 2fr;gap:20px}
-.farmer-head .h3{margin:4px 0 6px}
-.farmer-head .cap{margin:0}
+.farmer-card{margin:0;min-width:0;border:2px dashed var(--border-strong);background:var(--surface);box-shadow:0 10px 28px rgba(11,61,145,.12);padding:16px 22px;display:grid;grid-template-columns:1fr;gap:16px}
+.farmer-card.open{grid-template-columns:minmax(200px,1fr) 2fr;align-items:end;padding-bottom:20px}
+.farmer-toggle{display:flex;align-items:center;gap:12px;min-height:var(--tap);cursor:pointer;align-self:center}
+.farmer-toggle input{width:22px;height:22px;margin:0;accent-color:var(--blue);cursor:pointer}
+.farmer-toggle .opt{font-size:11px;font-weight:700;padding:1px 6px;border:1px solid currentColor;color:var(--text-3)}
 .farmer-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 .farmer-field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .farmer-field .lbl{font-size:13px;font-weight:700;color:var(--text-2)}
@@ -374,11 +376,47 @@ button:disabled{cursor:not-allowed;opacity:.4}
 
 .demo-note{position:absolute;right:14px;bottom:8px;font-family:var(--f-mono);font-size:11px;color:var(--text-3);letter-spacing:.5px;z-index:10;pointer-events:none}
 
+/* Pixel helpers in the corner: a farmer and an association officer. */
+.mascot{position:fixed;right:20px;bottom:30px;z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none}
+.mascot>*{pointer-events:auto}
+.mascot-figure{position:relative}
+.mascot-body{display:block;background:none;border:0;padding:0;cursor:pointer}
+.mascot-body:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+.mascot-sprite{display:block;width:112px;height:96px;shape-rendering:crispEdges;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.18))}
+.mascot-idle .mascot-sprite{animation:mascot-breathe 1.8s steps(1) infinite}
+.mascot-happy .mascot-sprite{animation:mascot-hop .5s steps(2) 3}
+.mascot-sorry .mascot-sprite{animation:mascot-shake .3s steps(2) 4}
+@keyframes mascot-breathe{50%{transform:translateY(2px)}}
+@keyframes mascot-hop{50%{transform:translateY(-8px)}}
+@keyframes mascot-shake{50%{transform:translateX(3px)}}
+.mascot-hide{position:absolute;top:-10px;right:-10px;width:28px;height:28px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border-strong);font-size:16px;line-height:1;color:var(--text-2);cursor:pointer;opacity:0;transition:opacity var(--dur-fast)}
+.mascot:hover .mascot-hide,.mascot-hide:focus-visible{opacity:1}
+@media (hover:none){.mascot-hide{opacity:1}}
+.mascot-bubble{position:relative;max-width:260px;background:var(--surface);color:var(--text-1);border:2px solid var(--black);padding:10px 12px;font-size:14px;line-height:1.55;box-shadow:4px 4px 0 rgba(0,0,0,.18)}
+.mascot-bubble::after{content:"";position:absolute;right:44px;bottom:-8px;width:12px;height:12px;background:var(--surface);border-right:2px solid var(--black);border-bottom:2px solid var(--black);transform:rotate(45deg)}
+.mascot-bubble p{margin:0}
+.mascot-bubble .link{margin-top:6px;min-height:28px;font-size:13px;background:none;border-width:0 0 1px;padding:0;cursor:pointer}
+.mascot-think .mascot-bubble p::after{content:"";display:inline-block;width:1.2em;text-align:left;animation:mascot-dots 1.2s steps(4) infinite}
+@keyframes mascot-dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+/* In the chat the bubble sits beside the pair, and the messages keep room below so nothing is covered. */
+.mascot-on-assist.anchored{flex-direction:row;align-items:flex-end}
+.mascot-on-assist.anchored .mascot-bubble::after{right:-8px;bottom:22px;border-right:2px solid var(--black);border-bottom:0;border-top:2px solid var(--black)}
+.stage:has(.mascot-on-assist.anchored) .screen-assist .msgs{padding-bottom:116px}
+/* Peeking: only the heads, in the strip under the content; clicking brings the pair out on the left. */
+.mascot-peek{position:fixed;left:24px;bottom:0;z-index:40;background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:flex-end;height:24px;overflow:hidden}
+.mascot-peek:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.mascot-heads{display:block;width:84px;height:30px;shape-rendering:crispEdges;transform:translateY(8px);transition:transform var(--dur-fast) var(--ease-out)}
+.mascot-peek:hover .mascot-heads,.mascot-peek:focus-visible .mascot-heads{transform:translateY(2px)}
+.mascot.at-left{right:auto;left:24px;bottom:30px;align-items:flex-start}
+.mascot.at-left .mascot-bubble::after{right:auto;left:44px}
+.mascot-restore{position:fixed;right:20px;bottom:30px;z-index:40;font-family:var(--f-mono);font-size:12px;letter-spacing:.5px;background:var(--surface);color:var(--text-1);border:1px solid var(--border-strong);padding:6px 10px;min-height:32px;cursor:pointer}
+
 /* Respect reduced-motion: no slides, no bounce. */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{transition-duration:1ms!important;animation-duration:1ms!important;scroll-behavior:auto!important}
   .screen,.screen.drill{transform:none}
   .globe-pulse{animation:none;opacity:0}
+  .mascot .mascot-sprite{animation:none}
   .btn:active,.box:active,.chip:active,.row:active,.tab:active,.seg button:active,.back:active,.zoom button:active,.suggest button:active,.send:active,.logo:active,.link:active{transform:none}
 }
 
@@ -417,4 +455,7 @@ button:disabled{cursor:not-allowed;opacity:.4}
   .chat{min-height:560px}
   .popup{width:220px}
   .demo-note{position:static;display:block;text-align:right;padding:0 16px 12px}
+  .mascot{right:12px;bottom:12px}
+  .mascot-sprite{width:84px;height:72px}
+  .mascot-bubble{max-width:220px;font-size:13px}
 }

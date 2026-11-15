@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { type LngLat, NISAR_TAIXI, type Parcel, QA_TESTS, type VhPoint, WARNING, geometryPath, parcelById, polygonRings } from '../data/champi';
-import { NISAR_SCENE } from '../data/nisar';
 import { cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, useLang, useT } from '../i18n';
@@ -127,7 +126,7 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
             </div>
             <div className="cap">
               {lang === 'zh' ? `雲林縣${parcel.town.zh}` : `${parcel.town.en}, Yunlin`} · {parcel.areaHa.toFixed(4)} {t('公頃', 'ha')} ·{' '}
-              {farmer ? `${t('農民登記作物：', 'Farmer-reported crop: ')}${cropName(farmer, lang)}${t('（待驗證）', ' (unverified)')}` : t('作物未驗證', 'Crop unverified')}
+              {farmer ? cropName(farmer, lang) : t('作物未知', 'Crop unknown')}
             </div>
           </div>
           <div className="seg" role="group" aria-label={t('極化', 'Polarization')}>
@@ -170,13 +169,6 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
           )}
         </div>
 
-        <p className="cap scene-src">
-          {t(
-            `真實 ${NISAR_SCENE.mission} 影像（Track ${NISAR_SCENE.track} Frame ${NISAR_SCENE.frame}），藍色虛線為農田坵塊圖的田區邊界。兩期各自調整亮度，且處理版本不同、尚未通過跨版本 QA，所以亮度不能直接相比，也不提供 NISAR 差異圖。`,
-            `Real ${NISAR_SCENE.mission} imagery (Track ${NISAR_SCENE.track} Frame ${NISAR_SCENE.frame}); the dashed blue line is the official field boundary. Each scene has its own contrast stretch and a different processing version that has not passed cross-version QA, so brightness is not comparable and no NISAR difference image is shown.`,
-          )}
-        </p>
-
         <div className="metrics">
           <div className="metric">
             <div className="eyebrow">{t('VH 颱風前→後', 'VH pre → post')}</div>
@@ -196,7 +188,6 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
           <div className="metric">
             <div className="eyebrow">{t('判定', 'Verdict')}</div>
             <div className="v">{t('原因未知', 'Unknown')}</div>
-            <div className="cap">{t('需作物紀錄與現勘', 'Needs crop records and a site visit')}</div>
           </div>
         </div>
       </div>
