@@ -1,14 +1,15 @@
-"""Users and sign-in sessions: Cloud SQL in production, in memory for local development and tests."""
+"""Users, sign-in sessions and what a signed-in user saves: Cloud SQL in production, in memory for local development and tests."""
 
 from __future__ import annotations
 
 import hashlib
+import json
 import secrets
 import threading
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from typing import Literal, Protocol
+from typing import Any, Literal, Protocol
 
 Role = Literal["farmer", "authority"]
 
@@ -21,6 +22,17 @@ class User:
     role: Role
 
 
+@dataclass(frozen=True)
+class FarmerField:
+    """A farmer's own field for one disaster; one per event."""
+
+    event_id: str
+    field_id: str | None
+    crop: str
+    crop_other: str | None
+    cadastral: str | None
+
+
 def _hash(token: str) -> bytes:
     return hashlib.sha256(token.encode()).digest()
 
@@ -31,6 +43,13 @@ class UserStore(Protocol):
     def user_for_session(self, token: str) -> User | None: ...
     def delete_session(self, token: str) -> None: ...
     def delete_user(self, user_id: str) -> None: ...
+    def list_fields(self, user_id: str) -> list[FarmerField]: ...
+    def put_field(self, user_id: str, field: FarmerField) -> FarmerField: ...
+    def delete_field(self, user_id: str, event_id: str) -> None: ...
+    def add_assistant_log(self, user_id: str, entry: dict[str, Any]) -> None: ...
+    def list_assistant_log(self, user_id: str, limit: int) -> list[dict[str, Any]]: ...
+    def add_estimate(self, user_id: str, entry: dict[str, Any]) -> None: ...
+    def list_estimates(self, user_id: str, limit: int) -> list[dict[str, Any]]: ...
 
 
 class MemoryUserStore:
@@ -41,6 +60,9 @@ class MemoryUserStore:
         self._users: dict[str, User] = {}
         self._by_sub: dict[str, str] = {}
         self._sessions: dict[bytes, tuple[str, datetime]] = {}
+        self._fields: dict[tuple[str, str], FarmerField] = {}
+        self._logs: dict[str, list[dict[str, Any]]] = {}
+        self._estimates: dict[str, list[dict[str, Any]]] = {}
 
     def upsert_google_user(self, google_sub: str, email: str, name: str | None, role: Role) -> User:
         with self._lock:
@@ -71,6 +93,40 @@ class MemoryUserStore:
             self._users.pop(user_id, None)
             self._by_sub = {s: u for s, u in self._by_sub.items() if u != user_id}
             self._sessions = {h: v for h, v in self._sessions.items() if v[0] != user_id}
+            self._fields = {k: v for k, v in self._fields.items() if k[0] != user_id}
+            self._logs.pop(user_id, None)
+            self._estimates.pop(user_id, None)
+
+    def list_fields(self, user_id: str) -> list[FarmerField]:
+        with self._lock:
+            return [f for (u, _), f in self._fields.items() if u == user_id]
+
+    def put_field(self, user_id: str, field: FarmerField) -> FarmerField:
+        with self._lock:
+            self._fields[(user_id, field.event_id)] = field
+            return field
+
+    def delete_field(self, user_id: str, event_id: str) -> None:
+        with self._lock:
+            self._fields.pop((user_id, event_id), None)
+
+    def _add(self, table: dict[str, list[dict[str, Any]]], user_id: str, entry: dict[str, Any]) -> None:
+        with self._lock:
+            table.setdefault(user_id, []).insert(0, {**entry, "created_at": datetime.now(timezone.utc).isoformat()})
+
+    def add_assistant_log(self, user_id: str, entry: dict[str, Any]) -> None:
+        self._add(self._logs, user_id, entry)
+
+    def list_assistant_log(self, user_id: str, limit: int) -> list[dict[str, Any]]:
+        with self._lock:
+            return list(self._logs.get(user_id, [])[:limit])
+
+    def add_estimate(self, user_id: str, entry: dict[str, Any]) -> None:
+        self._add(self._estimates, user_id, entry)
+
+    def list_estimates(self, user_id: str, limit: int) -> list[dict[str, Any]]:
+        with self._lock:
+            return list(self._estimates.get(user_id, [])[:limit])
 
 
 class CloudSqlUserStore:
@@ -146,3 +202,63 @@ class CloudSqlUserStore:
     def delete_user(self, user_id: str) -> None:
         # Sessions and every user-owned row go with the user (ON DELETE CASCADE).
         self._run("DELETE FROM users WHERE id = %s::uuid", (user_id,))
+
+    def list_fields(self, user_id: str) -> list[FarmerField]:
+        rows = self._run(
+            "SELECT event_id, field_id, crop, crop_other, cadastral FROM farmer_fields WHERE user_id = %s::uuid ORDER BY updated_at DESC",
+            (user_id,),
+            fetch=True,
+        )
+        return [FarmerField(*r) for r in rows]
+
+    def put_field(self, user_id: str, field: FarmerField) -> FarmerField:
+        rows = self._run(
+            """INSERT INTO farmer_fields (user_id, event_id, field_id, crop, crop_other, cadastral)
+               VALUES (%s::uuid, %s, %s, %s, %s, %s)
+               ON CONFLICT (user_id, event_id) DO UPDATE
+               SET field_id = EXCLUDED.field_id, crop = EXCLUDED.crop, crop_other = EXCLUDED.crop_other,
+                   cadastral = EXCLUDED.cadastral, updated_at = now()
+               RETURNING event_id, field_id, crop, crop_other, cadastral""",
+            (user_id, field.event_id, field.field_id, field.crop, field.crop_other, field.cadastral),
+            fetch=True,
+        )
+        return FarmerField(*rows[0])
+
+    def delete_field(self, user_id: str, event_id: str) -> None:
+        self._run("DELETE FROM farmer_fields WHERE user_id = %s::uuid AND event_id = %s", (user_id, event_id))
+
+    def add_assistant_log(self, user_id: str, entry: dict[str, Any]) -> None:
+        self._run(
+            """INSERT INTO assistant_log (user_id, field_id, view, lang, question, reply, law_version)
+               VALUES (%s::uuid, %s, %s, %s, %s, %s::jsonb, %s)""",
+            (user_id, entry["field_id"], entry["view"], entry["lang"], entry["question"], json.dumps(entry["reply"], ensure_ascii=False), entry["law_version"]),
+        )
+
+    def list_assistant_log(self, user_id: str, limit: int) -> list[dict[str, Any]]:
+        # The stored reply is left out of the list; it can be large.
+        rows = self._run(
+            """SELECT field_id, view, lang, question, law_version, created_at FROM assistant_log
+               WHERE user_id = %s::uuid ORDER BY created_at DESC LIMIT %s""",
+            (user_id, limit),
+            fetch=True,
+        )
+        keys = ("field_id", "view", "lang", "question", "law_version", "created_at")
+        return [{**dict(zip(keys, r)), "created_at": r[5].isoformat()} for r in rows]
+
+    def add_estimate(self, user_id: str, entry: dict[str, Any]) -> None:
+        self._run(
+            """INSERT INTO relief_estimates
+               (user_id, field_id, crop_item_id, area_ha, loss_threshold, result_status, amount_twd, schedule_version)
+               VALUES (%s::uuid, %s, %s, %s, %s, %s, %s, %s)""",
+            (user_id, entry["field_id"], entry["crop_item_id"], entry["area_ha"], entry["loss_threshold"], entry["result_status"], entry["amount_twd"], entry["schedule_version"]),
+        )
+
+    def list_estimates(self, user_id: str, limit: int) -> list[dict[str, Any]]:
+        rows = self._run(
+            """SELECT field_id, crop_item_id, area_ha, loss_threshold, result_status, amount_twd, schedule_version, created_at
+               FROM relief_estimates WHERE user_id = %s::uuid ORDER BY created_at DESC LIMIT %s""",
+            (user_id, limit),
+            fetch=True,
+        )
+        keys = ("field_id", "crop_item_id", "area_ha", "loss_threshold", "result_status", "amount_twd", "schedule_version", "created_at")
+        return [{**dict(zip(keys, r)), "area_ha": float(r[2]), "created_at": r[7].isoformat()} for r in rows]

@@ -1,6 +1,7 @@
-"""Optional Google sign-in (`/api/auth/*`, `/api/me`).
+"""Optional Google sign-in (`/api/auth/*`) and what a signed-in user saves (`/api/me/*`).
 
-The site works without signing in; signing in only lets a user's own data be kept. The browser
+The site works without signing in; signing in only lets a user's own data be kept: their crop and
+field per disaster, the assistant answers they got, and the relief estimates they chose to save. The browser
 gets a Google ID token from Google Identity Services, the backend verifies it, and answers with
 an HttpOnly session cookie. Configuration (all optional; sign-in is off unless the first two are set):
 
@@ -14,18 +15,27 @@ from __future__ import annotations
 
 import os
 from datetime import timedelta
-from typing import Any, Callable
+import json
+from typing import Any, Callable, Literal
 
-from fastapi import APIRouter, HTTPException, Request, Response
+from fastapi import APIRouter, HTTPException, Path, Query, Request, Response
 from pydantic import BaseModel, ConfigDict, Field
 
-from backend.app.auth.store import CloudSqlUserStore, MemoryUserStore, Role, User, UserStore
+from backend.app.auth.store import CloudSqlUserStore, FarmerField, MemoryUserStore, Role, User, UserStore
+from backend.app.schemas.taiwan_agro import TwAgroReliefEstimateRequest, TwAgroReliefEstimateResponse
 
 COOKIE = "sar2action_session"
 SESSION_TTL = timedelta(days=30)
 GOOGLE_ISSUERS = {"accounts.google.com", "https://accounts.google.com"}
 
 Verifier = Callable[[str, str], dict[str, Any]]
+# Runs the official relief schedule; returns the estimate and the schedule version it used.
+Estimator = Callable[[TwAgroReliefEstimateRequest], tuple[TwAgroReliefEstimateResponse, str]]
+
+CropKey = Literal["rice", "garlic", "peanut", "corn", "sweet_potato", "vegetables", "other"]
+EVENT_ID = r"^[a-z0-9-]{1,64}$"
+FIELD_ID = r"^[A-Z0-9-]{1,32}$"
+MAX_REPLY_BYTES = 200_000
 
 
 def verify_google_id_token(credential: str, client_id: str) -> dict[str, Any]:
@@ -60,6 +70,39 @@ class Me(BaseModel):
     role: Role
 
 
+class FieldIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    field_id: str | None = Field(default=None, pattern=FIELD_ID)
+    crop: CropKey
+    crop_other: str | None = Field(default=None, max_length=40)
+    cadastral: str | None = Field(default=None, max_length=64)
+
+
+class FieldOut(FieldIn):
+    event_id: str
+
+
+class AssistantLogIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    field_id: str = Field(pattern=FIELD_ID)
+    view: Role
+    lang: Literal["zh", "en"] = "zh"
+    question: str = Field(min_length=1, max_length=2000)
+    reply: dict[str, Any]
+
+
+class EstimateIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    field_id: str = Field(pattern=FIELD_ID)
+    crop_item_id: str = Field(min_length=1, max_length=64)
+    area_ha: float = Field(gt=0, le=10_000)
+    loss_threshold: Literal["unverified", "below_20_percent", "meets_20_percent", "article_12_simplified_exception"]
+
+
+def _blank(text: str | None) -> str | None:
+    return (text or "").strip() or None
+
+
 def _me(user: User) -> Me:
     return Me(email=user.email, name=user.name, role=user.role)
 
@@ -69,6 +112,7 @@ def create_auth_router(
     store: UserStore | None = None,
     authority_emails: set[str] | None = None,
     verifier: Verifier = verify_google_id_token,
+    estimator: Estimator | None = None,
 ) -> APIRouter:
     router = APIRouter(tags=["Auth"])
     enabled = bool(client_id and store)
@@ -82,6 +126,12 @@ def create_auth_router(
     def _session_user(request: Request) -> User | None:
         token = request.cookies.get(COOKIE)
         return _require().user_for_session(token) if token else None
+
+    def _signed_in(request: Request) -> tuple[UserStore, User]:
+        user = _session_user(request)
+        if not user:
+            raise HTTPException(401, "Not signed in.")
+        return _require(), user
 
     def _set_cookie(request: Request, response: Response, token: str) -> None:
         # Cloud Run terminates TLS in front of the app, so trust its forwarded scheme.
@@ -136,9 +186,70 @@ def create_auth_router(
         response.status_code = 204
         return response
 
+    @router.get("/api/me/fields")
+    def my_fields(request: Request) -> list[FieldOut]:
+        users, user = _signed_in(request)
+        return [FieldOut(**f.__dict__) for f in users.list_fields(user.id)]
+
+    @router.put("/api/me/fields/{event_id}")
+    def put_my_field(body: FieldIn, request: Request, event_id: str = Path(pattern=EVENT_ID)) -> FieldOut:
+        users, user = _signed_in(request)
+        crop_other = _blank(body.crop_other) if body.crop == "other" else None
+        if body.crop == "other" and not crop_other:
+            raise HTTPException(422, "Name the crop when it is 'other'.")
+        saved = users.put_field(user.id, FarmerField(event_id, body.field_id, body.crop, crop_other, _blank(body.cadastral)))
+        return FieldOut(**saved.__dict__)
+
+    @router.delete("/api/me/fields/{event_id}", status_code=204)
+    def delete_my_field(request: Request, event_id: str = Path(pattern=EVENT_ID)) -> Response:
+        users, user = _signed_in(request)
+        users.delete_field(user.id, event_id)
+        return Response(status_code=204)
+
+    @router.post("/api/me/assistant-log", status_code=204)
+    def log_answer(body: AssistantLogIn, request: Request) -> Response:
+        users, user = _signed_in(request)
+        if len(json.dumps(body.reply, ensure_ascii=False).encode()) > MAX_REPLY_BYTES:
+            raise HTTPException(413, "Reply too large to keep.")
+        law = body.reply.get("legal_authority", {}).get("applicable_law_version", {}).get("version")
+        users.add_assistant_log(user.id, {**body.model_dump(), "law_version": law if isinstance(law, str) else None})
+        return Response(status_code=204)
+
+    @router.get("/api/me/assistant-log")
+    def my_answers(request: Request, limit: int = Query(20, ge=1, le=100)) -> list[dict[str, Any]]:
+        users, user = _signed_in(request)
+        return users.list_assistant_log(user.id, limit)
+
+    @router.post("/api/me/estimates")
+    def save_estimate(body: EstimateIn, request: Request) -> TwAgroReliefEstimateResponse:
+        users, user = _signed_in(request)
+        if estimator is None:
+            raise HTTPException(503, "Relief estimates are not available.")
+        # Recomputed here from the official schedule, so a saved amount is never one the browser made up.
+        result, schedule = estimator(
+            TwAgroReliefEstimateRequest(
+                crop_item_id=body.crop_item_id, assumed_approved_area_ha=body.area_ha, assumed_loss_threshold=body.loss_threshold
+            )
+        )
+        users.add_estimate(
+            user.id,
+            {
+                **body.model_dump(),
+                "result_status": result.result_status,
+                "amount_twd": result.conditional_reference_amount_twd if result.calculation_allowed else None,
+                "schedule_version": schedule,
+            },
+        )
+        return result
+
+    @router.get("/api/me/estimates")
+    def my_estimates(request: Request, limit: int = Query(20, ge=1, le=100)) -> list[dict[str, Any]]:
+        users, user = _signed_in(request)
+        return users.list_estimates(user.id, limit)
+
     return router
 
 
-def router_from_env() -> APIRouter:
+def router_from_env(estimator: Estimator | None = None) -> APIRouter:
     emails = set(os.environ.get("SAR2ACTION_AUTHORITY_EMAILS", "").split(","))
-    return create_auth_router(os.environ.get("GOOGLE_OAUTH_CLIENT_ID", "").strip() or None, store_from_env(), emails)
+    return create_auth_router(os.environ.get("GOOGLE_OAUTH_CLIENT_ID", "").strip() or None, store_from_env(), emails, estimator=estimator)

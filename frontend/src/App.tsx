@@ -9,7 +9,8 @@ import { HomeScreen } from './screens/HomeScreen';
 import { MapScreen } from './screens/MapScreen';
 import type { ScreenKey, ScreenProps } from './screens/types';
 import { MascotProvider } from './mascot/Mascot';
-import { Account } from './ui/Account';
+import { deleteMyField, fetchMyFields, saveMyField } from './api/me';
+import { Account, AuthProvider, useMe } from './ui/Account';
 import { Earth, Icon, SvgDefs } from './ui/shared';
 
 const SCREENS: { key: ScreenKey; label: Text; drill?: boolean; Component: (p: ScreenProps) => React.ReactElement }[] = [
@@ -27,7 +28,9 @@ function screenFromHash(): ScreenKey {
 export function App() {
   return (
     <LangProvider>
-      <Shell />
+      <AuthProvider>
+        <Shell />
+      </AuthProvider>
     </LangProvider>
   );
 }
@@ -40,6 +43,33 @@ function Shell() {
   const [selectedId, setSelectedId] = useState(PARCELS[0].id);
   const [eventId, setEventId] = useState<string | null>(null);
   const event = EVENTS.find((e) => e.id === eventId);
+  const me = useMe();
+  // Farmer cards a signed-in user saved, by event.
+  const [saved, setSaved] = useState<Record<string, FarmerInfo>>({});
+
+  useEffect(() => {
+    setSaved({});
+    if (!me) return;
+    let live = true;
+    fetchMyFields()
+      .then((f) => live && setSaved(f))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [me]);
+
+  // Signing in after a disaster is picked brings back the crop saved for it.
+  useEffect(() => {
+    if (eventId && !farmer && saved[eventId]) setFarmer(saved[eventId]);
+  }, [saved]);
+
+  const pickFarmer = (info: FarmerInfo | null, id: string) => {
+    setFarmer(info);
+    if (!me) return;
+    setSaved(({ [id]: _, ...rest }) => (info ? { ...rest, [id]: info } : rest));
+    (info ? saveMyField(id, info) : deleteMyField(id)).catch(() => {});
+  };
   const sectionRefs = useRef<Partial<Record<ScreenKey, HTMLElement | null>>>({});
   const firstRender = useRef(true);
 
@@ -116,7 +146,7 @@ function Shell() {
               // Hidden screens stay mounted for the page transition but must not be reachable.
               {...(screen !== key ? { inert: '' } : {})}
             >
-              <Component selectedId={selectedId} onSelect={setSelectedId} go={go} eventId={eventId} onEvent={setEventId} farmer={farmer} onFarmer={setFarmer} />
+              <Component selectedId={selectedId} onSelect={setSelectedId} go={go} eventId={eventId} onEvent={setEventId} farmer={farmer} onFarmer={pickFarmer} savedFarmers={saved} />
             </section>
           ))}
         </main>

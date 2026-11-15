@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { EVENTS, REGIONS, type RegionKey, eventLabel } from '../data/events';
 import { CROPS, type CropKey, type FarmerInfo } from '../data/farmer';
 import { PARCELS } from '../data/champi';
@@ -7,12 +7,14 @@ import { useLang, useT } from '../i18n';
 interface Props {
   initialId: string | null;
   initialFarmer: FarmerInfo | null;
+  /** Farmer cards a signed-in user saved before, by event. */
+  saved: Record<string, FarmerInfo>;
   /** `farmer` is null when the user does not say they are a farmer. */
   onPick: (id: string, farmer: FarmerInfo | null) => void;
 }
 
 /** Event choice for the damage map (region → event), plus, optionally, the farmer's own field info. */
-export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
+export function EventPicker({ initialId, initialFarmer, saved, onPick }: Props) {
   const t = useT();
   const { lang } = useLang();
   const initial = EVENTS.find((e) => e.id === initialId);
@@ -27,6 +29,16 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
   const otherRef = useRef<HTMLInputElement>(null);
   const options = EVENTS.filter((e) => e.region === region);
   const chosen = EVENTS.find((e) => e.id === eventId);
+
+  // A signed-in farmer gets back what they entered for this event, unless they already started typing.
+  useEffect(() => {
+    const prev = saved[eventId];
+    if (!prev || isFarmer) return;
+    setIsFarmer(true);
+    setCadastral(prev.cadastral);
+    setCrop(prev.crop);
+    setCropOther(prev.cropOther);
+  }, [eventId, saved]);
 
   // The crop is only required once the user says they are a farmer.
   const cropMissing = isFarmer && !crop;

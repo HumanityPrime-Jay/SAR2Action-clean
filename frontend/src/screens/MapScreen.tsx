@@ -105,7 +105,7 @@ function downloadCsv(rows: Parcel[], lang: Lang) {
   URL.revokeObjectURL(url);
 }
 
-export function MapScreen({ eventId, onEvent, farmer, onFarmer, ...props }: ScreenProps) {
+export function MapScreen({ eventId, onEvent, farmer, onFarmer, savedFarmers, ...props }: ScreenProps) {
   const [changing, setChanging] = useState(false);
   if (!eventId || changing) {
     return (
@@ -113,9 +113,10 @@ export function MapScreen({ eventId, onEvent, farmer, onFarmer, ...props }: Scre
         <EventPicker
           initialId={eventId}
           initialFarmer={farmer}
+          saved={savedFarmers}
           onPick={(id, info) => {
             onEvent(id);
-            onFarmer(info);
+            onFarmer(info, id);
             setChanging(false);
           }}
         />

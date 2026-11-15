@@ -351,12 +351,12 @@ describe('App', () => {
   it('rejects unknown or cross-case parcel IDs instead of falling back to the first parcel', () => {
     const noop = vi.fn();
     const { rerender } = render(
-      <CompareScreen selectedId="4183" onSelect={noop} go={noop} eventId="champi-2026-yunlin" onEvent={noop} farmer={null} onFarmer={noop} />,
+      <CompareScreen selectedId="4183" onSelect={noop} go={noop} eventId="champi-2026-yunlin" onEvent={noop} farmer={null} onFarmer={noop} savedFarmers={{}} />,
     );
     expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
 
     rerender(
-      <AssistScreen selectedId="4183" onSelect={noop} go={noop} eventId={null} onEvent={noop} farmer={null} onFarmer={noop} />,
+      <AssistScreen selectedId="4183" onSelect={noop} go={noop} eventId={null} onEvent={noop} farmer={null} onFarmer={noop} savedFarmers={{}} />,
     );
     expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
   });
@@ -431,6 +431,96 @@ describe('App', () => {
     expect(fetchMock).toHaveBeenCalledWith('/api/auth/config');
     expect(document.querySelector('.account')).toBeNull();
     expect(fetchMock).not.toHaveBeenCalledWith('/api/me', expect.anything());
+    vi.unstubAllGlobals();
+  });
+
+  it('a signed-in farmer gets their saved crop back in the picker, and changes are saved', async () => {
+    const calls: { method: string; url: string; body?: unknown }[] = [];
+    const saved = [{ event_id: 'champi-2026-yunlin', field_id: null, crop: 'garlic', crop_other: null, cadastral: '海口段 0123 地號' }];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((url: string, init?: RequestInit) => {
+        calls.push({ method: init?.method ?? 'GET', url, body: init?.body ? JSON.parse(init.body as string) : undefined });
+        if (url === '/api/auth/config') return Promise.resolve(new Response(JSON.stringify({ enabled: true, google_client_id: 'cid.apps.googleusercontent.com' })));
+        if (url === '/api/me') return Promise.resolve(new Response(JSON.stringify({ email: 'farmer@example.com', name: 'A Farmer', role: 'farmer' })));
+        if (url === '/api/me/fields') return Promise.resolve(new Response(JSON.stringify(saved)));
+        if (url.startsWith('/api/me/fields/')) return Promise.resolve(new Response(JSON.stringify({})));
+        return Promise.reject(new Error('offline'));
+      }),
+    );
+    render(<App />);
+    await screen.findByText('A Farmer');
+    fireEvent.click(screen.getByRole('button', { name: '受災地圖' }));
+    const map = screen.getByRole('region', { name: '受災地圖' });
+    fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
+    fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+    expect(within(map).getByRole('checkbox', { name: /我是農民/ })).toBeChecked();
+    expect(within(map).getByRole('combobox', { name: /這塊田種的作物/ })).toHaveValue('garlic');
+    expect(within(map).getByRole('textbox', { name: /土地地籍/ })).toHaveValue('海口段 0123 地號');
+
+    fireEvent.change(within(map).getByRole('combobox', { name: /這塊田種的作物/ }), { target: { value: 'peanut' } });
+    fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
+    await act(async () => {});
+    expect(calls).toContainEqual({ method: 'PUT', url: '/api/me/fields/champi-2026-yunlin', body: { crop: 'peanut', crop_other: null, cadastral: '海口段 0123 地號' } });
+    vi.unstubAllGlobals();
+  });
+
+  it('signed out, nothing is saved', async () => {
+    const calls: string[] = [];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((url: string, init?: RequestInit) => {
+        calls.push(`${init?.method ?? 'GET'} ${url}`);
+        if (url === '/api/auth/config') return Promise.resolve(new Response(JSON.stringify({ enabled: true, google_client_id: 'cid.apps.googleusercontent.com' })));
+        if (url === '/api/me') return Promise.resolve(new Response(null, { status: 401 }));
+        return Promise.reject(new Error('offline'));
+      }),
+    );
+    render(<App />);
+    await act(async () => {});
+    openChampiMap();
+    await act(async () => {});
+    expect(calls.filter((c) => c.includes('/api/me/'))).toEqual([]);
+    vi.unstubAllGlobals();
+  });
+
+  it('signed in, assistant answers are kept and an estimate can be saved', async () => {
+    const calls: { method: string; url: string; body?: Record<string, unknown> }[] = [];
+    const catalog = {
+      schedule_version_id: 'V1',
+      items: [{ item_id: 'veg_6', display_name: '蔬菜（六）', rate_twd_per_ha: 95000 }],
+      announcements: [],
+    };
+    const est = { calculation_allowed: true, result_status: 'CONDITIONAL_REFERENCE_ESTIMATE', result_label: '', conditional_reference_amount_twd: 1189846 };
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((url: string, init?: RequestInit) => {
+        calls.push({ method: init?.method ?? 'GET', url, body: init?.body ? JSON.parse(init.body as string) : undefined });
+        const ok = (b: unknown) => Promise.resolve(new Response(JSON.stringify(b)));
+        if (url === '/api/auth/config') return ok({ enabled: true, google_client_id: 'cid.apps.googleusercontent.com' });
+        if (url === '/api/me') return ok({ email: 'farmer@example.com', name: 'A Farmer', role: 'farmer' });
+        if (url === '/api/me/fields') return ok([]);
+        if (url.startsWith('/api/me/fields/')) return ok({});
+        if (url === '/api/me/assistant-log') return Promise.resolve(new Response(null, { status: 204 }));
+        if (url === '/api/me/estimates') return ok(est);
+        if (url.endsWith('/relief-catalog')) return ok(catalog);
+        if (url.endsWith('/relief-estimate')) return ok(est);
+        if (url.endsWith('/api/agent/chat')) return ok(authorityReply());
+        return Promise.reject(new Error('offline'));
+      }),
+    );
+    render(<App />);
+    await screen.findByText('A Farmer');
+    openChampiMap();
+    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
+    const assist = screen.getByRole('region', { name: '補助助手' });
+    fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
+    await within(assist).findByText(/回波升高 \+4\.02 dB/);
+    expect(calls.find((c) => c.url === '/api/me/assistant-log')?.body).toMatchObject({ field_id: 'YL-CAND-01', view: 'farmer', lang: 'zh', question: '申請需要哪些文件？' });
+
+    fireEvent.click(await within(assist).findByRole('button', { name: '存下這次試算' }));
+    expect(await within(assist).findByRole('button', { name: '已存下' })).toBeDisabled();
+    expect(calls.find((c) => c.url === '/api/me/estimates')?.body).toMatchObject({ field_id: 'YL-CAND-01', crop_item_id: 'veg_6', loss_threshold: 'meets_20_percent' });
     vi.unstubAllGlobals();
   });
 
