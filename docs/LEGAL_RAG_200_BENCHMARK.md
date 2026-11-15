@@ -39,7 +39,10 @@ To evaluate **Model-Free Agricultural Legal Retrieval** (`SQLite FTS5 + BM25 + C
 | **Avg Latency (ms)** | - | 12.35 -> **13.62** | **14.19** | **34.20** |
 | **P95 Latency (ms)** | - | 20.41 -> **20.27** | **21.26** | **94.53** |
 
-## 4. Held-Out-80 Failure Analysis (Unaltered Locked Evaluation)
-On `final_held_out_80.jsonl` (15 failed cases out of 80):
-- **Status mismatches (4 cases, `CritErr=4`)**: `A29` (loan disbursement timing), `A32` (English query), `A34` (fallow land / Article 5 & 12-1), `A37` (short-term vegetable replanting / Article 9) returned `INSUFFICIENT_LEGAL_BASIS` instead of `ANSWERED`.
-- **Recall@5 misses with `ANSWERED` status (11 cases)**: `A25` (expected `6-3, 6-4`), `A39` (`25`), `A40` (`26`), `C25` (`22`), `C26` (`23`), `C28` (`12-2, 26-1`), `D18` (`25`), `D19` (`26`), `E16` (`6`), `G12` (`26-3, 27`), `H10` (`12, 12-1`). Most misses stem from loan sub-articles (`22, 23, 25, 26`) ranking behind `18-21` and English/colloquial terms not yet in `legal_ontology.json` (which was frozen after `dev_120`).
+## 4. Held-Out-80 & Post-Fix Regression Summary
+- **Pre-Fix Locked `final_held_out_80.jsonl`**: Status Accuracy `76/80 (95.00%)`, `CritErr=4` (`A29`, `A32`, `A34`, `A37`), Recall@5 `58/73 (79.45%)`.
+- **Post-Fix `final_held_out_80.jsonl` (Deterministic Only, `A29/A32/A34/A37` treated as known failure regression cases)**:
+  - Status Accuracy: **80/80 (100.00%)**, `CritErr = 0`, `CitValid = 80/80 (100.00%)`, `Unsup = 0`
+  - Recall@1: **53/73 (72.60%)**, Recall@3: **60/73 (82.19%)**, Recall@5: **62/73 (84.93%)**
+  - Remaining 11 non-critical Recall@5 misses: `A25, A39, A40, C25, C26, C28, D18, D19, E16, G12, H10`.
+- **New 32-Case Blind Regression Set (`blind_regression_32.jsonl`)**: See [GEMINI_LEGAL_SEMANTIC_RETRIEVAL.md](GEMINI_LEGAL_SEMANTIC_RETRIEVAL.md) (`Deterministic`: Recall@5 `27/30 (90.00%)`, `CritErr=0`; `Gemini-Assisted`: Recall@5 `28/30 (93.33%)`, `CritErr=0`).

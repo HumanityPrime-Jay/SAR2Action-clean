@@ -7,6 +7,7 @@ from __future__ import annotations
 import http.client
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 from typing import Any
@@ -64,19 +65,26 @@ class GeminiClient:
         temperature: float = 0.2,
         max_output_tokens: int = 512,
         model_override: str | None = None,
+        response_mime_type: str | None = None,
+        response_schema: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         if not self._api_key:
             raise RuntimeError("GEMINI_API_KEY is not configured")
         target_model = (model_override or self.model).removeprefix("models/")
-        url = f"{GEMINI_API_BASE}/models/{target_model}:generateContent?key={self._api_key}"
+
+        gen_config: dict[str, Any] = {
+            "temperature": temperature,
+            "maxOutputTokens": max_output_tokens,
+            "thinkingConfig": {"thinkingBudget": 0},
+        }
+        if response_mime_type:
+            gen_config["responseMimeType"] = response_mime_type
+        if response_schema:
+            gen_config["responseSchema"] = response_schema
 
         payload: dict[str, Any] = {
             "contents": contents,
-            "generationConfig": {
-                "temperature": temperature,
-                "maxOutputTokens": max_output_tokens,
-                "thinkingConfig": {"thinkingBudget": 0},
-            },
+            "generationConfig": gen_config,
         }
         if system_instruction:
             payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
@@ -93,19 +101,26 @@ class GeminiClient:
         last_err: Exception | None = None
         for idx, cand_model in enumerate(candidates_to_try):
             cand_url = f"{GEMINI_API_BASE}/models/{cand_model}:generateContent?key={self._api_key}"
-            req = urllib.request.Request(cand_url, data=body, headers={"Content-Type": "application/json"}, method="POST")
-            try:
-                with urllib.request.urlopen(req, timeout=self.timeout_seconds) as resp:
-                    return json.loads(resp.read().decode("utf-8"))
-            except urllib.error.HTTPError as exc:
-                err_body = exc.read().decode("utf-8", errors="replace")
-                last_err = RuntimeError(f"Gemini HTTP {exc.code} on model '{cand_model}': {err_body}")
-                if exc.code in (404, 429, 503) and idx + 1 < len(candidates_to_try):
-                    continue
-                raise last_err from None
-            except (TimeoutError, urllib.error.URLError, http.client.HTTPException) as exc:
-                last_err = RuntimeError(f"Gemini transport/timeout error on model '{cand_model}': {exc}")
-                if idx + 1 < len(candidates_to_try):
-                    continue
-                raise last_err from None
+            for attempt in range(2):
+                req = urllib.request.Request(cand_url, data=body, headers={"Content-Type": "application/json"}, method="POST")
+                try:
+                    with urllib.request.urlopen(req, timeout=self.timeout_seconds) as resp:
+                        return json.loads(resp.read().decode("utf-8"))
+                except urllib.error.HTTPError as exc:
+                    err_body = exc.read().decode("utf-8", errors="replace")
+                    last_err = RuntimeError(f"Gemini HTTP {exc.code} on model '{cand_model}': {err_body}")
+                    if exc.code in (429, 503) and attempt == 0:
+                        time.sleep(0.4)
+                        continue
+                    if exc.code in (404, 429, 503) and idx + 1 < len(candidates_to_try):
+                        break
+                    raise last_err from None
+                except (TimeoutError, urllib.error.URLError, http.client.HTTPException) as exc:
+                    last_err = RuntimeError(f"Gemini transport/timeout error on model '{cand_model}': {exc}")
+                    if attempt == 0:
+                        time.sleep(0.3)
+                        continue
+                    if idx + 1 < len(candidates_to_try):
+                        break
+                    raise last_err from None
         raise last_err or RuntimeError("Gemini request failed")

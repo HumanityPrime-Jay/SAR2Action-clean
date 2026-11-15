@@ -19,11 +19,18 @@ from backend.app.advanced.legal_rag.semantic_retriever import (
     StructuredLegalQuery,
     build_structured_legal_query,
 )
+from backend.app.advanced.legal_rag.semantic_planner import (
+    SEMANTIC_TOPIC_ARTICLE_ROUTES,
+    GeminiLegalSemanticPlanner,
+    LegalSemanticIntent,
+    PlannerTrace,
+)
 from backend.app.advanced.legal_rag.service import LegalRAGResponse, LegalRAGService, VerifiedCitation
 
 __all__ = [
     "ConceptMatch",
     "DeterministicSemanticRetriever",
+    "GeminiLegalSemanticPlanner",
     "HybridLegalRetriever",
     "LAW_ID",
     "LAW_NAME",
@@ -33,8 +40,11 @@ __all__ = [
     "LegalDecisionResult",
     "LegalRAGResponse",
     "LegalRAGService",
+    "LegalSemanticIntent",
+    "PlannerTrace",
     "RuleEvaluationItem",
     "RuleState",
+    "SEMANTIC_TOPIC_ARTICLE_ROUTES",
     "StructuredLegalQuery",
     "VerifiedCitation",
     "analyze_legal_query",

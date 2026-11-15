@@ -211,6 +211,8 @@ class DeterministicSemanticRetriever:
         *,
         top_k: int = 5,
         rrf_k: int = 60,
+        extra_queries: list[str] | None = None,
+        candidate_articles: list[str] | None = None,
     ) -> dict[str, Any]:
         structured = build_structured_legal_query(query, self.concept_dict)
         exact_hits = self.exact_search(structured)
@@ -233,6 +235,32 @@ class DeterministicSemanticRetriever:
         _accumulate(exact_hits, 4.0, "exact")
         _accumulate(concept_hits, 2.2, "concept_ontology")
         _accumulate(fts_hits, 1.5, "fts5_bm25")
+
+        # Optional Gemini-Assisted Semantic Expansion (fused deterministically, never replacing original query)
+        if extra_queries:
+            for eq in extra_queries[:3]:
+                if not eq or not eq.strip():
+                    continue
+                eq_struct = build_structured_legal_query(eq, self.concept_dict)
+                eq_fts = self.fts5_bm25_search(eq_struct, limit=8)
+                eq_concepts = self.concept_structured_search(eq_struct)
+                _accumulate(eq_concepts, 1.4, "gemini_concept_expansion")
+                _accumulate(eq_fts, 1.1, "gemini_fts_expansion")
+
+        if candidate_articles:
+            verified_candidates: list[dict[str, Any]] = []
+            seen_cand: set[str] = set()
+            for art_no in candidate_articles[:8]:
+                art = self.db.get_article_exact(art_no)
+                if art and art["article_id"] not in seen_cand:
+                    seen_cand.add(art["article_id"])
+                    verified_candidates.append({
+                        **art,
+                        "citation_id": art["article_id"],
+                        "retrieval_channel": "gemini_routed_verified",
+                        "rank_pos": len(verified_candidates) + 1,
+                    })
+            _accumulate(verified_candidates, 1.3, "gemini_routed_verified")
 
         # Deterministic term-overlap & source-verification boost (purely lexical, zero AI models)
         boost_terms = [t for t in (structured.keyword_terms + structured.expanded_synonyms) if len(t) >= 2]

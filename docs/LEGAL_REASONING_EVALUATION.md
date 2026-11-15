@@ -18,8 +18,13 @@ Tested in `tests/advanced/legal_rag/test_200_evaluation.py`:
 - **20% Threshold & Exception Guard**: `loss_rate_pct = 15.0` without exception returns `NOT_ELIGIBLE_BELOW_20_PERCENT` (`0 NTD`); with `exception_applies = True` (Article 12-1), returns `POTENTIAL_RELIEF_ESTIMATE`.
 
 ## 3. Unit Test Verification
-`tests/advanced/legal_rag/test_200_evaluation.py` (`4/4` passed):
+`tests/advanced/legal_rag/test_200_evaluation.py` (`4/4` passed) & `tests/advanced/legal_rag/test_gemini_semantic_planner.py` (`5/5` passed, including live Gemini verification of `A29` & `A32`):
 - `test_benchmark_200_manifest_sha256_integrity`
 - `test_dev_120_retrieval_quality`
 - `test_legal_decision_evaluator_five_statuses`
 - `test_relief_amount_calculation_and_guards`
+- `test_legal_semantic_intent_pydantic_validation`
+- `test_gemini_planner_fallback_on_missing_key_and_error`
+- `test_known_four_critical_error_regressions_deterministic` (`A29`, `A32`, `A34`, `A37`)
+- `test_blind_regression_32_deterministic`
+- `test_live_gemini_semantic_planner_on_a29_and_a32`

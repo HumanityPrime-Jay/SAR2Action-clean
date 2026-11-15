@@ -18,5 +18,8 @@
 | **Unnecessary Repeated Questions** | **0** | Never re-asked for already-provided county or crop in tracked turns |
 | **Citation Grounding & Guardrails** | **8/8 (100.00%)** | Zero fabricated approvals or overclaims; prompt injection & unannounced relief requests safely rejected |
 | **Natural Response Compliance** | **8/8 (100.00%)** | Zero internal enum/JSON token leaks (`EXTRACTION_REQUIRES_REVIEW`, `POTENTIAL_RELIEF_ESTIMATE`, etc.) |
-| **Avg Latency** | **1319.92 ms** | Includes live Gemini API round-trips (`0.1 ms` on deterministic guard turns) |
-| **P95 Latency** | **5399.16 ms** | Turn 1 initial Gemini call |
+- **Avg Latency**: **1319.92 ms** | Includes live Gemini API round-trips (`0.1 ms` on deterministic guard turns)
+- **P95 Latency**: **5399.16 ms** | Turn 1 initial Gemini call
+
+## 3. Integration with `GeminiLegalSemanticPlanner`
+`FarmerConversationService` (`conversation.py`) now passes `use_gemini=self.use_gemini` to `LegalRAGService.query(...)`, enabling bilingual/colloquial legal query planning while keeping all legal citations, official announcements, and relief amount estimates strictly deterministic. See [GEMINI_LEGAL_SEMANTIC_RETRIEVAL.md](GEMINI_LEGAL_SEMANTIC_RETRIEVAL.md).

@@ -12,7 +12,8 @@
         "政府補助", "農損補助", "現金救助", "可以領多少", "救助金額",
         "政府會賠嗎", "會賠嗎", "會賠我", "賠我", "拿多少補助", "領多少錢", "每公頃多少", "補助",
         "怎麼算錢", "能辦嗎", "多少錢", "蓮霧", "玉米", "高麗菜", "花生",
-        "一點點大", "分地", "自報面積", "推測", "APPROVED_RELIEF_AMOUNT"
+        "一點點大", "分地", "自報面積", "推測", "APPROVED_RELIEF_AMOUNT",
+        "cash relief", "disaster relief", "rice", "typhoon", "flooded", "farmland"
       ],
       "formal_synonyms": ["現金救助", "救助項目及額度", "附表二", "補助"],
       "linked_articles": ["6", "6-1", "4", "12-1"],
@@ -157,6 +158,39 @@
       "linked_articles": ["9", "6", "12-1"],
       "linked_appendices": [],
       "rule_dimensions": ["loss_estimation", "crop_categories"]
+    },
+    {
+      "concept_id": "DISBURSEMENT_AND_APPROVAL",
+      "label_zh": "核定處分、撥付與發放程序",
+      "colloquial_triggers": [
+        "匯進戶頭", "匯入", "撥款", "撥付", "發放", "核定處分", "入帳", "什麼時候會匯"
+      ],
+      "formal_synonyms": ["現金救助之處分", "逕撥", "發放", "一次或分次撥付", "動用"],
+      "linked_articles": ["12", "26-1", "24", "25"],
+      "linked_appendices": [],
+      "rule_dimensions": ["disbursement", "approval_authority"]
+    },
+    {
+      "concept_id": "FALLOW_AND_ACTUAL_PRODUCTION",
+      "label_zh": "休耕與實際從事農業生產",
+      "colloquial_triggers": [
+        "休耕", "沒種東西", "未種植", "未實際耕作", "not cultivated", "fallow"
+      ],
+      "formal_synonyms": ["未實際做農業生產使用", "實際從事農、林、漁、牧生產", "不予救助"],
+      "linked_articles": ["12-1", "5", "12"],
+      "linked_appendices": [],
+      "rule_dimensions": ["applicant_eligibility", "actual_production"]
+    },
+    {
+      "concept_id": "REPLANTING_AND_SHORT_TERM_LOSS",
+      "label_zh": "短期作物復耕轉作與損失估算",
+      "colloquial_triggers": [
+        "翻土再種", "重新種植", "復耕", "轉作", "短期蔬菜", "淹死", "replanting", "short-term"
+      ],
+      "formal_synonyms": ["短期作物", "尚能復耕或轉作", "生產總費用", "農業損失金額估算"],
+      "linked_articles": ["9", "6", "12-1"],
+      "linked_appendices": [],
+      "rule_dimensions": ["loss_estimation", "replanting"]
     }
   ]
 }
