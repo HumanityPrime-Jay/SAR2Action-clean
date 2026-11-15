@@ -1,3 +1,4 @@
+# Ported from SAR2Action-clean-main.zip::backend/app/services/real_agent_runtime.py
 """Bounded real-model planner with an allowlisted local GIS tool executor.
 
 The model chooses functions. Trusted application context supplies case/AOI and
@@ -5,16 +6,31 @@ registered evidence IDs; the model never computes measurements or map geometry.
 """
 from __future__ import annotations
 
-import re
+from datetime import datetime, timezone
+import inspect
 import os
+import re
 import threading
 import time
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
-import httpx
 from fastapi import HTTPException
+import httpx
+from jsonschema import Draft202012Validator, ValidationError
 
+from backend.app.schemas.tw05_agent import (
+    Tw05AgentErrorInfo,
+    Tw05InvestigationRequest,
+    Tw05InvestigationResponse,
+    Tw05ToolTraceStep,
+)
 from backend.app.services.spatial_ranking import SpatialDataUnavailable
+from backend.app.services.tw05_agent_adapter import (
+    ContextLockViolationError,
+    TW05_SYSTEM_INSTRUCTION,
+    TW05_TOOLS,
+    Tw05AgentToolAdapter,
+)
 
 if TYPE_CHECKING:
     from backend.app.services.agent_orchestrator import AgentOrchestrator, InvestigateRequest
@@ -53,7 +69,12 @@ def redact_credentials(value: str) -> str:
     secret = os.getenv('GEMINI_API_KEY', '')
     if secret:
         value = value.replace(secret, '[REDACTED]')
-    return re.sub(r'AIza[A-Za-z0-9_\-\.]{20,}', '[REDACTED]', value)
+    google_secret = os.getenv('GOOGLE_API_KEY', '')
+    if google_secret:
+        value = value.replace(google_secret, '[REDACTED]')
+    value = re.sub(r'AIza[A-Za-z0-9_\-\.]{20,}', '[REDACTED]', value)
+    value = re.sub(r'[A-Za-z]:\\[^\s"\'<>]+', '[LOCAL_PATH_REDACTED]', value)
+    return re.sub(r'(?<![:/\w])/(?:Users|home|etc|var|tmp)/[^\s"\'<>]+', '[LOCAL_PATH_REDACTED]', value)
 
 
 class RealAgentRuntime:
@@ -94,7 +115,7 @@ class RealAgentRuntime:
 
         if not self.agent.model.configured:
             return blocked('No real model endpoint is configured.')
-        if req.data_mode == 'live' and not __import__('os').environ.get('SAR2ACTION_SPATIAL_MANIFEST'):
+        if req.data_mode == 'live' and not os.environ.get('SAR2ACTION_SPATIAL_MANIFEST'):
             return blocked('Live NISAR change raster and manifest are missing; synthetic data was not substituted.')
 
         # Deterministic observation preflight is a safety gate, not model planning.
@@ -332,3 +353,421 @@ class RealAgentRuntime:
                response=result.get('narrative', ''),
                duration_ms=round((time.perf_counter() - started) * 1000, 1))
         return result
+
+    def run_tw05(
+        self,
+        req: Tw05InvestigationRequest,
+        adapter: Tw05AgentToolAdapter,
+    ) -> Tw05InvestigationResponse:
+        """Execute bounded Gemini Function Calling or deterministic tool retrieval for TW-05."""
+        started = time.perf_counter()
+        safe_query = redact_credentials(req.question)
+        overview = adapter.taiwan_agro.get_overview()
+        if req.parcel_feature_id is not None:
+            adapter._parcel_context_from_tw01(overview, req.parcel_feature_id)
+
+        state: dict[str, Any] = {
+            'evidence_ledger': {},
+            'raw_facts': [],
+            'inferences': [],
+            'unknowns': [],
+            'limitations': [],
+            'map_actions': [],
+            'timeline': [],
+            'observed_changes': [],
+            'hypotheses': [],
+            'hypothesis_tests': [],
+            'parcel_summary': None,
+            'relief_assessment': None,
+            'optical_insufficient_parcel_flag': False,
+            'error': None,
+        }
+        tool_trace: list[Tw05ToolTraceStep] = []
+
+        def append_trace(
+            kind: str,
+            tool: str,
+            status: str,
+            *,
+            validated_arguments: dict[str, Any] | None = None,
+            source_references: list[str] | None = None,
+            evidence_ids: list[str] | None = None,
+            reason: str | None = None,
+            duration_ms: float | None = None,
+            detail: dict[str, Any] | None = None,
+        ) -> None:
+            tool_trace.append(Tw05ToolTraceStep(
+                step=len(tool_trace) + 1,
+                timestamp_utc=datetime.now(timezone.utc).isoformat(),
+                kind=kind,  # type: ignore[arg-type]
+                tool=tool,
+                status=status,  # type: ignore[arg-type]
+                validated_arguments=validated_arguments,
+                source_references=source_references or [],
+                evidence_ids=evidence_ids or [],
+                reason=redact_credentials(reason) if reason else None,
+                duration_ms=duration_ms,
+                detail=detail or {},
+            ))
+
+        append_trace(
+            'request',
+            'user_request',
+            'complete',
+            detail={
+                'case_id': req.case_id,
+                'aoi_id': req.aoi_id,
+                'locked_parcel_feature_id': req.parcel_feature_id,
+                'agent_mode': req.agent_mode,
+                'question': safe_query,
+            },
+        )
+
+        completed: set[str] = set()
+        rejected_count = 0
+        unauthorized_calls = 0
+        total_calls = 0
+
+        if req.agent_mode in ('gemini', 'real'):
+            candidate_model = getattr(self.agent, 'model', None)
+            candidate_gemini = getattr(self.agent, 'gemini_model', None)
+            if getattr(candidate_model, 'provider', None) == 'gemini':
+                planner = candidate_model
+            elif req.agent_mode == 'gemini':
+                planner = candidate_gemini if candidate_gemini is not None else candidate_model
+            else:
+                planner = (
+                    candidate_model
+                    if getattr(candidate_model, 'configured', False)
+                    else (candidate_gemini or candidate_model)
+                )
+
+            planner_provider = str(getattr(planner, 'provider', 'unknown') or 'unknown')
+            planner_model = getattr(planner, 'model', None)
+            if (
+                planner is None
+                or not getattr(planner, 'configured', False)
+                or (req.agent_mode == 'gemini' and planner_provider != 'gemini')
+            ):
+                err = Tw05AgentErrorInfo(
+                    error_code='GEMINI_NOT_CONFIGURED',
+                    message='Gemini API key or configured GeminiModelProvider is missing; fail-closed without deterministic fallback.',
+                )
+                append_trace('planner', 'gemini_tool_planner', 'blocked', reason=err.message)
+                append_trace(
+                    'final',
+                    'tw05_final_response',
+                    'blocked',
+                    reason=err.error_code,
+                    duration_ms=round((time.perf_counter() - started) * 1000, 1),
+                )
+                return adapter.build_blocked_response(
+                    req,
+                    overview,
+                    execution_mode='BLOCKED_NO_MODEL_CONFIGURED',
+                    model_provider=planner_provider,
+                    model_name=planner_model,
+                    error=err,
+                    tool_trace=tool_trace,
+                )
+
+            sig = inspect.signature(planner.choose_gis_tools)
+            accepts_sys = 'system_instruction' in sig.parameters or any(
+                p.kind == inspect.Parameter.VAR_KEYWORD for p in sig.parameters.values()
+            )
+            last_error: str | None = None
+
+            for round_index in range(3):
+                if time.perf_counter() - started > 60:
+                    err = Tw05AgentErrorInfo(
+                        error_code='PLANNING_TIMEOUT',
+                        message='TW-05 Gemini investigation exceeded 60-second safety timeout.',
+                        rejected_tool_count=rejected_count,
+                        unauthorized_tool_calls=unauthorized_calls,
+                    )
+                    append_trace('planner', 'gemini_tool_planner', 'failed', reason=err.message)
+                    append_trace(
+                        'final',
+                        'tw05_final_response',
+                        'blocked',
+                        reason=err.error_code,
+                        duration_ms=round((time.perf_counter() - started) * 1000, 1),
+                    )
+                    return adapter.build_blocked_response(
+                        req,
+                        overview,
+                        execution_mode='BLOCKED_MODEL_EXECUTION_FAILED',
+                        model_provider=planner_provider,
+                        model_name=planner_model,
+                        error=err,
+                        tool_trace=tool_trace,
+                    )
+
+                available = {name: spec for name, spec in TW05_TOOLS.items() if name not in completed}
+                if not available:
+                    break
+
+                trusted_context = adapter.build_trusted_context(
+                    req, overview, sorted(completed), last_error
+                )
+                last_error = None
+                call_start = time.perf_counter()
+                try:
+                    if accepts_sys:
+                        calls, _ = planner.choose_gis_tools(
+                            safe_query,
+                            available,
+                            trusted_context,
+                            system_instruction=TW05_SYSTEM_INSTRUCTION,
+                        )
+                    else:
+                        calls, _ = planner.choose_gis_tools(safe_query, available, trusted_context)
+                except Exception as exc:
+                    safe_reason = (
+                        redact_credentials(str(exc))
+                        if isinstance(exc, RuntimeError) and str(exc).startswith('Gemini request failed (')
+                        else type(exc).__name__
+                    )
+                    append_trace(
+                        'planner',
+                        'gemini_tool_planner',
+                        'failed',
+                        reason=safe_reason,
+                        duration_ms=round((time.perf_counter() - call_start) * 1000, 1),
+                        detail={'round': round_index + 1},
+                    )
+                    err = Tw05AgentErrorInfo(
+                        error_code='GEMINI_EXECUTION_ERROR',
+                        message=f'Real model tool selection failed ({safe_reason}); fail-closed without deterministic fallback.',
+                        rejected_tool_count=rejected_count,
+                        unauthorized_tool_calls=unauthorized_calls,
+                    )
+                    append_trace(
+                        'final',
+                        'tw05_final_response',
+                        'blocked',
+                        reason=err.error_code,
+                        duration_ms=round((time.perf_counter() - started) * 1000, 1),
+                    )
+                    return adapter.build_blocked_response(
+                        req,
+                        overview,
+                        execution_mode='BLOCKED_MODEL_EXECUTION_FAILED',
+                        model_provider=planner_provider,
+                        model_name=planner_model,
+                        error=err,
+                        tool_trace=tool_trace,
+                    )
+
+                append_trace(
+                    'planner',
+                    'gemini_tool_planner',
+                    'complete',
+                    duration_ms=round((time.perf_counter() - call_start) * 1000, 1),
+                    detail={
+                        'round': round_index + 1,
+                        'selected_tools': [str(item.get('name', '')) for item in calls[:5]],
+                    },
+                )
+
+                if not calls:
+                    if not completed and round_index == 0:
+                        last_error = 'No tool selected; pick at least one declared TW-05 tool.'
+                        continue
+                    break
+
+                for call in calls[:5]:
+                    total_calls += 1
+                    if total_calls > 8:
+                        err = Tw05AgentErrorInfo(
+                            error_code='CALL_LIMIT_EXCEEDED',
+                            message='TW-05 tool planner exceeded eight-call safety ceiling.',
+                            rejected_tool_count=rejected_count,
+                            unauthorized_tool_calls=unauthorized_calls,
+                        )
+                        append_trace(
+                            'final',
+                            'tw05_final_response',
+                            'blocked',
+                            reason=err.error_code,
+                            duration_ms=round((time.perf_counter() - started) * 1000, 1),
+                        )
+                        return adapter.build_blocked_response(
+                            req,
+                            overview,
+                            execution_mode='BLOCKED_MODEL_EXECUTION_FAILED',
+                            model_provider=planner_provider,
+                            model_name=planner_model,
+                            error=err,
+                            tool_trace=tool_trace,
+                        )
+
+                    name = str(call.get('name', ''))
+                    err_flag = call.get('error')
+                    if err_flag:
+                        rejected_count += 1
+                        if err_flag == 'unauthorized_tool':
+                            unauthorized_calls += 1
+                        append_trace('tool_call', name, 'rejected', reason=str(err_flag))
+                        last_error = f'{name}: {err_flag}; use advertised JSON Schema exactly.'
+                        continue
+
+                    if name in completed:
+                        continue
+
+                    args = call.get('arguments') if isinstance(call.get('arguments'), dict) else {}
+                    tool_start = time.perf_counter()
+                    try:
+                        adapter.validate_tool_call_context(name, args, req)
+                        Draft202012Validator(TW05_TOOLS[name]['parameters']).validate(args)
+                        validated_args = {
+                            'case_id': req.case_id,
+                            'aoi_id': req.aoi_id,
+                            'parcel_feature_id': req.parcel_feature_id,
+                        }
+                        append_trace(
+                            'tool_call',
+                            name,
+                            'executed',
+                            validated_arguments=validated_args,
+                        )
+                        tool_out = adapter.execute_tool(name, args, req, overview, state)
+                        append_trace(
+                            'tool_result',
+                            name,
+                            'complete',
+                            source_references=tool_out.get('source_references', []),
+                            evidence_ids=tool_out.get('evidence_ids', []),
+                            duration_ms=round((time.perf_counter() - tool_start) * 1000, 1),
+                        )
+                        completed.add(name)
+                    except (ContextLockViolationError, ValidationError, ValueError, HTTPException) as exc:
+                        rejected_count += 1
+                        if isinstance(exc, ContextLockViolationError) and 'Unauthorized tool' in str(exc):
+                            unauthorized_calls += 1
+                        reason_str = (
+                            type(exc).__name__ if isinstance(exc, HTTPException) else str(exc)
+                        )
+                        append_trace(
+                            'tool_call',
+                            name,
+                            'rejected',
+                            reason=reason_str,
+                            duration_ms=round((time.perf_counter() - tool_start) * 1000, 1),
+                        )
+                        last_error = f'{name}: rejected; keep locked case_id and locked parcel_feature_id.'
+
+            if not completed:
+                err = Tw05AgentErrorInfo(
+                    error_code='NO_VALID_TOOL_EXECUTED',
+                    message='Model failed to execute any valid allowlisted TW-05 tool within bounded rounds.',
+                    rejected_tool_count=rejected_count,
+                    unauthorized_tool_calls=unauthorized_calls,
+                )
+                append_trace(
+                    'final',
+                    'tw05_final_response',
+                    'blocked',
+                    reason=err.error_code,
+                    duration_ms=round((time.perf_counter() - started) * 1000, 1),
+                )
+                return adapter.build_blocked_response(
+                    req,
+                    overview,
+                    execution_mode='BLOCKED_NO_VALID_TOOL_SELECTED',
+                    model_provider=planner_provider,
+                    model_name=planner_model,
+                    error=err,
+                    tool_trace=tool_trace,
+                )
+
+            execution_mode = (
+                'GEMINI_FUNCTION_CALLING_LIVE'
+                if getattr(planner, 'is_live_api', False)
+                else 'GEMINI_FUNCTION_CALLING_MOCK'
+            )
+            model_provider = planner_provider
+            model_name = planner_model
+        else:
+            ordered_tools = (
+                'query_tw01_s1_parcel_changes',
+                'query_tw03_nisar_evidence',
+                'query_tw08_s2_optical_qa',
+                'query_tw07_statutory_relief',
+            )
+            for name in ordered_tools:
+                args: dict[str, Any] = {'case_id': req.case_id}
+                if name != 'query_tw03_nisar_evidence':
+                    args['parcel_feature_id'] = req.parcel_feature_id
+                validated_args = {
+                    'case_id': req.case_id,
+                    'aoi_id': req.aoi_id,
+                    'parcel_feature_id': req.parcel_feature_id,
+                }
+                append_trace('tool_call', name, 'executed', validated_arguments=validated_args)
+                tool_start = time.perf_counter()
+                tool_out = adapter.execute_tool(name, args, req, overview, state)
+                append_trace(
+                    'tool_result',
+                    name,
+                    'complete',
+                    source_references=tool_out.get('source_references', []),
+                    evidence_ids=tool_out.get('evidence_ids', []),
+                    duration_ms=round((time.perf_counter() - tool_start) * 1000, 1),
+                )
+                completed.add(name)
+            execution_mode = 'DETERMINISTIC_TOOL_PIPELINE'
+            model_provider = 'deterministic_adapter'
+            model_name = None
+
+        if rejected_count > 0 or unauthorized_calls > 0:
+            state['error'] = Tw05AgentErrorInfo(
+                error_code='PARTIAL_TOOL_REJECTIONS',
+                message=(
+                    f'{rejected_count} invalid or context-escaping tool call(s) were rejected during bounded execution.'
+                ),
+                rejected_tool_count=rejected_count,
+                unauthorized_tool_calls=unauthorized_calls,
+            )
+
+        append_trace(
+            'validation',
+            'claim_validator.validate_tw05_observed_fact',
+            'complete',
+            evidence_ids=list(state['evidence_ledger'].keys()),
+        )
+        append_trace(
+            'final',
+            'tw05_final_response',
+            'complete',
+            evidence_ids=list(state['evidence_ledger'].keys()),
+            duration_ms=round((time.perf_counter() - started) * 1000, 1),
+        )
+        try:
+            return adapter.finalize_and_validate(
+                req=req,
+                overview=overview,
+                state=state,
+                execution_mode=execution_mode,
+                model_provider=model_provider,
+                model_name=model_name,
+                tool_trace=tool_trace,
+            )
+        except ValueError as exc:
+            err = Tw05AgentErrorInfo(
+                error_code='EVIDENCE_VALIDATION_FAILED',
+                message=str(exc),
+                rejected_tool_count=rejected_count,
+                unauthorized_tool_calls=unauthorized_calls,
+            )
+            tool_trace[-2] = tool_trace[-2].model_copy(update={'status': 'failed', 'reason': str(exc)})
+            tool_trace[-1] = tool_trace[-1].model_copy(update={'status': 'blocked', 'reason': err.error_code})
+            return adapter.build_blocked_response(
+                req,
+                overview,
+                execution_mode='BLOCKED_VALIDATION_FAILED',
+                model_provider=model_provider,
+                model_name=model_name,
+                error=err,
+                tool_trace=tool_trace,
+            )

@@ -53,6 +53,10 @@ frontend/playwright-report/
 *.he5
 *.vrt
 *.cog
+!tw01/taiwan-agricultural-demo-v1/*.tif
+!tw03/nisar-demo-v1/*.tif
+tw01/inputs/
+tw03/inputs/
 data/cache/*
 !data/cache/.gitkeep
 data/raw/*

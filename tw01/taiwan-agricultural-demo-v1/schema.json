@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sar2action:taiwan-agricultural-demo:1.0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "algorithm_version",
+    "status",
+    "evidence_id",
+    "sensor",
+    "product",
+    "polarizations",
+    "aoi_href",
+    "scenes",
+    "farmland",
+    "official_background",
+    "limitations",
+    "analysis",
+    "missing_assets",
+    "asset_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "taiwan-agricultural-demo/1.0"
+    },
+    "algorithm_version": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "awaiting_rtc",
+        "validation_failed",
+        "verified_observation"
+      ]
+    },
+    "sensor": {
+      "const": "Sentinel-1D"
+    },
+    "product": {
+      "const": "OPERA_L2_RTC-S1_V1"
+    },
+    "evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "polarizations": {
+      "const": [
+        "VV",
+        "VH"
+      ]
+    },
+    "aoi_href": {
+      "const": "aoi.geojson"
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "scene_id",
+          "cmr_granule_id",
+          "acquisition_utc",
+          "assets"
+        ],
+        "properties": {
+          "scene_id": {
+            "type": "string"
+          },
+          "cmr_granule_id": {
+            "type": "string"
+          },
+          "acquisition_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "assets": {
+            "type": "object",
+            "required": [
+              "VV",
+              "VH",
+              "mask"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "VV": {
+                "$ref": "#/$defs/inputAsset"
+              },
+              "VH": {
+                "$ref": "#/$defs/inputAsset"
+              },
+              "mask": {
+                "$ref": "#/$defs/inputAsset"
+              }
+            }
+          }
+        }
+      }
+    },
+    "farmland": {
+      "type": "object",
+      "required": [
+        "href",
+        "source_url",
+        "parcel_count",
+        "source_sha256"
+      ],
+      "properties": {
+        "href": {
+          "const": "farmland.geojson"
+        },
+        "parcel_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/sha"
+        }
+      }
+    },
+    "official_background": {
+      "type": "object"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "analysis": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "required": [
+        "grid",
+        "aoi_pixel_count",
+        "common_valid_pixel_count",
+        "common_coverage_fraction",
+        "valid_by_epoch",
+        "mask_counts_by_epoch",
+        "polarizations",
+        "layers",
+        "preview_png",
+        "radiometry",
+        "parcel_screening"
+      ],
+      "properties": {
+        "common_valid_pixel_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "aoi_pixel_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "common_coverage_fraction": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "polarizations": {
+          "type": "object",
+          "required": [
+            "VV",
+            "VH"
+          ]
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "parcel_screening": {
+          "type": "object"
+        }
+      }
+    },
+    "missing_assets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "asset_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/sha"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "verified_observation"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "pattern": "^E-TW01-[0-9A-F]{16}$"
+          },
+          "analysis": {
+            "type": "object"
+          },
+          "missing_assets": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "evidence_id": {
+            "type": "null"
+          },
+          "analysis": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "inputAsset": {
+      "type": "object",
+      "required": [
+        "filename",
+        "expected_bytes",
+        "url",
+        "downloaded",
+        "sha256"
+      ],
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "expected_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "url": {
+          "type": "string"
+        },
+        "downloaded": {
+          "type": "boolean"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

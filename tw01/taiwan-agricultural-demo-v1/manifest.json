@@ -1,0 +1,2042 @@
+{
+  "schema_version": "taiwan-agricultural-demo/1.0",
+  "algorithm_version": "tw01-opera-rtc/1.0",
+  "status": "verified_observation",
+  "evidence_id": "E-TW01-EA46045A8B43AC0E",
+  "sensor": "Sentinel-1D",
+  "product": "OPERA_L2_RTC-S1_V1",
+  "polarizations": [
+    "VV",
+    "VH"
+  ],
+  "aoi_href": "aoi.geojson",
+  "scenes": [
+    {
+      "scene_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0",
+      "cmr_granule_id": "G4367321249-ASF",
+      "acquisition_utc": "2026-10-14T10:00:42Z",
+      "assets": {
+        "VV": {
+          "filename": "OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_VV.tif",
+          "expected_bytes": 7047381,
+          "url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_VV.tif",
+          "downloaded": true,
+          "sha256": "0f3d13c3bd75699f75fd062245d039a0877fc3fe93dca9c6d63ce13a544ffcdc"
+        },
+        "VH": {
+          "filename": "OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_VH.tif",
+          "expected_bytes": 7121884,
+          "url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_VH.tif",
+          "downloaded": true,
+          "sha256": "1c7fd98290b5be60fcd6333af0383459eca1c4418a756a6d41fc6c484f7abdd8"
+        },
+        "mask": {
+          "filename": "OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_mask.tif",
+          "expected_bytes": 59540,
+          "url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261014T100042Z_20261015T103540Z_S1D_30_v1.0_mask.tif",
+          "downloaded": true,
+          "sha256": "2bf0134d2c7b98bfefc757104e49cc5dd192f2a3c888abd5572ca96033e8d750"
+        }
+      }
+    },
+    {
+      "scene_id": "OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0",
+      "cmr_granule_id": "G4389918405-ASF",
+      "acquisition_utc": "2026-10-26T10:00:42Z",
+      "assets": {
+        "VV": {
+          "filename": "OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_VV.tif",
+          "expected_bytes": 7044578,
+          "url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_VV.tif",
+          "downloaded": true,
+          "sha256": "9dc9f7c1b83f9f576207fe9546f84b7b2e07e5506ef0ff83bbcf6eb502df27fe"
+        },
+        "VH": {
+          "filename": "OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_VH.tif",
+          "expected_bytes": 7094791,
+          "url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_VH.tif",
+          "downloaded": true,
+          "sha256": "d1be1185c1853c8d423f9961f94125edeee800ba2d4be17efda3c6974cc0c241"
+        },
+        "mask": {
+          "filename": "OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_mask.tif",
+          "expected_bytes": 59733,
+          "url": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T069-146197-IW1_20261026T100042Z_20261027T000531Z_S1D_30_v1.0_mask.tif",
+          "downloaded": true,
+          "sha256": "4874adc53d2f0b33996acc50f5510a800ea62de26ebd8e4f70dee23962ae657a"
+        }
+      }
+    }
+  ],
+  "farmland": {
+    "href": "farmland.geojson",
+    "preview_png": "farmland.png",
+    "source_url": "https://data.moa.gov.tw/GetOpenDataFile.aspx?id=I75&FileType=DataMore&RID=44143",
+    "parcel_count": 4863,
+    "source_sha256": "99ccfb2e333c9b1619fc54ec6924309be899e043a095ff5f5382526eb79063e1"
+  },
+  "official_background": {
+    "source": "Agriculture and Food Agency final report",
+    "url": "https://www.afa.gov.tw/cht/index.php?article_id=34384&code=list&flag=detail&ids=717",
+    "scope": "County-level reporting only",
+    "yunlin_reported_loss_twd": 157740000
+  },
+  "limitations": [
+    "cause_not_determined",
+    "SAR backscatter change can reflect moisture, irrigation, harvest, crop growth or acquisition effects.",
+    "Short-lived inundation may have receded by the post-event acquisition.",
+    "Radar observations do not establish crop damage, yield loss, financial loss or aid eligibility.",
+    "Parcel boundaries do not identify event-date crop type or provide ground truth."
+  ],
+  "analysis": {
+    "grid": {
+      "crs": "EPSG:32651",
+      "spacing_m": [
+        30,
+        30
+      ],
+      "shape": [
+        170,
+        170
+      ],
+      "transform": [
+        30.0,
+        0.0,
+        222150.0,
+        0.0,
+        -30.0,
+        2627280.0
+      ]
+    },
+    "aoi_pixel_count": 27785,
+    "common_valid_pixel_count": 27785,
+    "common_coverage_fraction": 1.0,
+    "valid_by_epoch": [
+      {
+        "VV": 27785,
+        "VH": 27785
+      },
+      {
+        "VV": 27785,
+        "VH": 27785
+      }
+    ],
+    "mask_counts_by_epoch": [
+      {
+        "0": 27785,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "255": 0
+      },
+      {
+        "0": 27785,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "255": 0
+      }
+    ],
+    "rtc_tags_by_epoch": [
+      {
+        "VV": {
+          "ABSOLUTE_ORBIT_NUMBER": "5010",
+          "BURST_ID": "t069_146197_iw1",
+          "INPUT_DEM_SOURCE": "Digital Elevation Model (DEM) for the NASA OPERA project version 1.1 (v1.1) based on the Copernicus DEM 30-m and Copernicus 90-m referenced to the WGS84 ellipsoid",
+          "INPUT_ORBIT_FILES": "['S1D_OPER_AUX_RESORB_OPOD_20261014T103420_V20261014T063649_20261014T101409.EOF']",
+          "ISCE3_VERSION": "0.15.0",
+          "ORBIT_PASS_DIRECTION": "ascending",
+          "PROCESSING_INFORMATION_OUTPUT_BACKSCATTER_DECIBEL_CONVERSION_EQUATION": "10*log10(backscatter_linear)",
+          "PROCESSING_INFORMATION_RADIOMETRIC_TERRAIN_CORRECTION_ALGORITHM": "Area-Based SAR Radiometric Terrain Correction (RTC-AP)",
+          "PRODUCT_VERSION": "1.0",
+          "SOFTWARE_VERSION": "1.0.5",
+          "SOURCE_DATA_SOFTWARE_VERSION": "4.3"
+        },
+        "VH": {
+          "ABSOLUTE_ORBIT_NUMBER": "5010",
+          "BURST_ID": "t069_146197_iw1",
+          "INPUT_DEM_SOURCE": "Digital Elevation Model (DEM) for the NASA OPERA project version 1.1 (v1.1) based on the Copernicus DEM 30-m and Copernicus 90-m referenced to the WGS84 ellipsoid",
+          "INPUT_ORBIT_FILES": "['S1D_OPER_AUX_RESORB_OPOD_20261014T103420_V20261014T063649_20261014T101409.EOF']",
+          "ISCE3_VERSION": "0.15.0",
+          "ORBIT_PASS_DIRECTION": "ascending",
+          "PROCESSING_INFORMATION_OUTPUT_BACKSCATTER_DECIBEL_CONVERSION_EQUATION": "10*log10(backscatter_linear)",
+          "PROCESSING_INFORMATION_RADIOMETRIC_TERRAIN_CORRECTION_ALGORITHM": "Area-Based SAR Radiometric Terrain Correction (RTC-AP)",
+          "PRODUCT_VERSION": "1.0",
+          "SOFTWARE_VERSION": "1.0.5",
+          "SOURCE_DATA_SOFTWARE_VERSION": "4.3"
+        },
+        "mask": {
+          "ABSOLUTE_ORBIT_NUMBER": "5010",
+          "BURST_ID": "t069_146197_iw1",
+          "INPUT_DEM_SOURCE": "Digital Elevation Model (DEM) for the NASA OPERA project version 1.1 (v1.1) based on the Copernicus DEM 30-m and Copernicus 90-m referenced to the WGS84 ellipsoid",
+          "INPUT_ORBIT_FILES": "['S1D_OPER_AUX_RESORB_OPOD_20261014T103420_V20261014T063649_20261014T101409.EOF']",
+          "ISCE3_VERSION": "0.15.0",
+          "ORBIT_PASS_DIRECTION": "ascending",
+          "PROCESSING_INFORMATION_OUTPUT_BACKSCATTER_DECIBEL_CONVERSION_EQUATION": "10*log10(backscatter_linear)",
+          "PROCESSING_INFORMATION_RADIOMETRIC_TERRAIN_CORRECTION_ALGORITHM": "Area-Based SAR Radiometric Terrain Correction (RTC-AP)",
+          "PRODUCT_VERSION": "1.0",
+          "SOFTWARE_VERSION": "1.0.5",
+          "SOURCE_DATA_SOFTWARE_VERSION": "4.3"
+        }
+      },
+      {
+        "VV": {
+          "ABSOLUTE_ORBIT_NUMBER": "5185",
+          "BURST_ID": "t069_146197_iw1",
+          "INPUT_DEM_SOURCE": "Digital Elevation Model (DEM) for the NASA OPERA project version 1.1 (v1.1) based on the Copernicus DEM 30-m and Copernicus 90-m referenced to the WGS84 ellipsoid",
+          "INPUT_ORBIT_FILES": "['S1D_OPER_AUX_RESORB_OPOD_20261026T103433_V20261026T063650_20261026T101410.EOF']",
+          "ISCE3_VERSION": "0.15.0",
+          "ORBIT_PASS_DIRECTION": "ascending",
+          "PROCESSING_INFORMATION_OUTPUT_BACKSCATTER_DECIBEL_CONVERSION_EQUATION": "10*log10(backscatter_linear)",
+          "PROCESSING_INFORMATION_RADIOMETRIC_TERRAIN_CORRECTION_ALGORITHM": "Area-Based SAR Radiometric Terrain Correction (RTC-AP)",
+          "PRODUCT_VERSION": "1.0",
+          "SOFTWARE_VERSION": "1.0.5",
+          "SOURCE_DATA_SOFTWARE_VERSION": "4.11"
+        },
+        "VH": {
+          "ABSOLUTE_ORBIT_NUMBER": "5185",
+          "BURST_ID": "t069_146197_iw1",
+          "INPUT_DEM_SOURCE": "Digital Elevation Model (DEM) for the NASA OPERA project version 1.1 (v1.1) based on the Copernicus DEM 30-m and Copernicus 90-m referenced to the WGS84 ellipsoid",
+          "INPUT_ORBIT_FILES": "['S1D_OPER_AUX_RESORB_OPOD_20261026T103433_V20261026T063650_20261026T101410.EOF']",
+          "ISCE3_VERSION": "0.15.0",
+          "ORBIT_PASS_DIRECTION": "ascending",
+          "PROCESSING_INFORMATION_OUTPUT_BACKSCATTER_DECIBEL_CONVERSION_EQUATION": "10*log10(backscatter_linear)",
+          "PROCESSING_INFORMATION_RADIOMETRIC_TERRAIN_CORRECTION_ALGORITHM": "Area-Based SAR Radiometric Terrain Correction (RTC-AP)",
+          "PRODUCT_VERSION": "1.0",
+          "SOFTWARE_VERSION": "1.0.5",
+          "SOURCE_DATA_SOFTWARE_VERSION": "4.11"
+        },
+        "mask": {
+          "ABSOLUTE_ORBIT_NUMBER": "5185",
+          "BURST_ID": "t069_146197_iw1",
+          "INPUT_DEM_SOURCE": "Digital Elevation Model (DEM) for the NASA OPERA project version 1.1 (v1.1) based on the Copernicus DEM 30-m and Copernicus 90-m referenced to the WGS84 ellipsoid",
+          "INPUT_ORBIT_FILES": "['S1D_OPER_AUX_RESORB_OPOD_20261026T103433_V20261026T063650_20261026T101410.EOF']",
+          "ISCE3_VERSION": "0.15.0",
+          "ORBIT_PASS_DIRECTION": "ascending",
+          "PROCESSING_INFORMATION_OUTPUT_BACKSCATTER_DECIBEL_CONVERSION_EQUATION": "10*log10(backscatter_linear)",
+          "PROCESSING_INFORMATION_RADIOMETRIC_TERRAIN_CORRECTION_ALGORITHM": "Area-Based SAR Radiometric Terrain Correction (RTC-AP)",
+          "PRODUCT_VERSION": "1.0",
+          "SOFTWARE_VERSION": "1.0.5",
+          "SOURCE_DATA_SOFTWARE_VERSION": "4.11"
+        }
+      }
+    ],
+    "polarizations": {
+      "VV": {
+        "t0_db": {
+          "mean": -7.8143,
+          "median": -8.3141,
+          "std": 3.8697,
+          "min": -21.6466,
+          "max": 17.6285,
+          "p10": -12.0668,
+          "p25": -10.3306,
+          "p50": -8.3141,
+          "p75": -5.9281,
+          "p90": -2.9605
+        },
+        "t1_db": {
+          "mean": -7.5611,
+          "median": -8.0176,
+          "std": 3.9204,
+          "min": -21.9521,
+          "max": 17.7907,
+          "p10": -11.9567,
+          "p25": -10.1007,
+          "p50": -8.0176,
+          "p75": -5.5776,
+          "p90": -2.6519
+        },
+        "delta_db": {
+          "mean": 0.2532,
+          "median": 0.2231,
+          "std": 2.399,
+          "min": -13.2635,
+          "max": 17.3154,
+          "p10": -2.6323,
+          "p25": -1.2292,
+          "p50": 0.2231,
+          "p75": 1.6955,
+          "p90": 3.1332
+        }
+      },
+      "VH": {
+        "t0_db": {
+          "mean": -16.5855,
+          "median": -16.4243,
+          "std": 3.5282,
+          "min": -33.4369,
+          "max": 21.5269,
+          "p10": -21.0743,
+          "p25": -18.7586,
+          "p50": -16.4243,
+          "p75": -14.4021,
+          "p90": -12.5922
+        },
+        "t1_db": {
+          "mean": -15.85,
+          "median": -15.6244,
+          "std": 3.4472,
+          "min": -30.3297,
+          "max": 21.7913,
+          "p10": -20.3052,
+          "p25": -17.9476,
+          "p50": -15.6244,
+          "p75": -13.6661,
+          "p90": -11.9819
+        },
+        "delta_db": {
+          "mean": 0.7355,
+          "median": 0.6917,
+          "std": 2.5703,
+          "min": -13.5951,
+          "max": 20.3075,
+          "p10": -2.4071,
+          "p25": -0.8867,
+          "p50": 0.6917,
+          "p75": 2.3801,
+          "p90": 3.9288
+        }
+      }
+    },
+    "layers": [
+      {
+        "polarization": "VV",
+        "href": "delta_vv_db.tif",
+        "unit": "dB",
+        "overlay": {
+          "href": "delta_vv_overlay.png",
+          "crs": "EPSG:3857",
+          "render_range_db": [
+            -6,
+            6
+          ],
+          "coordinates_lon_lat": [
+            [
+              120.27454615907021,
+              23.733444768656703
+            ],
+            [
+              120.32555041136553,
+              23.733444768656703
+            ],
+            [
+              120.32555041136553,
+              23.686475712020275
+            ],
+            [
+              120.27454615907021,
+              23.686475712020275
+            ]
+          ]
+        }
+      },
+      {
+        "polarization": "VH",
+        "href": "delta_vh_db.tif",
+        "unit": "dB",
+        "overlay": {
+          "href": "delta_vh_overlay.png",
+          "crs": "EPSG:3857",
+          "render_range_db": [
+            -6,
+            6
+          ],
+          "coordinates_lon_lat": [
+            [
+              120.27454615907021,
+              23.733444768656703
+            ],
+            [
+              120.32555041136553,
+              23.733444768656703
+            ],
+            [
+              120.32555041136553,
+              23.686475712020275
+            ],
+            [
+              120.27454615907021,
+              23.686475712020275
+            ]
+          ]
+        }
+      }
+    ],
+    "preview_png": "radar-change.png",
+    "radiometry": {
+      "comparison": "Same sensor, burst and RTC product version. Values are gamma0 power.",
+      "offset_correction_applied": false,
+      "upstream_s1_processor_versions": [
+        "4.3",
+        "4.11"
+      ],
+      "aoi_median_delta_db": {
+        "VV": 0.2231,
+        "VH": 0.6917
+      },
+      "stable_reference_test": "Not independently established. Inspect AOI-wide shift and candidate controls before interpreting.",
+      "delta_formula": "10*log10(power_t1) - 10*log10(power_t0)"
+    },
+    "candidate_areas": {
+      "href": "candidate-areas.tif",
+      "candidate_pixel_count": 5603,
+      "criteria": "Absolute delta >= 3 dB in VV or VH, at least 9 edge-connected pixels; exploratory only.",
+      "classes": {
+        "0": "other common-valid sample",
+        "1": "radar change candidate",
+        "255": "no common valid observation"
+      }
+    },
+    "parcel_screening": {
+      "eligible_parcels": 1070,
+      "candidate_count": 181,
+      "criteria": "At least 5 valid pixel centers and 80% coverage; abs(median delta) >= 3 dB in either channel. Exploratory threshold, not a damage classifier.",
+      "candidates": [
+        {
+          "parcel_feature_id": 74,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -1.315,
+            "VH": 3.8209
+          }
+        },
+        {
+          "parcel_feature_id": 97,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.9972,
+            "VH": 6.5185
+          }
+        },
+        {
+          "parcel_feature_id": 139,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.2158,
+            "VH": 5.3173
+          }
+        },
+        {
+          "parcel_feature_id": 150,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.9658,
+            "VH": 4.586
+          }
+        },
+        {
+          "parcel_feature_id": 174,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.0669,
+            "VH": 2.0121
+          }
+        },
+        {
+          "parcel_feature_id": 193,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.3639,
+            "VH": 3.2718
+          }
+        },
+        {
+          "parcel_feature_id": 195,
+          "valid_pixel_count": 16,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.3196,
+            "VH": 4.9428
+          }
+        },
+        {
+          "parcel_feature_id": 205,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.5408,
+            "VH": 1.7668
+          }
+        },
+        {
+          "parcel_feature_id": 213,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.7097,
+            "VH": -0.1386
+          }
+        },
+        {
+          "parcel_feature_id": 216,
+          "valid_pixel_count": 10,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.7498,
+            "VH": 3.0269
+          }
+        },
+        {
+          "parcel_feature_id": 225,
+          "valid_pixel_count": 10,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.8363,
+            "VH": -4.4257
+          }
+        },
+        {
+          "parcel_feature_id": 243,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.9732,
+            "VH": 4.9018
+          }
+        },
+        {
+          "parcel_feature_id": 292,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.8395,
+            "VH": 1.7379
+          }
+        },
+        {
+          "parcel_feature_id": 294,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.1677,
+            "VH": -0.2741
+          }
+        },
+        {
+          "parcel_feature_id": 323,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.5581,
+            "VH": -4.1512
+          }
+        },
+        {
+          "parcel_feature_id": 332,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -1.3534,
+            "VH": 3.9964
+          }
+        },
+        {
+          "parcel_feature_id": 352,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.5765,
+            "VH": 4.8346
+          }
+        },
+        {
+          "parcel_feature_id": 356,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.2524,
+            "VH": 4.1842
+          }
+        },
+        {
+          "parcel_feature_id": 357,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.3137,
+            "VH": 5.2906
+          }
+        },
+        {
+          "parcel_feature_id": 366,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.1009,
+            "VH": 0.6758
+          }
+        },
+        {
+          "parcel_feature_id": 369,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 11.2281,
+            "VH": 5.1326
+          }
+        },
+        {
+          "parcel_feature_id": 373,
+          "valid_pixel_count": 10,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.253,
+            "VH": 0.6991
+          }
+        },
+        {
+          "parcel_feature_id": 426,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.4784,
+            "VH": 3.8124
+          }
+        },
+        {
+          "parcel_feature_id": 437,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.5481,
+            "VH": 0.8561
+          }
+        },
+        {
+          "parcel_feature_id": 441,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.8519,
+            "VH": 3.8483
+          }
+        },
+        {
+          "parcel_feature_id": 446,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.8101,
+            "VH": -5.9298
+          }
+        },
+        {
+          "parcel_feature_id": 447,
+          "valid_pixel_count": 14,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -2.5305,
+            "VH": -5.05
+          }
+        },
+        {
+          "parcel_feature_id": 462,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.8315,
+            "VH": -0.767
+          }
+        },
+        {
+          "parcel_feature_id": 465,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 5.8574,
+            "VH": 1.1563
+          }
+        },
+        {
+          "parcel_feature_id": 541,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.6899,
+            "VH": 4.1797
+          }
+        },
+        {
+          "parcel_feature_id": 542,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.0116,
+            "VH": 1.267
+          }
+        },
+        {
+          "parcel_feature_id": 544,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.8004,
+            "VH": 4.0327
+          }
+        },
+        {
+          "parcel_feature_id": 551,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.3476,
+            "VH": 4.2949
+          }
+        },
+        {
+          "parcel_feature_id": 635,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.9766,
+            "VH": 4.2278
+          }
+        },
+        {
+          "parcel_feature_id": 636,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.333,
+            "VH": 3.5092
+          }
+        },
+        {
+          "parcel_feature_id": 641,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.4276,
+            "VH": 3.7621
+          }
+        },
+        {
+          "parcel_feature_id": 647,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.0632,
+            "VH": -6.5144
+          }
+        },
+        {
+          "parcel_feature_id": 681,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.4193,
+            "VH": 4.6701
+          }
+        },
+        {
+          "parcel_feature_id": 789,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.0552,
+            "VH": 0.4036
+          }
+        },
+        {
+          "parcel_feature_id": 850,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.006,
+            "VH": 3.224
+          }
+        },
+        {
+          "parcel_feature_id": 852,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.4062,
+            "VH": 4.4714
+          }
+        },
+        {
+          "parcel_feature_id": 884,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.2364,
+            "VH": -8.0374
+          }
+        },
+        {
+          "parcel_feature_id": 906,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.1422,
+            "VH": 0.5248
+          }
+        },
+        {
+          "parcel_feature_id": 979,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.7925,
+            "VH": 0.8367
+          }
+        },
+        {
+          "parcel_feature_id": 1025,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.0555,
+            "VH": 4.0084
+          }
+        },
+        {
+          "parcel_feature_id": 1030,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.5861,
+            "VH": 0.3799
+          }
+        },
+        {
+          "parcel_feature_id": 1040,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.5329,
+            "VH": -2.3818
+          }
+        },
+        {
+          "parcel_feature_id": 1056,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -5.5991,
+            "VH": 2.7176
+          }
+        },
+        {
+          "parcel_feature_id": 1098,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.1633,
+            "VH": -1.5188
+          }
+        },
+        {
+          "parcel_feature_id": 1120,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -5.0141,
+            "VH": 2.5258
+          }
+        },
+        {
+          "parcel_feature_id": 1131,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.3771,
+            "VH": 3.1669
+          }
+        },
+        {
+          "parcel_feature_id": 1149,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.5205,
+            "VH": -1.0643
+          }
+        },
+        {
+          "parcel_feature_id": 1168,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.4594,
+            "VH": 3.9867
+          }
+        },
+        {
+          "parcel_feature_id": 1181,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.4937,
+            "VH": 1.1797
+          }
+        },
+        {
+          "parcel_feature_id": 1198,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.9498,
+            "VH": 6.0371
+          }
+        },
+        {
+          "parcel_feature_id": 1217,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.4613,
+            "VH": -0.8794
+          }
+        },
+        {
+          "parcel_feature_id": 1224,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.1063,
+            "VH": 3.0829
+          }
+        },
+        {
+          "parcel_feature_id": 1229,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.5687,
+            "VH": 3.5197
+          }
+        },
+        {
+          "parcel_feature_id": 1251,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.7048,
+            "VH": 4.2357
+          }
+        },
+        {
+          "parcel_feature_id": 1255,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.565,
+            "VH": 2.8209
+          }
+        },
+        {
+          "parcel_feature_id": 1270,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.1558,
+            "VH": 4.1968
+          }
+        },
+        {
+          "parcel_feature_id": 1299,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.1603,
+            "VH": 3.846
+          }
+        },
+        {
+          "parcel_feature_id": 1344,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.3414,
+            "VH": 3.2683
+          }
+        },
+        {
+          "parcel_feature_id": 1369,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.7476,
+            "VH": -3.562
+          }
+        },
+        {
+          "parcel_feature_id": 1391,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.3695,
+            "VH": 0.6927
+          }
+        },
+        {
+          "parcel_feature_id": 1394,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.1219,
+            "VH": 1.6609
+          }
+        },
+        {
+          "parcel_feature_id": 1413,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 6.8961,
+            "VH": 3.3428
+          }
+        },
+        {
+          "parcel_feature_id": 1445,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.5559,
+            "VH": 3.074
+          }
+        },
+        {
+          "parcel_feature_id": 1446,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.5723,
+            "VH": 4.1015
+          }
+        },
+        {
+          "parcel_feature_id": 1523,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.9565,
+            "VH": 3.6423
+          }
+        },
+        {
+          "parcel_feature_id": 1526,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.5994,
+            "VH": 0.7808
+          }
+        },
+        {
+          "parcel_feature_id": 1560,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -6.485,
+            "VH": -2.9396
+          }
+        },
+        {
+          "parcel_feature_id": 1571,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.6221,
+            "VH": 3.9661
+          }
+        },
+        {
+          "parcel_feature_id": 1579,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.1675,
+            "VH": 4.3812
+          }
+        },
+        {
+          "parcel_feature_id": 1580,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.5568,
+            "VH": 3.2952
+          }
+        },
+        {
+          "parcel_feature_id": 1605,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.7297,
+            "VH": 4.4232
+          }
+        },
+        {
+          "parcel_feature_id": 1627,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 6.0482,
+            "VH": 3.0622
+          }
+        },
+        {
+          "parcel_feature_id": 1644,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.8439,
+            "VH": 3.2725
+          }
+        },
+        {
+          "parcel_feature_id": 1724,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.1361,
+            "VH": 0.8162
+          }
+        },
+        {
+          "parcel_feature_id": 1750,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.6226,
+            "VH": -0.644
+          }
+        },
+        {
+          "parcel_feature_id": 1772,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.6959,
+            "VH": 3.3943
+          }
+        },
+        {
+          "parcel_feature_id": 1778,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.6279,
+            "VH": 1.5823
+          }
+        },
+        {
+          "parcel_feature_id": 1791,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.9632,
+            "VH": 3.0464
+          }
+        },
+        {
+          "parcel_feature_id": 1936,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.1152,
+            "VH": 3.9411
+          }
+        },
+        {
+          "parcel_feature_id": 1973,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 5.6143,
+            "VH": 1.5576
+          }
+        },
+        {
+          "parcel_feature_id": 1979,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.7729,
+            "VH": 2.1644
+          }
+        },
+        {
+          "parcel_feature_id": 2050,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.7263,
+            "VH": 3.1318
+          }
+        },
+        {
+          "parcel_feature_id": 2060,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.3196,
+            "VH": 4.0504
+          }
+        },
+        {
+          "parcel_feature_id": 2073,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.6778,
+            "VH": 4.0793
+          }
+        },
+        {
+          "parcel_feature_id": 2168,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.8754,
+            "VH": -3.281
+          }
+        },
+        {
+          "parcel_feature_id": 2198,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -4.7638,
+            "VH": 0.5822
+          }
+        },
+        {
+          "parcel_feature_id": 2259,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.9055,
+            "VH": 3.4423
+          }
+        },
+        {
+          "parcel_feature_id": 2284,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.7232,
+            "VH": 0.0705
+          }
+        },
+        {
+          "parcel_feature_id": 2304,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 5.0648,
+            "VH": 3.4238
+          }
+        },
+        {
+          "parcel_feature_id": 2307,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -5.8348,
+            "VH": -5.7105
+          }
+        },
+        {
+          "parcel_feature_id": 2329,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.2689,
+            "VH": 4.2082
+          }
+        },
+        {
+          "parcel_feature_id": 2355,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.814,
+            "VH": 3.1248
+          }
+        },
+        {
+          "parcel_feature_id": 2405,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.117,
+            "VH": -0.7185
+          }
+        },
+        {
+          "parcel_feature_id": 2411,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.2711,
+            "VH": 3.2146
+          }
+        },
+        {
+          "parcel_feature_id": 2412,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.618,
+            "VH": 3.4376
+          }
+        },
+        {
+          "parcel_feature_id": 2431,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.8552,
+            "VH": 3.2528
+          }
+        },
+        {
+          "parcel_feature_id": 2432,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.0281,
+            "VH": 3.0957
+          }
+        },
+        {
+          "parcel_feature_id": 2474,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -5.7741,
+            "VH": -1.2317
+          }
+        },
+        {
+          "parcel_feature_id": 2492,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.5971,
+            "VH": 3.0032
+          }
+        },
+        {
+          "parcel_feature_id": 2502,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.671,
+            "VH": 3.0581
+          }
+        },
+        {
+          "parcel_feature_id": 2511,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.8234,
+            "VH": 4.1074
+          }
+        },
+        {
+          "parcel_feature_id": 2514,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.0989,
+            "VH": 4.2648
+          }
+        },
+        {
+          "parcel_feature_id": 2524,
+          "valid_pixel_count": 12,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.7446,
+            "VH": 3.0226
+          }
+        },
+        {
+          "parcel_feature_id": 2578,
+          "valid_pixel_count": 12,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -2.5948,
+            "VH": -3.0183
+          }
+        },
+        {
+          "parcel_feature_id": 2603,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.9206,
+            "VH": 3.8582
+          }
+        },
+        {
+          "parcel_feature_id": 2635,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.2914,
+            "VH": 3.6868
+          }
+        },
+        {
+          "parcel_feature_id": 2650,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.8198,
+            "VH": 3.7561
+          }
+        },
+        {
+          "parcel_feature_id": 2687,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.3242,
+            "VH": 0.9
+          }
+        },
+        {
+          "parcel_feature_id": 2691,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.9242,
+            "VH": -3.3314
+          }
+        },
+        {
+          "parcel_feature_id": 2780,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.2862,
+            "VH": 3.4201
+          }
+        },
+        {
+          "parcel_feature_id": 2814,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -5.3939,
+            "VH": -5.0989
+          }
+        },
+        {
+          "parcel_feature_id": 2903,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.4864,
+            "VH": -2.3045
+          }
+        },
+        {
+          "parcel_feature_id": 2943,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.774,
+            "VH": 0.8364
+          }
+        },
+        {
+          "parcel_feature_id": 3047,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.5161,
+            "VH": 3.101
+          }
+        },
+        {
+          "parcel_feature_id": 3048,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.5715,
+            "VH": 0.6386
+          }
+        },
+        {
+          "parcel_feature_id": 3072,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.1352,
+            "VH": 3.0496
+          }
+        },
+        {
+          "parcel_feature_id": 3084,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.4363,
+            "VH": 3.8951
+          }
+        },
+        {
+          "parcel_feature_id": 3089,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.6411,
+            "VH": -2.0017
+          }
+        },
+        {
+          "parcel_feature_id": 3090,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -2.6177,
+            "VH": 3.1134
+          }
+        },
+        {
+          "parcel_feature_id": 3113,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.1367,
+            "VH": -4.817
+          }
+        },
+        {
+          "parcel_feature_id": 3117,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.1234,
+            "VH": -3.2525
+          }
+        },
+        {
+          "parcel_feature_id": 3149,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -1.2614,
+            "VH": 3.0
+          }
+        },
+        {
+          "parcel_feature_id": 3197,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.5667,
+            "VH": 0.6705
+          }
+        },
+        {
+          "parcel_feature_id": 3198,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.9124,
+            "VH": 3.7245
+          }
+        },
+        {
+          "parcel_feature_id": 3259,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.3153,
+            "VH": 2.9144
+          }
+        },
+        {
+          "parcel_feature_id": 3278,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.3193,
+            "VH": 3.4483
+          }
+        },
+        {
+          "parcel_feature_id": 3299,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.0316,
+            "VH": 3.4598
+          }
+        },
+        {
+          "parcel_feature_id": 3419,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.5344,
+            "VH": 4.2066
+          }
+        },
+        {
+          "parcel_feature_id": 3492,
+          "valid_pixel_count": 13,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.4881,
+            "VH": -1.9126
+          }
+        },
+        {
+          "parcel_feature_id": 3577,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.0472,
+            "VH": 4.3357
+          }
+        },
+        {
+          "parcel_feature_id": 3579,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.2865,
+            "VH": 3.0125
+          }
+        },
+        {
+          "parcel_feature_id": 3588,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.0902,
+            "VH": 3.6882
+          }
+        },
+        {
+          "parcel_feature_id": 3610,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.0085,
+            "VH": 4.413
+          }
+        },
+        {
+          "parcel_feature_id": 3629,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 10.9929,
+            "VH": 2.9753
+          }
+        },
+        {
+          "parcel_feature_id": 3636,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.032,
+            "VH": 3.0798
+          }
+        },
+        {
+          "parcel_feature_id": 3643,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.5225,
+            "VH": 5.2574
+          }
+        },
+        {
+          "parcel_feature_id": 3661,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.0369,
+            "VH": 4.8598
+          }
+        },
+        {
+          "parcel_feature_id": 3691,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.2192,
+            "VH": 5.4424
+          }
+        },
+        {
+          "parcel_feature_id": 3700,
+          "valid_pixel_count": 11,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.4728,
+            "VH": 3.6735
+          }
+        },
+        {
+          "parcel_feature_id": 3723,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -0.1599,
+            "VH": 3.4723
+          }
+        },
+        {
+          "parcel_feature_id": 3732,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.7014,
+            "VH": 3.147
+          }
+        },
+        {
+          "parcel_feature_id": 3798,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.4598,
+            "VH": 3.5033
+          }
+        },
+        {
+          "parcel_feature_id": 3814,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.0602,
+            "VH": 3.7545
+          }
+        },
+        {
+          "parcel_feature_id": 3854,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.1622,
+            "VH": 3.5113
+          }
+        },
+        {
+          "parcel_feature_id": 3891,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.2956,
+            "VH": 1.5656
+          }
+        },
+        {
+          "parcel_feature_id": 3892,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.2416,
+            "VH": 0.0891
+          }
+        },
+        {
+          "parcel_feature_id": 3914,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.0786,
+            "VH": 0.44
+          }
+        },
+        {
+          "parcel_feature_id": 3953,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.3176,
+            "VH": 4.5283
+          }
+        },
+        {
+          "parcel_feature_id": 3985,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.1993,
+            "VH": 3.218
+          }
+        },
+        {
+          "parcel_feature_id": 4024,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -6.0859,
+            "VH": -3.3596
+          }
+        },
+        {
+          "parcel_feature_id": 4088,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 6.9884,
+            "VH": 1.8908
+          }
+        },
+        {
+          "parcel_feature_id": 4154,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.2999,
+            "VH": 3.1787
+          }
+        },
+        {
+          "parcel_feature_id": 4179,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -7.1485,
+            "VH": -3.1076
+          }
+        },
+        {
+          "parcel_feature_id": 4183,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 12.5584,
+            "VH": 5.8947
+          }
+        },
+        {
+          "parcel_feature_id": 4206,
+          "valid_pixel_count": 10,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.6802,
+            "VH": 2.8393
+          }
+        },
+        {
+          "parcel_feature_id": 4224,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 10.557,
+            "VH": 11.1821
+          }
+        },
+        {
+          "parcel_feature_id": 4238,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -1.9655,
+            "VH": 4.4756
+          }
+        },
+        {
+          "parcel_feature_id": 4247,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.0215,
+            "VH": -0.3847
+          }
+        },
+        {
+          "parcel_feature_id": 4284,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.733,
+            "VH": 1.1326
+          }
+        },
+        {
+          "parcel_feature_id": 4294,
+          "valid_pixel_count": 9,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.5511,
+            "VH": 3.3188
+          }
+        },
+        {
+          "parcel_feature_id": 4335,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.2,
+            "VH": 3.0504
+          }
+        },
+        {
+          "parcel_feature_id": 4340,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.0459,
+            "VH": -1.7484
+          }
+        },
+        {
+          "parcel_feature_id": 4385,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.4006,
+            "VH": 3.308
+          }
+        },
+        {
+          "parcel_feature_id": 4409,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.6056,
+            "VH": 5.2337
+          }
+        },
+        {
+          "parcel_feature_id": 4410,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 2.8235,
+            "VH": 3.5493
+          }
+        },
+        {
+          "parcel_feature_id": 4480,
+          "valid_pixel_count": 8,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -7.1633,
+            "VH": -6.6083
+          }
+        },
+        {
+          "parcel_feature_id": 4486,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -1.1085,
+            "VH": 3.3831
+          }
+        },
+        {
+          "parcel_feature_id": 4496,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.2964,
+            "VH": 3.5082
+          }
+        },
+        {
+          "parcel_feature_id": 4646,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 0.9116,
+            "VH": 4.0042
+          }
+        },
+        {
+          "parcel_feature_id": 4707,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.3381,
+            "VH": 4.3428
+          }
+        },
+        {
+          "parcel_feature_id": 4724,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -3.4276,
+            "VH": 0.6702
+          }
+        },
+        {
+          "parcel_feature_id": 4729,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -2.6238,
+            "VH": -3.3234
+          }
+        },
+        {
+          "parcel_feature_id": 4758,
+          "valid_pixel_count": 5,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 4.708,
+            "VH": 0.3163
+          }
+        },
+        {
+          "parcel_feature_id": 4802,
+          "valid_pixel_count": 7,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": -2.6283,
+            "VH": -3.0756
+          }
+        },
+        {
+          "parcel_feature_id": 4812,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 1.8936,
+            "VH": 3.0236
+          }
+        },
+        {
+          "parcel_feature_id": 4838,
+          "valid_pixel_count": 6,
+          "coverage_fraction": 1.0,
+          "median_delta_db": {
+            "VV": 3.0077,
+            "VH": 4.1603
+          }
+        }
+      ],
+      "geometry_href": "candidate-parcels.geojson"
+    }
+  },
+  "missing_assets": [],
+  "asset_sha256": {
+    "aoi.geojson": "d0b94c70abea5724e3ccff94bb13afade66dfb59455e6020a63f40f2f7cccdfa",
+    "farmland.geojson": "e1bb38d2d400b2cbb87497b7a8e58e8d8962819d0fab085c9e86d11bca99f1ce",
+    "farmland.png": "7e9801d27d9eca6475d341dd180e420a754bb446f658f37fc926c1171fe94577",
+    "radar-change.png": "264b6966883a7763c1f48dde1678aef01e7e71453269bf47c5dd2a1fd38922cd",
+    "delta_vv_db.tif": "1673bd7557510f79e2d40221327df7027b64a36c27d7ed286746e4398424c57b",
+    "delta_vh_db.tif": "a8b864c84ffa8560182bcd0c07b0147e9e4a6403dded4911886b3348a55760b0",
+    "delta_vv_overlay.png": "57f5543385081637b081561d963fd798eeaacd9e1805324f90bee13ccd7896d6",
+    "delta_vh_overlay.png": "8a6d19ef6ecd498c826de401a87284977c487831dcc5d741606061be0ef0e07d",
+    "candidate-areas.tif": "ed41e95f177badbf252538252500e34fdd131a0fb5f4b3bccd11729ccbaf5a43",
+    "candidate-parcels.geojson": "7516d5032d168b9bdd3427746bcc3e914ea7cf456c9e4d6fb3547e6c8253ef26"
+  }
+}
