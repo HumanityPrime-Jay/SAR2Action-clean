@@ -156,6 +156,46 @@ describe('App', () => {
     expect(send).toBeEnabled();
   });
 
+  it('relief assistant asks the backend agent and shows the cited article', async () => {
+    const fetchMock = vi.fn(() =>
+      Promise.resolve(
+        new Response(
+          JSON.stringify({
+            reply: '要帶身分證、印章、土地或耕作證明。',
+            intent: 'REQUIRED_DOCUMENTS',
+            conversation_state: 'APPLICATION_GUIDANCE_PROVIDED',
+            sources: ['M0090019-ARTICLE-12'],
+            result_cards: [],
+          }),
+          { status: 200 },
+        ),
+      ),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    openChampiMap();
+    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
+    const assist = screen.getByRole('region', { name: '補助助手' });
+    fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
+    expect(await within(assist).findByText('要帶身分證、印章、土地或耕作證明。')).toBeInTheDocument();
+    expect(within(assist).getByRole('link', { name: '農業天然災害救助辦法 第 12 條' })).toHaveAttribute('href', expect.stringContaining('flno=12'));
+    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe('/api/farmer/chat');
+    expect(JSON.parse(init.body as string)).toMatchObject({ message: '申請需要哪些文件？', crop: '大蒜', optional_event_id: 'champi-2026-yunlin' });
+    vi.unstubAllGlobals();
+  });
+
+  it('relief assistant says the agent is unavailable instead of inventing an answer', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))));
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
+    const assist = screen.getByRole('region', { name: '補助助手' });
+    fireEvent.change(within(assist).getByRole('textbox', { name: '輸入問題' }), { target: { value: '門檻是多少？' } });
+    fireEvent.click(within(assist).getByRole('button', { name: '送出' }));
+    expect(await within(assist).findByRole('alert')).toHaveTextContent('AGENT 無法使用');
+    vi.unstubAllGlobals();
+  });
+
   it('relief estimate is a ceiling from field area, with eligibility left to the authority', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '補助助手' }));

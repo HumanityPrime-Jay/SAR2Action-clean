@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { describeSource, farmerChat, replySources } from '../api/farmerAgent';
 import { CASE, OFFICIAL_LOSS, type Parcel, bigNtd, parcelById } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
-import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, cannedReply, formatDb } from '../demo/fields';
+import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
 import { Earth, Icon } from '../ui/shared';
 import type { ScreenProps } from './types';
@@ -10,7 +11,13 @@ interface Message {
   role: 'user' | 'bot';
   text: string;
   pending?: boolean;
+  /** The agent could not answer; nothing is made up in its place. */
+  error?: boolean;
+  /** Agent reply sources (regulation articles). The opening summary uses CITATIONS instead. */
+  sources?: string[];
 }
+
+const newSessionId = () => `assist-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
 /** Render "[1]" style citation markers as superscripts. */
 function withCitations(text: string) {
@@ -49,16 +56,22 @@ function initialMessages(parcel: Parcel, farmer: FarmerInfo | null, lang: Lang):
   ];
 }
 
-export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
+export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
   const t = useT();
   const { lang } = useLang();
   const field = parcelById(selectedId);
   const [messages, setMessages] = useState<Message[]>(() => initialMessages(field, farmer, lang));
   const [draft, setDraft] = useState('');
+  const [busy, setBusy] = useState(false);
   const msgsRef = useRef<HTMLDivElement>(null);
-  const timers = useRef<number[]>([]);
+  const session = useRef(newSessionId());
+  const inflight = useRef<AbortController | null>(null);
 
+  // A new field, crop or language starts a new conversation with the agent.
   useEffect(() => {
+    inflight.current?.abort();
+    session.current = newSessionId();
+    setBusy(false);
     setMessages(initialMessages(field, farmer, lang));
   }, [field, farmer, lang]);
 
@@ -67,18 +80,43 @@ export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages]);
 
-  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  useEffect(() => () => inflight.current?.abort(), []);
 
-  /** `key` identifies a suggested question; typed questions get the generic reply. */
-  const ask = (q: string, key = '') => {
-    if (!q.trim()) return;
-    setMessages((m) => [...m, { role: 'user', text: q }, { role: 'bot', text: t('助手撰寫中…', 'Writing…'), pending: true }]);
-    // Demo reply; replace with the agent API (Gemini + regulation RAG).
-    timers.current.push(
-      window.setTimeout(() => {
-        setMessages((m) => [...m.slice(0, -1), { role: 'bot', text: cannedReply(key, field, lang) }]);
-      }, 700),
-    );
+  /** `shown` is what the chat displays; `sent` is what the agent receives (it reads Chinese). */
+  const ask = async (shown: string, sent = shown) => {
+    if (!shown.trim() || busy) return;
+    const ctrl = new AbortController();
+    inflight.current = ctrl;
+    setBusy(true);
+    setMessages((m) => [...m, { role: 'user', text: shown }, { role: 'bot', text: t('助手查詢法規中…', 'Checking the regulations…'), pending: true }]);
+    let answer: Message;
+    try {
+      const r = await farmerChat(
+        {
+          session_id: session.current,
+          message: sent,
+          selected_field_id: field.id,
+          optional_event_id: eventId ?? undefined,
+          crop: farmer ? cropName(farmer, 'zh') : undefined,
+        },
+        ctrl.signal,
+      );
+      answer = { role: 'bot', text: r.reply, sources: replySources(r) };
+    } catch (err) {
+      if ((err as Error).name === 'AbortError') return;
+      answer = {
+        role: 'bot',
+        error: true,
+        text: t(
+          'Agent 目前無法使用：後端沒有回應或 AI 金鑰無效，所以這題沒有回答。請稍後再試，或直接洽詢鄉鎮公所。',
+          'The agent is unavailable: the backend did not respond or the AI key is invalid, so this question has no answer. Try again later, or ask your township office.',
+        ),
+      };
+    }
+    if (inflight.current !== ctrl) return;
+    inflight.current = null;
+    setBusy(false);
+    setMessages((m) => [...m.slice(0, -1), answer]);
   };
 
   const ceiling = Math.round(field.areaHa * RELIEF_RATE_PER_HA);
@@ -90,7 +128,10 @@ export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
           <Earth size={34} />
           <div style={{ flex: 1 }}>
             <h1 className="h3">{t('補助與損失估算助手', 'Relief and loss assistant')}</h1>
-            <div className="cap">{t('依農業災害救助相關法規回答，每段附引用來源', 'Answers from the agricultural relief regulations, with a source for each point')}</div>
+            <div className="cap">
+              {t('依農業災害救助相關法規回答，並附上依據的條文', 'Answers from the agricultural relief regulations, with the articles they rely on')}
+              {lang === 'en' && ' · The agent replies in Traditional Chinese for now.'}
+            </div>
           </div>
           <span className="event" style={{ padding: '5px 9px' }}>
             <span>FIELD</span>
@@ -103,10 +144,15 @@ export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
               <div key={i} className="msg typing">
                 {m.text}
               </div>
+            ) : m.error ? (
+              <div key={i} className="msg bot error" role="alert">
+                <span className="eyebrow">{t('AGENT 無法使用', 'AGENT UNAVAILABLE')}</span>
+                {m.text}
+              </div>
             ) : (
               <div key={i} className={`msg ${m.role}`}>
-                {m.role === 'bot' ? withCitations(m.text) : m.text}
-                {m.role === 'bot' && (
+                {m.role === 'bot' && !m.sources ? withCitations(m.text) : m.text}
+                {m.role === 'bot' && !m.sources && (
                   <div className="cites">
                     {CITATIONS.map((c, k) => (
                       <span key={c.title.zh}>
@@ -115,13 +161,31 @@ export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
                     ))}
                   </div>
                 )}
+                {m.sources && (
+                  <div className="cites">
+                    {m.sources.length ? (
+                      m.sources.map((id) => {
+                        const src = describeSource(id);
+                        return src.url ? (
+                          <a key={id} href={src.url} target="_blank" rel="noreferrer">
+                            {t(src.title)}
+                          </a>
+                        ) : (
+                          <span key={id}>{t(src.title)}</span>
+                        );
+                      })
+                    ) : (
+                      <span className="none">{t('這段回答沒有引用條文', 'No article cited for this reply')}</span>
+                    )}
+                  </div>
+                )}
               </div>
             ),
           )}
         </div>
         <div className="suggest">
           {SUGGESTED_QUESTIONS.map((q) => (
-            <button key={q.key} onClick={() => ask(t(q.text), q.key)}>
+            <button key={q.key} disabled={busy} onClick={() => ask(t(q.text), q.text.zh)}>
               {t(q.text)}
             </button>
           ))}
@@ -141,7 +205,7 @@ export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
             autoComplete="off"
             aria-label={t('輸入問題', 'Your question')}
           />
-          <button className="send" aria-label={t('送出', 'Send')} disabled={!draft.trim()}>
+          <button className="send" aria-label={t('送出', 'Send')} disabled={!draft.trim() || busy}>
             <Icon name="send" />
           </button>
         </form>

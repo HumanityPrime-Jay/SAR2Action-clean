@@ -28,7 +28,7 @@ from backend.app.advanced.legal_rag import LegalRAGService
 ROOT = Path(__file__).resolve().parents[4]
 
 TAIWAN_COUNTIES = ("雲林", "彰化", "嘉義", "台南", "臺南", "高雄", "屏東", "台中", "臺中", "南投", "苗栗", "新竹", "桃園", "宜蘭", "花蓮", "台東", "臺東")
-COMMON_CROPS = ("水稻", "稻米", "玉米", "花生", "高麗菜", "蔬菜", "香蕉", "文旦", "鳳梨", "茶葉", "甘藷", "蒜頭")
+COMMON_CROPS = ("水稻", "稻米", "玉米", "花生", "高麗菜", "蔬菜", "香蕉", "文旦", "鳳梨", "茶葉", "甘藷", "蒜頭", "大蒜", "落花生")
 
 INJECTION_PATTERNS = ("ignore", "忽略", "編造", "虛構", "假裝已核准", "直接核准", "十萬", "100000")
 
@@ -127,11 +127,15 @@ class FarmerConversationService:
         optional_map_geometry: dict[str, Any] | None = None,
         optional_damage_geometry: dict[str, Any] | None = None,
         optional_event_id: str | None = None,
+        crop: str | None = None,
     ) -> FarmerChatResponse:
         session = self.get_session(session_id)
         session.turn_count += 1
         if optional_event_id:
             session.disaster_event = optional_event_id
+        # Crop the farmer registered in the UI; a crop named in the message still overrides it.
+        if crop and crop.strip():
+            session.crop = crop.strip()
 
         # Handle field switch cleanly
         if selected_field_id and selected_field_id != session.selected_field_id:
