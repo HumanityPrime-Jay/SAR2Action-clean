@@ -9,6 +9,7 @@ import comparison from '../../public/studio/field_comparison.json';
 import fieldsGeojson from '../../public/studio/fields.geojson?raw';
 import townshipsGeojson from '../../public/studio/townships.geojson?raw';
 import nisarMap from '../../public/studio/nisar_map_manifest.json';
+import nisarAscending from '../../public/studio/nisar_ascending_manifest.json';
 import official from '../../public/studio/official_loss_record.json';
 import yunlinArea from '../../public/studio/yunlin_area_estimate.json';
 import investigation from '../../public/studio/recorded_investigation.json';
@@ -242,21 +243,33 @@ export const TOWNSHIPS: { name: Text; geometry: FieldGeometry }[] = (
   JSON.parse(townshipsGeojson) as { features: { properties: { name_zh: string; name_en: string }; geometry: FieldGeometry }[] }
 ).features.map((f) => ({ name: { zh: f.properties.name_zh, en: f.properties.name_en }, geometry: f.geometry }));
 
-/** Two separate NISAR scenes over Taixi, drawn as dual-pol false colour; never subtracted (processing versions differ). */
+type NisarScene = {
+  period: string;
+  acquisition_start_utc: string;
+  crid: string;
+  product_maturity: string;
+  coordinates: number[][];
+  layers: { HH?: { image: string }; HV?: { image: string }; RGB: { image: string } };
+};
+const studio = (file: string) => `${import.meta.env.BASE_URL}studio/${file}`;
+const nisarScene = (s: NisarScene) => ({
+  period: s.period as 'PRE' | 'POST' | 'POST_ASC',
+  date: s.acquisition_start_utc.slice(0, 10),
+  crid: s.crid,
+  maturity: s.product_maturity,
+  corners: s.coordinates as LngLat[],
+  image: { HH: studio(s.layers.HH?.image ?? ''), HV: studio(s.layers.HV?.image ?? ''), RGB: studio(s.layers.RGB.image) },
+});
+
+/**
+ * NISAR passes over Taixi, drawn as dual-pol false colour, each stretched on its own; never subtracted
+ * (processing versions and orbits differ). `scenes` are the 10/16 and 10/28 descending passes on one
+ * track; `ascending` is the 10/26 pass on another track, which covers the south the 10/28 pass missed.
+ */
 export const NISAR_TAIXI = {
   crossVersionVerified: nisarMap.cross_crid_radiometric_equivalence_verified,
-  scenes: nisarMap.scenes.map((s) => ({
-    period: s.period as 'PRE' | 'POST',
-    date: s.acquisition_start_utc.slice(0, 10),
-    crid: s.crid,
-    maturity: s.product_maturity,
-    corners: s.coordinates as LngLat[],
-    image: {
-      HH: `${import.meta.env.BASE_URL}studio/${s.layers.HH.image}`,
-      HV: `${import.meta.env.BASE_URL}studio/${s.layers.HV.image}`,
-      RGB: `${import.meta.env.BASE_URL}studio/${s.layers.RGB.image}`,
-    },
-  })),
+  scenes: (nisarMap.scenes as NisarScene[]).map(nisarScene),
+  ascending: nisarScene(nisarAscending.scene as NisarScene),
 };
 
 export const OFFICIAL_LOSS = {

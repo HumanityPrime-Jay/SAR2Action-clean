@@ -255,7 +255,12 @@ describe('App', () => {
     render(<App />);
     const map = openChampiMap();
     expect(within(map).getByRole('checkbox', { name: /NISAR 颱風前/ })).toBeChecked();
-    const post = within(map).getByRole('checkbox', { name: /NISAR 颱風後/ });
+    const asc = within(map).getByRole('checkbox', { name: 'NISAR 颱風後 10/26' });
+    expect(asc).not.toBeChecked();
+    fireEvent.click(asc);
+    expect(map.querySelector('svg.map image[href*="nisar_post_asc_rgb_map.png"]')).not.toBeNull();
+    fireEvent.click(asc);
+    const post = within(map).getByRole('checkbox', { name: 'NISAR 颱風後 10/28' });
     expect(post).not.toBeChecked();
     expect([...map.querySelectorAll('svg.map image')].map((i) => i.getAttribute('href'))).toEqual([expect.stringContaining('nisar_pre_rgb_map.png')]);
     fireEvent.click(post);

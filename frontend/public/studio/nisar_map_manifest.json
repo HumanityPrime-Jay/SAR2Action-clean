@@ -5,7 +5,7 @@
   "status": "SEPARATE_OBSERVATIONS_ONLY",
   "cross_crid_radiometric_equivalence_verified": false,
   "verified_typhoon_delta_allowed": false,
-  "display_method": "Dual-pol false colour per scene (R=HH, G=HV, B=HH-HV) with fixed dB ranges and a 3x3 speckle mean; transparent outside the township and where a scene has no valid pixels; not a quantitative cross-date comparison",
+  "display_method": "Dual-pol false colour (R=HH, G=HV, B=HH-HV), each scene stretched to its own p02-p98 inside Taixi, 3x3 speckle mean; transparent outside the township and where a scene has no valid pixels; colours are not comparable across dates",
   "scenes": [
     {
       "period": "PRE",
@@ -59,16 +59,16 @@
           "composite": "R=HH G=HV B=HH-HV",
           "display_stretch_db": {
             "HH": [
-              -16.0,
-              2.0
+              -11.99,
+              8.11
             ],
             "HV": [
-              -25.0,
-              -10.0
+              -23.88,
+              -9.33
             ],
             "HH-HV": [
-              3.0,
-              15.0
+              8.12,
+              19.23
             ]
           },
           "smoothing": "3x3 mean on linear power",
@@ -128,16 +128,16 @@
           "composite": "R=HH G=HV B=HH-HV",
           "display_stretch_db": {
             "HH": [
-              -16.0,
-              2.0
+              -11.79,
+              5.52
             ],
             "HV": [
-              -25.0,
-              -10.0
+              -21.69,
+              -8.93
             ],
             "HH-HV": [
-              3.0,
-              15.0
+              6.58,
+              16.06
             ]
           },
           "smoothing": "3x3 mean on linear power",

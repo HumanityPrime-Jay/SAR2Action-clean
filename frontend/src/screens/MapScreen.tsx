@@ -141,7 +141,7 @@ function DamageMap({
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
   // The post-typhoon NISAR pass only reached the northern part of Taixi, so the complete pre pass is shown first.
-  const [layers, setLayers] = useState({ trend: true, pre: true, post: false, town: true, bnd: true, landuse: false });
+  const [layers, setLayers] = useState({ trend: true, pre: true, asc: false, post: false, town: true, bnd: true, landuse: false });
   const landuse = useLanduse(layers.landuse);
   const [sheetRef, sheet] = useElementSize<HTMLDivElement>();
   const [zoom, setZoom] = useState(1);
@@ -171,6 +171,7 @@ function DamageMap({
 
   const sheetClass = ['sheet', !layers.trend && 'map-hide-dmg', !layers.bnd && 'map-hide-bnd'].filter(Boolean).join(' ');
   const [pre, post] = NISAR_TAIXI.scenes;
+  const asc = NISAR_TAIXI.ascending;
   const gridLngs: number[] = [];
   for (let lng = Math.ceil(PROJ.west * 100) / 100; lng < PROJ.east; lng += 0.01) gridLngs.push(lng);
   const gridLats: number[] = [];
@@ -181,7 +182,7 @@ function DamageMap({
     <>
       <div className={sheetClass} ref={sheetRef}>
         <svg className="map" viewBox={`${vx} ${vy} ${vw} ${vh}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: 'visible' }} aria-label={t('候選田區地圖', 'Candidate field map')}>
-          {([['pre', pre], ['post', post]] as const).map(
+          {([['pre', pre], ['asc', asc], ['post', post]] as const).map(
             ([key, scene]) =>
               layers[key] && (
                 <image key={key} href={scene.image.RGB} {...sceneRect(scene.corners)} preserveAspectRatio="none" opacity={0.9} style={{ imageRendering: 'pixelated' }} />
@@ -275,6 +276,7 @@ function DamageMap({
             [
               ['trend', t('VH 變化（田區著色）', 'VH change (field colour)')],
               ['pre', `NISAR ${t('颱風前', 'pre')} ${md(pre.date)}`],
+              ['asc', `NISAR ${t('颱風後', 'post')} ${md(asc.date)}`],
               ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}`],
               ['town', t('鄉鎮界線', 'Township boundaries')],
               ['bnd', t('田區邊界', 'Field boundaries')],
