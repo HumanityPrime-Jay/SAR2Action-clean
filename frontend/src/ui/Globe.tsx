@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import { TYPHOON_DAY } from '../data/champi';
 import { NISAR_FRAME_CORNERS, NISAR_IMG, NISAR_SCENE } from '../data/nisar';
 import type { Lang } from '../i18n';
 // Let Vite bundle MapLibre's module worker (with its shared chunk) and hand MapLibre the URL;
@@ -14,12 +15,32 @@ export const YUNLIN: [number, number] = [120.19, 23.72];
 
 const GIBS = 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best';
 
+/** Optional home layers; `shield` is a decorative ring, not data. */
+export interface GlobeLayers {
+  borders: boolean;
+  clouds: boolean;
+  rain: boolean;
+  shield: boolean;
+}
+
+const DATA_LAYERS = { borders: 'borders', clouds: 'viirs', rain: 'imerg' } as const;
+
 export interface GlobeHandle {
   /** Fly the camera to Yunlin; resolves when the flight ends (immediately under reduced motion). */
   flyToTaiwan(): Promise<void>;
 }
 
 const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+
+/** The point 89.5° due east of [lng, lat] along a great circle. */
+function limbPoint(lng: number, lat: number): [number, number] {
+  const r = Math.PI / 180;
+  const d = 89.5 * r;
+  const p = lat * r;
+  const lat2 = Math.asin(Math.sin(p) * Math.cos(d));
+  const lng2 = lng * r + Math.atan2(Math.sin(d) * Math.cos(p), Math.cos(d) - Math.sin(p) * Math.sin(lat2));
+  return [lng2 / r, lat2 / r];
+}
 
 /** Space reserved at the bottom for the entry buttons (stacked on narrow screens). */
 function bottomPad(el: HTMLElement) {
@@ -38,10 +59,11 @@ function fitZoom(el: HTMLElement) {
  */
 const MARKER_LABEL: Record<Lang, string> = { zh: '雲林台西 · Taiwan', en: 'Taixi, Yunlin · Taiwan' };
 
-const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function Globe({ borders, lang }, ref) {
+const Globe = forwardRef<GlobeHandle, { layers: GlobeLayers; lang: Lang }>(function Globe({ layers, lang }, ref) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const labelRef = useRef<HTMLSpanElement | null>(null);
+  const shieldRef = useRef<HTMLDivElement>(null);
   const spinningRef = useRef(false);
   const [failed, setFailed] = useState(false);
 
@@ -71,7 +93,7 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function
         zoom: fitZoom(el),
         minZoom: 0.5,
         maxZoom: 8,
-        attributionControl: { compact: true, customAttribution: `Imagery: NASA GIBS · Blue Marble · ${NISAR_SCENE.mission} ${NISAR_SCENE.postDate}` },
+        attributionControl: { compact: true, customAttribution: `Imagery: NASA GIBS · Blue Marble · VIIRS & IMERG ${TYPHOON_DAY} · ${NISAR_SCENE.mission} ${NISAR_SCENE.postDate}` },
         style: {
           version: 8,
           projection: { type: 'globe' },
@@ -82,6 +104,19 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function
               tiles: [`${GIBS}/BlueMarble_NextGeneration/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg`],
               tileSize: 256,
               maxzoom: 8,
+            },
+            // Daily true colour and rain rate on a warning-window day.
+            viirs: {
+              type: 'raster',
+              tiles: [`${GIBS}/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/${TYPHOON_DAY}/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg`],
+              tileSize: 256,
+              maxzoom: 9,
+            },
+            imerg: {
+              type: 'raster',
+              tiles: [`${GIBS}/IMERG_Precipitation_Rate/default/${TYPHOON_DAY}/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png`],
+              tileSize: 256,
+              maxzoom: 6,
             },
             // Real NISAR swath (track 61 / frame 76) over western Taiwan.
             nisar: { type: 'image', url: NISAR_IMG.frame, coordinates: NISAR_FRAME_CORNERS },
@@ -96,6 +131,8 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function
           layers: [
             { id: 'space', type: 'background', paint: { 'background-color': '#000' } },
             { id: 'bluemarble', type: 'raster', source: 'bluemarble' },
+            { id: 'viirs', type: 'raster', source: 'viirs', layout: { visibility: 'none' } },
+            { id: 'imerg', type: 'raster', source: 'imerg', layout: { visibility: 'none' }, paint: { 'raster-opacity': 0.7 } },
             // Fades in as the camera nears Taiwan.
             { id: 'nisar', type: 'raster', source: 'nisar', paint: { 'raster-opacity': ['interpolate', ['linear'], ['zoom'], 3, 0, 5, 0.9], 'raster-fade-duration': 0 } },
             // brightness-min 1 turns the dark coastline strokes white; alpha keeps the rest clear.
@@ -138,6 +175,25 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function
     map.on('moveend', spin);
     map.on('load', spin);
 
+    // Keep the ring on the globe's silhouette; it fades out as the camera closes in.
+    const placeShield = () => {
+      const ring = shieldRef.current;
+      if (!ring) return;
+      const z = map.getZoom();
+      const c = map.getCenter();
+      // With no pitch the view axis runs through the earth's centre, so the map centre marks it on screen;
+      // a point just short of 90° away marks the visible edge (perspective makes it smaller than worldSize / 2π).
+      const mid = map.project(c);
+      const edge = map.project(limbPoint(c.lng, c.lat));
+      ring.style.setProperty('--gx', `${mid.x}px`);
+      ring.style.setProperty('--gy', `${mid.y}px`);
+      ring.style.setProperty('--gr', `${Math.hypot(edge.x - mid.x, edge.y - mid.y)}px`);
+      ring.style.opacity = String(Math.max(0, Math.min(1, 3 - z)));
+    };
+    map.on('move', placeShield);
+    map.on('resize', placeShield);
+    placeShield();
+
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(el);
     return () => {
@@ -151,13 +207,17 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function
     if (labelRef.current) labelRef.current.textContent = MARKER_LABEL[lang];
   }, [lang]);
 
+  const { borders, clouds, rain } = layers;
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    const apply = () => map.setLayoutProperty('borders', 'visibility', borders ? 'visible' : 'none');
+    const on = { borders, clouds, rain };
+    const apply = () => {
+      for (const [key, id] of Object.entries(DATA_LAYERS)) map.setLayoutProperty(id, 'visibility', on[key as keyof typeof on] ? 'visible' : 'none');
+    };
     if (map.isStyleLoaded()) apply();
     else map.once('load', apply);
-  }, [borders]);
+  }, [borders, clouds, rain]);
 
   if (failed) {
     return (
@@ -168,7 +228,14 @@ const Globe = forwardRef<GlobeHandle, { borders: boolean; lang: Lang }>(function
       </div>
     );
   }
-  return <div ref={containerRef} className="globe" role="application" aria-label={lang === 'zh' ? '3D 地球：拖曳旋轉、滾輪縮放，標記為台灣雲林台西' : '3D globe: drag to rotate, scroll to zoom; marker at Taixi, Yunlin, Taiwan'} />;
+  return (
+    <>
+      <div ref={containerRef} className="globe" role="application" aria-label={lang === 'zh' ? '3D 地球：拖曳旋轉、滾輪縮放，標記為台灣雲林台西' : '3D globe: drag to rotate, scroll to zoom; marker at Taixi, Yunlin, Taiwan'} />
+      <div ref={shieldRef} className="globe-shield" hidden={!layers.shield} aria-hidden="true">
+        <span className="sweep" />
+      </div>
+    </>
+  );
 });
 
 export default Globe;

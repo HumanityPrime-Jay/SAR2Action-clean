@@ -94,6 +94,9 @@ export const WARNING = {
   end: comparison.event_reference.end_taiwan.slice(0, 10),
 };
 
+/** A day inside the warning window, for the home globe's daily NASA GIBS layers. */
+export const TYPHOON_DAY = '2026-10-23';
+
 export const CASE = {
   id: investigation.case_id,
   town: { zh: '雲林縣 台西鄉', en: 'Taixi, Yunlin' } as Text,

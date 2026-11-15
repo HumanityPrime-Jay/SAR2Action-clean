@@ -169,11 +169,30 @@ button:disabled{cursor:not-allowed;opacity:.4}
   text-shadow:0 2px 12px rgba(0,0,0,.8)}
 .globe-intro .h1{font-size:40px}
 .globe-intro::before{content:"";position:absolute;left:-16px;top:4px;bottom:4px;width:4px;background:var(--red)}
-.globe-tools{position:absolute;right:24px;top:24px;z-index:2;background:rgba(0,0,0,.72);border:1px solid var(--border);padding:4px 12px}
+.globe-tools{position:absolute;right:24px;top:24px;z-index:2;background:rgba(0,0,0,.72);border:1px solid var(--border);padding:10px 14px;min-width:200px}
 .globe-toggle{display:flex;gap:10px;align-items:center;min-height:var(--tap);font-size:14px;cursor:pointer}
 .globe-toggle input{appearance:none;width:18px;height:18px;border:1px solid #fff;display:grid;place-content:center;margin:0;cursor:pointer}
 .globe-toggle input:checked{background:#fff}
 .globe-toggle input:checked::before{content:"";width:9px;height:5px;border:2px solid #000;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.globe-tools .eyebrow{margin:2px 0 2px}
+.globe-tools-sep{margin-top:8px!important;padding-top:8px;border-top:1px solid var(--border)}
+.globe-toggle .cap{margin-left:auto;color:var(--text-2)}
+.rain-key{display:grid;grid-template-columns:1fr 1fr;gap:2px 0;margin:0 0 6px 28px}
+.rain-key i{grid-column:1/-1;height:6px;background:linear-gradient(90deg,#1c8f2a,#7fd62a,#f4e81c,#f28c1c,#e0201c)}
+.rain-key .cap:last-child{text-align:right}
+/* Decorative scan ring around the globe (Globe.tsx sets --gx/--gy/--gr from the camera). */
+.globe-shield{position:absolute;left:calc(var(--gx,50%) - var(--gr,0px) * 1.08);top:calc(var(--gy,50%) - var(--gr,0px) * 1.08);
+  width:calc(var(--gr,0px) * 2.16);height:calc(var(--gr,0px) * 2.16);border-radius:50%;pointer-events:none;z-index:1;transition:opacity .3s;
+  border:1px solid rgba(126,232,250,.55);
+  box-shadow:0 0 18px 2px rgba(126,232,250,.35),inset 0 0 40px 6px rgba(126,232,250,.18)}
+.globe-shield::before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(126,232,250,.35);animation:shield-spin 60s linear infinite}
+.globe-shield .sweep{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,rgba(126,232,250,0) 0deg,rgba(126,232,250,0) 300deg,rgba(126,232,250,.28) 355deg,rgba(190,245,255,.75) 360deg);
+  -webkit-mask:radial-gradient(closest-side,transparent calc(100% - 22px),#000 calc(100% - 21px));mask:radial-gradient(closest-side,transparent calc(100% - 22px),#000 calc(100% - 21px));
+  animation:shield-spin 6s linear infinite}
+.globe-shield[hidden]{display:none}
+@keyframes shield-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.globe-shield::before,.globe-shield .sweep{animation:none}}
 .globe-hint{position:absolute;left:32px;bottom:132px;z-index:2;font-size:12px;color:var(--text-2);border:1px solid var(--border);background:rgba(0,0,0,.6);padding:6px 10px;pointer-events:none}
 .globe-actions{position:absolute;left:32px;right:32px;bottom:28px;z-index:2;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:1040px;margin:0 auto}
 .globe-action{display:flex;align-items:center;gap:14px;min-height:76px;padding:12px 18px;text-align:left;
