@@ -22,7 +22,6 @@ import type { ScreenProps } from './types';
 
 type Mode = 'side' | 'swipe';
 type Pol = 'HH' | 'HV';
-type Tab = 'findings' | 'checks' | 'causes';
 type Scene = (typeof NISAR_TAIXI.scenes)[number];
 
 /** Half-width of the area shown around the selected field, metres. */
@@ -175,7 +174,6 @@ export function CompareScreen({ selectedId, go, farmer, eventId }: ScreenProps) 
   const { lang } = useLang();
   const [mode, setMode] = useState<Mode>('side');
   const [pol, setPol] = useState<Pol>('HH');
-  const [tab, setTab] = useState<Tab>('findings');
   const [graphOpen, setGraphOpen] = useState(false);
   const [activeNote, setActiveNote] = useState<number | null>(null);
   const event = EVENTS.find((e) => e.id === eventId);
@@ -194,6 +192,7 @@ export function CompareScreen({ selectedId, go, farmer, eventId }: ScreenProps) 
   if (!parcel) return <p role="status">Taixi field not found</p>;
   const [pre, post] = NISAR_TAIXI.scenes;
   const notes = findings(parcel);
+  const passed = QA_TESTS.filter((q) => q.pass).length;
 
   return (
     <>
@@ -274,85 +273,70 @@ export function CompareScreen({ selectedId, go, farmer, eventId }: ScreenProps) 
           <div className="metric">
             <div className="eyebrow">{t('判定', 'Verdict')}</div>
             <div className="v">{t('原因未知', 'Unknown')}</div>
-            <button className="link cap" onClick={() => setTab('causes')}>
-              {t(`${CAUSES.length} 個可能原因 →`, `${CAUSES.length} possible causes →`)}
-            </button>
           </div>
         </div>
       </div>
 
       <aside className="panel">
-        <div className="panel-head panel-tabs">
-          <div className="seg" role="tablist" aria-label={t('判讀', 'Interpretation')}>
-            {(
-              [
-                ['findings', t('看出什麼', 'What it shows')],
-                ['checks', t('判讀檢核', 'Evidence checks')],
-                ['causes', t('可能原因', 'Possible causes')],
-              ] as [Tab, string][]
-            ).map(([k, label]) => (
-              <button key={k} id={`tab-${k}`} role="tab" aria-selected={tab === k} aria-controls={`tabpanel-${k}`} onClick={() => setTab(k)}>
-                {label}
-              </button>
-            ))}
-          </div>
-          {parcel.id !== INVESTIGATED_FIELD && (
+        <div className="panel-body">
+          <section className="findings" aria-labelledby="findings-title">
+            <h2 id="findings-title" className="h3">
+              {t('看出什麼', 'What it shows')}
+            </h2>
             <div className="eyebrow">
-              {t('調查田區', 'Investigated field')} · {INVESTIGATED_FIELD}
+              {t('VH 回波時序 (dB)', 'VH backscatter (dB)')} · {parcel.id}
             </div>
-          )}
-        </div>
-        <div className="panel-body" id={`tabpanel-${tab}`} role="tabpanel" aria-labelledby={`tab-${tab}`}>
-          {tab === 'findings' ? (
-            <div className="findings">
+            <VhChart parcel={parcel} notes={notes} active={activeNote} />
+            <ol className="finding-list">
+              {notes.map((n, i) => (
+                <li key={i} className={activeNote === i ? 'on' : undefined} onMouseEnter={() => setActiveNote(i)} onMouseLeave={() => setActiveNote(null)}>
+                  <span className="finding-no" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                  <span>
+                    <span className="finding-date mono">
+                      {n.year === 2025 ? '2025 ' : ''}
+                      {md(n.date)}
+                    </span>
+                    {t(n.text)}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+          <section className="causes" aria-labelledby="causes-title">
+            <h2 id="causes-title" className="h3">
+              {t('可能原因', 'Possible causes')}
+            </h2>
+            {parcel.id !== INVESTIGATED_FIELD && (
               <div className="eyebrow">
-                {t('VH 回波時序 (dB)', 'VH backscatter (dB)')} · {parcel.id}
+                {t('調查田區', 'Investigated field')} · {INVESTIGATED_FIELD}
               </div>
-              <VhChart parcel={parcel} notes={notes} active={activeNote} />
-              <ol className="finding-list">
-                {notes.map((n, i) => (
-                  <li key={i} className={activeNote === i ? 'on' : undefined} onMouseEnter={() => setActiveNote(i)} onMouseLeave={() => setActiveNote(null)}>
-                    <span className="finding-no" aria-hidden="true">
-                      {i + 1}
-                    </span>
-                    <span>
-                      <span className="cap mono">
-                        {n.year} · {md(n.date)}
-                      </span>
-                      {t(n.text)}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ) : tab === 'checks' ? (
-            <ul className="qa-list">
-              {QA_TESTS.map((q) => (
-                <li key={q.id}>
-                  <span className={`qa-mark ${q.pass ? 'pass' : 'fail'}`}>{q.pass ? t('通過', 'Pass') : t('未通過', 'Fail')}</span>
-                  <span>
-                    <b>{t(q.label)}</b>
-                    <span className="cap">{t(q.result)}</span>
-                  </span>
-                </li>
+            )}
+            <dl className="cause-groups">
+              {(
+                [
+                  [true, t('不確定', 'Unclear')],
+                  [false, t('未檢驗', 'Untested')],
+                ] as [boolean, string][]
+              ).map(([tested, label]) => (
+                <div key={label} className={tested ? undefined : 'untested'}>
+                  <dt>{label}</dt>
+                  <dd>
+                    {CAUSES.filter((c) => c.tested === tested)
+                      .map((c) => t(c.label))
+                      .join(t('、', ', '))}
+                  </dd>
+                </div>
               ))}
-            </ul>
-          ) : (
-            <ul className="qa-list">
-              {CAUSES.map((c) => (
-                <li key={c.id}>
-                  <span className="qa-mark open">{c.tested ? t('不確定', 'Unclear') : t('未檢驗', 'Untested')}</span>
-                  <span>
-                    <b>{t(c.label)}</b>
-                    <span className="cap">{t(c.check)}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <button className="link graph-open" onClick={() => setGraphOpen(true)}>
-            {t('證據關係圖', 'Evidence graph')}
-          </button>
+            </dl>
+            <button className="link graph-open" onClick={() => setGraphOpen(true)}>
+              {t(
+                `${QA_TESTS.length} 項檢驗：${passed} 通過、${QA_TESTS.length - passed} 未通過 →`,
+                `${QA_TESTS.length} checks: ${passed} passed, ${QA_TESTS.length - passed} failed →`,
+              )}
+            </button>
+          </section>
         </div>
         <div className="panel-foot">
           <button className="btn btn-primary btn-block" onClick={() => go('assist')}>

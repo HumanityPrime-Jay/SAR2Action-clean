@@ -275,7 +275,7 @@ describe('App', () => {
     render(<App />);
     openChampiMap();
     const compare = screen.getByRole('region', { name: '田區比對' });
-    const notes = within(compare).getAllByRole('listitem');
+    const notes = within(within(compare).getByRole('region', { name: '看出什麼' })).getAllByRole('listitem');
     expect(notes).toHaveLength(3);
     expect(notes[0]).toHaveTextContent('警報期間回波升高 +4.02 dB');
     expect(notes[1]).toHaveTextContent('颱風後回到接近颱風前');
@@ -286,21 +286,18 @@ describe('App', () => {
     render(<App />);
     openChampiMap();
     const compare = screen.getByRole('region', { name: '田區比對' });
-    fireEvent.click(within(compare).getByRole('tab', { name: '判讀檢核' }));
-    expect(within(compare).getByText('NISAR 前後兩期可直接比較強度')).toBeInTheDocument();
-    expect(within(compare).getAllByText('未通過').length).toBeGreaterThan(0);
+    fireEvent.click(within(compare).getByRole('button', { name: /5 項檢驗：2 通過、3 未通過/ }));
+    const graph = screen.getByRole('dialog', { name: '證據關係圖' });
+    expect(within(graph).getByRole('button', { name: /NISAR 前後兩期可直接比較強度/ })).toHaveTextContent('未通過');
   });
 
   it('compare screen lists the open causes; none is presented as confirmed', () => {
     render(<App />);
     openChampiMap();
     const compare = screen.getByRole('region', { name: '田區比對' });
-    fireEvent.click(within(compare).getByRole('button', { name: /5 個可能原因/ }));
-    expect(within(compare).getByRole('tab', { name: '可能原因' })).toHaveAttribute('aria-selected', 'true');
-    const causes = within(compare).getByRole('tabpanel');
-    expect(within(causes).getByText('颱風擾動作物或地表')).toBeInTheDocument();
-    expect(within(causes).getAllByText('未檢驗')).toHaveLength(3);
-    expect(within(causes).getAllByText('不確定')).toHaveLength(2);
+    const causes = within(compare).getByRole('region', { name: '可能原因' });
+    expect(within(causes).getByText('不確定').nextElementSibling).toHaveTextContent('颱風擾動作物或地表、衛星處理版本不同');
+    expect(within(causes).getByText('未檢驗').nextElementSibling).toHaveTextContent('收割、整地、土壤濕度變化');
     expect(within(compare).getByText('原因未知')).toBeInTheDocument();
   });
 
@@ -309,7 +306,7 @@ describe('App', () => {
     openChampiMap();
     const compare = screen.getByRole('region', { name: '田區比對' });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    const opener = within(compare).getByRole('button', { name: '證據關係圖' });
+    const opener = within(compare).getByRole('button', { name: /5 項檢驗/ });
     opener.focus();
     fireEvent.click(opener);
     const dialog = screen.getByRole('dialog', { name: '證據關係圖' });
