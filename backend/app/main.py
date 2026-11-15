@@ -305,6 +305,11 @@ def get_layer_image(layer_id: str) -> Response:
     return Response(content=png_bytes, media_type="image/png")
 
 
+from backend.app.advanced.api_router import create_fastapi_router
+
+app.include_router(create_fastapi_router())
+
+
 # Serve the built React app (frontend/dist) from the same origin as the API. Mounted last so
 # every /api route above takes precedence. Absent in local dev, where Vite serves the frontend.
 _frontend_dist = Path(os.environ.get(
