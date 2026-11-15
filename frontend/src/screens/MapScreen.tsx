@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, YUNLIN_AREA, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
+import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, TOWNSHIPS, YUNLIN_AREA, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
@@ -37,6 +37,7 @@ const PROJ = (() => {
   return { W, H, xy, west, east, north, south, pxPerKm: s / 111.32 };
 })();
 
+const TOWN_SHAPES = TOWNSHIPS.map((town) => ({ key: town.name.en, d: geometryPath(town.geometry, PROJ.xy) }));
 const SHAPES = PARCELS.map((p) => {
   const pts = polygonRings(p.geometry).flat(2).map(PROJ.xy);
   return { id: p.id, path: geometryPath(p.geometry, PROJ.xy), right: Math.max(...pts.map((q) => q[0])), left: Math.min(...pts.map((q) => q[0])), top: Math.min(...pts.map((q) => q[1])) };
@@ -140,7 +141,7 @@ function DamageMap({
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
   // The post-typhoon NISAR pass only reached the northern part of Taixi, so the complete pre pass is shown first.
-  const [layers, setLayers] = useState({ trend: true, pre: true, post: false, bnd: true, landuse: false });
+  const [layers, setLayers] = useState({ trend: true, pre: true, post: false, town: true, bnd: true, landuse: false });
   const landuse = useLanduse(layers.landuse);
   const [sheetRef, sheet] = useElementSize<HTMLDivElement>();
   const [zoom, setZoom] = useState(1);
@@ -203,6 +204,13 @@ function DamageMap({
               return <line key={lat} x1={0} y1={y} x2={PROJ.W} y2={y} />;
             })}
           </g>
+          {layers.town && (
+            <g className="townships" aria-hidden="true">
+              {TOWN_SHAPES.map((town) => (
+                <path key={town.key} d={town.d} />
+              ))}
+            </g>
+          )}
           <g fontFamily="IBM Plex Mono" fontSize="9" fill="#BFD0F5" fillOpacity=".75">
             {gridLngs.map((lng) => (
               <text key={lng} x={PROJ.xy([lng, PROJ.north])[0] + 3} y={PROJ.H - 6}>
@@ -268,6 +276,7 @@ function DamageMap({
               ['trend', t('VH 變化（田區著色）', 'VH change (field colour)')],
               ['pre', `NISAR ${t('颱風前', 'pre')} ${md(pre.date)}`],
               ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}${t('（只拍到北半部）', ' (north part only)')}`],
+              ['town', t('鄉鎮界線', 'Township boundaries')],
               ['bnd', t('田區邊界', 'Field boundaries')],
               ['landuse', t('農地類型（國土利用）', 'Farmland type (land use)')],
             ] as const
@@ -275,6 +284,7 @@ function DamageMap({
             <label key={key}>
               <input type="checkbox" checked={layers[key]} onChange={(e) => setLayers((l) => ({ ...l, [key]: e.target.checked }))} />
               {label}
+              {key === 'town' && <i className="dash-key" aria-hidden="true" />}
             </label>
           ))}
           {layers.landuse && (

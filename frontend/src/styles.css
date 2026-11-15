@@ -635,3 +635,5 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .loss-summary .cap{margin-bottom:6px}
 .loss-official{font-size:12px;line-height:1.5;color:var(--text-3);margin:0}
 .loss-summary a{color:inherit;text-decoration:underline}
+.map .townships path{fill:none;stroke:#E8EEF9;stroke-opacity:.85;stroke-width:1.6px;stroke-dasharray:7 5;vector-effect:non-scaling-stroke;pointer-events:none}
+.layers .dash-key{display:inline-block;width:22px;margin-left:8px;vertical-align:middle;border-top:2px dashed #E8EEF9}

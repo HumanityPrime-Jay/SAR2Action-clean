@@ -7,6 +7,7 @@
  */
 import comparison from '../../public/studio/field_comparison.json';
 import fieldsGeojson from '../../public/studio/fields.geojson?raw';
+import townshipsGeojson from '../../public/studio/townships.geojson?raw';
 import nisarMap from '../../public/studio/nisar_map_manifest.json';
 import official from '../../public/studio/official_loss_record.json';
 import yunlinArea from '../../public/studio/yunlin_area_estimate.json';
@@ -235,6 +236,11 @@ export const EVIDENCE_SOURCES: EvidenceSource[] = [...new Set(Object.values(TEST
   id,
   label: SOURCE_TEXT[id] ?? observationLabel.get(id) ?? { zh: id, en: id },
 })).sort((a, b) => a.label.en.localeCompare(b.label.en));
+
+/** Township boundaries (NLSC) around the case: Taixi and its neighbours. */
+export const TOWNSHIPS: { name: Text; geometry: FieldGeometry }[] = (
+  JSON.parse(townshipsGeojson) as { features: { properties: { name_zh: string; name_en: string }; geometry: FieldGeometry }[] }
+).features.map((f) => ({ name: { zh: f.properties.name_zh, en: f.properties.name_en }, geometry: f.geometry }));
 
 /** Two separate NISAR scenes over Taixi, drawn as dual-pol false colour; never subtracted (processing versions differ). */
 export const NISAR_TAIXI = {

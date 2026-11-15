@@ -262,6 +262,17 @@ describe('App', () => {
     expect(map.querySelectorAll('svg.map image')).toHaveLength(2);
   });
 
+  it('draws township boundaries as dashed lines, explained in the layers legend', () => {
+    render(<App />);
+    const map = openChampiMap();
+    const toggle = within(map).getByRole('checkbox', { name: '鄉鎮界線' });
+    expect(toggle).toBeChecked();
+    expect(toggle.parentElement!.querySelector('.dash-key')).not.toBeNull();
+    expect(map.querySelectorAll('svg.map .townships path')).toHaveLength(3);
+    fireEvent.click(toggle);
+    expect(map.querySelector('svg.map .townships')).toBeNull();
+  });
+
   it('shows the five real candidate fields and filters them by VH trend', () => {
     render(<App />);
     const map = openChampiMap();
