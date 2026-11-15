@@ -1,25 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { type AuthorityReply, authorityChat } from '../api/authorityAgent';
-import { describeSource } from '../api/farmerAgent';
+import { type TwAgroReliefCatalog, type TwAgroReliefEstimateResponse, estimateRelief, fetchReliefCatalog } from '../api/tw05';
 import { CASE, OFFICIAL_LOSS, type Parcel, bigNtd, parcelById } from '../data/champi';
-import { type FarmerInfo, cropName } from '../data/farmer';
-import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
+import { type CropKey, type FarmerInfo, cropName } from '../data/farmer';
+import { SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
 import { useMascotCue } from '../mascot/Mascot';
 import { headGrid, spritePaths } from '../mascot/sprites';
 import { type Lang, type Text, useLang, useT } from '../i18n';
 import { Earth, Icon } from '../ui/shared';
 import { type AnswerView, AuthorityAnswer } from './AuthorityAnswer';
 import type { ScreenProps } from './types';
-import {
-  type AgentStatusInfo,
-  type Tw05InvestigationResponse,
-  type TwAgroReliefCatalog,
-  type TwAgroReliefEstimateResponse,
-  estimateRelief,
-  fetchAgentStatus,
-  fetchReliefCatalog,
-  investigateTw05,
-} from '../api/tw05';
 
 interface Message {
   role: 'user' | 'bot';
@@ -27,18 +17,8 @@ interface Message {
   pending?: boolean;
   /** The agent could not answer; nothing is made up in its place. */
   error?: boolean;
-  /** Agent reply sources (regulation articles). The opening summary uses CITATIONS instead. */
-  sources?: string[];
-  /** The English UI asked for English but the agent could only answer in Chinese. */
-  untranslated?: boolean;
   /** Authority-mode reply, shown in the farmer or authority view. */
   authority?: AuthorityReply;
-  executionMode?: string;
-  facts?: Array<{ statement: string; metric: string; value: string; sensor: string; evidenceIds: string[] }>;
-  inferences?: Array<{ statement: string; status: string; reason: string }>;
-  unknowns?: string[];
-  toolTrace?: Array<{ tool: string; status: string; duration_ms?: number | null }>;
-  evidenceIds?: string[];
 }
 
 /** Pixel head of the farmer or the association officer, cropped to the head. */
@@ -54,8 +34,6 @@ function ViewHead({ who }: { who: 'farmer' | 'officer' }) {
     </svg>
   );
 }
-
-const newSessionId = () => `assist-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
 /** Render "[1]" style citation markers as superscripts. */
 function withCitations(text: string) {
@@ -91,19 +69,37 @@ function initialMessages(parcel: Parcel, lang: Lang): Message[] {
   ];
 }
 
-const TW05_PRESET_PARCELS = [
-  { id: 74, label: '坵塊 #74（Sentinel-1 雷達 + Sentinel-2 光學）', areaHa: 0.2815, defaultCrop: 'grains_3_peanut_sweetpotato' },
-  { id: 174, label: '坵塊 #174（Sentinel-1 雷達，Sentinel-2 光學品質不足）', areaHa: 0.1982, defaultCrop: 'garlic' },
-  { id: 4183, label: '坵塊 #4183（法定救助精度回歸測試 0.453978 ha）', areaHa: 0.453978, defaultCrop: 'grains_3_peanut_sweetpotato' },
-];
+/**
+ * Relief-schedule item (附表二) for a registered crop. Crops that span several items (corn, vegetables,
+ * other) have none: the user picks the item, since each has its own rate.
+ */
+const CROP_ITEM: Partial<Record<CropKey, string>> = {
+  garlic: 'veg_6',
+  peanut: 'grains_3_peanut_sweetpotato',
+  sweet_potato: 'grains_3_peanut_sweetpotato',
+  rice: 'unannounced_other_crop',
+};
+const UNKNOWN_ITEM = 'unknown_crop';
+
+/** Why the estimate shows no amount. */
+const BLOCKED: Record<string, Text> = {
+  BLOCKED_UNKNOWN_CROP: { zh: '選擇救助品項後才能試算。', en: 'Pick a relief item to see an estimate.' },
+  BLOCKED_UNANNOUNCED_OR_EXCLUDED_ITEM: {
+    zh: '這個品項不在本次雲林縣救助公告內，沒有現金救助。',
+    en: 'This item is not on this Yunlin relief announcement, so there is no cash relief.',
+  },
+  BLOCKED_UNVERIFIED_OR_BELOW_20_THRESHOLD: { zh: '損失率未確認或未達 20%。', en: 'Loss rate unconfirmed or below 20%.' },
+  BLOCKED_BELOW_MIN_AREA_001_HA: { zh: '面積不到 0.01 公頃，不予救助。', en: 'Under 0.01 ha, which is not eligible.' },
+  BLOCKED_INVALID_AREA: { zh: '面積無效。', en: 'Invalid area.' },
+};
 
 export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
   const field = parcelById(selectedId);
   if (!field) return <p role="status">Taixi field not found</p>;
-  return <RecordedAssist key={field.id} field={field} go={go} farmer={farmer} eventId={eventId} />;
+  return <Assistant key={field.id} field={field} go={go} farmer={farmer} eventId={eventId} />;
 }
 
-function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' | 'farmer' | 'eventId'> & { field: Parcel }) {
+function Assistant({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer' | 'eventId'> & { field: Parcel }) {
   const t = useT();
   const { lang } = useLang();
   const [messages, setMessages] = useState<Message[]>(() => initialMessages(field, lang));
@@ -111,340 +107,113 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
   const [busy, setBusy] = useState(false);
   const cue = useMascotCue();
   const msgsRef = useRef<HTMLDivElement>(null);
-  const session = useRef(newSessionId());
+  const inflight = useRef<AbortController | null>(null);
   // Authority view by default; someone who said they are a farmer starts in the plain farmer view.
   const [view, setView] = useState<AnswerView>(farmer ? 'farmer' : 'authority');
   useEffect(() => setView(farmer ? 'farmer' : 'authority'), [!!farmer]);
-  const inflight = useRef<AbortController | null>(null);
-  const abortCtrl = useRef<AbortController | null>(null);
 
-  // Target scope: 'taixi' for demo field, 'tw05' for verified Yunlin parcels
-  const [activeScope, setActiveScope] = useState<'taixi' | 'tw05'>('taixi');
-  const [tw05ParcelId, setTw05ParcelId] = useState<number>(74);
-  const [agentMode, setAgentMode] = useState<'deterministic' | 'gemini'>('deterministic');
-  const [agentStatus, setAgentStatus] = useState<AgentStatusInfo | null>(null);
-
-  // Relief estimation state
+  // Relief estimate from the official schedule (附表二) and the Yunlin announcements.
   const [catalog, setCatalog] = useState<TwAgroReliefCatalog | null>(null);
-  const [selectedCrop, setSelectedCrop] = useState<string>('grains_3_peanut_sweetpotato');
-  const [assumedAreaHa, setAssumedAreaHa] = useState<string>('0.453978');
-  const [lossThreshold, setLossThreshold] = useState<
-    'unverified' | 'below_20_percent' | 'meets_20_percent' | 'article_12_simplified_exception'
-  >('meets_20_percent');
-  const [estimateResult, setEstimateResult] = useState<TwAgroReliefEstimateResponse | null>(null);
-  const [estimating, setEstimating] = useState(false);
+  const [catalogFailed, setCatalogFailed] = useState(false);
+  const [item, setItem] = useState((farmer && CROP_ITEM[farmer.crop]) ?? UNKNOWN_ITEM);
+  const [estimate, setEstimate] = useState<TwAgroReliefEstimateResponse | null>(null);
+  useEffect(() => setItem((farmer && CROP_ITEM[farmer.crop]) ?? UNKNOWN_ITEM), [farmer]);
 
-  // Load status and catalog lazily when entering TW-05 mode
   useEffect(() => {
-    if (activeScope !== 'tw05' || (agentStatus && catalog)) return;
-    let mounted = true;
-    if (!agentStatus) {
-      fetchAgentStatus()
-        .then((st) => {
-          if (mounted) setAgentStatus(st);
-        })
-        .catch(() => {});
-    }
-    if (!catalog) {
-      fetchReliefCatalog()
-        .then((cat) => {
-          if (mounted) setCatalog(cat);
-        })
-        .catch(() => {});
-    }
+    let live = true;
+    fetchReliefCatalog()
+      .then((c) => live && setCatalog(c))
+      .catch(() => live && setCatalogFailed(true));
     return () => {
-      mounted = false;
+      live = false;
     };
-  }, [activeScope, agentStatus, catalog]);
+  }, []);
 
-  // Update default crop if farmer provided one
   useEffect(() => {
-    if (farmer?.crop === 'garlic') setSelectedCrop('garlic');
-    else if (farmer?.crop === 'peanut' || farmer?.crop === 'sweet_potato') setSelectedCrop('grains_3_peanut_sweetpotato');
-    else if (farmer?.crop === 'rice') setSelectedCrop('paddy_rice');
-  }, [farmer]);
+    if (!catalog) return;
+    let live = true;
+    setEstimate(null);
+    // The ceiling assumes the whole field is approved and the 20% loss gate is met; both are stated on screen.
+    estimateRelief({ crop_item_id: item, assumed_approved_area_ha: field.areaHa, assumed_loss_threshold: 'meets_20_percent' })
+      .then((r) => live && setEstimate(r))
+      .catch(() => live && setEstimate(null));
+    return () => {
+      live = false;
+    };
+  }, [catalog, item, field]);
 
-  // A new field, crop or language starts a new conversation with the agent.
+  // A new field, crop or language starts a new conversation.
   useEffect(() => {
     inflight.current?.abort();
-    abortCtrl.current?.abort();
-    session.current = newSessionId();
     setBusy(false);
-    if (activeScope === 'taixi') {
-      setMessages(initialMessages(field, lang));
-    } else {
-      const pInfo = TW05_PRESET_PARCELS.find((p) => p.id === tw05ParcelId);
-      const area = pInfo?.areaHa ?? 0.453978;
-      setAssumedAreaHa(String(area));
-      if (pInfo?.defaultCrop) setSelectedCrop(pInfo.defaultCrop);
-
-      setMessages([
-        {
-          role: 'bot',
-          text:
-            lang === 'en'
-              ? `Loaded TW-05 Yunlin verified parcel #${tw05ParcelId}. Ready to query Sentinel-1 radar changes, Sentinel-2 optical QA, or calculate statutory relief.`
-              : `已載入 TW-05 雲林實測農田 #${tw05ParcelId}。可針對 Sentinel-1 雷達回波、Sentinel-2 光學品質或法定救助條件進行提問與試算。`,
-        },
-      ]);
-    }
-  }, [field, farmer, lang, activeScope, tw05ParcelId]);
-
-  // Recalculate relief estimate when in TW-05 mode
-  useEffect(() => {
-    if (activeScope !== 'tw05') return;
-    const areaNum = parseFloat(assumedAreaHa);
-    if (isNaN(areaNum) || areaNum <= 0) return;
-
-    let cancelled = false;
-    setEstimating(true);
-    estimateRelief({
-      parcel_feature_id: tw05ParcelId,
-      crop_item_id: selectedCrop,
-      assumed_approved_area_ha: areaNum,
-      assumed_loss_threshold: lossThreshold,
-      allow_cross_aoi_boundary_area: true,
-    })
-      .then((res) => {
-        if (!cancelled) setEstimateResult(res);
-      })
-      .catch(() => {
-        if (!cancelled) setEstimateResult(null);
-      })
-      .finally(() => {
-        if (!cancelled) setEstimating(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [activeScope, tw05ParcelId, selectedCrop, assumedAreaHa, lossThreshold]);
+    setMessages(initialMessages(field, lang));
+  }, [field, farmer, lang]);
 
   useEffect(() => {
     const el = msgsRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages]);
 
-  useEffect(() => () => {
-    inflight.current?.abort();
-    abortCtrl.current?.abort();
-  }, []);
+  useEffect(() => () => inflight.current?.abort(), []);
 
   /** `shown` is what the chat displays; `sent` is what the agent receives (Chinese skips a translation step). */
   const ask = async (shown: string, sent = shown) => {
     if (!shown.trim() || busy) return;
-
-    if (activeScope === 'taixi') {
-      const ctrl = new AbortController();
-      inflight.current = ctrl;
-      setBusy(true);
-      cue('think');
-      setMessages((m) => [...m, { role: 'user', text: shown }, { role: 'bot', text: t('助手查詢法規中…', 'Checking the regulations…'), pending: true }]);
-      let answer: Message;
-      try {
-        const r = await authorityChat(
-          { message: sent, field_id: field.id, crop: farmer ? cropName(farmer, 'zh') : undefined, lang },
-          ctrl.signal,
-        );
-        answer = { role: 'bot', text: '', authority: r };
-        cue('happy');
-      } catch (err) {
-        if ((err as Error).name === 'AbortError') return;
-        cue('sorry');
-        answer = {
-          role: 'bot',
-          error: true,
-          text: t('現在連不上，請稍後再試。', "Can't connect right now. Please try again later."),
-        };
-      }
-      if (inflight.current !== ctrl) return;
-      inflight.current = null;
-      setBusy(false);
-      setMessages((m) => [...m.slice(0, -1), answer]);
-      return;
-    }
-
-    // Live TW-05 Agent Call
-    if (abortCtrl.current) abortCtrl.current.abort();
     const ctrl = new AbortController();
-    abortCtrl.current = ctrl;
+    inflight.current = ctrl;
     setBusy(true);
     cue('think');
-
-    setMessages((m) => [
-      ...m,
-      { role: 'user', text: shown },
-      { role: 'bot', text: t('Agent 執行 Tool Calling 調查中…', 'Agent executing tool calls…'), pending: true },
-    ]);
-
-    investigateTw05(
-      {
-        parcel_feature_id: tw05ParcelId,
-        question: shown,
-        agent_mode: agentMode,
-        session_id: `session-tw05-${tw05ParcelId}-${Date.now()}`,
-      },
-      ctrl.signal,
-    )
-      .then((res: Tw05InvestigationResponse) => {
-        if (abortCtrl.current !== ctrl) return;
-        const factsSummary = res.observed_facts.map((f) => ({
-          statement: f.statement,
-          metric: f.metric_name,
-          value: f.verified_value_str,
-          sensor: f.sensor_or_source,
-          evidenceIds: f.evidence_ids,
-        }));
-        const infSummary = res.inferences.map((i) => ({
-          statement: i.statement,
-          status: i.status,
-          reason: i.reason,
-        }));
-        const traceSummary = res.tool_trace.map((tr) => ({
-          tool: tr.tool,
-          status: tr.status,
-          duration_ms: tr.duration_ms,
-        }));
-
-        cue(res.status === 'blocked' ? 'sorry' : 'happy');
-        let botReplyText = '';
-        if (res.status === 'blocked') {
-          botReplyText = `[${res.execution_mode}] ${res.error?.message || 'Agent blocked request.'}`;
-        } else {
-          botReplyText = `【${res.execution_mode}】針對農田 #${tw05ParcelId} 調查完成：\n` +
-            `• 確認觀測事實：${res.observed_facts.length} 項\n` +
-            `• 分析推論：${res.inferences.length} 項\n` +
-            `• 未知事項：${res.unknowns.length} 項\n` +
-            `• 關聯 Evidence ID：${res.evidence_ids.join(', ')}`;
-        }
-
-        setMessages((m) => [
-          ...m.slice(0, -1),
-          {
-            role: 'bot',
-            text: botReplyText,
-            executionMode: res.execution_mode,
-            facts: factsSummary,
-            inferences: infSummary,
-            unknowns: res.unknowns,
-            toolTrace: traceSummary,
-            evidenceIds: res.evidence_ids,
-          },
-        ]);
-      })
-      .catch((err: Error) => {
-        if (err.name === 'AbortError' || abortCtrl.current !== ctrl) return;
-        cue('sorry');
-        setMessages((m) => [
-          ...m.slice(0, -1),
-          {
-            role: 'bot',
-            text: `[ERROR] ${err.message}`,
-          },
-        ]);
-      })
-      .finally(() => {
-        if (abortCtrl.current === ctrl) {
-          abortCtrl.current = null;
-          setBusy(false);
-        }
-      });
+    setMessages((m) => [...m, { role: 'user', text: shown }, { role: 'bot', text: t('助手查詢法規中…', 'Checking the regulations…'), pending: true }]);
+    let answer: Message;
+    try {
+      const r = await authorityChat({ message: sent, field_id: field.id, crop: farmer ? cropName(farmer, 'zh') : undefined, lang }, ctrl.signal);
+      answer = { role: 'bot', text: '', authority: r };
+      cue('happy');
+    } catch (err) {
+      if ((err as Error).name === 'AbortError') return;
+      cue('sorry');
+      answer = { role: 'bot', error: true, text: t('現在連不上，請稍後再試。', "Can't connect right now. Please try again later.") };
+    }
+    if (inflight.current !== ctrl) return;
+    inflight.current = null;
+    setBusy(false);
+    setMessages((m) => [...m.slice(0, -1), answer]);
   };
 
-  const ceiling = Math.round(field.areaHa * RELIEF_RATE_PER_HA);
+  const rate = catalog?.items.find((i) => i.item_id === item)?.rate_twd_per_ha;
+  const amount = estimate?.calculation_allowed ? estimate.conditional_reference_amount_twd : null;
+  const deadlines = (catalog?.announcements ?? []).filter((a) => a.expired_as_of_reference_date).map((a) => a.application_end_iso);
 
   return (
     <>
       <div className="chat">
         <div className="chat-head" style={{ flexWrap: 'wrap', gap: 10 }}>
           <Earth size={34} />
-          <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <h1 className="h3" style={{ margin: 0 }}>{t('補助與損失估算助手', 'Relief and loss assistant')}</h1>
-              {activeScope === 'tw05' ? (
-                <span
-                  className="stamp"
-                  style={{
-                    fontSize: 11,
-                    background: agentStatus?.gemini?.api_key_configured ? '#E6F4EA' : '#E8F0FE',
-                    color: agentStatus?.gemini?.api_key_configured ? '#137333' : '#1A73E8',
-                    border: '1px solid currentColor',
-                  }}
-                >
-                  {agentStatus?.gemini?.api_key_configured ? 'GEMINI LIVE READY' : 'TW-05 AGENT (FAIL-CLOSED / DETERMINISTIC)'}
-                </span>
-              ) : (
-                <span className="stamp outline" style={{ fontSize: 11 }}>
-                  DEMO · TAIXI
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Scope & Field Selector */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-            <div className="seg" role="group" aria-label="案例切換">
-              <button type="button" aria-pressed={activeScope === 'taixi'} onClick={() => setActiveScope('taixi')} style={{ minHeight: 32, padding: '0 10px', fontSize: 12 }}>
-                {t('臺西示範', 'Taixi demo')} ({field.id})
-              </button>
-              <button type="button" aria-pressed={activeScope === 'tw05'} onClick={() => setActiveScope('tw05')} style={{ minHeight: 32, padding: '0 10px', fontSize: 12 }}>
-                {t('TW-05 雲林實測', 'TW-05 Yunlin live')}
-              </button>
-            </div>
-
-            {activeScope === 'tw05' && (
-              <select
-                aria-label="選擇 TW-05 農田"
-                value={tw05ParcelId}
-                onChange={(e) => setTw05ParcelId(Number(e.target.value))}
-                style={{ padding: '4px 8px', fontSize: 12, borderRadius: 4, border: '1px solid var(--border-strong)' }}
-              >
-                {TW05_PRESET_PARCELS.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.label}
-                  </option>
-                ))}
-              </select>
-            )}
-
-            {activeScope === 'tw05' && (
-              <select
-                aria-label="Agent 執行模式"
-                value={agentMode}
-                onChange={(e) => setAgentMode(e.target.value as 'deterministic' | 'gemini')}
-                style={{ padding: '4px 8px', fontSize: 12, borderRadius: 4, border: '1px solid var(--border-strong)' }}
-              >
-                <option value="deterministic">DETERMINISTIC</option>
-                <option value="gemini">GEMINI LIVE</option>
-              </select>
-            )}
-
-            <span className="event" style={{ padding: '5px 9px' }}>
-              <span>FIELD</span>
-              <b>{activeScope === 'taixi' ? field.id : `#${tw05ParcelId}`}</b>
+          <h1 className="h3" style={{ margin: 0, flex: 1, minWidth: 160 }}>
+            {t('補助與損失估算助手', 'Relief and loss assistant')}
+          </h1>
+          <span className="event" style={{ padding: '5px 9px' }}>
+            <span>FIELD</span>
+            <b>{field.id}</b>
+          </span>
+          <div className="view-switch">
+            <span aria-hidden="true" onClick={() => setView('farmer')}>
+              {t('農民', 'Farmer')}
             </span>
-
-            {activeScope === 'taixi' && (
-              <div className="view-switch">
-                <span aria-hidden="true" onClick={() => setView('farmer')}>
-                  {t('農民', 'Farmer')}
-                </span>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={view === 'authority'}
-                  aria-label={t('農政專業模式', 'Authority view')}
-                  onClick={() => setView(view === 'authority' ? 'farmer' : 'authority')}
-                >
-                  <span className="knob">
-                    <ViewHead who={view === 'authority' ? 'officer' : 'farmer'} />
-                  </span>
-                </button>
-                <span aria-hidden="true" onClick={() => setView('authority')}>
-                  {t('農政', 'Authority')}
-                </span>
-              </div>
-            )}
+            <button
+              type="button"
+              role="switch"
+              aria-checked={view === 'authority'}
+              aria-label={t('農政專業模式', 'Authority view')}
+              onClick={() => setView(view === 'authority' ? 'farmer' : 'authority')}
+            >
+              <span className="knob">
+                <ViewHead who={view === 'authority' ? 'officer' : 'farmer'} />
+              </span>
+            </button>
+            <span aria-hidden="true" onClick={() => setView('authority')}>
+              {t('農政', 'Authority')}
+            </span>
           </div>
         </div>
 
@@ -461,102 +230,14 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
               </div>
             ) : (
               <div key={i} className={`msg ${m.role}`}>
-                {m.untranslated && <span className="eyebrow note">Shown in Chinese</span>}
-                {m.authority ? <AuthorityAnswer reply={m.authority} view={view} farmer={farmer} /> : m.role === 'bot' && !m.sources ? withCitations(m.text) : m.text}
-
-                {/* Additional Agent Inspection Badges & Details for TW-05 */}
-                {m.executionMode && (
-                  <div style={{ marginTop: 8, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                    <span
-                      style={{
-                        padding: '2px 6px',
-                        borderRadius: 3,
-                        fontSize: 11,
-                        fontFamily: 'var(--f-mono)',
-                        background: m.executionMode.includes('LIVE') ? '#E6F4EA' : '#E8F0FE',
-                        color: m.executionMode.includes('LIVE') ? '#137333' : '#1A73E8',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {m.executionMode}
-                    </span>
-                  </div>
-                )}
-
-                {/* Observed Facts Accordion */}
-                {m.facts && m.facts.length > 0 && (
-                  <details style={{ marginTop: 8, fontSize: 13, background: 'var(--surface)', padding: '6px 10px', borderRadius: 4, border: '1px solid var(--border)' }}>
-                    <summary style={{ cursor: 'pointer', fontWeight: 600 }}>
-                      觀測事實清單 ({m.facts.length} 項)
-                    </summary>
-                    <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
-                      {m.facts.map((f, idx) => (
-                        <li key={idx} style={{ marginBottom: 4 }}>
-                          <b>[{f.sensor}]</b> {f.metric}: <code>{f.value}</code> — {f.statement}
-                          <br />
-                          <small style={{ color: 'var(--text-3)' }}>Evidence: {f.evidenceIds.join(', ')}</small>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-
-                {/* Tool Trace Accordion */}
-                {m.toolTrace && m.toolTrace.length > 0 && (
-                  <details style={{ marginTop: 6, fontSize: 12, background: 'var(--surface)', padding: '6px 10px', borderRadius: 4, border: '1px solid var(--border)' }}>
-                    <summary style={{ cursor: 'pointer', fontWeight: 600 }}>
-                      Tool Calling 追蹤紀錄 ({m.toolTrace.length} 步驟)
-                    </summary>
-                    <div style={{ marginTop: 4, display: 'flex', flexDirection: 'column', gap: 3 }}>
-                      {m.toolTrace.map((tr, idx) => (
-                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--f-mono)', fontSize: 11 }}>
-                          <span>{tr.tool}</span>
-                          <span style={{ color: tr.status === 'complete' ? '#137333' : '#D93025' }}>
-                            {tr.status} {tr.duration_ms ? `(${tr.duration_ms.toFixed(1)}ms)` : ''}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </details>
-                )}
-
-                {/* Evidence Citations */}
-                {m.evidenceIds && m.evidenceIds.length > 0 && (
-                  <div className="cites">
-                    {m.evidenceIds.map((eid) => (
-                      <span key={eid} style={{ fontFamily: 'var(--f-mono)' }}>
-                        [{eid}]
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {/* Traditional Citations for opening summary */}
-                {m.role === 'bot' && !m.evidenceIds && !m.sources && !m.authority && (
+                {m.authority ? <AuthorityAnswer reply={m.authority} view={view} farmer={farmer} /> : m.role === 'bot' ? withCitations(m.text) : m.text}
+                {m.role === 'bot' && !m.authority && (
                   <div className="cites">
                     {CITATIONS.map((c, k) => (
                       <span key={c.title.zh}>
                         [{k + 1}] {t(c.title)}
                       </span>
                     ))}
-                  </div>
-                )}
-                {m.sources && (
-                  <div className="cites">
-                    {m.sources.length ? (
-                      m.sources.map((id) => {
-                        const src = describeSource(id);
-                        return src.url ? (
-                          <a key={id} href={src.url} target="_blank" rel="noreferrer">
-                            {t(src.title)}
-                          </a>
-                        ) : (
-                          <span key={id}>{t(src.title)}</span>
-                        );
-                      })
-                    ) : (
-                      <span className="none">{t('這段回答沒有引用條文', 'No article cited for this reply')}</span>
-                    )}
                   </div>
                 )}
               </div>
@@ -583,11 +264,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
           <input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder={
-              activeScope === 'tw05'
-                ? t('向 Agent 詢問此坵塊雷達、光學與救助判定…', 'Ask Agent about radar, optical QA and relief…')
-                : t('現金救助的門檻是多少？', 'What is the threshold for cash relief?')
-            }
+            placeholder={t('現金救助的門檻是多少？', 'What is the threshold for cash relief?')}
             autoComplete="off"
             aria-label={t('輸入問題', 'Your question')}
           />
@@ -600,161 +277,81 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
       <aside className="panel">
         <div className="panel-head">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className="eyebrow">{activeScope === 'tw05' ? 'Statutory Relief Engine' : 'Estimate'}</div>
+            <div className="eyebrow">Estimate</div>
             <span className="stamp outline">{t('試算 · 非核定', 'ESTIMATE · NOT APPROVED')}</span>
           </div>
           <h2 className="h3">{t('救助參考試算', 'Relief estimate')}</h2>
         </div>
 
-        {activeScope === 'taixi' ? (
-          /* Taixi Demo Receipt (Preserves exact DOM shape and values for App.test.tsx) */
-          <div className="receipt">
-            <div className="line">
-              <span>{t('田區', 'Field')}</span>
-              <span>
-                {field.id} {t(field.town)}
-              </span>
-            </div>
-            {farmer?.cadastral && (
-              <div className="line">
-                <span>{t('土地地籍', 'Land parcel no.')}</span>
-                <span>{farmer.cadastral}</span>
-              </div>
-            )}
-            <div className="line">
-              <span>{t('作物', 'Crop')}</span>
-              <span>{farmer ? `${cropName(farmer, lang)}${t('（農民登記）', ' (farmer)')}` : t('待驗證', 'Unverified')}</span>
-            </div>
-            <div className="line">
-              <span>{t('田區面積', 'Field area')}</span>
-              <span>{field.areaHa.toFixed(4)} ha</span>
-            </div>
-            <div className="line">
-              <span>{t('核認受損面積', 'Confirmed damaged area')}</span>
-              <span>{t('待現場勘查', 'Pending inspection')}</span>
-            </div>
-            <div className="line">
-              <span>{t('救助單價', 'Rate')}</span>
-              <span>{RELIEF_RATE_PER_HA.toLocaleString()} /ha</span>
-            </div>
-            <hr />
-            <div className="total">
-              <span className="cap">{t('試算上限', 'Estimated ceiling')}</span>
-              <b>NT$ {ceiling.toLocaleString()}</b>
-            </div>
-            <div className="line">
-              <span>{t('救助資格', 'Eligibility')}</span>
-              <span>{t('待主管機關認定', 'Decided by the authority')}</span>
-            </div>
-            <div className="official">
-              <span className="eyebrow">
-                {t('官方災損 · 農業部', 'OFFICIAL LOSS · MOA')} {OFFICIAL_LOSS.date}
-              </span>
-              <span>
-                {t('雲林縣', 'Yunlin')} <b>NT$ {bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}</b> · {t('全國', 'Taiwan')} NT$ {bigNtd(OFFICIAL_LOSS.taiwanNtd, lang)}
-              </span>
-            </div>
-          </div>
-        ) : (
-          /* TW-07.2 Live Statutory Relief Estimator */
-          <div className="receipt">
-            <div style={{ background: '#FFF8E1', border: '1px solid #FFE082', padding: '6px 10px', borderRadius: 4, fontSize: 11, color: '#B78103' }}>
-              ⚠️ <b>CONDITIONAL ESTIMATE / NOT OFFICIAL</b>: 金額為使用者明示假設下之法定試算，實際核定以公所現勘為準。
-            </div>
-
-            <div className="line" style={{ marginTop: 4 }}>
-              <span>{t('坵塊編號', 'Parcel ID')}</span>
-              <span>#{tw05ParcelId}</span>
-            </div>
-
-            {/* Statutory Crop Selection */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontSize: 12, color: 'var(--text-2)' }}>{t('作物品項（法定公告附表二）', 'Crop item (MOA Sched. II)')}</span>
-              <select
-                aria-label="選擇法定救助作物"
-                value={selectedCrop}
-                onChange={(e) => setSelectedCrop(e.target.value)}
-                style={{ padding: '6px 8px', fontSize: 12, borderRadius: 4, border: '1px solid var(--border-strong)' }}
-              >
-                {catalog?.items
-                  .filter((it) => it.rate_twd_per_ha)
-                  .map((it) => (
-                    <option key={it.item_id} value={it.item_id}>
-                      {it.display_name} (NT$ {it.rate_twd_per_ha?.toLocaleString()}/ha)
-                    </option>
-                  ))}
-              </select>
-            </div>
-
-            {/* Assumed Area Input */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: 12, color: 'var(--text-2)' }}>{t('假設核認面積 (ha)', 'Assumed area (ha)')}</span>
-                <span style={{ fontSize: 10, color: 'var(--text-3)' }}>未預先四捨五入</span>
-              </div>
-              <input
-                type="number"
-                step="0.000001"
-                min="0.001"
-                aria-label="假設核認面積"
-                value={assumedAreaHa}
-                onChange={(e) => setAssumedAreaHa(e.target.value)}
-                style={{ padding: '6px 8px', fontSize: 13, borderRadius: 4, border: '1px solid var(--border-strong)' }}
-              />
-            </div>
-
-            {/* Loss Threshold Condition */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontSize: 12, color: 'var(--text-2)' }}>{t('損害率情境假設', 'Loss threshold assumption')}</span>
-              <select
-                aria-label="損害率門檻"
-                value={lossThreshold}
-                onChange={(e) =>
-                  setLossThreshold(
-                    e.target.value as 'unverified' | 'below_20_percent' | 'meets_20_percent' | 'article_12_simplified_exception',
-                  )
-                }
-                style={{ padding: '6px 8px', fontSize: 12, borderRadius: 4, border: '1px solid var(--border-strong)' }}
-              >
-                <option value="meets_20_percent">損害率達 20% 以上（符合法定一般門檻）</option>
-                <option value="article_12_simplified_exception">第 12 條簡化程序例外情境（使用者情境假設）</option>
-                <option value="below_20_percent">未達 20% 門檻（法定不予救助）</option>
-                <option value="unverified">未確認損害率（阻擋試算金額）</option>
-              </select>
-            </div>
-
-            <hr />
-
-            {/* Calculated Result */}
-            <div className="total">
-              <span className="cap">{t('條件式參考救助額', 'Conditional estimate')}</span>
-              <b>
-                {estimating
-                  ? '計算中…'
-                  : estimateResult?.calculation_allowed && estimateResult.conditional_reference_amount_twd != null
-                  ? `NT$ ${estimateResult.conditional_reference_amount_twd.toLocaleString()}`
-                  : 'NT$ 0'}
-              </b>
-            </div>
-
-            {estimateResult?.formula_display && (
-              <div style={{ fontSize: 12, fontFamily: 'var(--f-mono)', color: 'var(--text-2)', background: 'var(--surface-3)', padding: '4px 8px', borderRadius: 3 }}>
-                {estimateResult.formula_display}
-              </div>
-            )}
-
-            {estimateResult?.blocked_reason && (
-              <div style={{ fontSize: 12, color: '#D93025', background: '#FCE8E6', padding: '6px 10px', borderRadius: 4 }}>
-                🛑 {estimateResult.blocked_reason}
-              </div>
-            )}
-
-            <div className="line">
-              <span>{t('救助資格認定', 'Official status')}</span>
-              <span style={{ color: '#E37400' }}>待主管機關現勘核認</span>
-            </div>
-          </div>
+        {deadlines.length > 0 && (
+          <p className="deadline" role="note">
+            <b>{t('申請期限已過', 'Applications have closed')}</b>
+            {t(`公告受理至 ${deadlines.join('、')}。`, `The announcements took applications until ${deadlines.join(', ')}.`)}
+          </p>
         )}
+
+        <div className="receipt">
+          <div className="line">
+            <span>{t('田區', 'Field')}</span>
+            <span>
+              {field.id} {t(field.town)}
+            </span>
+          </div>
+          {farmer?.cadastral && (
+            <div className="line">
+              <span>{t('土地地籍', 'Land parcel no.')}</span>
+              <span>{farmer.cadastral}</span>
+            </div>
+          )}
+          <div className="line">
+            <span>{t('作物', 'Crop')}</span>
+            <span>{farmer ? `${cropName(farmer, lang)}${t('（農民登記）', ' (farmer)')}` : t('待驗證', 'Unverified')}</span>
+          </div>
+          <div className="line">
+            <span>{t('田區面積', 'Field area')}</span>
+            <span>{field.areaHa.toFixed(4)} ha</span>
+          </div>
+          <label className="item-pick">
+            <span>{t('救助品項（附表二）', 'Relief item (Schedule 2)')}</span>
+            <select value={item} onChange={(e) => setItem(e.target.value)} disabled={!catalog}>
+              {catalog ? (
+                catalog.items.map((i) => (
+                  <option key={i.item_id} value={i.item_id}>
+                    {i.display_name}
+                  </option>
+                ))
+              ) : (
+                <option value={item}>{catalogFailed ? t('試算服務連不上', 'Estimate service unavailable') : t('載入中…', 'Loading…')}</option>
+              )}
+            </select>
+          </label>
+          <div className="line">
+            <span>{t('救助單價', 'Rate')}</span>
+            <span>{rate ? `${rate.toLocaleString()} /ha` : '—'}</span>
+          </div>
+          <hr />
+          <div className="total">
+            <span className="cap">{t('試算上限', 'Estimated ceiling')}</span>
+            <b>{amount != null ? `NT$ ${amount.toLocaleString()}` : '—'}</b>
+          </div>
+          {amount != null ? (
+            <p className="cap">{t('假設整塊田核定、損失率達 20%。', 'Assumes the whole field is approved and the loss rate reaches 20%.')}</p>
+          ) : (
+            estimate && <p className="cap">{t(BLOCKED[estimate.result_status] ?? { zh: estimate.result_label, en: estimate.result_label })}</p>
+          )}
+          <div className="line">
+            <span>{t('救助資格', 'Eligibility')}</span>
+            <span>{t('待主管機關認定', 'Decided by the authority')}</span>
+          </div>
+          <div className="official">
+            <span className="eyebrow">
+              {t('官方災損 · 農業部', 'OFFICIAL LOSS · MOA')} {OFFICIAL_LOSS.date}
+            </span>
+            <span>
+              {t('雲林縣', 'Yunlin')} <b>NT$ {bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}</b> · {t('全國', 'Taiwan')} NT$ {bigNtd(OFFICIAL_LOSS.taiwanNtd, lang)}
+            </span>
+          </div>
+        </div>
 
         <div className="eyebrow" style={{ padding: '8px 20px 4px' }}>
           {t('References 引用來源', 'References')}

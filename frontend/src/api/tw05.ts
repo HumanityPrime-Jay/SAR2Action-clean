@@ -122,6 +122,8 @@ export interface TwAgroReliefCatalog {
   min_application_area_ha: number;
   statutory_loss_threshold_fraction: number;
   items: TwAgroReliefScheduleItem[];
+  /** Yunlin relief announcements for this disaster, with their application windows. */
+  announcements?: { doc_id: string; application_end_iso: string; expired_as_of_reference_date: boolean }[];
 }
 
 export interface TwAgroReliefEstimateRequest {

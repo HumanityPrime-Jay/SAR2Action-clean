@@ -76,6 +76,17 @@ function authorityReply() {
   };
 }
 
+/** fetch that answers the relief agent with `reply`; every other request (e.g. the relief catalog) fails. */
+function agentFetch(reply: unknown) {
+  return vi.fn((url: string) =>
+    url.endsWith('/api/agent/chat') ? Promise.resolve(new Response(JSON.stringify(reply), { status: 200 })) : Promise.reject(new TypeError('offline')),
+  );
+}
+
+/** The body sent to the relief agent. */
+const agentBody = (fetchMock: ReturnType<typeof agentFetch>) =>
+  JSON.parse((fetchMock.mock.calls.find(([url]) => url.endsWith('/api/agent/chat')) as unknown as [string, RequestInit])[1].body as string);
+
 describe('App', () => {
   beforeEach(() => {
     window.location.hash = '';
@@ -208,7 +219,7 @@ describe('App', () => {
   });
 
   it('relief assistant: a farmer gets plain words, the law stays verbatim, and the switch shows the authority view', async () => {
-    const fetchMock = vi.fn(() => Promise.resolve(new Response(JSON.stringify(authorityReply()), { status: 200 })));
+    const fetchMock = agentFetch(authorityReply());
     vi.stubGlobal('fetch', fetchMock);
     render(<App />);
     openChampiMap();
@@ -225,9 +236,7 @@ describe('App', () => {
     expect(within(assist).getByRole('link', { name: '《農業天然災害救助辦法》第12條' })).toHaveAttribute('href', expect.stringContaining('flno=12'));
     expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
     expect(within(assist).getByText(/公告救助地區的隔天起 10 個工作日內/)).toBeInTheDocument();
-    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
-    expect(url).toBe('/api/agent/chat');
-    expect(JSON.parse(init.body as string)).toMatchObject({ mode: 'AUTHORITY', message: '申請需要哪些文件？', field_id: 'YL-CAND-01', crop: '大蒜', lang: 'zh' });
+    expect(agentBody(fetchMock)).toMatchObject({ mode: 'AUTHORITY', message: '申請需要哪些文件？', field_id: 'YL-CAND-01', crop: '大蒜', lang: 'zh' });
 
     fireEvent.click(viewSwitch);
     expect(viewSwitch).toHaveAttribute('aria-checked', 'true');
@@ -243,7 +252,7 @@ describe('App', () => {
     const reply = authorityReply();
     reply.legal_authority.status = 'INSUFFICIENT_LEGAL_BASIS';
     reply.legal_authority.citations = [];
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify(reply), { status: 200 }))));
+    vi.stubGlobal('fetch', agentFetch(reply));
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
     const assist = screen.getByRole('region', { name: '補助助手' });
@@ -253,7 +262,7 @@ describe('App', () => {
   });
 
   it('relief assistant in English: authority view by default, Chinese law text kept as the official wording', async () => {
-    const fetchMock = vi.fn(() => Promise.resolve(new Response(JSON.stringify(authorityReply()), { status: 200 })));
+    const fetchMock = agentFetch(authorityReply());
     vi.stubGlobal('fetch', fetchMock);
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: 'EN' }));
@@ -264,7 +273,7 @@ describe('App', () => {
     expect(await within(assist).findByText(/\[Observation\] YL-CAND-01/)).toBeInTheDocument();
     expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
     expect(within(assist).getByText('Official text in Chinese.')).toBeInTheDocument();
-    expect(JSON.parse((fetchMock.mock.calls[0] as unknown as [string, RequestInit])[1].body as string)).toMatchObject({ lang: 'en' });
+    expect(agentBody(fetchMock)).toMatchObject({ lang: 'en' });
     vi.unstubAllGlobals();
   });
 
@@ -297,15 +306,6 @@ describe('App', () => {
     fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
     expect(await screen.findByText('抱歉，現在連不上。')).toBeInTheDocument();
     vi.unstubAllGlobals();
-  });
-
-  it('relief estimate is a ceiling from field area, with eligibility left to the authority', () => {
-    render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
-    const assist = screen.getByRole('region', { name: '補助助手' });
-    // The recorded demo uses 12.52471 ha before rounding the illustrative currency.
-    expect(within(assist).getByText('NT$ 325,642')).toBeInTheDocument();
-    expect(within(assist).getByText('待主管機關認定')).toBeInTheDocument();
   });
 
   it('rejects unknown or cross-case parcel IDs instead of falling back to the first parcel', () => {
