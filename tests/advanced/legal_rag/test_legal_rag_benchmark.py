@@ -228,5 +228,53 @@ class TestHeldOutAndAppendixVerification(unittest.TestCase):
         self.assertEqual(peanut["record"]["amount_ntd"], 36000)
 
 
+# P4: Independent Taiwanese Farmer Colloquial Evaluation Set
+FARMER_COLLOQUIAL_CASES: list[dict] = [
+    {"q": "我的稻子被吹倒了，可以拿多少補助？", "expected_articles": ["6", "9", "12-1"], "status": "ANSWERED"},
+    {"q": "要去哪裡申請？", "expected_articles": ["12"], "status": "ANSWERED"},
+    {"q": "沒有地號怎麼辦？", "expected_articles": ["5", "12", "12-1"], "status": "ANSWERED"},
+    {"q": "田淹水了政府會賠嗎？", "expected_articles": ["4", "6", "12-1"], "status": "ANSWERED"},
+    {"q": "不到兩成損失是不是不能申請？", "expected_articles": ["12-1"], "status": "ANSWERED"},
+    {"q": "租來的農田受災誰可以去公所辦？", "expected_articles": ["5", "12"], "status": "ANSWERED"},
+    {"q": "想要借低利貸款要找哪一條規定？", "expected_articles": ["7", "19", "3"], "status": "ANSWERED"},
+    {"q": "颱風過後公所會不會來現場看？", "expected_articles": ["12", "13"], "status": "ANSWERED"},
+]
+
+
+class TestModelFreeFarmerColloquialAndProvenance(unittest.TestCase):
+    def test_taiwanese_farmer_colloquial_queries(self) -> None:
+        svc = LegalRAGService()
+        hits = 0
+        mrr_sum = 0.0
+        t0 = time.perf_counter()
+        for case in FARMER_COLLOQUIAL_CASES:
+            resp = svc.query(case["q"])
+            self.assertEqual(resp.status, case["status"], f"Colloquial status mismatch: {case['q']}")
+            self.assertTrue(resp.citation_verification.get("verified", False))
+            self.assertFalse(resp.retrieval_trace.get("uses_neural_models", True))
+            self.assertFalse(resp.retrieval_trace.get("requires_gpu", True))
+            returned_nos = [c["article"].removeprefix("第").removesuffix("條") for c in resp.citations[:5]]
+            expected = set(case["expected_articles"])
+            if expected.intersection(returned_nos):
+                hits += 1
+            for rank, no in enumerate(returned_nos, 1):
+                if no in expected:
+                    mrr_sum += 1.0 / rank
+                    break
+        avg_ms = (time.perf_counter() - t0) * 1000.0 / len(FARMER_COLLOQUIAL_CASES)
+        recall_at_5 = hits / len(FARMER_COLLOQUIAL_CASES)
+        mrr = mrr_sum / len(FARMER_COLLOQUIAL_CASES)
+        print(f"\n[Farmer Colloquial Set] Cases={len(FARMER_COLLOQUIAL_CASES)}, Recall@5={hits}/{len(FARMER_COLLOQUIAL_CASES)} ({recall_at_5:.2%}), MRR@10={mrr:.3f}, AvgLatency={avg_ms:.2f}ms")
+        self.assertGreaterEqual(recall_at_5, 0.875)
+
+    def test_no_neural_or_qwen_dependencies_in_legal_rag(self) -> None:
+        legal_rag_dir = ROOT / "backend" / "app" / "advanced" / "legal_rag"
+        self.assertFalse((legal_rag_dir / "embeddings.py").exists())
+        for py_file in legal_rag_dir.rglob("*.py"):
+            content = py_file.read_text(encoding="utf-8")
+            for forbidden in ("Qwen", "sentence_transformers", "faiss", "neural_model_loaded", "from transformers"):
+                self.assertNotIn(forbidden, content, f"Forbidden token {forbidden!r} found in {py_file}")
+
+
 if __name__ == "__main__":
     unittest.main()

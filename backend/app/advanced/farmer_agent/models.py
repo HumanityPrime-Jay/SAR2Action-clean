@@ -79,6 +79,8 @@ class FarmerChatResponse:
     sources: list[str] = field(default_factory=list)
     requires_confirmation: bool = False
     session_state: dict[str, Any] = field(default_factory=dict)
+    # "en" only when the reply was actually translated; otherwise the Chinese reply is returned as is.
+    reply_language: str = "zh"
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
