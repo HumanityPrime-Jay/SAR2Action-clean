@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CASE, type LngLat, NISAR_TAIXI, PARCELS, type Parcel, TREND_COLOR, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
+import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, TOWNSHIPS, YUNLIN_AREA, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
@@ -37,6 +37,7 @@ const PROJ = (() => {
   return { W, H, xy, west, east, north, south, pxPerKm: s / 111.32 };
 })();
 
+const TOWN_SHAPES = TOWNSHIPS.map((town) => ({ key: town.name.en, d: geometryPath(town.geometry, PROJ.xy) }));
 const SHAPES = PARCELS.map((p) => {
   const pts = polygonRings(p.geometry).flat(2).map(PROJ.xy);
   return { id: p.id, path: geometryPath(p.geometry, PROJ.xy), right: Math.max(...pts.map((q) => q[0])), left: Math.min(...pts.map((q) => q[0])), top: Math.min(...pts.map((q) => q[1])) };
@@ -139,7 +140,8 @@ function DamageMap({
   const { lang } = useLang();
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
-  const [layers, setLayers] = useState({ trend: true, post: true, pre: false, bnd: true, landuse: false });
+  // The post-typhoon NISAR pass only reached the northern part of Taixi, so the complete pre pass is shown first.
+  const [layers, setLayers] = useState({ trend: true, pre: true, asc: false, post: false, town: true, bnd: true, landuse: false });
   const landuse = useLanduse(layers.landuse);
   const [sheetRef, sheet] = useElementSize<HTMLDivElement>();
   const [zoom, setZoom] = useState(1);
@@ -169,6 +171,7 @@ function DamageMap({
 
   const sheetClass = ['sheet', !layers.trend && 'map-hide-dmg', !layers.bnd && 'map-hide-bnd'].filter(Boolean).join(' ');
   const [pre, post] = NISAR_TAIXI.scenes;
+  const asc = NISAR_TAIXI.ascending;
   const gridLngs: number[] = [];
   for (let lng = Math.ceil(PROJ.west * 100) / 100; lng < PROJ.east; lng += 0.01) gridLngs.push(lng);
   const gridLats: number[] = [];
@@ -179,10 +182,10 @@ function DamageMap({
     <>
       <div className={sheetClass} ref={sheetRef}>
         <svg className="map" viewBox={`${vx} ${vy} ${vw} ${vh}`} preserveAspectRatio="xMidYMid meet" style={{ overflow: 'visible' }} aria-label={t('候選田區地圖', 'Candidate field map')}>
-          {([['pre', pre], ['post', post]] as const).map(
+          {([['pre', pre], ['asc', asc], ['post', post]] as const).map(
             ([key, scene]) =>
               layers[key] && (
-                <image key={key} href={scene.image.HH} {...sceneRect(scene.corners)} preserveAspectRatio="none" opacity={0.85} style={{ imageRendering: 'pixelated' }} />
+                <image key={key} href={scene.image.RGB} {...sceneRect(scene.corners)} preserveAspectRatio="none" opacity={0.9} style={{ imageRendering: 'pixelated' }} />
               ),
           )}
           {layers.landuse && Array.isArray(landuse) && (
@@ -202,6 +205,13 @@ function DamageMap({
               return <line key={lat} x1={0} y1={y} x2={PROJ.W} y2={y} />;
             })}
           </g>
+          {layers.town && (
+            <g className="townships" aria-hidden="true">
+              {TOWN_SHAPES.map((town) => (
+                <path key={town.key} d={town.d} />
+              ))}
+            </g>
+          )}
           <g fontFamily="IBM Plex Mono" fontSize="9" fill="#BFD0F5" fillOpacity=".75">
             {gridLngs.map((lng) => (
               <text key={lng} x={PROJ.xy([lng, PROJ.north])[0] + 3} y={PROJ.H - 6}>
@@ -265,8 +275,10 @@ function DamageMap({
           {(
             [
               ['trend', t('VH 變化（田區著色）', 'VH change (field colour)')],
-              ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}`],
               ['pre', `NISAR ${t('颱風前', 'pre')} ${md(pre.date)}`],
+              ['asc', `NISAR ${t('颱風後', 'post')} ${md(asc.date)}`],
+              ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}`],
+              ['town', t('鄉鎮界線', 'Township boundaries')],
               ['bnd', t('田區邊界', 'Field boundaries')],
               ['landuse', t('農地類型（國土利用）', 'Farmland type (land use)')],
             ] as const
@@ -274,6 +286,7 @@ function DamageMap({
             <label key={key}>
               <input type="checkbox" checked={layers[key]} onChange={(e) => setLayers((l) => ({ ...l, [key]: e.target.checked }))} />
               {label}
+              {key === 'town' && <i className="dash-key" aria-hidden="true" />}
             </label>
           ))}
           {layers.landuse && (
@@ -350,6 +363,49 @@ function DamageMap({
       </div>
 
       <aside className="panel">
+        <section className="loss-summary" aria-labelledby="loss-title">
+          <div className="eyebrow">
+            {t(
+              'SAR2Action 雷達估算 · 全雲林農地',
+              'SAR2Action radar estimate · all Yunlin',
+            )}
+          </div>
+          <h2 id="loss-title" className="h3">
+            {t('這次颱風的受影響面積', "Area this typhoon affected")}
+          </h2>
+          <div className="loss-figures">
+            <div>
+              <b>
+                {t('約 ', '~')}
+                {(Math.round(YUNLIN_AREA.excessHa / 100) * 100).toLocaleString()}
+                <small>{t(' 公頃', ' ha')}</small>
+              </b>
+              <span>{t('颱風期間雷達變化比平常多', 'more radar change than usual')}</span>
+            </div>
+            <div>
+              <b>
+                {Math.round(YUNLIN_AREA.excessShare * 100)}
+                <small>%</small>
+              </b>
+              <span>{t(`占全縣 ${Math.round(YUNLIN_AREA.farmlandHa / 1000)} 千公頃農地`, `of ${Math.round(YUNLIN_AREA.farmlandHa / 1000)}k ha of farmland`)}</span>
+            </div>
+          </div>
+          <p className="cap">
+            {t(
+              `${md(YUNLIN_AREA.typhoon[0])}→${md(YUNLIN_AREA.typhoon[1])} 對照平常 12 天（${YUNLIN_AREA.thresholdDb} dB）。多為雨水讓田變濕，不等於損失；3 dB 時無差異。`,
+              `${md(YUNLIN_AREA.typhoon[0])}→${md(YUNLIN_AREA.typhoon[1])} vs an ordinary 12 days (${YUNLIN_AREA.thresholdDb} dB). Mostly wet fields, not lost crops; none at 3 dB.`,
+            )}
+          </p>
+          <p className="loss-official">
+            {t(
+              `核對用官方數據（農業部 ${OFFICIAL_LOSS.date}）：全台農作物受害 ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} 公頃，雲林損失 ${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}；未公布縣市面積，不能直接比較。`,
+              `Official check (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged in Taiwan; Yunlin lost NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}. No county areas, so not directly comparable.`,
+            )}{' '}
+            <a href={OFFICIAL_LOSS.url} target="_blank" rel="noreferrer">
+              {t('原始報告', 'Source')}
+            </a>
+          </p>
+        </section>
         <div className="panel-head" style={{ paddingBottom: 0, border: 0 }}>
           <div className="eyebrow">{t('Candidate fields · 農田坵塊圖', 'Official farmland map')}</div>
           <h2 className="h2">{t('候選田區', 'Candidate fields')}</h2>

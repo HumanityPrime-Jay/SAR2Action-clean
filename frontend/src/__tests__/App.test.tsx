@@ -239,6 +239,45 @@ describe('App', () => {
     vi.unstubAllGlobals();
   });
 
+  it('the damage map leads with our county-wide radar estimate, says it is not loss, and keeps the official figures as a reference', () => {
+    render(<App />);
+    const map = openChampiMap();
+    const summary = within(map).getByRole('region', { name: '這次颱風的受影響面積' });
+    expect(within(summary).getByText(/全雲林農地/)).toBeInTheDocument();
+    expect(within(summary).getByText('颱風期間雷達變化比平常多').previousElementSibling).toHaveTextContent('約 2,800 公頃');
+    expect(within(summary).getByText('占全縣 71 千公頃農地').previousElementSibling).toHaveTextContent('4%');
+    expect(within(summary).getByText(/10\/10→10\/22 對照平常 12 天/)).toHaveTextContent('不等於損失');
+    expect(within(summary).getByText(/核對用官方數據/)).toHaveTextContent('全台農作物受害 12,938 公頃');
+    expect(within(summary).getByRole('link', { name: '原始報告' })).toHaveAttribute('href', expect.stringContaining('moa.gov.tw'));
+  });
+
+  it('the map starts on the complete pre-typhoon NISAR pass in false colour', () => {
+    render(<App />);
+    const map = openChampiMap();
+    expect(within(map).getByRole('checkbox', { name: /NISAR 颱風前/ })).toBeChecked();
+    const asc = within(map).getByRole('checkbox', { name: 'NISAR 颱風後 10/26' });
+    expect(asc).not.toBeChecked();
+    fireEvent.click(asc);
+    expect(map.querySelector('svg.map image[href*="nisar_post_asc_rgb_map.png"]')).not.toBeNull();
+    fireEvent.click(asc);
+    const post = within(map).getByRole('checkbox', { name: 'NISAR 颱風後 10/28' });
+    expect(post).not.toBeChecked();
+    expect([...map.querySelectorAll('svg.map image')].map((i) => i.getAttribute('href'))).toEqual([expect.stringContaining('nisar_pre_rgb_map.png')]);
+    fireEvent.click(post);
+    expect(map.querySelectorAll('svg.map image')).toHaveLength(2);
+  });
+
+  it('draws township boundaries as dashed lines, explained in the layers legend', () => {
+    render(<App />);
+    const map = openChampiMap();
+    const toggle = within(map).getByRole('checkbox', { name: '鄉鎮界線' });
+    expect(toggle).toBeChecked();
+    expect(toggle.parentElement!.querySelector('.dash-key')).not.toBeNull();
+    expect(map.querySelectorAll('svg.map .townships path')).toHaveLength(3);
+    fireEvent.click(toggle);
+    expect(map.querySelector('svg.map .townships')).toBeNull();
+  });
+
   it('shows the five real candidate fields and filters them by VH trend', () => {
     render(<App />);
     const map = openChampiMap();

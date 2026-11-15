@@ -7,5 +7,13 @@
   "yunlin_county_ntd": 157743000,
   "reported_scope": "Regional agricultural losses; not pixel or parcel ground truth",
   "source_figures_unit": "NTD thousands",
-  "source_verified_in_page": true
+  "source_verified_in_page": true,
+  "taiwan_crop_damaged_area_ha": 12938,
+  "taiwan_crop_damage_level_pct": 21,
+  "taiwan_crop_no_harvest_equiv_ha": 2652,
+  "yunlin_share_pct": 16,
+  "yunlin_rank": 2,
+  "county_area_reported": false,
+  "report_pdf_url": "https://www.moa.gov.tw/redirect_files.php?id=62031",
+  "area_note": "Areas are national totals from the MOA final report (115-11-06 17:00); the report gives county losses in NTD only, not county areas."
 }

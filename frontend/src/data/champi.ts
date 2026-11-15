@@ -7,8 +7,11 @@
  */
 import comparison from '../../public/studio/field_comparison.json';
 import fieldsGeojson from '../../public/studio/fields.geojson?raw';
+import townshipsGeojson from '../../public/studio/townships.geojson?raw';
 import nisarMap from '../../public/studio/nisar_map_manifest.json';
+import nisarAscending from '../../public/studio/nisar_ascending_manifest.json';
 import official from '../../public/studio/official_loss_record.json';
+import yunlinArea from '../../public/studio/yunlin_area_estimate.json';
 import investigation from '../../public/studio/recorded_investigation.json';
 import type { Lang, Text } from '../i18n';
 
@@ -235,20 +238,38 @@ export const EVIDENCE_SOURCES: EvidenceSource[] = [...new Set(Object.values(TEST
   label: SOURCE_TEXT[id] ?? observationLabel.get(id) ?? { zh: id, en: id },
 })).sort((a, b) => a.label.en.localeCompare(b.label.en));
 
-/** Two separate NISAR scenes over Taixi; each is stretched on its own, so not comparable in value. */
+/** Township boundaries (NLSC) around the case: Taixi and its neighbours. */
+export const TOWNSHIPS: { name: Text; geometry: FieldGeometry }[] = (
+  JSON.parse(townshipsGeojson) as { features: { properties: { name_zh: string; name_en: string }; geometry: FieldGeometry }[] }
+).features.map((f) => ({ name: { zh: f.properties.name_zh, en: f.properties.name_en }, geometry: f.geometry }));
+
+type NisarScene = {
+  period: string;
+  acquisition_start_utc: string;
+  crid: string;
+  product_maturity: string;
+  coordinates: number[][];
+  layers: { HH?: { image: string }; HV?: { image: string }; RGB: { image: string } };
+};
+const studio = (file: string) => `${import.meta.env.BASE_URL}studio/${file}`;
+const nisarScene = (s: NisarScene) => ({
+  period: s.period as 'PRE' | 'POST' | 'POST_ASC',
+  date: s.acquisition_start_utc.slice(0, 10),
+  crid: s.crid,
+  maturity: s.product_maturity,
+  corners: s.coordinates as LngLat[],
+  image: { HH: studio(s.layers.HH?.image ?? ''), HV: studio(s.layers.HV?.image ?? ''), RGB: studio(s.layers.RGB.image) },
+});
+
+/**
+ * NISAR passes over Taixi, drawn as dual-pol false colour, each stretched on its own; never subtracted
+ * (processing versions and orbits differ). `scenes` are the 10/16 and 10/28 descending passes on one
+ * track; `ascending` is the 10/26 pass on another track, which covers the south the 10/28 pass missed.
+ */
 export const NISAR_TAIXI = {
   crossVersionVerified: nisarMap.cross_crid_radiometric_equivalence_verified,
-  scenes: nisarMap.scenes.map((s) => ({
-    period: s.period as 'PRE' | 'POST',
-    date: s.acquisition_start_utc.slice(0, 10),
-    crid: s.crid,
-    maturity: s.product_maturity,
-    corners: s.coordinates as LngLat[],
-    image: {
-      HH: `${import.meta.env.BASE_URL}studio/${s.layers.HH.image}`,
-      HV: `${import.meta.env.BASE_URL}studio/${s.layers.HV.image}`,
-    },
-  })),
+  scenes: (nisarMap.scenes as NisarScene[]).map(nisarScene),
+  ascending: nisarScene(nisarAscending.scene as NisarScene),
 };
 
 export const OFFICIAL_LOSS = {
@@ -256,6 +277,27 @@ export const OFFICIAL_LOSS = {
   url: official.source_url,
   yunlinNtd: official.yunlin_county_ntd,
   taiwanNtd: official.taiwan_total_ntd,
+  /** National crop figures; the report gives no county areas. */
+  cropAreaHa: official.taiwan_crop_damaged_area_ha,
+  damagePct: official.taiwan_crop_damage_level_pct,
+  noHarvestHa: official.taiwan_crop_no_harvest_equiv_ha,
+  yunlinSharePct: official.yunlin_share_pct,
+  yunlinRank: official.yunlin_rank,
+};
+
+/**
+ * Our county-wide radar estimate (scripts/estimate_yunlin_damage_area.py): Yunlin farmland whose
+ * Sentinel-1 backscatter changed by >= 2 dB during the warning, minus what an ordinary 12 days changes.
+ * Mostly brightening, so more likely wet fields than lost crops; not confirmed damage.
+ */
+export const YUNLIN_AREA = {
+  typhoon: yunlinArea.typhoon as [string, string],
+  control: yunlinArea.control as [string, string],
+  thresholdDb: yunlinArea.threshold_db,
+  farmlandHa: yunlinArea.farmland_ha,
+  excessHa: yunlinArea.excess_ha,
+  excessShare: yunlinArea.excess_share,
+  excessHaAt3Db: yunlinArea.excess_ha_at_3db,
 };
 
 /** Large NT$ amount: 1.58 億 / 157.7 million. */

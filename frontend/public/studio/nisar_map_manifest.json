@@ -5,7 +5,7 @@
   "status": "SEPARATE_OBSERVATIONS_ONLY",
   "cross_crid_radiometric_equivalence_verified": false,
   "verified_typhoon_delta_allowed": false,
-  "display_method": "Independent p05/p95 stretch per scene and polarization; transparent nonfinite pixels; not a quantitative cross-date comparison",
+  "display_method": "Dual-pol false colour (R=HH, G=HV, B=HH-HV), each scene stretched to its own p02-p98 inside Taixi, 3x3 speckle mean; transparent outside the township and where a scene has no valid pixels; colours are not comparable across dates",
   "scenes": [
     {
       "period": "PRE",
@@ -53,6 +53,26 @@
             -24.29197540283203,
             -11.357767963409426
           ]
+        },
+        "RGB": {
+          "image": "nisar_pre_rgb_map.png",
+          "composite": "R=HH G=HV B=HH-HV",
+          "display_stretch_db": {
+            "HH": [
+              -11.99,
+              8.11
+            ],
+            "HV": [
+              -23.88,
+              -9.33
+            ],
+            "HH-HV": [
+              8.12,
+              19.23
+            ]
+          },
+          "smoothing": "3x3 mean on linear power",
+          "alignment_r": 0.855
         }
       }
     },
@@ -102,6 +122,26 @@
             -22.47246971130371,
             -10.321939277648926
           ]
+        },
+        "RGB": {
+          "image": "nisar_post_rgb_map.png",
+          "composite": "R=HH G=HV B=HH-HV",
+          "display_stretch_db": {
+            "HH": [
+              -11.79,
+              5.52
+            ],
+            "HV": [
+              -21.69,
+              -8.93
+            ],
+            "HH-HV": [
+              6.58,
+              16.06
+            ]
+          },
+          "smoothing": "3x3 mean on linear power",
+          "alignment_r": 0.853
         }
       }
     }

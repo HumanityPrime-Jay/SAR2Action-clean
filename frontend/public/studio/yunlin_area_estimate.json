@@ -1,0 +1,33 @@
+{
+  "source": "data/exports/yunlin_damage_area/yunlin_damage_area_orbit105.json (scripts/estimate_yunlin_damage_area.py)",
+  "status": "RADAR_SUSPECTED_NOT_VERIFIED",
+  "imagery": "Microsoft Planetary Computer sentinel-1-rtc (Catalyst RTC of ESA Sentinel-1 GRD), CC-BY-4.0",
+  "orbit": {
+    "relative_orbit": 105,
+    "state": "descending"
+  },
+  "control": [
+    "2026-09-28",
+    "2026-10-10"
+  ],
+  "typhoon": [
+    "2026-10-10",
+    "2026-10-22"
+  ],
+  "farmland_ha": 70611.8,
+  "farmland_parcels": 71514,
+  "threshold_db": 2,
+  "typhoon_changed_ha": 7869.3,
+  "control_changed_ha": 5082.9,
+  "typhoon_dropped_ha": 1660.2,
+  "control_dropped_ha": 2516.5,
+  "excess_ha": 2796.9,
+  "excess_share": 0.0396,
+  "excess_ha_at_3db": 0.0,
+  "after_warning_excess_ha_at_3db": 0.0,
+  "limitations": [
+    "Radar change is not confirmed damage; irrigation, harvest, planting and soil moisture also change backscatter.",
+    "Crop types inside each class are unknown; the survey predates the typhoon.",
+    "The control interval is one 12-day window; ordinary change varies through the season."
+  ]
+}
