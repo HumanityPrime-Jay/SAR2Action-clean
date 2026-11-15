@@ -158,8 +158,8 @@ class LegalRAGService:
                 citation_verification={"verified": True, "checked_count": 0, "errors": []},
             )
 
-        # 3. Hybrid Retrieval
-        retrieval = self.retriever.hybrid_search(question, top_k=top_k, use_reranker=True)
+        # 3. Model-Free Deterministic Semantic Retrieval
+        retrieval = self.retriever.hybrid_search(question, top_k=top_k)
         hits = retrieval["hits"]
         citations_obj = [self._build_citation(h) for h in hits]
         verification = self.verify_citations(citations_obj, version_info["version"])
@@ -231,10 +231,12 @@ class LegalRAGService:
                 "附表金額與計算單位標記為 EXTRACTION_REQUIRES_REVIEW，未經人工核對前不直接代入試算。",
             ],
             retrieval_trace={
-                "analysis": retrieval["analysis"],
+                "retrieval_mode": retrieval.get("retrieval_mode", "MODEL_FREE_DETERMINISTIC_SEMANTIC"),
+                "ontology_id": retrieval.get("ontology_id"),
+                "structured_query": retrieval.get("structured_query"),
                 "top_article_ids": [h["article_id"] for h in hits],
-                "embedding_metadata": retrieval["embedding_metadata"],
-                "reranker_neural_loaded": retrieval["reranker_neural_loaded"],
+                "uses_neural_models": False,
+                "requires_gpu": False,
             },
             citation_verification=verification,
         )

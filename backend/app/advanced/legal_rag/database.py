@@ -96,14 +96,6 @@ def build_sqlite_database(
                 target_article_no TEXT NOT NULL,
                 relation_type TEXT NOT NULL
             );
-            CREATE TABLE legal_embeddings (
-                chunk_id TEXT PRIMARY KEY,
-                embedding_model_id TEXT NOT NULL,
-                embedding_model_revision TEXT NOT NULL,
-                embedding_dimension INTEGER NOT NULL,
-                vector_json TEXT NOT NULL,
-                source_sha256 TEXT NOT NULL
-            );
             CREATE TABLE legal_query_audit (
                 audit_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 timestamp_utc TEXT NOT NULL,
