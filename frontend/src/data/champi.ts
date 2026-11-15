@@ -9,7 +9,7 @@ import comparison from '../../public/studio/field_comparison.json';
 import fieldsGeojson from '../../public/studio/fields.geojson?raw';
 import nisarMap from '../../public/studio/nisar_map_manifest.json';
 import official from '../../public/studio/official_loss_record.json';
-import screening from '../../public/studio/radar_screening_summary.json';
+import yunlinArea from '../../public/studio/yunlin_area_estimate.json';
 import investigation from '../../public/studio/recorded_investigation.json';
 import type { Lang, Text } from '../i18n';
 
@@ -266,17 +266,18 @@ export const OFFICIAL_LOSS = {
 };
 
 /**
- * Our own radar screening over one ~25 km² coastal Yunlin area (Sentinel-1 before/after).
- * Fields whose radar changed by ≥3 dB: a change, not confirmed damage.
+ * Our county-wide radar estimate (scripts/estimate_yunlin_damage_area.py): Yunlin farmland whose
+ * Sentinel-1 backscatter changed by >= 2 dB during the warning, minus what an ordinary 12 days changes.
+ * Mostly brightening, so more likely wet fields than lost crops; not confirmed damage.
  */
-export const RADAR_SCREENING = {
-  pre: screening.pre_utc.slice(0, 10),
-  post: screening.post_utc.slice(0, 10),
-  aoiKm2: screening.aoi_area_km2,
-  farmlandHa: screening.farmland_area_ha,
-  screenedParcels: screening.screened_parcels,
-  changedParcels: screening.changed_parcels,
-  changedHa: screening.changed_area_ha,
+export const YUNLIN_AREA = {
+  typhoon: yunlinArea.typhoon as [string, string],
+  control: yunlinArea.control as [string, string],
+  thresholdDb: yunlinArea.threshold_db,
+  farmlandHa: yunlinArea.farmland_ha,
+  excessHa: yunlinArea.excess_ha,
+  excessShare: yunlinArea.excess_share,
+  excessHaAt3Db: yunlinArea.excess_ha_at_3db,
 };
 
 /** Large NT$ amount: 1.58 億 / 157.7 million. */

@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, RADAR_SCREENING, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
+import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, YUNLIN_AREA, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
@@ -352,42 +352,41 @@ function DamageMap({
       <aside className="panel">
         <section className="loss-summary" aria-labelledby="loss-title">
           <div className="eyebrow">
-            {t('SAR2Action 雷達估算', 'SAR2Action radar estimate')} · {RADAR_SCREENING.pre.slice(5).replace('-', '/')} → {RADAR_SCREENING.post.slice(5).replace('-', '/')}
+            {t(
+              'SAR2Action 雷達估算 · 全雲林農地',
+              'SAR2Action radar estimate · all Yunlin',
+            )}
           </div>
           <h2 id="loss-title" className="h3">
-            {t('這次颱風的受災面積估算', "This typhoon's damaged-area estimate")}
+            {t('這次颱風的受影響面積', "Area this typhoon affected")}
           </h2>
           <div className="loss-figures">
             <div>
               <b>
-                {Math.round(RADAR_SCREENING.changedHa).toLocaleString()}
+                {t('約 ', '~')}
+                {(Math.round(YUNLIN_AREA.excessHa / 100) * 100).toLocaleString()}
                 <small>{t(' 公頃', ' ha')}</small>
               </b>
-              <span>{t(`${RADAR_SCREENING.changedParcels} 塊田雷達明顯變化`, `Farmland with strong radar change (${RADAR_SCREENING.changedParcels} fields)`)}</span>
+              <span>{t('颱風期間雷達變化比平常多', 'more radar change than usual')}</span>
             </div>
             <div>
               <b>
-                {Math.round((RADAR_SCREENING.changedHa / RADAR_SCREENING.farmlandHa) * 100)}
+                {Math.round(YUNLIN_AREA.excessShare * 100)}
                 <small>%</small>
               </b>
-              <span>
-                {t(
-                  `占 ${Math.round(RADAR_SCREENING.farmlandHa).toLocaleString()} 公頃農地`,
-                  `of the ${Math.round(RADAR_SCREENING.farmlandHa).toLocaleString()} ha of farmland observed`,
-                )}
-              </span>
+              <span>{t(`占全縣 ${Math.round(YUNLIN_AREA.farmlandHa / 1000)} 千公頃農地`, `of ${Math.round(YUNLIN_AREA.farmlandHa / 1000)}k ha of farmland`)}</span>
             </div>
           </div>
           <p className="cap">
             {t(
-              `雲林沿海 ${RADAR_SCREENING.aoiKm2} km² 觀測區，非全縣；需現場確認。`,
-              `A ${RADAR_SCREENING.aoiKm2} km² area of coastal Yunlin, not the whole county; radar change needs a field check.`,
+              `${md(YUNLIN_AREA.typhoon[0])}→${md(YUNLIN_AREA.typhoon[1])} 對照平常 12 天（${YUNLIN_AREA.thresholdDb} dB）。多為雨水讓田變濕，不等於損失；3 dB 時無差異。`,
+              `${md(YUNLIN_AREA.typhoon[0])}→${md(YUNLIN_AREA.typhoon[1])} vs an ordinary 12 days (${YUNLIN_AREA.thresholdDb} dB). Mostly wet fields, not lost crops; none at 3 dB.`,
             )}
           </p>
           <p className="loss-official">
             {t(
               `核對用官方數據（農業部 ${OFFICIAL_LOSS.date}）：全台農作物受害 ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} 公頃，雲林損失 ${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}；未公布縣市面積，不能直接比較。`,
-              `Official figures for reference (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged across Taiwan; Yunlin lost NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}. No county areas were published, so they can't be compared directly.`,
+              `Official check (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged in Taiwan; Yunlin lost NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}. No county areas, so not directly comparable.`,
             )}{' '}
             <a href={OFFICIAL_LOSS.url} target="_blank" rel="noreferrer">
               {t('原始報告', 'Source')}
