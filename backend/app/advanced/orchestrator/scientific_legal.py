@@ -42,9 +42,13 @@ class ScientificLegalResponse:
 class ScientificLegalOrchestrator:
     """Coordinate scientific SAR analysis and grounded Legal RAG without mixing sources."""
 
-    def __init__(self, data_root: Path | None = None, legal_service: LegalRAGService | None = None):
+    def __init__(
+        self, data_root: Path | None = None, legal_service: LegalRAGService | None = None, use_gemini: bool = False
+    ):
         self.data_root = data_root or ROOT
         self.legal_service = legal_service or LegalRAGService()
+        # Gemini only plans the search; articles are still verified and rules still decide.
+        self.use_gemini = use_gemini
         self.recorder = InvestigationRecorder()
 
     def analyze(
@@ -94,6 +98,7 @@ class ScientificLegalOrchestrator:
             event_date=event_date,
             region=region,
             crop=crop,
+            use_gemini=self.use_gemini,
             available_evidence={
                 "disaster_type": "颱風",
                 "land_area_ha": (sar_qa.polygon_area_m2 / 10000.0) if sar_qa.polygon_area_m2 else None,

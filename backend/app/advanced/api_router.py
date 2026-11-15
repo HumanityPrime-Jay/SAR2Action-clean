@@ -16,12 +16,13 @@ from backend.app.advanced.indicator_explainer import (
 from backend.app.advanced.legal_rag import LegalDatabase, LegalRAGService
 from backend.app.advanced.orchestrator import AdvancedOrchestrator, ScientificLegalOrchestrator
 
+_use_gemini = os.getenv("SAR2ACTION_LLM_PROVIDER", "").lower() == "gemini"
 _orchestrator = AdvancedOrchestrator()
-_sci_legal = ScientificLegalOrchestrator()
+_sci_legal = ScientificLegalOrchestrator(use_gemini=_use_gemini)
 _legal_service = LegalRAGService()
 _legal_db = LegalDatabase()
 # Gemini only rephrases the rule-based draft; numbers and approval claims are guarded.
-_farmer_service = FarmerConversationService(use_gemini=os.getenv("SAR2ACTION_LLM_PROVIDER", "").lower() == "gemini")
+_farmer_service = FarmerConversationService(use_gemini=_use_gemini)
 _mode_registry = ModeCapabilityRegistry()
 _gis_service = AuthorityGISService()
 
