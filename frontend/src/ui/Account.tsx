@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { type Me, deleteMyData, fetchAuthConfig, fetchMe, signInWithGoogle, signOut } from '../api/auth';
 import { useLang, useT } from '../i18n';
 
@@ -54,16 +54,21 @@ function GoogleButton({ clientId, onCredential }: { clientId: string; onCredenti
   return <div ref={ref} className="gsi-button" />;
 }
 
-/**
- * Optional Google sign-in in the top bar. Hidden entirely when the server has sign-in off;
- * nothing else on the site depends on it.
- */
-export function Account() {
-  const t = useT();
+interface Auth {
+  /** Google client ID; null while loading or when the server has sign-in off. */
+  clientId: string | null;
+  me: Me | null;
+  setMe: (me: Me | null) => void;
+}
+
+const AuthContext = createContext<Auth>({ clientId: null, me: null, setMe: () => {} });
+
+/** The signed-in user, or null. */
+export const useMe = () => useContext(AuthContext).me;
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [clientId, setClientId] = useState<string | null>(null);
   const [me, setMe] = useState<Me | null>(null);
-  const [error, setError] = useState(false);
-  const menuRef = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
     let live = true;
@@ -79,6 +84,19 @@ export function Account() {
       live = false;
     };
   }, []);
+
+  return <AuthContext.Provider value={{ clientId, me, setMe }}>{children}</AuthContext.Provider>;
+}
+
+/**
+ * Optional Google sign-in in the top bar. Hidden entirely when the server has sign-in off;
+ * nothing else on the site depends on it.
+ */
+export function Account() {
+  const t = useT();
+  const { clientId, me, setMe } = useContext(AuthContext);
+  const [error, setError] = useState(false);
+  const menuRef = useRef<HTMLDetailsElement>(null);
 
   if (!clientId) return null;
 
@@ -127,6 +145,7 @@ export function Account() {
       </summary>
       <div className="account-pop">
         <p className="cap">{me.email}</p>
+        <p className="cap">{t('登入時會存下：你填的作物、助手問答、你按下儲存的試算。', 'While signed in we keep: the crop you enter, your assistant questions, and estimates you save.')}</p>
         <button onClick={() => leave(false)}>{t('登出', 'Sign out')}</button>
         <button className="danger" onClick={() => leave(true)}>
           {t('刪除我的資料', 'Delete my data')}

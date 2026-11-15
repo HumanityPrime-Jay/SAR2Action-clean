@@ -35,7 +35,7 @@ const farmerWith = (crop: FarmerInfo['crop']): FarmerInfo => ({ cadastral: '', c
 
 function renderAssist(farmer: FarmerInfo | null) {
   const noop = vi.fn();
-  render(<AssistScreen selectedId="YL-CAND-01" go={noop} eventId="champi-2026-yunlin" onEvent={noop} farmer={farmer} onFarmer={noop} onSelect={noop} />);
+  render(<AssistScreen selectedId="YL-CAND-01" go={noop} eventId="champi-2026-yunlin" onEvent={noop} farmer={farmer} onFarmer={noop} savedFarmers={{}} onSelect={noop} />);
 }
 
 describe('AssistScreen relief estimate (official schedule)', () => {

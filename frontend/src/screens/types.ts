@@ -11,5 +11,8 @@ export interface ScreenProps {
   onEvent: (id: string) => void;
   /** Farmer's own field info from the event picker; null when not given. */
   farmer: FarmerInfo | null;
-  onFarmer: (info: FarmerInfo | null) => void;
+  /** The farmer card given when picking `eventId`. */
+  onFarmer: (info: FarmerInfo | null, eventId: string) => void;
+  /** Farmer cards a signed-in user saved, by event; empty when signed out. */
+  savedFarmers: Record<string, FarmerInfo>;
 }

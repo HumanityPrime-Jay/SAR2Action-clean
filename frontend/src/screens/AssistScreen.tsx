@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { type AuthorityReply, authorityChat } from '../api/authorityAgent';
+import { logAnswer, saveEstimate } from '../api/me';
 import { type TwAgroReliefCatalog, type TwAgroReliefEstimateResponse, estimateRelief, fetchReliefCatalog } from '../api/tw05';
 import { CASE, OFFICIAL_LOSS, type Parcel, bigNtd, parcelById } from '../data/champi';
 import { type CropKey, type FarmerInfo, cropName } from '../data/farmer';
@@ -7,6 +8,7 @@ import { SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
 import { useMascotCue } from '../mascot/Mascot';
 import { headGrid, spritePaths } from '../mascot/sprites';
 import { type Lang, type Text, useLang, useT } from '../i18n';
+import { useMe } from '../ui/Account';
 import { Earth, Icon } from '../ui/shared';
 import { type AnswerView, AuthorityAnswer } from './AuthorityAnswer';
 import type { ScreenProps } from './types';
@@ -117,6 +119,8 @@ function Assistant({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer' | 'e
   const [catalogFailed, setCatalogFailed] = useState(false);
   const [item, setItem] = useState((farmer && CROP_ITEM[farmer.crop]) ?? UNKNOWN_ITEM);
   const [estimate, setEstimate] = useState<TwAgroReliefEstimateResponse | null>(null);
+  const me = useMe();
+  const [kept, setKept] = useState<'saving' | 'saved' | 'failed' | null>(null);
   useEffect(() => setItem((farmer && CROP_ITEM[farmer.crop]) ?? UNKNOWN_ITEM), [farmer]);
 
   useEffect(() => {
@@ -133,6 +137,7 @@ function Assistant({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer' | 'e
     if (!catalog) return;
     let live = true;
     setEstimate(null);
+    setKept(null);
     // The ceiling assumes the whole field is approved and the 20% loss gate is met; both are stated on screen.
     estimateRelief({ crop_item_id: item, assumed_approved_area_ha: field.areaHa, assumed_loss_threshold: 'meets_20_percent' })
       .then((r) => live && setEstimate(r))
@@ -169,6 +174,7 @@ function Assistant({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer' | 'e
       const r = await authorityChat({ message: sent, field_id: field.id, crop: farmer ? cropName(farmer, 'zh') : undefined, lang }, ctrl.signal);
       answer = { role: 'bot', text: '', authority: r };
       cue('happy');
+      if (me) logAnswer({ field_id: field.id, view, lang, question: shown, reply: r }).catch(() => {});
     } catch (err) {
       if ((err as Error).name === 'AbortError') return;
       cue('sorry');
@@ -338,6 +344,26 @@ function Assistant({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer' | 'e
             <p className="cap">{t('假設整塊田核定、損失率達 20%。', 'Assumes the whole field is approved and the loss rate reaches 20%.')}</p>
           ) : (
             estimate && <p className="cap">{t(BLOCKED[estimate.result_status] ?? { zh: estimate.result_label, en: estimate.result_label })}</p>
+          )}
+          {me && estimate && (
+            <div className="keep">
+              <button
+                disabled={kept === 'saving' || kept === 'saved'}
+                onClick={() => {
+                  setKept('saving');
+                  saveEstimate({ field_id: field.id, crop_item_id: item, area_ha: field.areaHa, loss_threshold: 'meets_20_percent' })
+                    .then(() => setKept('saved'))
+                    .catch(() => setKept('failed'));
+                }}
+              >
+                {kept === 'saved' ? t('已存下', 'Saved') : t('存下這次試算', 'Save this estimate')}
+              </button>
+              {kept === 'failed' && (
+                <span className="cap" role="alert">
+                  {t('存檔失敗，請再試一次。', "Couldn't save. Please try again.")}
+                </span>
+              )}
+            </div>
           )}
           <div className="line">
             <span>{t('救助資格', 'Eligibility')}</span>

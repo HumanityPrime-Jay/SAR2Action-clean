@@ -82,9 +82,13 @@ if _cors_origins:
     )
 
 app.include_router(gis_router)
-app.include_router(auth_router_from_env())
 science_service = ScienceService()
 taiwan_agro_service = TaiwanAgroService()
+app.include_router(
+    auth_router_from_env(
+        lambda req: (taiwan_agro_service.compute_relief_estimate(req), taiwan_agro_service.get_relief_catalog().schedule_version_id)
+    )
+)
 agent_orchestrator = AgentOrchestrator(science_service, taiwan_agro_service)
 scientific_investigator = ScientificInvestigator(science=science_service)
 investigation_v2 = InvestigationV2Service()

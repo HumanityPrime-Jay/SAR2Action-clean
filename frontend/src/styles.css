@@ -618,3 +618,7 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .deadline b{color:var(--dmg-sev-ink)}
 .item-pick{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--text-2)}
 .item-pick select{width:100%;min-height:36px;padding:4px 8px;font:inherit;font-size:13px;color:var(--text-1);background:var(--surface);border:1px solid var(--border-strong)}
+.receipt .keep{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
+.receipt .keep button{min-height:36px;padding:6px 14px;border-radius:8px;border:1px solid var(--border-strong);background:transparent;color:inherit;font:inherit;cursor:pointer}
+.receipt .keep button:hover:not(:disabled){background:var(--surface-2)}
+.receipt .keep button:disabled{opacity:.6;cursor:default}

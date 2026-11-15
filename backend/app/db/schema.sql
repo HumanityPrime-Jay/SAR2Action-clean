@@ -12,19 +12,19 @@ CREATE TABLE IF NOT EXISTS users (
   last_login_at timestamptz NOT NULL DEFAULT now()
 );
 
--- A farmer's own field for one disaster: the field picked on the map and the crop they grow.
--- Township and area come from the field itself, so they are not stored.
+-- A farmer's own field for one disaster: the crop they grow, and the field on the map if they picked one.
+-- One per disaster. Township and area come from the field itself, so they are not stored.
 CREATE TABLE IF NOT EXISTS farmer_fields (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id     uuid NOT NULL REFERENCES users (id) ON DELETE CASCADE,
   event_id    text NOT NULL,                       -- e.g. champi-2026-yunlin
-  field_id    text NOT NULL,                       -- e.g. YL-CAND-01
+  field_id    text,                                -- e.g. YL-CAND-01; null until a field is picked
   crop        text NOT NULL,                       -- CropKey: rice, garlic, peanut, ... or other
   crop_other  text,                                -- free text when crop = 'other'
   cadastral   text,                                -- land parcel number (段名 + 地號), optional
   created_at  timestamptz NOT NULL DEFAULT now(),
   updated_at  timestamptz NOT NULL DEFAULT now(),
-  UNIQUE (user_id, event_id, field_id),
+  UNIQUE (user_id, event_id),
   CHECK (crop <> 'other' OR crop_other IS NOT NULL)
 );
 
