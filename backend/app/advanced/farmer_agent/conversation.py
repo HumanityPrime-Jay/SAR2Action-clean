@@ -28,7 +28,11 @@ from backend.app.advanced.legal_rag import LegalRAGService
 ROOT = Path(__file__).resolve().parents[4]
 
 TAIWAN_COUNTIES = ("雲林", "彰化", "嘉義", "台南", "臺南", "高雄", "屏東", "台中", "臺中", "南投", "苗栗", "新竹", "桃園", "宜蘭", "花蓮", "台東", "臺東")
-COMMON_CROPS = ("水稻", "稻米", "玉米", "花生", "高麗菜", "蔬菜", "香蕉", "文旦", "鳳梨", "茶葉", "甘藷", "蒜頭")
+COMMON_CROPS = ("水稻", "稻米", "玉米", "花生", "高麗菜", "蔬菜", "香蕉", "文旦", "鳳梨", "茶葉", "甘藷", "蒜頭", "大蒜", "落花生")
+
+CJK = re.compile(r"[\u3400-\u9fff]")
+NUMBER = re.compile(r"\d+(?:\.\d+)?")
+EN_OVERCLAIMS = ("has been approved", "is approved", "guarantee", "definitely receive", "will definitely")
 
 INJECTION_PATTERNS = ("ignore", "忽略", "編造", "虛構", "假裝已核准", "直接核准", "十萬", "100000")
 
@@ -52,7 +56,7 @@ class FarmerConversationService:
         self.guide_service = ReliefApplicationGuideService()
         self.legal_service = legal_service or LegalRAGService()
         self.use_gemini = use_gemini
-        self.gemini_client = GeminiClient()
+        self.gemini_client = GeminiClient(timeout_seconds=6.0)
         self._sessions: dict[str, FarmerSessionState] = {}
 
     def get_session(self, session_id: str) -> FarmerSessionState:
@@ -118,6 +122,59 @@ class FarmerConversationService:
         except Exception:
             return draft_reply
 
+    def _gemini_text(self, payload: str, system: str, max_output_tokens: int = 512) -> str:
+        # Gemini calls tend to either return in 1-2 s or stall, so retry a stalled call once with the same
+        # model rather than walking the fallback chain; on failure the caller keeps the Chinese text.
+        for attempt in range(2):
+            try:
+                data = self.gemini_client.generate_content(
+                    [{"role": "user", "parts": [{"text": payload}]}],
+                    system_instruction=system,
+                    temperature=0.1,
+                    max_output_tokens=max_output_tokens,
+                    model_override=self.gemini_client.model,
+                )
+                return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            except RuntimeError as exc:
+                if attempt or "timeout" not in str(exc):
+                    raise
+        raise AssertionError("unreachable")
+
+    def _to_chinese(self, message: str) -> str:
+        """Translate an English question so the Chinese intent rules can read it; unchanged on failure."""
+        if CJK.search(message) or not self.use_gemini or not self.gemini_client.configured:
+            return message
+        try:
+            text = self._gemini_text(
+                message,
+                "把農民的問題翻成自然的台灣繁體中文，只輸出翻譯後的問題，不要回答、不要加說明。數字保持不變。relief 一律翻成「救助」。",
+                max_output_tokens=256,
+            )
+            return text or message
+        except Exception:
+            return message
+
+    def _to_english(self, draft_reply: str) -> str | None:
+        """English rendering of the Chinese reply, or None if Gemini is off, fails, changes the numbers or claims approval."""
+        if not self.use_gemini or not self.gemini_client.configured:
+            return None
+        system = (
+            "You are a friendly assistant for Taiwanese farmers after a natural disaster. Translate the draft reply "
+            "into plain, natural English. Translate only: add no facts, numbers or questions that are not in the draft. "
+            "Write every number in digits exactly as in the draft (十 is 10). Never say relief is approved or guaranteed, and never present a satellite signal as "
+            "confirmed crop damage. Write 農業天然災害救助辦法 as 'the Agricultural Natural Disaster Relief Regulations'."
+        )
+        try:
+            text = self._gemini_text(draft_reply, system)
+        except Exception:
+            return None
+        if not text or CJK.search(text) or any(bad in text.lower() for bad in EN_OVERCLAIMS):
+            return None
+        draft_numbers = set(NUMBER.findall(draft_reply.replace("十", "10")))
+        if draft_numbers != set(NUMBER.findall(text)):
+            return None
+        return text
+
     def chat(
         self,
         session_id: str,
@@ -127,11 +184,47 @@ class FarmerConversationService:
         optional_map_geometry: dict[str, Any] | None = None,
         optional_damage_geometry: dict[str, Any] | None = None,
         optional_event_id: str | None = None,
+        crop: str | None = None,
+        lang: str = "zh",
+    ) -> FarmerChatResponse:
+        """Answer in Chinese; with lang="en", also translate the question in and the reply out (Gemini required)."""
+        english = lang == "en"
+        res = self._answer(
+            session_id,
+            self._to_chinese(message) if english else message,
+            selected_field_id=selected_field_id,
+            optional_map_geometry=optional_map_geometry,
+            optional_damage_geometry=optional_damage_geometry,
+            optional_event_id=optional_event_id,
+            crop=crop,
+            polish=not english,
+        )
+        if english:
+            translated = self._to_english(res.reply)
+            if translated:
+                res.reply = translated
+                res.reply_language = "en"
+        return res
+
+    def _answer(
+        self,
+        session_id: str,
+        message: str,
+        *,
+        selected_field_id: str | None = None,
+        optional_map_geometry: dict[str, Any] | None = None,
+        optional_damage_geometry: dict[str, Any] | None = None,
+        optional_event_id: str | None = None,
+        crop: str | None = None,
+        polish: bool = True,
     ) -> FarmerChatResponse:
         session = self.get_session(session_id)
         session.turn_count += 1
         if optional_event_id:
             session.disaster_event = optional_event_id
+        # Crop the farmer registered in the UI; a crop named in the message still overrides it.
+        if crop and crop.strip():
+            session.crop = crop.strip()
 
         # Handle field switch cleanly
         if selected_field_id and selected_field_id != session.selected_field_id:
@@ -290,7 +383,7 @@ class FarmerConversationService:
                 actions = [s.to_dict() for s in sug]
                 reply = f"好，我記下來了。{next_q}"
 
-        final_reply = self._maybe_polish_with_gemini(
+        final_reply = reply if not polish else self._maybe_polish_with_gemini(
             reply,
             message,
             {"county": session.county, "township": session.township, "crop": session.crop, "field_area_ha": session.field_area_ha},

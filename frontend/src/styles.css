@@ -345,6 +345,12 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .msg.typing{align-self:flex-start;background:transparent;border:0;padding:4px 0;font-family:var(--f-mono);font-size:13px;color:var(--text-3)}
 .cites{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px dashed var(--border);font-size:13px}
 .cites span{color:var(--blue-ink)}
+.cites a{color:var(--blue-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.cites a:hover{color:var(--blue)}
+.cites .none{color:var(--text-3)}
+.msg .note{display:block;color:var(--text-3);margin-bottom:4px}
+.msg.bot.error{border-color:var(--red);box-shadow:inset 4px 0 0 var(--red)}
+.msg.bot.error .eyebrow{display:block;color:var(--red-hi);margin-bottom:4px}
 .suggest{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--border);background:var(--surface)}
 .suggest button{font-size:14px;border:1px solid var(--border-strong);padding:0 14px;min-height:40px;color:var(--text-1)}
 .suggest button:hover{border-color:var(--text-1);background:var(--surface-2)}

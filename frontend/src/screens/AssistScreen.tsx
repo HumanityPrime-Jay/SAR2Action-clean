@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { describeSource, farmerChat, replySources } from '../api/farmerAgent';
 import { CASE, OFFICIAL_LOSS, type Parcel, bigNtd, parcelById } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
-import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, cannedReply, formatDb } from '../demo/fields';
+import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
 import { Earth, Icon } from '../ui/shared';
 import type { ScreenProps } from './types';
@@ -20,6 +21,12 @@ interface Message {
   role: 'user' | 'bot';
   text: string;
   pending?: boolean;
+  /** The agent could not answer; nothing is made up in its place. */
+  error?: boolean;
+  /** Agent reply sources (regulation articles). The opening summary uses CITATIONS instead. */
+  sources?: string[];
+  /** The English UI asked for English but the agent could only answer in Chinese. */
+  untranslated?: boolean;
   executionMode?: string;
   facts?: Array<{ statement: string; metric: string; value: string; sensor: string; evidenceIds: string[] }>;
   inferences?: Array<{ statement: string; status: string; reason: string }>;
@@ -28,6 +35,9 @@ interface Message {
   evidenceIds?: string[];
 }
 
+const newSessionId = () => `assist-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+
+/** Render "[1]" style citation markers as superscripts. */
 function withCitations(text: string) {
   return text.split(/(\[\d+\])/g).map((part, i) => (/^\[\d+\]$/.test(part) ? <sup key={i}>{part}</sup> : part));
 }
@@ -70,19 +80,21 @@ const TW05_PRESET_PARCELS = [
   { id: 4183, label: '坵塊 #4183（法定救助精度回歸測試 0.453978 ha）', areaHa: 0.453978, defaultCrop: 'grains_3_peanut_sweetpotato' },
 ];
 
-export function AssistScreen({ selectedId, go, farmer }: ScreenProps) {
+export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
   const field = parcelById(selectedId);
   if (!field) return <p role="status">Taixi field not found</p>;
-  return <RecordedAssist key={field.id} field={field} go={go} farmer={farmer} />;
+  return <RecordedAssist key={field.id} field={field} go={go} farmer={farmer} eventId={eventId} />;
 }
 
-function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'> & { field: Parcel }) {
+function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' | 'farmer' | 'eventId'> & { field: Parcel }) {
   const t = useT();
   const { lang } = useLang();
   const [messages, setMessages] = useState<Message[]>(() => initialMessages(field, farmer, lang));
   const [draft, setDraft] = useState('');
+  const [busy, setBusy] = useState(false);
   const msgsRef = useRef<HTMLDivElement>(null);
-  const timers = useRef<number[]>([]);
+  const session = useRef(newSessionId());
+  const inflight = useRef<AbortController | null>(null);
   const abortCtrl = useRef<AbortController | null>(null);
 
   // Target scope: 'taixi' for demo field, 'tw05' for verified Yunlin parcels
@@ -126,7 +138,12 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
     else if (farmer?.crop === 'rice') setSelectedCrop('paddy_rice');
   }, [farmer]);
 
+  // A new field, crop or language starts a new conversation with the agent.
   useEffect(() => {
+    inflight.current?.abort();
+    abortCtrl.current?.abort();
+    session.current = newSessionId();
+    setBusy(false);
     if (activeScope === 'taixi') {
       setMessages(initialMessages(field, farmer, lang));
     } else {
@@ -183,44 +200,74 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
   }, [messages]);
 
   useEffect(() => () => {
-    timers.current.forEach(clearTimeout);
-    if (abortCtrl.current) abortCtrl.current.abort();
+    inflight.current?.abort();
+    abortCtrl.current?.abort();
   }, []);
 
-  const ask = (q: string, key = '') => {
-    if (!q.trim()) return;
+  /** `shown` is what the chat displays; `sent` is what the agent receives (Chinese skips a translation step). */
+  const ask = async (shown: string, sent = shown) => {
+    if (!shown.trim() || busy) return;
 
     if (activeScope === 'taixi') {
-      // Demo reply for Taixi field
-      setMessages((m) => [...m, { role: 'user', text: q }, { role: 'bot', text: t('助手撰寫中…', 'Writing…'), pending: true }]);
-      timers.current.push(
-        window.setTimeout(() => {
-          setMessages((m) => [...m.slice(0, -1), { role: 'bot', text: cannedReply(key, field, lang) }]);
-        }, 700),
-      );
+      const ctrl = new AbortController();
+      inflight.current = ctrl;
+      setBusy(true);
+      setMessages((m) => [...m, { role: 'user', text: shown }, { role: 'bot', text: t('助手查詢法規中…', 'Checking the regulations…'), pending: true }]);
+      let answer: Message;
+      try {
+        const r = await farmerChat(
+          {
+            session_id: session.current,
+            message: sent,
+            selected_field_id: field.id,
+            optional_event_id: eventId ?? undefined,
+            crop: farmer ? cropName(farmer, 'zh') : undefined,
+            lang,
+          },
+          ctrl.signal,
+        );
+        answer = { role: 'bot', text: r.reply, sources: replySources(r), untranslated: lang === 'en' && r.reply_language !== 'en' };
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') return;
+        answer = {
+          role: 'bot',
+          error: true,
+          text: t(
+            'Agent 目前無法使用：後端沒有回應或 AI 金鑰無效，所以這題沒有回答。請稍後再試，或直接洽詢鄉鎮公所。',
+            'The agent is unavailable: the backend did not respond or the AI key is invalid, so this question has no answer. Try again later, or ask your township office.',
+          ),
+        };
+      }
+      if (inflight.current !== ctrl) return;
+      inflight.current = null;
+      setBusy(false);
+      setMessages((m) => [...m.slice(0, -1), answer]);
       return;
     }
 
     // Live TW-05 Agent Call
     if (abortCtrl.current) abortCtrl.current.abort();
-    abortCtrl.current = new AbortController();
+    const ctrl = new AbortController();
+    abortCtrl.current = ctrl;
+    setBusy(true);
 
     setMessages((m) => [
       ...m,
-      { role: 'user', text: q },
+      { role: 'user', text: shown },
       { role: 'bot', text: t('Agent 執行 Tool Calling 調查中…', 'Agent executing tool calls…'), pending: true },
     ]);
 
     investigateTw05(
       {
         parcel_feature_id: tw05ParcelId,
-        question: q,
+        question: shown,
         agent_mode: agentMode,
         session_id: `session-tw05-${tw05ParcelId}-${Date.now()}`,
       },
-      abortCtrl.current.signal,
+      ctrl.signal,
     )
       .then((res: Tw05InvestigationResponse) => {
+        if (abortCtrl.current !== ctrl) return;
         const factsSummary = res.observed_facts.map((f) => ({
           statement: f.statement,
           metric: f.metric_name,
@@ -265,7 +312,7 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
         ]);
       })
       .catch((err: Error) => {
-        if (err.name === 'AbortError') return;
+        if (err.name === 'AbortError' || abortCtrl.current !== ctrl) return;
         setMessages((m) => [
           ...m.slice(0, -1),
           {
@@ -273,6 +320,12 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
             text: `[ERROR] ${err.message}`,
           },
         ]);
+      })
+      .finally(() => {
+        if (abortCtrl.current === ctrl) {
+          abortCtrl.current = null;
+          setBusy(false);
+        }
       });
   };
 
@@ -300,11 +353,13 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
                 </span>
               ) : (
                 <span className="stamp outline" style={{ fontSize: 11 }}>
-                  DEMO · TAIXI
+                  TAIXI · FARMER AGENT
                 </span>
               )}
             </div>
-            <div className="cap">{t('依農業災害救助相關法規回答，每段附引用來源', 'Answers from the agricultural relief regulations, with a source for each point')}</div>
+            <div className="cap">
+              {t('依農業災害救助相關法規回答，並附上依據的條文', 'Answers from the agricultural relief regulations, with the articles they rely on')}
+            </div>
           </div>
 
           {/* Scope & Field Selector */}
@@ -374,9 +429,15 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
               <div key={i} className="msg typing">
                 {m.text}
               </div>
+            ) : m.error ? (
+              <div key={i} className="msg bot error" role="alert">
+                <span className="eyebrow">{t('AGENT 無法使用', 'AGENT UNAVAILABLE')}</span>
+                {m.text}
+              </div>
             ) : (
               <div key={i} className={`msg ${m.role}`}>
-                {m.role === 'bot' ? withCitations(m.text) : m.text}
+                {m.untranslated && <span className="eyebrow note">Shown in Chinese: English translation is unavailable right now</span>}
+                {m.role === 'bot' && !m.sources ? withCitations(m.text) : m.text}
 
                 {/* Additional Agent Inspection Badges & Details for TW-05 */}
                 {m.executionMode && (
@@ -445,14 +506,32 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
                   </div>
                 )}
 
-                {/* Traditional Citations for demo mode */}
-                {m.role === 'bot' && !m.evidenceIds && (
+                {/* Traditional Citations for opening summary */}
+                {m.role === 'bot' && !m.evidenceIds && !m.sources && (
                   <div className="cites">
                     {CITATIONS.map((c, k) => (
                       <span key={c.title.zh}>
                         [{k + 1}] {t(c.title)}
                       </span>
                     ))}
+                  </div>
+                )}
+                {m.sources && (
+                  <div className="cites">
+                    {m.sources.length ? (
+                      m.sources.map((id) => {
+                        const src = describeSource(id);
+                        return src.url ? (
+                          <a key={id} href={src.url} target="_blank" rel="noreferrer">
+                            {t(src.title)}
+                          </a>
+                        ) : (
+                          <span key={id}>{t(src.title)}</span>
+                        );
+                      })
+                    ) : (
+                      <span className="none">{t('這段回答沒有引用條文', 'No article cited for this reply')}</span>
+                    )}
                   </div>
                 )}
               </div>
@@ -462,7 +541,7 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
 
         <div className="suggest">
           {SUGGESTED_QUESTIONS.map((q) => (
-            <button key={q.key} onClick={() => ask(t(q.text), q.key)}>
+            <button key={q.key} disabled={busy} onClick={() => ask(t(q.text), q.text.zh)}>
               {t(q.text)}
             </button>
           ))}
@@ -487,7 +566,7 @@ function RecordedAssist({ field, go, farmer }: Pick<ScreenProps, 'go' | 'farmer'
             autoComplete="off"
             aria-label={t('輸入問題', 'Your question')}
           />
-          <button className="send" aria-label={t('送出', 'Send')} disabled={!draft.trim()}>
+          <button className="send" aria-label={t('送出', 'Send')} disabled={!draft.trim() || busy}>
             <Icon name="send" />
           </button>
         </form>
