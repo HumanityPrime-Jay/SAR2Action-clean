@@ -369,21 +369,11 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
           {/* Scope & Field Selector */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
             <div className="seg" role="group" aria-label="案例切換">
-              <button
-                type="button"
-                className={`btn btn-sm ${activeScope === 'taixi' ? 'btn-primary' : 'btn-line'}`}
-                onClick={() => setActiveScope('taixi')}
-                style={{ padding: '4px 8px', fontSize: 12 }}
-              >
-                臺西示範 ({field.id})
+              <button type="button" aria-pressed={activeScope === 'taixi'} onClick={() => setActiveScope('taixi')} style={{ minHeight: 32, padding: '0 10px', fontSize: 12 }}>
+                {t('臺西示範', 'Taixi demo')} ({field.id})
               </button>
-              <button
-                type="button"
-                className={`btn btn-sm ${activeScope === 'tw05' ? 'btn-primary' : 'btn-line'}`}
-                onClick={() => setActiveScope('tw05')}
-                style={{ padding: '4px 8px', fontSize: 12 }}
-              >
-                TW-05 雲林實測
+              <button type="button" aria-pressed={activeScope === 'tw05'} onClick={() => setActiveScope('tw05')} style={{ minHeight: 32, padding: '0 10px', fontSize: 12 }}>
+                {t('TW-05 雲林實測', 'TW-05 Yunlin live')}
               </button>
             </div>
 
@@ -420,12 +410,6 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
             </span>
           </div>
         </div>
-
-        {activeScope === 'taixi' && (
-          <div style={{ padding: '6px 20px', background: 'var(--surface-2)', borderBottom: '1px solid var(--border)', fontSize: 12, color: 'var(--text-2)' }}>
-            ℹ️ 臺西示範為展示地塊（無後端即時 API 資料時顯示 <b>DEMO / NOT AVAILABLE</b>）。若需調用真實雷達、光學與救助法規 Tool Calling Agent，請點擊上方「<b>TW-05 雲林實測</b>」。
-          </div>
-        )}
 
         <div className="msgs" ref={msgsRef} aria-live="polite">
           {messages.map((m, i) =>
