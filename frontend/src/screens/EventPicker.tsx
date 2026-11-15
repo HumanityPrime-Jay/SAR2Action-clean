@@ -19,6 +19,7 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
   const [region, setRegion] = useState<RegionKey | ''>(initial?.region ?? '');
   const [eventId, setEventId] = useState(initial?.id ?? '');
   const [isFarmer, setIsFarmer] = useState(!!initialFarmer);
+  const [cadastral, setCadastral] = useState(initialFarmer?.cadastral ?? '');
   const [crop, setCrop] = useState<CropKey | ''>(initialFarmer?.crop ?? '');
   const [cropOther, setCropOther] = useState(initialFarmer?.cropOther ?? '');
   const [showErrors, setShowErrors] = useState(false);
@@ -38,7 +39,7 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
       (cropMissing ? cropRef : otherRef).current?.focus();
       return;
     }
-    onPick(chosen.id, isFarmer ? { crop: crop as CropKey, cropOther: cropOther.trim() } : null);
+    onPick(chosen.id, isFarmer ? { cadastral: cadastral.trim(), crop: crop as CropKey, cropOther: cropOther.trim() } : null);
   };
 
   return (
@@ -125,6 +126,17 @@ export function EventPicker({ initialId, initialFarmer, onPick }: Props) {
             </label>
             {isFarmer && (
               <div className="farmer-fields">
+                <label className="farmer-field">
+                  <span className="lbl">
+                    {t('土地地籍', 'Land parcel no.')} <span className="opt">{t('選填', 'Optional')}</span>
+                  </span>
+                  <input
+                    value={cadastral}
+                    onChange={(e) => setCadastral(e.target.value)}
+                    placeholder={t('例：台西鄉 海口段 0123 地號', 'e.g. Taixi, Haikou section, lot 0123')}
+                    autoComplete="off"
+                  />
+                </label>
                 <div className="farmer-field">
                   <label htmlFor="farmer-crop" className="lbl">
                     {t('這塊田種的作物', 'Crop on this field')} <span className="req">{t('必填', 'Required')}</span>

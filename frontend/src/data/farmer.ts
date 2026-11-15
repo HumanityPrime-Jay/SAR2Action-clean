@@ -14,6 +14,8 @@ export const CROPS: { key: CropKey; label: Text }[] = [
 ];
 
 export interface FarmerInfo {
+  /** Land parcel number (地籍地號), optional. */
+  cadastral: string;
   crop: CropKey;
   /** Free text when crop is "other". */
   cropOther: string;
