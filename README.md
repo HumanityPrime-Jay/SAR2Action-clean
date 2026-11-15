@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/4e9cb46c-01b4-4c88-bd6a-26e1a823701e
 
 ---
 
-**Dancing with the SARs: Evidence-first AI for a changing Earth**<br />
+**Our Challenge: Dancing with the SARs**<br />
 Team: **SARAPHIM** &nbsp;·&nbsp; Members: Shao-Chieh Tseng · Hong-Cheng Chen · Zhi-Jia Huang · Chen-Yuan Xie
 
 ---
