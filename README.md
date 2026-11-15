@@ -12,9 +12,9 @@
 
 <img src="docs/readme-assets/03-damage-map.en.png" alt="Damage map: NISAR radar over Taixi, Yunlin, candidate fields, and the county-wide damage area and loss estimate" width="100%" />
 
-<a href="docs/readme-assets/demo.mp4"><img src="docs/readme-assets/demo-poster.jpg" alt="Play the 30-second demo video" width="100%" /></a>
+https://github.com/user-attachments/assets/6068ceac-13d7-4829-bceb-581330ae08d3
 
-<sub>30-second demo · click to play</sub>
+<sub>30-second demo</sub>
 
 </div>
 

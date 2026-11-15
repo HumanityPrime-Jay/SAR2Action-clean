@@ -12,9 +12,9 @@
 
 <img src="docs/readme-assets/03-damage-map.png" alt="受災地圖：雲林台西鄉的 NISAR 雷達底圖、候選田區與全縣受損面積和金額估算" width="100%" />
 
-<a href="docs/readme-assets/demo.mp4"><img src="docs/readme-assets/demo-poster.jpg" alt="播放 30 秒示範影片" width="100%" /></a>
+https://github.com/user-attachments/assets/6068ceac-13d7-4829-bceb-581330ae08d3
 
-<sub>30 秒示範影片（英文配音與字幕）· 點擊播放</sub>
+<sub>30 秒示範影片（英文配音與字幕）</sub>
 
 </div>
 
