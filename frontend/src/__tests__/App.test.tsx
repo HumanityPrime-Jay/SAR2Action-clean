@@ -269,4 +269,37 @@ describe('App', () => {
     expect(within(compare).getByText('NISAR 前後兩期可直接比較強度')).toBeInTheDocument();
     expect(within(compare).getAllByText('未通過').length).toBeGreaterThan(0);
   });
+
+  it('compare screen lists the open causes; none is presented as confirmed', () => {
+    render(<App />);
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    fireEvent.click(within(compare).getByRole('button', { name: /5 個可能原因/ }));
+    expect(within(compare).getByRole('tab', { name: '可能原因' })).toHaveAttribute('aria-selected', 'true');
+    const causes = within(compare).getByRole('tabpanel');
+    expect(within(causes).getByText('颱風擾動作物或地表')).toBeInTheDocument();
+    expect(within(causes).getAllByText('未檢驗')).toHaveLength(3);
+    expect(within(causes).getAllByText('不確定')).toHaveLength(2);
+    expect(within(compare).getByText('原因未知')).toBeInTheDocument();
+  });
+
+  it('the evidence graph opens only on request and links a cause to its checks', () => {
+    render(<App />);
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    const opener = within(compare).getByRole('button', { name: '證據關係圖' });
+    opener.focus();
+    fireEvent.click(opener);
+    const dialog = screen.getByRole('dialog', { name: '證據關係圖' });
+    expect(within(dialog).getByRole('button', { name: '關閉' })).toHaveFocus();
+
+    fireEvent.click(within(dialog).getByRole('button', { name: '衛星處理版本不同' }));
+    expect(within(dialog).getByRole('button', { name: /NISAR 前後兩期可直接比較強度/ })).not.toHaveClass('dim');
+    expect(within(dialog).getByRole('button', { name: /官方損失可對應到個別田區/ })).toHaveClass('dim');
+    expect(within(dialog).getByRole('button', { name: 'ASF 處理版本紀錄' })).not.toHaveClass('dim');
+    expect(dialog).toHaveTextContent('NISAR 前後兩期版本不同');
+
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(opener).toHaveFocus();
+  });
 });

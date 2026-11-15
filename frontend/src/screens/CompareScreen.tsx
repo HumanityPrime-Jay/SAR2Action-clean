@@ -1,13 +1,27 @@
 import React, { useRef, useState } from 'react';
-import { type LngLat, NISAR_TAIXI, type Parcel, QA_TESTS, type VhPoint, WARNING, geometryPath, parcelById, polygonRings } from '../data/champi';
+import {
+  CAUSES,
+  INVESTIGATED_FIELD,
+  type LngLat,
+  NISAR_TAIXI,
+  type Parcel,
+  QA_TESTS,
+  type VhPoint,
+  WARNING,
+  geometryPath,
+  parcelById,
+  polygonRings,
+} from '../data/champi';
 import { cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, useLang, useT } from '../i18n';
 import { Icon } from '../ui/shared';
+import { EvidenceGraph } from './EvidenceGraph';
 import type { ScreenProps } from './types';
 
 type Mode = 'side' | 'swipe';
 type Pol = 'HH' | 'HV';
+type Tab = 'checks' | 'causes';
 type Scene = (typeof NISAR_TAIXI.scenes)[number];
 
 /** Half-width of the area shown around the selected field, metres. */
@@ -105,6 +119,8 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
   const { lang } = useLang();
   const [mode, setMode] = useState<Mode>('side');
   const [pol, setPol] = useState<Pol>('HH');
+  const [tab, setTab] = useState<Tab>('checks');
+  const [graphOpen, setGraphOpen] = useState(false);
   const parcel = parcelById(selectedId);
   if (!parcel) return <p role="status">Taixi field not found</p>;
   const [pre, post] = NISAR_TAIXI.scenes;
@@ -188,33 +204,71 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
           <div className="metric">
             <div className="eyebrow">{t('判定', 'Verdict')}</div>
             <div className="v">{t('原因未知', 'Unknown')}</div>
+            <button className="link cap" onClick={() => setTab('causes')}>
+              {t(`${CAUSES.length} 個可能原因 →`, `${CAUSES.length} possible causes →`)}
+            </button>
           </div>
         </div>
       </div>
 
       <aside className="panel">
-        <div className="panel-head">
-          <div className="eyebrow">Evidence QA</div>
-          <h2 className="h3">{t('判讀檢核', 'Evidence checks')}</h2>
-        </div>
-        <ul className="qa-list">
-          {QA_TESTS.map((q) => (
-            <li key={q.id}>
-              <span className={`qa-mark ${q.pass ? 'pass' : 'fail'}`}>{q.pass ? t('通過', 'Pass') : t('未通過', 'Fail')}</span>
-              <span>
-                <b>{t(q.label)}</b>
-                <span className="cap">{t(q.result)}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-        <div style={{ padding: '8px 20px 0' }}>
-          <div className="eyebrow" style={{ marginBottom: 6 }}>
-            {t('VH 回波時序 (dB)', 'VH backscatter (dB)')} · {parcel.id}
+        <div className="panel-head panel-tabs">
+          <div className="seg" role="tablist" aria-label={t('判讀', 'Interpretation')}>
+            {(
+              [
+                ['checks', t('判讀檢核', 'Evidence checks')],
+                ['causes', t('可能原因', 'Possible causes')],
+              ] as [Tab, string][]
+            ).map(([k, label]) => (
+              <button key={k} id={`tab-${k}`} role="tab" aria-selected={tab === k} aria-controls={`tabpanel-${k}`} onClick={() => setTab(k)}>
+                {label}
+              </button>
+            ))}
           </div>
-          <VhChart parcel={parcel} />
+          {parcel.id !== INVESTIGATED_FIELD && (
+            <div className="eyebrow">
+              {t('調查田區', 'Investigated field')} · {INVESTIGATED_FIELD}
+            </div>
+          )}
         </div>
-        <div style={{ flex: 1 }} />
+        <div className="panel-body" id={`tabpanel-${tab}`} role="tabpanel" aria-labelledby={`tab-${tab}`}>
+          {tab === 'checks' ? (
+            <>
+              <ul className="qa-list">
+                {QA_TESTS.map((q) => (
+                  <li key={q.id}>
+                    <span className={`qa-mark ${q.pass ? 'pass' : 'fail'}`}>{q.pass ? t('通過', 'Pass') : t('未通過', 'Fail')}</span>
+                    <span>
+                      <b>{t(q.label)}</b>
+                      <span className="cap">{t(q.result)}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <div style={{ padding: '8px 20px 0' }}>
+                <div className="eyebrow" style={{ marginBottom: 6 }}>
+                  {t('VH 回波時序 (dB)', 'VH backscatter (dB)')} · {parcel.id}
+                </div>
+                <VhChart parcel={parcel} />
+              </div>
+            </>
+          ) : (
+            <ul className="qa-list">
+              {CAUSES.map((c) => (
+                <li key={c.id}>
+                  <span className="qa-mark open">{c.tested ? t('不確定', 'Unclear') : t('未檢驗', 'Untested')}</span>
+                  <span>
+                    <b>{t(c.label)}</b>
+                    <span className="cap">{t(c.check)}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <button className="link graph-open" onClick={() => setGraphOpen(true)}>
+            {t('證據關係圖', 'Evidence graph')}
+          </button>
+        </div>
         <div className="panel-foot">
           <button className="btn btn-primary btn-block" onClick={() => go('assist')}>
             {t('用此田區試算補助 →', 'Estimate relief for this field →')}
@@ -224,6 +278,7 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
           </button>
         </div>
       </aside>
+      {graphOpen && <EvidenceGraph onClose={() => setGraphOpen(false)} />}
     </>
   );
 }

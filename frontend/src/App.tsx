@@ -88,7 +88,6 @@ function Shell() {
           ))}
         </nav>
         <div className="spacer" />
-        <a className="link" href={`${import.meta.env.BASE_URL}studio`}>Investigation Studio</a>
         <div className="event">
           <span>EVENT</span>
           <b>{event ? eventShort(event, lang) : t('尚未選擇', 'Not selected')}</b>
