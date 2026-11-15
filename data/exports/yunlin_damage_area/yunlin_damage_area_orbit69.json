@@ -1,0 +1,266 @@
+{
+  "schema_version": "yunlin-damage-area/1.0",
+  "status": "RADAR_SUSPECTED_NOT_VERIFIED",
+  "generated_at_utc": "2026-11-15T09:09:56+00:00",
+  "method": "Per-parcel median Sentinel-1 RTC change (dB). Flag when |median| >= T in VV or VH. Suspected area = (typhoon-interval flagged share - control-interval flagged share) x class farmland area. No trained model.",
+  "screening_rule": ">= 5 valid 10 m pixels and >= 80% of the parcel covered",
+  "primary_threshold_db": 3.0,
+  "thresholds_db": [
+    2.0,
+    3.0,
+    4.0
+  ],
+  "intervals": {
+    "typhoon": [
+      "pre",
+      "post"
+    ],
+    "control": [
+      "control_pre",
+      "pre"
+    ]
+  },
+  "source": "Microsoft Planetary Computer sentinel-1-rtc (Catalyst RTC of ESA Sentinel-1 GRD)",
+  "license": "CC-BY-4.0",
+  "farmland_source": "國土利用現況調查 雲林縣 農作使用 (水田/旱田/果園), mostly surveyed 2024-11",
+  "limitations": [
+    "Radar change is not confirmed damage; irrigation, harvest, planting and soil moisture also change backscatter.",
+    "Crop types inside each class are unknown; the survey predates the typhoon.",
+    "The control interval is one 12-day window; ordinary change varies through the season."
+  ],
+  "total": {
+    "parcels": 71514,
+    "area_ha": 70611.8,
+    "typhoon": {
+      "screened_parcels": 59310,
+      "screened_area_ha": 70347.3,
+      "flagged_area_ha": {
+        "2": 5245.8,
+        "3": 1117.7,
+        "4": 311.3
+      },
+      "flagged_parcels": {
+        "2": 12831,
+        "3": 3905,
+        "4": 1187
+      }
+    },
+    "control": {
+      "screened_parcels": 59310,
+      "screened_area_ha": 70347.3,
+      "flagged_area_ha": {
+        "2": 4910.3,
+        "3": 1326.5,
+        "4": 476.4
+      },
+      "flagged_parcels": {
+        "2": 12209,
+        "3": 3974,
+        "4": 1348
+      }
+    },
+    "both_screened_area_ha": 70347.3,
+    "estimate": {
+      "2": {
+        "typhoon_share": 0.0746,
+        "control_share": 0.0698,
+        "excess_share": 0.0048,
+        "suspected_area_ha": 336.8
+      },
+      "3": {
+        "typhoon_share": 0.0159,
+        "control_share": 0.0189,
+        "excess_share": 0.0,
+        "suspected_area_ha": 0.0
+      },
+      "4": {
+        "typhoon_share": 0.0044,
+        "control_share": 0.0068,
+        "excess_share": 0.0,
+        "suspected_area_ha": 0.0
+      }
+    }
+  },
+  "by_class": {
+    "paddy": {
+      "parcels": 16950,
+      "area_ha": 21200.4,
+      "typhoon": {
+        "screened_parcels": 16854,
+        "screened_area_ha": 21198.0,
+        "flagged_area_ha": {
+          "2": 2018.7,
+          "3": 401.6,
+          "4": 120.9
+        },
+        "flagged_parcels": {
+          "2": 3449,
+          "3": 944,
+          "4": 308
+        }
+      },
+      "control": {
+        "screened_parcels": 16854,
+        "screened_area_ha": 21198.0,
+        "flagged_area_ha": {
+          "2": 1789.0,
+          "3": 491.0,
+          "4": 201.1
+        },
+        "flagged_parcels": {
+          "2": 3091,
+          "3": 1019,
+          "4": 395
+        }
+      },
+      "both_screened_area_ha": 21198.0,
+      "estimate": {
+        "2": {
+          "typhoon_share": 0.0952,
+          "control_share": 0.0844,
+          "excess_share": 0.0108,
+          "suspected_area_ha": 229.7
+        },
+        "3": {
+          "typhoon_share": 0.0189,
+          "control_share": 0.0232,
+          "excess_share": 0.0,
+          "suspected_area_ha": 0.0
+        },
+        "4": {
+          "typhoon_share": 0.0057,
+          "control_share": 0.0095,
+          "excess_share": 0.0,
+          "suspected_area_ha": 0.0
+        }
+      }
+    },
+    "dry": {
+      "parcels": 40709,
+      "area_ha": 43083.0,
+      "typhoon": {
+        "screened_parcels": 32313,
+        "screened_area_ha": 42905.7,
+        "flagged_area_ha": {
+          "2": 2799.4,
+          "3": 611.0,
+          "4": 167.7
+        },
+        "flagged_parcels": {
+          "2": 6965,
+          "3": 2167,
+          "4": 670
+        }
+      },
+      "control": {
+        "screened_parcels": 32313,
+        "screened_area_ha": 42905.7,
+        "flagged_area_ha": {
+          "2": 2620.5,
+          "3": 720.5,
+          "4": 243.9
+        },
+        "flagged_parcels": {
+          "2": 6690,
+          "3": 2172,
+          "4": 704
+        }
+      },
+      "both_screened_area_ha": 42905.7,
+      "estimate": {
+        "2": {
+          "typhoon_share": 0.0652,
+          "control_share": 0.0611,
+          "excess_share": 0.0042,
+          "suspected_area_ha": 179.7
+        },
+        "3": {
+          "typhoon_share": 0.0142,
+          "control_share": 0.0168,
+          "excess_share": 0.0,
+          "suspected_area_ha": 0.0
+        },
+        "4": {
+          "typhoon_share": 0.0039,
+          "control_share": 0.0057,
+          "excess_share": 0.0,
+          "suspected_area_ha": 0.0
+        }
+      }
+    },
+    "orchard": {
+      "parcels": 13855,
+      "area_ha": 6328.4,
+      "typhoon": {
+        "screened_parcels": 10143,
+        "screened_area_ha": 6243.6,
+        "flagged_area_ha": {
+          "2": 427.7,
+          "3": 105.1,
+          "4": 22.7
+        },
+        "flagged_parcels": {
+          "2": 2417,
+          "3": 794,
+          "4": 209
+        }
+      },
+      "control": {
+        "screened_parcels": 10143,
+        "screened_area_ha": 6243.6,
+        "flagged_area_ha": {
+          "2": 500.7,
+          "3": 115.1,
+          "4": 31.4
+        },
+        "flagged_parcels": {
+          "2": 2428,
+          "3": 783,
+          "4": 249
+        }
+      },
+      "both_screened_area_ha": 6243.6,
+      "estimate": {
+        "2": {
+          "typhoon_share": 0.0685,
+          "control_share": 0.0802,
+          "excess_share": 0.0,
+          "suspected_area_ha": 0.0
+        },
+        "3": {
+          "typhoon_share": 0.0168,
+          "control_share": 0.0184,
+          "excess_share": 0.0,
+          "suspected_area_ha": 0.0
+        },
+        "4": {
+          "typhoon_share": 0.0036,
+          "control_share": 0.005,
+          "excess_share": 0.0,
+          "suspected_area_ha": 0.0
+        }
+      }
+    }
+  },
+  "orbit": {
+    "relative_orbit": 69,
+    "state": "ascending"
+  },
+  "scenes": {
+    "control_pre": {
+      "id": "S1D_IW_GRDH_1SDV_20261002T100029_20261002T100058_004835_009159_rtc",
+      "datetime": "2026-10-02T10:00:43.669754Z",
+      "platform": "sentinel-1d"
+    },
+    "pre": {
+      "id": "S1D_IW_GRDH_1SDV_20261014T100029_20261014T100058_005010_009776_rtc",
+      "datetime": "2026-10-14T10:00:43.650744Z",
+      "platform": "sentinel-1d"
+    },
+    "post": {
+      "id": "S1D_IW_GRDH_1SDV_20261026T100029_20261026T100058_005185_009D7F_rtc",
+      "datetime": "2026-10-26T10:00:43.713179Z",
+      "platform": "sentinel-1d"
+    }
+  }
+}
