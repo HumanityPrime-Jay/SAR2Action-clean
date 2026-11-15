@@ -128,8 +128,8 @@ class HybridLegalRetriever:
         reranker_engine: LocalRerankerEngine | None = None,
     ):
         self.db = db or LegalDatabase()
-        self.embedder = embedding_engine or LocalEmbeddingEngine(prefer_neural=False)
-        self.reranker = reranker_engine or LocalRerankerEngine(prefer_neural=False)
+        self.embedder = embedding_engine or LocalEmbeddingEngine()
+        self.reranker = reranker_engine or LocalRerankerEngine()
         self._ensure_embeddings_indexed()
 
     def _ensure_embeddings_indexed(self) -> None:

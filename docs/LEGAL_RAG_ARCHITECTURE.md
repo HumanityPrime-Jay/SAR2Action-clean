@@ -16,6 +16,6 @@
 ## Hybrid Retrieval & Model Selection
 - **Exact Article Retrieval**: Direct lookup distinguishing `12` vs `12-1`, paragraphs, and items.
 - **Keyword Retrieval**: SQLite FTS5 trigram + parameterized `<3 char` `LIKE` fallback.
-- **Embedding & Reranker**: `Qwen/Qwen3-Embedding-0.6B` and `Qwen/Qwen3-Reranker-0.6B` with lazy loading, GPU/CPU support, and deterministic CJK n-gram fallback (`neural_model_loaded=False` when offline).
+- **Embedding & Reranker**: deterministic hashed CJK character n-gram embeddings (`deterministic-cjk-trigram-hash-v1`, 256 dimensions) and a lexical-overlap reranker on top of RRF. No neural model is downloaded or run (`neural_model_loaded=False`).
 - **Rank Fusion**: Reciprocal Rank Fusion (RRF) with deterministic legal priority boosts.
 - **Deterministic Rule Engine**: 4-valued logic (`TRUE`, `FALSE`, `UNKNOWN`, `NOT_APPLICABLE`) over 12 statutory dimensions (`DEADLINE_UNKNOWN` without official announcement date; `LOSS_RATE_UNKNOWN` without field survey; Article 12-1 `< 20%` exceptions).
