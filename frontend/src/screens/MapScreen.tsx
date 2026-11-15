@@ -275,7 +275,7 @@ function DamageMap({
             [
               ['trend', t('VH 變化（田區著色）', 'VH change (field colour)')],
               ['pre', `NISAR ${t('颱風前', 'pre')} ${md(pre.date)}`],
-              ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}${t('（只拍到北半部）', ' (north part only)')}`],
+              ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}`],
               ['town', t('鄉鎮界線', 'Township boundaries')],
               ['bnd', t('田區邊界', 'Field boundaries')],
               ['landuse', t('農地類型（國土利用）', 'Farmland type (land use)')],

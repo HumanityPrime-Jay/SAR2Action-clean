@@ -251,11 +251,11 @@ describe('App', () => {
     expect(within(summary).getByRole('link', { name: '原始報告' })).toHaveAttribute('href', expect.stringContaining('moa.gov.tw'));
   });
 
-  it('the map starts on the complete pre-typhoon NISAR pass in false colour, and says the post pass is partial', () => {
+  it('the map starts on the complete pre-typhoon NISAR pass in false colour', () => {
     render(<App />);
     const map = openChampiMap();
     expect(within(map).getByRole('checkbox', { name: /NISAR 颱風前/ })).toBeChecked();
-    const post = within(map).getByRole('checkbox', { name: /NISAR 颱風後.*只拍到北半部/ });
+    const post = within(map).getByRole('checkbox', { name: /NISAR 颱風後/ });
     expect(post).not.toBeChecked();
     expect([...map.querySelectorAll('svg.map image')].map((i) => i.getAttribute('href'))).toEqual([expect.stringContaining('nisar_pre_rgb_map.png')]);
     fireEvent.click(post);
