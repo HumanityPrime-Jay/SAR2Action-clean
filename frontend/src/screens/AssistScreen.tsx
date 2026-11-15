@@ -113,23 +113,28 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
   const [estimateResult, setEstimateResult] = useState<TwAgroReliefEstimateResponse | null>(null);
   const [estimating, setEstimating] = useState(false);
 
-  // Load status and catalog once on mount
+  // Load status and catalog lazily when entering TW-05 mode
   useEffect(() => {
+    if (activeScope !== 'tw05' || (agentStatus && catalog)) return;
     let mounted = true;
-    fetchAgentStatus()
-      .then((st) => {
-        if (mounted) setAgentStatus(st);
-      })
-      .catch(() => {});
-    fetchReliefCatalog()
-      .then((cat) => {
-        if (mounted) setCatalog(cat);
-      })
-      .catch(() => {});
+    if (!agentStatus) {
+      fetchAgentStatus()
+        .then((st) => {
+          if (mounted) setAgentStatus(st);
+        })
+        .catch(() => {});
+    }
+    if (!catalog) {
+      fetchReliefCatalog()
+        .then((cat) => {
+          if (mounted) setCatalog(cat);
+        })
+        .catch(() => {});
+    }
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [activeScope, agentStatus, catalog]);
 
   // Update default crop if farmer provided one
   useEffect(() => {
@@ -353,7 +358,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
                 </span>
               ) : (
                 <span className="stamp outline" style={{ fontSize: 11 }}>
-                  TAIXI · FARMER AGENT
+                  DEMO · TAIXI
                 </span>
               )}
             </div>
