@@ -209,6 +209,17 @@ export function spritePaths(grid: string[]): { fill: string; d: string }[] {
   return [...byColour].map(([c, cells]) => ({ fill: PALETTE[c], d: cells.join('') }));
 }
 
+/** One figure's head (rows 0–9), smiling, for small badges such as the assistant's view switch. */
+export function headGrid(who: 'farmer' | 'officer'): string[] {
+  const base = who === 'farmer' ? FARMER : OFFICER;
+  return Array.from({ length: 10 }, (_, y) => {
+    const row = [...base[y]];
+    const smile = FACE.smile[y];
+    if (smile) [...smile].forEach((c, x) => c !== '.' && (row[x] = c));
+    return row.join('');
+  });
+}
+
 /** Every layer row must be exactly one figure wide; checked by the tests. */
 export const ALL_LAYERS: Layer[] = [
   FARMER,

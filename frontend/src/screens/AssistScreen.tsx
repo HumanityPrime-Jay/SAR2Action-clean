@@ -5,6 +5,7 @@ import { CASE, OFFICIAL_LOSS, type Parcel, bigNtd, parcelById } from '../data/ch
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
 import { useMascotCue } from '../mascot/Mascot';
+import { headGrid, spritePaths } from '../mascot/sprites';
 import { type Lang, type Text, useLang, useT } from '../i18n';
 import { Earth, Icon } from '../ui/shared';
 import { type AnswerView, AuthorityAnswer } from './AuthorityAnswer';
@@ -38,6 +39,20 @@ interface Message {
   unknowns?: string[];
   toolTrace?: Array<{ tool: string; status: string; duration_ms?: number | null }>;
   evidenceIds?: string[];
+}
+
+/** Pixel head of the farmer or the association officer, cropped to the head. */
+const HEAD_BOX = { farmer: { box: '0 0 16 10', w: 22, h: 14 }, officer: { box: '3 1.5 10 9', w: 18, h: 16 } } as const;
+const HEADS = { farmer: spritePaths(headGrid('farmer')), officer: spritePaths(headGrid('officer')) };
+
+function ViewHead({ who }: { who: 'farmer' | 'officer' }) {
+  return (
+    <svg viewBox={HEAD_BOX[who].box} width={HEAD_BOX[who].w} height={HEAD_BOX[who].h} aria-hidden="true" shapeRendering="crispEdges">
+      {HEADS[who].map((p) => (
+        <path key={p.fill} fill={p.fill} d={p.d} />
+      ))}
+    </svg>
+  );
 }
 
 const newSessionId = () => `assist-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -421,7 +436,9 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
                   aria-label={t('農政專業模式', 'Authority view')}
                   onClick={() => setView(view === 'authority' ? 'farmer' : 'authority')}
                 >
-                  <span className="knob" />
+                  <span className="knob">
+                    <ViewHead who={view === 'authority' ? 'officer' : 'farmer'} />
+                  </span>
                 </button>
                 <span aria-hidden="true" onClick={() => setView('authority')}>
                   {t('農政', 'Authority')}

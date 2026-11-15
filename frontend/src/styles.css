@@ -519,10 +519,11 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .view-switch{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin-left:auto}
 .view-switch>span{cursor:pointer;color:var(--text-3)}
 .view-switch:has([aria-checked="false"])>span:first-child,.view-switch:has([aria-checked="true"])>span:last-child{color:var(--text-1)}
-.view-switch button{position:relative;width:44px;height:24px;border-radius:12px;border:0;padding:0;cursor:pointer;background:var(--text-3);transition:background var(--dur-fast) var(--ease-out)}
+.view-switch button{position:relative;width:60px;height:32px;border-radius:16px;border:0;padding:0;cursor:pointer;background:#3f8f4b;transition:background var(--dur-fast) var(--ease-out)}
 .view-switch button[aria-checked="true"]{background:var(--blue)}
-.view-switch .knob{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--white);transition:transform var(--dur-fast) var(--ease-out)}
-.view-switch button[aria-checked="true"] .knob{transform:translateX(20px)}
+.view-switch .knob{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;overflow:hidden;
+  box-shadow:0 1px 3px rgba(0,0,0,.35);transition:transform var(--dur-fast) var(--ease-out)}
+.view-switch button[aria-checked="true"] .knob{transform:translateX(28px)}
 .view-switch button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
 /* Relief assistant: authority-mode answer */
