@@ -11,6 +11,9 @@ import type { ScreenProps } from './types';
 const POPUP_W = 250;
 
 const md = (d: string) => d.slice(5).replace('-', '/');
+const round100 = (ha: number) => Math.max(100, Math.round(ha / 100) * 100);
+const changedHa = round100(YUNLIN_AREA.excessHa);
+const [flatLow, flatHigh] = YUNLIN_AREA.flattenedHa.map(round100);
 
 type Filter = Trend | 'all';
 
@@ -371,35 +374,22 @@ function DamageMap({
             )}
           </div>
           <h2 id="loss-title" className="h3">
-            {t('這次颱風的受影響面積', "Area this typhoon affected")}
+            {t('這次颱風的受損面積', 'Area this typhoon hit')}
           </h2>
-          <div className="loss-figures">
-            <div>
-              <b>
-                {t('約 ', '~')}
-                {(Math.round(YUNLIN_AREA.excessHa / 100) * 100).toLocaleString()}
-                <small>{t(' 公頃', ' ha')}</small>
-              </b>
-              <span>{t('颱風期間雷達變化比平常多', 'more radar change than usual')}</span>
-            </div>
-            <div>
-              <b>
-                {Math.round(YUNLIN_AREA.excessShare * 100)}
-                <small>%</small>
-              </b>
-              <span>{t(`占全縣 ${Math.round(YUNLIN_AREA.farmlandHa / 1000)} 千公頃農地`, `of ${Math.round(YUNLIN_AREA.farmlandHa / 1000)}k ha of farmland`)}</span>
-            </div>
-          </div>
-          <p className="cap">
-            {t(
-              `${md(YUNLIN_AREA.typhoon[0])}→${md(YUNLIN_AREA.typhoon[1])} 對照平常 12 天（${YUNLIN_AREA.thresholdDb} dB）。多為雨水讓田變濕，不等於損失；3 dB 時無差異。`,
-              `${md(YUNLIN_AREA.typhoon[0])}→${md(YUNLIN_AREA.typhoon[1])} vs an ordinary 12 days (${YUNLIN_AREA.thresholdDb} dB). Mostly wet fields, not lost crops; none at 3 dB.`,
-            )}
+          <p className="loss-line">
+            {t('颱風期間約 ', 'During the typhoon ~')}
+            <b>{changedHa.toLocaleString()}{t(' 公頃', ' ha')}</b>
+            {t('農地雷達明顯變化，其中約 ', ' of farmland changed clearly on radar; ~')}
+            <b>
+              {flatLow}–{flatHigh}
+              {t(' 公頃', ' ha')}
+            </b>
+            {t('整片倒伏或淹水。', ' of it was flattened or flooded.')}
           </p>
           <p className="loss-official">
             {t(
-              `核對用官方數據（農業部 ${OFFICIAL_LOSS.date}）：全台農作物受害 ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} 公頃，雲林損失 ${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}；未公布縣市面積，不能直接比較。`,
-              `Official check (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged in Taiwan; Yunlin lost NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}. No county areas, so not directly comparable.`,
+              `官方（農業部 ${OFFICIAL_LOSS.date}）：全台農作物受害 ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} 公頃，雲林損失 ${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}。`,
+              `Official (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged in Taiwan; Yunlin lost NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}.`,
             )}{' '}
             <a href={OFFICIAL_LOSS.url} target="_blank" rel="noreferrer">
               {t('原始報告', 'Source')}

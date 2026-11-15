@@ -1,0 +1,3710 @@
+{
+  "schema_version": "yunlin-nisar-change/1.0",
+  "status": "RADAR_SUSPECTED_NOT_VERIFIED",
+  "generated_at_utc": "2026-11-15T11:52:32+00:00",
+  "method": "Per-parcel median NISAR GCOV change (dB). Flag when the HH median (HH_*) or the HH or HV median moves >= T dB, any direction, down or up. Suspected area = (typhoon-interval flagged share - control-interval flagged share) x farmland area. No trained model.",
+  "screening_rule": ">= 3 valid 20 m pixels and >= 80% of the parcel covered, both intervals, one frame",
+  "thresholds_db": [
+    2.0,
+    3.0,
+    4.0
+  ],
+  "frames": [
+    "061D-076",
+    "061D-077",
+    "039A-013"
+  ],
+  "intervals": {
+    "061D": {
+      "control": "2026-10-04 -> 2026-10-16",
+      "typhoon": "2026-10-16 -> 2026-10-28"
+    },
+    "039A": {
+      "control": "2026-10-02 -> 2026-10-14",
+      "typhoon": "2026-10-14 -> 2026-10-26"
+    }
+  },
+  "frame_area_ha": {
+    "061D-076": 42979.4,
+    "061D-077": 310.7,
+    "039A-013": 26499.9
+  },
+  "interval_median_shift_db": {
+    "note": "typhoon minus control median change on county land; version offset plus any county-wide change, not removed",
+    "061D-076": {
+      "HH": -0.424,
+      "HV": 0.798
+    },
+    "061D-077": {
+      "HH": -0.234,
+      "HV": 1.6
+    },
+    "039A-013": {
+      "HH": -0.087,
+      "HV": 0.257
+    }
+  },
+  "scenes": {
+    "061D-076_control_pre": {
+      "id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+      "start_utc": "2026-10-04T10:37:52.000000000",
+      "crid": "P05023",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1"
+    },
+    "061D-076_pre": {
+      "id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+      "start_utc": "2026-10-16T10:37:52.000000000",
+      "crid": "P05023",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1"
+    },
+    "061D-076_post": {
+      "id": "NISAR_L2_PR_GCOV_034_061_D_076_2005_DHDH_A_20261028T103752_20261028T103825_P05036_N_F_J_001",
+      "start_utc": "2026-10-28T10:37:52.000000000",
+      "crid": "P05036",
+      "collection": "NISAR_L2_GCOV_V1"
+    },
+    "061D-077_control_pre": {
+      "id": "NISAR_L2_PR_GCOV_032_061_D_077_2005_DHDH_M_20261004T103822_20261004T103901_P05023_N_F_J_001",
+      "start_utc": "2026-10-04T10:38:22.000000000",
+      "crid": "P05023",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1"
+    },
+    "061D-077_pre": {
+      "id": "NISAR_L2_PR_GCOV_033_061_D_077_2005_DHDH_M_20261016T103822_20261016T103901_P05023_N_F_J_001",
+      "start_utc": "2026-10-16T10:38:22.000000000",
+      "crid": "P05023",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1"
+    },
+    "061D-077_post": {
+      "id": "NISAR_L2_PR_GCOV_034_061_D_077_2005_DHDH_M_20261028T103828_20261028T103901_P05036_N_F_J_001",
+      "start_utc": "2026-10-28T10:38:28.000000000",
+      "crid": "P05036",
+      "collection": "NISAR_L2_GCOV_V1"
+    },
+    "039A-013_control_pre": {
+      "id": "NISAR_L2_PR_GCOV_032_039_A_013_4005_DHDH_A_20261002T212424_20261002T212501_P05023_N_F_J_001",
+      "start_utc": "2026-10-02T21:24:24.000000000",
+      "crid": "P05023",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1"
+    },
+    "039A-013_pre": {
+      "id": "NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001",
+      "start_utc": "2026-10-14T21:24:24.000000000",
+      "crid": "P05023",
+      "collection": "NISAR_L2_GCOV_PROVISIONAL_V1"
+    },
+    "039A-013_post": {
+      "id": "NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001",
+      "start_utc": "2026-10-26T21:24:24.000000000",
+      "crid": "P05036",
+      "collection": "NISAR_L2_GCOV_V1"
+    }
+  },
+  "source": "NASA/ASF NISAR L2 GCOV (Earthdata Cloud)",
+  "farmland_source": "國土利用現況調查 雲林縣 農作使用 (水田/旱田/果園)",
+  "towns_source": "NLSC TOWN_MOI_1120317",
+  "total": {
+    "parcels": 71514,
+    "area_ha": 70611.8,
+    "measured_area_ha": 69790.0,
+    "measured_share": 0.988,
+    "median_change_db": {
+      "typhoon": {
+        "HH": -0.25,
+        "HV": 0.71
+      },
+      "control": {
+        "HH": 0.09,
+        "HV": 0.07
+      }
+    },
+    "estimate": {
+      "2": {
+        "HH_any": {
+          "typhoon_share": 0.0225,
+          "control_share": 0.0147,
+          "excess_share": 0.0078,
+          "measured_excess_ha": 544.8,
+          "suspected_area_ha": 551.2
+        },
+        "HH_drop": {
+          "typhoon_share": 0.0153,
+          "control_share": 0.0065,
+          "excess_share": 0.0088,
+          "measured_excess_ha": 613.8,
+          "suspected_area_ha": 621.0
+        },
+        "HH_rise": {
+          "typhoon_share": 0.0072,
+          "control_share": 0.0082,
+          "excess_share": 0.0,
+          "measured_excess_ha": 0.0,
+          "suspected_area_ha": 0.0
+        },
+        "any": {
+          "typhoon_share": 0.1114,
+          "control_share": 0.0258,
+          "excess_share": 0.0856,
+          "measured_excess_ha": 5974.7,
+          "suspected_area_ha": 6045.0
+        },
+        "drop": {
+          "typhoon_share": 0.0167,
+          "control_share": 0.0118,
+          "excess_share": 0.0048,
+          "measured_excess_ha": 338.4,
+          "suspected_area_ha": 342.4
+        },
+        "rise": {
+          "typhoon_share": 0.0967,
+          "control_share": 0.014,
+          "excess_share": 0.0827,
+          "measured_excess_ha": 5771.4,
+          "suspected_area_ha": 5839.4
+        }
+      },
+      "3": {
+        "HH_any": {
+          "typhoon_share": 0.0047,
+          "control_share": 0.0035,
+          "excess_share": 0.0012,
+          "measured_excess_ha": 83.5,
+          "suspected_area_ha": 84.5
+        },
+        "HH_drop": {
+          "typhoon_share": 0.0035,
+          "control_share": 0.0018,
+          "excess_share": 0.0017,
+          "measured_excess_ha": 118.6,
+          "suspected_area_ha": 120.0
+        },
+        "HH_rise": {
+          "typhoon_share": 0.0012,
+          "control_share": 0.0017,
+          "excess_share": 0.0,
+          "measured_excess_ha": 0.0,
+          "suspected_area_ha": 0.0
+        },
+        "any": {
+          "typhoon_share": 0.0287,
+          "control_share": 0.0067,
+          "excess_share": 0.022,
+          "measured_excess_ha": 1534.6,
+          "suspected_area_ha": 1552.7
+        },
+        "drop": {
+          "typhoon_share": 0.004,
+          "control_share": 0.0035,
+          "excess_share": 0.0005,
+          "measured_excess_ha": 34.6,
+          "suspected_area_ha": 35.0
+        },
+        "rise": {
+          "typhoon_share": 0.0249,
+          "control_share": 0.0032,
+          "excess_share": 0.0217,
+          "measured_excess_ha": 1514.1,
+          "suspected_area_ha": 1531.9
+        }
+      },
+      "4": {
+        "HH_any": {
+          "typhoon_share": 0.0016,
+          "control_share": 0.0014,
+          "excess_share": 0.0002,
+          "measured_excess_ha": 10.8,
+          "suspected_area_ha": 10.9
+        },
+        "HH_drop": {
+          "typhoon_share": 0.0012,
+          "control_share": 0.0007,
+          "excess_share": 0.0005,
+          "measured_excess_ha": 38.1,
+          "suspected_area_ha": 38.6
+        },
+        "HH_rise": {
+          "typhoon_share": 0.0003,
+          "control_share": 0.0007,
+          "excess_share": 0.0,
+          "measured_excess_ha": 0.0,
+          "suspected_area_ha": 0.0
+        },
+        "any": {
+          "typhoon_share": 0.0083,
+          "control_share": 0.0025,
+          "excess_share": 0.0058,
+          "measured_excess_ha": 403.1,
+          "suspected_area_ha": 407.8
+        },
+        "drop": {
+          "typhoon_share": 0.0014,
+          "control_share": 0.0014,
+          "excess_share": 0.0,
+          "measured_excess_ha": 1.2,
+          "suspected_area_ha": 1.3
+        },
+        "rise": {
+          "typhoon_share": 0.0069,
+          "control_share": 0.0011,
+          "excess_share": 0.0058,
+          "measured_excess_ha": 404.4,
+          "suspected_area_ha": 409.2
+        }
+      }
+    }
+  },
+  "by_class": {
+    "paddy": {
+      "parcels": 16950,
+      "area_ha": 21200.4,
+      "measured_area_ha": 21147.1,
+      "measured_share": 0.997,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.38,
+          "HV": 0.91
+        },
+        "control": {
+          "HH": 0.12,
+          "HV": 0.08
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0315,
+            "control_share": 0.0187,
+            "excess_share": 0.0128,
+            "measured_excess_ha": 270.6,
+            "suspected_area_ha": 271.2
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0233,
+            "control_share": 0.0077,
+            "excess_share": 0.0155,
+            "measured_excess_ha": 328.1,
+            "suspected_area_ha": 328.9
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0082,
+            "control_share": 0.011,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.1315,
+            "control_share": 0.0337,
+            "excess_share": 0.0978,
+            "measured_excess_ha": 2068.4,
+            "suspected_area_ha": 2073.6
+          },
+          "drop": {
+            "typhoon_share": 0.0245,
+            "control_share": 0.0156,
+            "excess_share": 0.0089,
+            "measured_excess_ha": 188.8,
+            "suspected_area_ha": 189.3
+          },
+          "rise": {
+            "typhoon_share": 0.1104,
+            "control_share": 0.0182,
+            "excess_share": 0.0922,
+            "measured_excess_ha": 1949.2,
+            "suspected_area_ha": 1954.1
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0071,
+            "control_share": 0.0043,
+            "excess_share": 0.0028,
+            "measured_excess_ha": 60.0,
+            "suspected_area_ha": 60.2
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0052,
+            "control_share": 0.0022,
+            "excess_share": 0.003,
+            "measured_excess_ha": 62.8,
+            "suspected_area_ha": 62.9
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0019,
+            "control_share": 0.0021,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0404,
+            "control_share": 0.0087,
+            "excess_share": 0.0317,
+            "measured_excess_ha": 670.5,
+            "suspected_area_ha": 672.2
+          },
+          "drop": {
+            "typhoon_share": 0.0057,
+            "control_share": 0.0049,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 17.5,
+            "suspected_area_ha": 17.5
+          },
+          "rise": {
+            "typhoon_share": 0.0349,
+            "control_share": 0.0038,
+            "excess_share": 0.0311,
+            "measured_excess_ha": 657.1,
+            "suspected_area_ha": 658.8
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0027,
+            "control_share": 0.0015,
+            "excess_share": 0.0011,
+            "measured_excess_ha": 24.1,
+            "suspected_area_ha": 24.1
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0021,
+            "control_share": 0.0008,
+            "excess_share": 0.0012,
+            "measured_excess_ha": 25.6,
+            "suspected_area_ha": 25.7
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0007,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0124,
+            "control_share": 0.003,
+            "excess_share": 0.0094,
+            "measured_excess_ha": 199.2,
+            "suspected_area_ha": 199.7
+          },
+          "drop": {
+            "typhoon_share": 0.0022,
+            "control_share": 0.002,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 4.6,
+            "suspected_area_ha": 4.6
+          },
+          "rise": {
+            "typhoon_share": 0.0103,
+            "control_share": 0.001,
+            "excess_share": 0.0093,
+            "measured_excess_ha": 196.5,
+            "suspected_area_ha": 197.0
+          }
+        }
+      }
+    },
+    "dry": {
+      "parcels": 40709,
+      "area_ha": 43083.0,
+      "measured_area_ha": 42564.3,
+      "measured_share": 0.988,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.16,
+          "HV": 0.72
+        },
+        "control": {
+          "HH": 0.1,
+          "HV": 0.1
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0183,
+            "control_share": 0.0134,
+            "excess_share": 0.0049,
+            "measured_excess_ha": 210.3,
+            "suspected_area_ha": 212.8
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0113,
+            "control_share": 0.006,
+            "excess_share": 0.0052,
+            "measured_excess_ha": 222.9,
+            "suspected_area_ha": 225.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0071,
+            "control_share": 0.0074,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.1116,
+            "control_share": 0.0227,
+            "excess_share": 0.089,
+            "measured_excess_ha": 3787.4,
+            "suspected_area_ha": 3833.6
+          },
+          "drop": {
+            "typhoon_share": 0.0124,
+            "control_share": 0.01,
+            "excess_share": 0.0024,
+            "measured_excess_ha": 103.7,
+            "suspected_area_ha": 104.9
+          },
+          "rise": {
+            "typhoon_share": 0.1007,
+            "control_share": 0.0127,
+            "excess_share": 0.0879,
+            "measured_excess_ha": 3742.9,
+            "suspected_area_ha": 3788.6
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0036,
+            "control_share": 0.0035,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 6.7,
+            "suspected_area_ha": 6.8
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0027,
+            "control_share": 0.0017,
+            "excess_share": 0.001,
+            "measured_excess_ha": 40.8,
+            "suspected_area_ha": 41.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.001,
+            "control_share": 0.0018,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0257,
+            "control_share": 0.0062,
+            "excess_share": 0.0195,
+            "measured_excess_ha": 830.0,
+            "suspected_area_ha": 840.1
+          },
+          "drop": {
+            "typhoon_share": 0.0031,
+            "control_share": 0.0031,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 3.6,
+            "suspected_area_ha": 3.6
+          },
+          "rise": {
+            "typhoon_share": 0.0227,
+            "control_share": 0.0031,
+            "excess_share": 0.0196,
+            "measured_excess_ha": 835.5,
+            "suspected_area_ha": 845.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0015,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0007,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 10.9,
+            "suspected_area_ha": 11.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0008,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0072,
+            "control_share": 0.0025,
+            "excess_share": 0.0047,
+            "measured_excess_ha": 198.5,
+            "suspected_area_ha": 200.9
+          },
+          "drop": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0012,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.006,
+            "control_share": 0.0013,
+            "excess_share": 0.0048,
+            "measured_excess_ha": 203.3,
+            "suspected_area_ha": 205.8
+          }
+        }
+      }
+    },
+    "orchard": {
+      "parcels": 13855,
+      "area_ha": 6328.4,
+      "measured_area_ha": 6078.7,
+      "measured_share": 0.961,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.33,
+          "HV": 0.34
+        },
+        "control": {
+          "HH": -0.03,
+          "HV": -0.07
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0203,
+            "control_share": 0.0098,
+            "excess_share": 0.0105,
+            "measured_excess_ha": 64.0,
+            "suspected_area_ha": 66.6
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0158,
+            "control_share": 0.0055,
+            "excess_share": 0.0103,
+            "measured_excess_ha": 62.9,
+            "suspected_area_ha": 65.5
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0045,
+            "control_share": 0.0043,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 1.1,
+            "suspected_area_ha": 1.2
+          },
+          "any": {
+            "typhoon_share": 0.0394,
+            "control_share": 0.0198,
+            "excess_share": 0.0195,
+            "measured_excess_ha": 118.8,
+            "suspected_area_ha": 123.7
+          },
+          "drop": {
+            "typhoon_share": 0.019,
+            "control_share": 0.0114,
+            "excess_share": 0.0076,
+            "measured_excess_ha": 45.9,
+            "suspected_area_ha": 47.8
+          },
+          "rise": {
+            "typhoon_share": 0.0216,
+            "control_share": 0.0085,
+            "excess_share": 0.0131,
+            "measured_excess_ha": 79.3,
+            "suspected_area_ha": 82.6
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0043,
+            "control_share": 0.0015,
+            "excess_share": 0.0028,
+            "measured_excess_ha": 16.8,
+            "suspected_area_ha": 17.5
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0034,
+            "control_share": 0.0009,
+            "excess_share": 0.0025,
+            "measured_excess_ha": 15.1,
+            "suspected_area_ha": 15.7
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0006,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 1.7,
+            "suspected_area_ha": 1.8
+          },
+          "any": {
+            "typhoon_share": 0.0088,
+            "control_share": 0.0032,
+            "excess_share": 0.0056,
+            "measured_excess_ha": 34.1,
+            "suspected_area_ha": 35.5
+          },
+          "drop": {
+            "typhoon_share": 0.0042,
+            "control_share": 0.002,
+            "excess_share": 0.0022,
+            "measured_excess_ha": 13.5,
+            "suspected_area_ha": 14.1
+          },
+          "rise": {
+            "typhoon_share": 0.0047,
+            "control_share": 0.0012,
+            "excess_share": 0.0035,
+            "measured_excess_ha": 21.4,
+            "suspected_area_ha": 22.3
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0006,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 2.1,
+            "suspected_area_ha": 2.2
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.0004,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 1.6,
+            "suspected_area_ha": 1.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0002,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 0.5,
+            "suspected_area_ha": 0.5
+          },
+          "any": {
+            "typhoon_share": 0.002,
+            "control_share": 0.0011,
+            "excess_share": 0.0009,
+            "measured_excess_ha": 5.3,
+            "suspected_area_ha": 5.6
+          },
+          "drop": {
+            "typhoon_share": 0.0008,
+            "control_share": 0.0006,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 1.0,
+            "suspected_area_ha": 1.0
+          },
+          "rise": {
+            "typhoon_share": 0.0012,
+            "control_share": 0.0005,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 4.6,
+            "suspected_area_ha": 4.8
+          }
+        }
+      }
+    }
+  },
+  "by_town": {
+    "二崙鄉": {
+      "parcels": 4544,
+      "area_ha": 3235.9,
+      "measured_area_ha": 3189.8,
+      "measured_share": 0.986,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.55,
+          "HV": 0.94
+        },
+        "control": {
+          "HH": 0.09,
+          "HV": 0.05
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0395,
+            "control_share": 0.019,
+            "excess_share": 0.0205,
+            "measured_excess_ha": 65.5,
+            "suspected_area_ha": 66.4
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0358,
+            "control_share": 0.0071,
+            "excess_share": 0.0287,
+            "measured_excess_ha": 91.6,
+            "suspected_area_ha": 92.9
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0037,
+            "control_share": 0.0119,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.1831,
+            "control_share": 0.0335,
+            "excess_share": 0.1495,
+            "measured_excess_ha": 477.0,
+            "suspected_area_ha": 483.9
+          },
+          "drop": {
+            "typhoon_share": 0.0377,
+            "control_share": 0.016,
+            "excess_share": 0.0217,
+            "measured_excess_ha": 69.3,
+            "suspected_area_ha": 70.3
+          },
+          "rise": {
+            "typhoon_share": 0.1525,
+            "control_share": 0.0177,
+            "excess_share": 0.1348,
+            "measured_excess_ha": 430.1,
+            "suspected_area_ha": 436.4
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0051,
+            "control_share": 0.0045,
+            "excess_share": 0.0006,
+            "measured_excess_ha": 1.9,
+            "suspected_area_ha": 2.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0046,
+            "control_share": 0.0012,
+            "excess_share": 0.0034,
+            "measured_excess_ha": 10.7,
+            "suspected_area_ha": 10.9
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0032,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0503,
+            "control_share": 0.01,
+            "excess_share": 0.0403,
+            "measured_excess_ha": 128.4,
+            "suspected_area_ha": 130.3
+          },
+          "drop": {
+            "typhoon_share": 0.0052,
+            "control_share": 0.005,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 0.4,
+            "suspected_area_ha": 0.4
+          },
+          "rise": {
+            "typhoon_share": 0.0454,
+            "control_share": 0.005,
+            "excess_share": 0.0404,
+            "measured_excess_ha": 128.8,
+            "suspected_area_ha": 130.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0017,
+            "control_share": 0.0021,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0015,
+            "control_share": 0.0002,
+            "excess_share": 0.0013,
+            "measured_excess_ha": 4.1,
+            "suspected_area_ha": 4.2
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0154,
+            "control_share": 0.0047,
+            "excess_share": 0.0107,
+            "measured_excess_ha": 34.2,
+            "suspected_area_ha": 34.7
+          },
+          "drop": {
+            "typhoon_share": 0.0019,
+            "control_share": 0.0018,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.1,
+            "suspected_area_ha": 0.1
+          },
+          "rise": {
+            "typhoon_share": 0.0136,
+            "control_share": 0.0029,
+            "excess_share": 0.0108,
+            "measured_excess_ha": 34.4,
+            "suspected_area_ha": 34.9
+          }
+        }
+      }
+    },
+    "元長鄉": {
+      "parcels": 4008,
+      "area_ha": 5475.8,
+      "measured_area_ha": 5435.5,
+      "measured_share": 0.993,
+      "median_change_db": {
+        "typhoon": {
+          "HH": 0.11,
+          "HV": 0.95
+        },
+        "control": {
+          "HH": 0.28,
+          "HV": 0.3
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0155,
+            "control_share": 0.0109,
+            "excess_share": 0.0046,
+            "measured_excess_ha": 25.0,
+            "suspected_area_ha": 25.2
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0037,
+            "control_share": 0.0052,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0118,
+            "control_share": 0.0056,
+            "excess_share": 0.0062,
+            "measured_excess_ha": 33.6,
+            "suspected_area_ha": 33.8
+          },
+          "any": {
+            "typhoon_share": 0.0996,
+            "control_share": 0.0221,
+            "excess_share": 0.0775,
+            "measured_excess_ha": 421.4,
+            "suspected_area_ha": 424.5
+          },
+          "drop": {
+            "typhoon_share": 0.005,
+            "control_share": 0.0099,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0947,
+            "control_share": 0.0122,
+            "excess_share": 0.0825,
+            "measured_excess_ha": 448.2,
+            "suspected_area_ha": 451.6
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0036,
+            "control_share": 0.0038,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0023,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0027,
+            "control_share": 0.0015,
+            "excess_share": 0.0012,
+            "measured_excess_ha": 6.6,
+            "suspected_area_ha": 6.6
+          },
+          "any": {
+            "typhoon_share": 0.0204,
+            "control_share": 0.0059,
+            "excess_share": 0.0145,
+            "measured_excess_ha": 78.8,
+            "suspected_area_ha": 79.3
+          },
+          "drop": {
+            "typhoon_share": 0.0014,
+            "control_share": 0.0032,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0189,
+            "control_share": 0.0027,
+            "excess_share": 0.0162,
+            "measured_excess_ha": 88.2,
+            "suspected_area_ha": 88.8
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0012,
+            "control_share": 0.002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0017,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.0004,
+            "excess_share": 0.0004,
+            "measured_excess_ha": 2.0,
+            "suspected_area_ha": 2.0
+          },
+          "any": {
+            "typhoon_share": 0.0043,
+            "control_share": 0.0023,
+            "excess_share": 0.0019,
+            "measured_excess_ha": 10.5,
+            "suspected_area_ha": 10.5
+          },
+          "drop": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0019,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0037,
+            "control_share": 0.0004,
+            "excess_share": 0.0033,
+            "measured_excess_ha": 17.9,
+            "suspected_area_ha": 18.1
+          }
+        }
+      }
+    },
+    "北港鎮": {
+      "parcels": 1621,
+      "area_ha": 2726.1,
+      "measured_area_ha": 2704.8,
+      "measured_share": 0.992,
+      "median_change_db": {
+        "typhoon": {
+          "HH": 0.41,
+          "HV": 1.08
+        },
+        "control": {
+          "HH": 0.23,
+          "HV": 0.36
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0058,
+            "control_share": 0.0032,
+            "excess_share": 0.0027,
+            "measured_excess_ha": 7.2,
+            "suspected_area_ha": 7.3
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0005,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.1,
+            "suspected_area_ha": 0.1
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0053,
+            "control_share": 0.0027,
+            "excess_share": 0.0026,
+            "measured_excess_ha": 7.1,
+            "suspected_area_ha": 7.2
+          },
+          "any": {
+            "typhoon_share": 0.1235,
+            "control_share": 0.0168,
+            "excess_share": 0.1068,
+            "measured_excess_ha": 288.8,
+            "suspected_area_ha": 291.1
+          },
+          "drop": {
+            "typhoon_share": 0.0008,
+            "control_share": 0.0036,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.1231,
+            "control_share": 0.0132,
+            "excess_share": 0.1099,
+            "measured_excess_ha": 297.2,
+            "suspected_area_ha": 299.6
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0006,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0004,
+            "control_share": 0.0004,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 0.1,
+            "suspected_area_ha": 0.1
+          },
+          "any": {
+            "typhoon_share": 0.013,
+            "control_share": 0.0034,
+            "excess_share": 0.0096,
+            "measured_excess_ha": 26.0,
+            "suspected_area_ha": 26.2
+          },
+          "drop": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0003,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0128,
+            "control_share": 0.0031,
+            "excess_share": 0.0097,
+            "measured_excess_ha": 26.2,
+            "suspected_area_ha": 26.4
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0001,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0001,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0044,
+            "control_share": 0.0012,
+            "excess_share": 0.0032,
+            "measured_excess_ha": 8.7,
+            "suspected_area_ha": 8.8
+          },
+          "drop": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0044,
+            "control_share": 0.0012,
+            "excess_share": 0.0032,
+            "measured_excess_ha": 8.7,
+            "suspected_area_ha": 8.8
+          }
+        }
+      }
+    },
+    "口湖鄉": {
+      "parcels": 1512,
+      "area_ha": 1925.9,
+      "measured_area_ha": 1906.8,
+      "measured_share": 0.99,
+      "median_change_db": {
+        "typhoon": {
+          "HH": 0.17,
+          "HV": 0.35
+        },
+        "control": {
+          "HH": 0.08,
+          "HV": 0.12
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0075,
+            "control_share": 0.0136,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0029,
+            "control_share": 0.006,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0046,
+            "control_share": 0.0077,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0216,
+            "control_share": 0.0232,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "drop": {
+            "typhoon_share": 0.004,
+            "control_share": 0.0093,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0177,
+            "control_share": 0.0139,
+            "excess_share": 0.0038,
+            "measured_excess_ha": 7.3,
+            "suspected_area_ha": 7.4
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0021,
+            "control_share": 0.0037,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0012,
+            "control_share": 0.0012,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0025,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.005,
+            "control_share": 0.0089,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "drop": {
+            "typhoon_share": 0.0016,
+            "control_share": 0.0024,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0034,
+            "control_share": 0.0066,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.001,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0004,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0006,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0013,
+            "control_share": 0.0024,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "drop": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.0004,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 0.5,
+            "suspected_area_ha": 0.5
+          },
+          "rise": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          }
+        }
+      }
+    },
+    "古坑鄉": {
+      "parcels": 8441,
+      "area_ha": 6894.6,
+      "measured_area_ha": 6779.2,
+      "measured_share": 0.983,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.22,
+          "HV": 0.35
+        },
+        "control": {
+          "HH": -0.11,
+          "HV": -0.14
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0078,
+            "control_share": 0.0055,
+            "excess_share": 0.0023,
+            "measured_excess_ha": 15.6,
+            "suspected_area_ha": 15.9
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0057,
+            "control_share": 0.0037,
+            "excess_share": 0.002,
+            "measured_excess_ha": 13.3,
+            "suspected_area_ha": 13.5
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0021,
+            "control_share": 0.0018,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 2.4,
+            "suspected_area_ha": 2.4
+          },
+          "any": {
+            "typhoon_share": 0.0273,
+            "control_share": 0.0113,
+            "excess_share": 0.016,
+            "measured_excess_ha": 108.8,
+            "suspected_area_ha": 110.6
+          },
+          "drop": {
+            "typhoon_share": 0.0071,
+            "control_share": 0.0078,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0207,
+            "control_share": 0.0035,
+            "excess_share": 0.0171,
+            "measured_excess_ha": 116.2,
+            "suspected_area_ha": 118.2
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0014,
+            "control_share": 0.0004,
+            "excess_share": 0.001,
+            "measured_excess_ha": 6.8,
+            "suspected_area_ha": 7.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0003,
+            "excess_share": 0.0007,
+            "measured_excess_ha": 4.9,
+            "suspected_area_ha": 5.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0004,
+            "control_share": 0.0001,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 1.9,
+            "suspected_area_ha": 1.9
+          },
+          "any": {
+            "typhoon_share": 0.0028,
+            "control_share": 0.0012,
+            "excess_share": 0.0016,
+            "measured_excess_ha": 10.8,
+            "suspected_area_ha": 11.0
+          },
+          "drop": {
+            "typhoon_share": 0.0015,
+            "control_share": 0.0009,
+            "excess_share": 0.0006,
+            "measured_excess_ha": 4.0,
+            "suspected_area_ha": 4.1
+          },
+          "rise": {
+            "typhoon_share": 0.0013,
+            "control_share": 0.0003,
+            "excess_share": 0.001,
+            "measured_excess_ha": 6.9,
+            "suspected_area_ha": 7.0
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0003,
+            "control_share": 0.0001,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 1.1,
+            "suspected_area_ha": 1.1
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0001,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 0.6,
+            "suspected_area_ha": 0.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 0.5,
+            "suspected_area_ha": 0.5
+          },
+          "any": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0002,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 1.8,
+            "suspected_area_ha": 1.9
+          },
+          "drop": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0002,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 0.5,
+            "suspected_area_ha": 0.5
+          },
+          "rise": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 1.4,
+            "suspected_area_ha": 1.4
+          }
+        }
+      }
+    },
+    "四湖鄉": {
+      "parcels": 2577,
+      "area_ha": 5332.4,
+      "measured_area_ha": 5310.1,
+      "measured_share": 0.996,
+      "median_change_db": {
+        "typhoon": {
+          "HH": 0.14,
+          "HV": 0.5
+        },
+        "control": {
+          "HH": 0.22,
+          "HV": 0.34
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0107,
+            "control_share": 0.0094,
+            "excess_share": 0.0013,
+            "measured_excess_ha": 6.8,
+            "suspected_area_ha": 6.9
+          },
+          "HH_drop": {
+            "typhoon_share": 0.002,
+            "control_share": 0.0015,
+            "excess_share": 0.0005,
+            "measured_excess_ha": 2.7,
+            "suspected_area_ha": 2.7
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0087,
+            "control_share": 0.0079,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 4.2,
+            "suspected_area_ha": 4.2
+          },
+          "any": {
+            "typhoon_share": 0.0465,
+            "control_share": 0.0167,
+            "excess_share": 0.0298,
+            "measured_excess_ha": 158.2,
+            "suspected_area_ha": 158.8
+          },
+          "drop": {
+            "typhoon_share": 0.0023,
+            "control_share": 0.0029,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0442,
+            "control_share": 0.0138,
+            "excess_share": 0.0304,
+            "measured_excess_ha": 161.6,
+            "suspected_area_ha": 162.3
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0017,
+            "control_share": 0.0024,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0006,
+            "excess_share": 0.0005,
+            "measured_excess_ha": 2.7,
+            "suspected_area_ha": 2.7
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0018,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.013,
+            "control_share": 0.0031,
+            "excess_share": 0.0099,
+            "measured_excess_ha": 52.4,
+            "suspected_area_ha": 52.6
+          },
+          "drop": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0006,
+            "excess_share": 0.0005,
+            "measured_excess_ha": 2.5,
+            "suspected_area_ha": 2.5
+          },
+          "rise": {
+            "typhoon_share": 0.0119,
+            "control_share": 0.0025,
+            "excess_share": 0.0094,
+            "measured_excess_ha": 49.8,
+            "suspected_area_ha": 50.0
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0008,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0003,
+            "control_share": 0.0,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 1.8,
+            "suspected_area_ha": 1.8
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0008,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0009,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 1.4,
+            "suspected_area_ha": 1.4
+          },
+          "drop": {
+            "typhoon_share": 0.0003,
+            "control_share": 0.0,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 1.8,
+            "suspected_area_ha": 1.8
+          },
+          "rise": {
+            "typhoon_share": 0.0008,
+            "control_share": 0.0009,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          }
+        }
+      }
+    },
+    "土庫鎮": {
+      "parcels": 3791,
+      "area_ha": 3423.0,
+      "measured_area_ha": 3382.0,
+      "measured_share": 0.988,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.09,
+          "HV": 1.18
+        },
+        "control": {
+          "HH": 0.06,
+          "HV": 0.07
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0257,
+            "control_share": 0.0322,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0138,
+            "control_share": 0.018,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.012,
+            "control_share": 0.0142,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.205,
+            "control_share": 0.0533,
+            "excess_share": 0.1517,
+            "measured_excess_ha": 513.1,
+            "suspected_area_ha": 519.4
+          },
+          "drop": {
+            "typhoon_share": 0.0152,
+            "control_share": 0.0274,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.1909,
+            "control_share": 0.0263,
+            "excess_share": 0.1646,
+            "measured_excess_ha": 556.8,
+            "suspected_area_ha": 563.6
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0047,
+            "control_share": 0.0093,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0024,
+            "control_share": 0.0051,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0023,
+            "control_share": 0.0041,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0425,
+            "control_share": 0.0155,
+            "excess_share": 0.0271,
+            "measured_excess_ha": 91.5,
+            "suspected_area_ha": 92.6
+          },
+          "drop": {
+            "typhoon_share": 0.0027,
+            "control_share": 0.0077,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.04,
+            "control_share": 0.008,
+            "excess_share": 0.0321,
+            "measured_excess_ha": 108.4,
+            "suspected_area_ha": 109.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0044,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0017,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0027,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0086,
+            "control_share": 0.0066,
+            "excess_share": 0.002,
+            "measured_excess_ha": 6.8,
+            "suspected_area_ha": 6.9
+          },
+          "drop": {
+            "typhoon_share": 0.0008,
+            "control_share": 0.0025,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0079,
+            "control_share": 0.0041,
+            "excess_share": 0.0037,
+            "measured_excess_ha": 12.6,
+            "suspected_area_ha": 12.8
+          }
+        }
+      }
+    },
+    "大埤鄉": {
+      "parcels": 2879,
+      "area_ha": 3239.2,
+      "measured_area_ha": 3200.0,
+      "measured_share": 0.988,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.33,
+          "HV": 0.62
+        },
+        "control": {
+          "HH": 0.19,
+          "HV": 0.05
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0089,
+            "control_share": 0.0129,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0073,
+            "control_share": 0.0069,
+            "excess_share": 0.0004,
+            "measured_excess_ha": 1.1,
+            "suspected_area_ha": 1.2
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0016,
+            "control_share": 0.0059,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.054,
+            "control_share": 0.0215,
+            "excess_share": 0.0324,
+            "measured_excess_ha": 103.8,
+            "suspected_area_ha": 105.0
+          },
+          "drop": {
+            "typhoon_share": 0.0079,
+            "control_share": 0.0117,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.048,
+            "control_share": 0.0098,
+            "excess_share": 0.0382,
+            "measured_excess_ha": 122.2,
+            "suspected_area_ha": 123.7
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0023,
+            "control_share": 0.0021,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 0.6,
+            "suspected_area_ha": 0.6
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0016,
+            "control_share": 0.0017,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.0004,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 0.7,
+            "suspected_area_ha": 0.7
+          },
+          "any": {
+            "typhoon_share": 0.0302,
+            "control_share": 0.0041,
+            "excess_share": 0.0262,
+            "measured_excess_ha": 83.8,
+            "suspected_area_ha": 84.8
+          },
+          "drop": {
+            "typhoon_share": 0.002,
+            "control_share": 0.0027,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0286,
+            "control_share": 0.0014,
+            "excess_share": 0.0272,
+            "measured_excess_ha": 87.2,
+            "suspected_area_ha": 88.2
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.0007,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.0005,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 0.6,
+            "suspected_area_ha": 0.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.005,
+            "control_share": 0.0015,
+            "excess_share": 0.0035,
+            "measured_excess_ha": 11.1,
+            "suspected_area_ha": 11.2
+          },
+          "drop": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0012,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0044,
+            "control_share": 0.0003,
+            "excess_share": 0.0041,
+            "measured_excess_ha": 13.0,
+            "suspected_area_ha": 13.2
+          }
+        }
+      }
+    },
+    "崙背鄉": {
+      "parcels": 3193,
+      "area_ha": 4082.7,
+      "measured_area_ha": 4052.2,
+      "measured_share": 0.993,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.43,
+          "HV": 1.18
+        },
+        "control": {
+          "HH": 0.15,
+          "HV": 0.13
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0224,
+            "control_share": 0.0133,
+            "excess_share": 0.0091,
+            "measured_excess_ha": 37.0,
+            "suspected_area_ha": 37.3
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0196,
+            "control_share": 0.0038,
+            "excess_share": 0.0157,
+            "measured_excess_ha": 63.8,
+            "suspected_area_ha": 64.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0029,
+            "control_share": 0.0095,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.1598,
+            "control_share": 0.0249,
+            "excess_share": 0.135,
+            "measured_excess_ha": 546.9,
+            "suspected_area_ha": 551.0
+          },
+          "drop": {
+            "typhoon_share": 0.0203,
+            "control_share": 0.0093,
+            "excess_share": 0.0111,
+            "measured_excess_ha": 44.8,
+            "suspected_area_ha": 45.1
+          },
+          "rise": {
+            "typhoon_share": 0.1426,
+            "control_share": 0.0156,
+            "excess_share": 0.127,
+            "measured_excess_ha": 514.5,
+            "suspected_area_ha": 518.3
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.005,
+            "control_share": 0.0028,
+            "excess_share": 0.0023,
+            "measured_excess_ha": 9.3,
+            "suspected_area_ha": 9.4
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0041,
+            "control_share": 0.0009,
+            "excess_share": 0.0032,
+            "measured_excess_ha": 13.2,
+            "suspected_area_ha": 13.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0019,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0338,
+            "control_share": 0.0072,
+            "excess_share": 0.0266,
+            "measured_excess_ha": 107.8,
+            "suspected_area_ha": 108.6
+          },
+          "drop": {
+            "typhoon_share": 0.0045,
+            "control_share": 0.0033,
+            "excess_share": 0.0012,
+            "measured_excess_ha": 5.0,
+            "suspected_area_ha": 5.0
+          },
+          "rise": {
+            "typhoon_share": 0.0293,
+            "control_share": 0.0039,
+            "excess_share": 0.0254,
+            "measured_excess_ha": 103.0,
+            "suspected_area_ha": 103.8
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0006,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 1.0,
+            "suspected_area_ha": 1.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0007,
+            "control_share": 0.0002,
+            "excess_share": 0.0004,
+            "measured_excess_ha": 1.7,
+            "suspected_area_ha": 1.7
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0004,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0054,
+            "control_share": 0.0019,
+            "excess_share": 0.0035,
+            "measured_excess_ha": 14.1,
+            "suspected_area_ha": 14.2
+          },
+          "drop": {
+            "typhoon_share": 0.001,
+            "control_share": 0.0012,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0044,
+            "control_share": 0.0008,
+            "excess_share": 0.0036,
+            "measured_excess_ha": 14.7,
+            "suspected_area_ha": 14.9
+          }
+        }
+      }
+    },
+    "斗六市": {
+      "parcels": 6390,
+      "area_ha": 3902.7,
+      "measured_area_ha": 3825.2,
+      "measured_share": 0.98,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.52,
+          "HV": 0.4
+        },
+        "control": {
+          "HH": 0.06,
+          "HV": 0.01
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0314,
+            "control_share": 0.0105,
+            "excess_share": 0.0208,
+            "measured_excess_ha": 79.6,
+            "suspected_area_ha": 81.2
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0287,
+            "control_share": 0.0034,
+            "excess_share": 0.0253,
+            "measured_excess_ha": 96.6,
+            "suspected_area_ha": 98.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0027,
+            "control_share": 0.0071,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0712,
+            "control_share": 0.0218,
+            "excess_share": 0.0495,
+            "measured_excess_ha": 189.2,
+            "suspected_area_ha": 193.1
+          },
+          "drop": {
+            "typhoon_share": 0.0308,
+            "control_share": 0.0096,
+            "excess_share": 0.0212,
+            "measured_excess_ha": 81.2,
+            "suspected_area_ha": 82.8
+          },
+          "rise": {
+            "typhoon_share": 0.0426,
+            "control_share": 0.0122,
+            "excess_share": 0.0304,
+            "measured_excess_ha": 116.4,
+            "suspected_area_ha": 118.8
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0069,
+            "control_share": 0.0015,
+            "excess_share": 0.0054,
+            "measured_excess_ha": 20.6,
+            "suspected_area_ha": 21.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0063,
+            "control_share": 0.0008,
+            "excess_share": 0.0055,
+            "measured_excess_ha": 21.2,
+            "suspected_area_ha": 21.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0007,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0185,
+            "control_share": 0.005,
+            "excess_share": 0.0135,
+            "measured_excess_ha": 51.6,
+            "suspected_area_ha": 52.7
+          },
+          "drop": {
+            "typhoon_share": 0.007,
+            "control_share": 0.0028,
+            "excess_share": 0.0042,
+            "measured_excess_ha": 15.9,
+            "suspected_area_ha": 16.2
+          },
+          "rise": {
+            "typhoon_share": 0.0116,
+            "control_share": 0.0022,
+            "excess_share": 0.0094,
+            "measured_excess_ha": 35.9,
+            "suspected_area_ha": 36.6
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0038,
+            "control_share": 0.0008,
+            "excess_share": 0.003,
+            "measured_excess_ha": 11.4,
+            "suspected_area_ha": 11.6
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0037,
+            "control_share": 0.0006,
+            "excess_share": 0.0031,
+            "measured_excess_ha": 11.7,
+            "suspected_area_ha": 11.9
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0065,
+            "control_share": 0.0013,
+            "excess_share": 0.0053,
+            "measured_excess_ha": 20.2,
+            "suspected_area_ha": 20.6
+          },
+          "drop": {
+            "typhoon_share": 0.0039,
+            "control_share": 0.0008,
+            "excess_share": 0.0032,
+            "measured_excess_ha": 12.1,
+            "suspected_area_ha": 12.3
+          },
+          "rise": {
+            "typhoon_share": 0.0026,
+            "control_share": 0.0005,
+            "excess_share": 0.0021,
+            "measured_excess_ha": 8.1,
+            "suspected_area_ha": 8.3
+          }
+        }
+      }
+    },
+    "斗南鎮": {
+      "parcels": 4039,
+      "area_ha": 2889.0,
+      "measured_area_ha": 2831.0,
+      "measured_share": 0.98,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.59,
+          "HV": 0.59
+        },
+        "control": {
+          "HH": -0.2,
+          "HV": -0.17
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.036,
+            "control_share": 0.0138,
+            "excess_share": 0.0222,
+            "measured_excess_ha": 62.8,
+            "suspected_area_ha": 64.1
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0339,
+            "control_share": 0.0108,
+            "excess_share": 0.0231,
+            "measured_excess_ha": 65.5,
+            "suspected_area_ha": 66.8
+          },
+          "HH_rise": {
+            "typhoon_share": 0.002,
+            "control_share": 0.003,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0867,
+            "control_share": 0.0258,
+            "excess_share": 0.0609,
+            "measured_excess_ha": 172.4,
+            "suspected_area_ha": 175.9
+          },
+          "drop": {
+            "typhoon_share": 0.0356,
+            "control_share": 0.0188,
+            "excess_share": 0.0168,
+            "measured_excess_ha": 47.5,
+            "suspected_area_ha": 48.5
+          },
+          "rise": {
+            "typhoon_share": 0.0545,
+            "control_share": 0.007,
+            "excess_share": 0.0475,
+            "measured_excess_ha": 134.4,
+            "suspected_area_ha": 137.1
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0093,
+            "control_share": 0.0032,
+            "excess_share": 0.0061,
+            "measured_excess_ha": 17.2,
+            "suspected_area_ha": 17.6
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0091,
+            "control_share": 0.0029,
+            "excess_share": 0.0062,
+            "measured_excess_ha": 17.6,
+            "suspected_area_ha": 18.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0002,
+            "control_share": 0.0003,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0282,
+            "control_share": 0.0063,
+            "excess_share": 0.0219,
+            "measured_excess_ha": 62.0,
+            "suspected_area_ha": 63.3
+          },
+          "drop": {
+            "typhoon_share": 0.0098,
+            "control_share": 0.0055,
+            "excess_share": 0.0042,
+            "measured_excess_ha": 12.0,
+            "suspected_area_ha": 12.2
+          },
+          "rise": {
+            "typhoon_share": 0.0188,
+            "control_share": 0.0008,
+            "excess_share": 0.018,
+            "measured_excess_ha": 51.0,
+            "suspected_area_ha": 52.1
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0042,
+            "control_share": 0.0011,
+            "excess_share": 0.0032,
+            "measured_excess_ha": 9.0,
+            "suspected_area_ha": 9.1
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0042,
+            "control_share": 0.0011,
+            "excess_share": 0.0032,
+            "measured_excess_ha": 9.0,
+            "suspected_area_ha": 9.1
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.007,
+            "control_share": 0.0022,
+            "excess_share": 0.0048,
+            "measured_excess_ha": 13.5,
+            "suspected_area_ha": 13.8
+          },
+          "drop": {
+            "typhoon_share": 0.0043,
+            "control_share": 0.0021,
+            "excess_share": 0.0022,
+            "measured_excess_ha": 6.2,
+            "suspected_area_ha": 6.3
+          },
+          "rise": {
+            "typhoon_share": 0.0031,
+            "control_share": 0.0001,
+            "excess_share": 0.0029,
+            "measured_excess_ha": 8.3,
+            "suspected_area_ha": 8.5
+          }
+        }
+      }
+    },
+    "東勢鄉": {
+      "parcels": 2358,
+      "area_ha": 3347.8,
+      "measured_area_ha": 3330.1,
+      "measured_share": 0.995,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.15,
+          "HV": 1.02
+        },
+        "control": {
+          "HH": 0.11,
+          "HV": 0.18
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0186,
+            "control_share": 0.021,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0114,
+            "control_share": 0.0105,
+            "excess_share": 0.0009,
+            "measured_excess_ha": 3.1,
+            "suspected_area_ha": 3.1
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0072,
+            "control_share": 0.0105,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.1681,
+            "control_share": 0.0291,
+            "excess_share": 0.1389,
+            "measured_excess_ha": 462.7,
+            "suspected_area_ha": 465.2
+          },
+          "drop": {
+            "typhoon_share": 0.0129,
+            "control_share": 0.0137,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.1575,
+            "control_share": 0.0156,
+            "excess_share": 0.1419,
+            "measured_excess_ha": 472.7,
+            "suspected_area_ha": 475.2
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0056,
+            "control_share": 0.0061,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0037,
+            "control_share": 0.004,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0019,
+            "control_share": 0.002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0452,
+            "control_share": 0.0081,
+            "excess_share": 0.0371,
+            "measured_excess_ha": 123.6,
+            "suspected_area_ha": 124.2
+          },
+          "drop": {
+            "typhoon_share": 0.0048,
+            "control_share": 0.005,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0417,
+            "control_share": 0.0031,
+            "excess_share": 0.0386,
+            "measured_excess_ha": 128.6,
+            "suspected_area_ha": 129.3
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.002,
+            "control_share": 0.0024,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0008,
+            "control_share": 0.0015,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.001,
+            "excess_share": 0.0002,
+            "measured_excess_ha": 0.5,
+            "suspected_area_ha": 0.5
+          },
+          "any": {
+            "typhoon_share": 0.0116,
+            "control_share": 0.0043,
+            "excess_share": 0.0073,
+            "measured_excess_ha": 24.3,
+            "suspected_area_ha": 24.4
+          },
+          "drop": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0031,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0105,
+            "control_share": 0.0011,
+            "excess_share": 0.0093,
+            "measured_excess_ha": 31.1,
+            "suspected_area_ha": 31.2
+          }
+        }
+      }
+    },
+    "林內鄉": {
+      "parcels": 3107,
+      "area_ha": 1810.3,
+      "measured_area_ha": 1769.0,
+      "measured_share": 0.977,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.57,
+          "HV": 0.42
+        },
+        "control": {
+          "HH": 0.12,
+          "HV": 0.05
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0411,
+            "control_share": 0.0213,
+            "excess_share": 0.0198,
+            "measured_excess_ha": 35.0,
+            "suspected_area_ha": 35.8
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0388,
+            "control_share": 0.0072,
+            "excess_share": 0.0316,
+            "measured_excess_ha": 55.9,
+            "suspected_area_ha": 57.2
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0023,
+            "control_share": 0.0142,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0804,
+            "control_share": 0.0381,
+            "excess_share": 0.0424,
+            "measured_excess_ha": 74.9,
+            "suspected_area_ha": 76.7
+          },
+          "drop": {
+            "typhoon_share": 0.0411,
+            "control_share": 0.0134,
+            "excess_share": 0.0277,
+            "measured_excess_ha": 48.9,
+            "suspected_area_ha": 50.1
+          },
+          "rise": {
+            "typhoon_share": 0.0439,
+            "control_share": 0.0252,
+            "excess_share": 0.0187,
+            "measured_excess_ha": 33.1,
+            "suspected_area_ha": 33.8
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0082,
+            "control_share": 0.0046,
+            "excess_share": 0.0036,
+            "measured_excess_ha": 6.4,
+            "suspected_area_ha": 6.5
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0079,
+            "control_share": 0.0028,
+            "excess_share": 0.005,
+            "measured_excess_ha": 8.9,
+            "suspected_area_ha": 9.1
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0004,
+            "control_share": 0.0018,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0151,
+            "control_share": 0.0092,
+            "excess_share": 0.0059,
+            "measured_excess_ha": 10.4,
+            "suspected_area_ha": 10.6
+          },
+          "drop": {
+            "typhoon_share": 0.0088,
+            "control_share": 0.0043,
+            "excess_share": 0.0045,
+            "measured_excess_ha": 7.9,
+            "suspected_area_ha": 8.1
+          },
+          "rise": {
+            "typhoon_share": 0.0064,
+            "control_share": 0.0049,
+            "excess_share": 0.0015,
+            "measured_excess_ha": 2.6,
+            "suspected_area_ha": 2.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0022,
+            "control_share": 0.0017,
+            "excess_share": 0.0005,
+            "measured_excess_ha": 0.9,
+            "suspected_area_ha": 1.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0021,
+            "control_share": 0.0013,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 1.5,
+            "suspected_area_ha": 1.5
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0004,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0036,
+            "control_share": 0.0036,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "drop": {
+            "typhoon_share": 0.0025,
+            "control_share": 0.0019,
+            "excess_share": 0.0006,
+            "measured_excess_ha": 1.1,
+            "suspected_area_ha": 1.1
+          },
+          "rise": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0017,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          }
+        }
+      }
+    },
+    "水林鄉": {
+      "parcels": 2798,
+      "area_ha": 5212.7,
+      "measured_area_ha": 5178.8,
+      "measured_share": 0.993,
+      "median_change_db": {
+        "typhoon": {
+          "HH": 0.28,
+          "HV": 0.71
+        },
+        "control": {
+          "HH": 0.28,
+          "HV": 0.37
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0223,
+            "control_share": 0.0056,
+            "excess_share": 0.0167,
+            "measured_excess_ha": 86.6,
+            "suspected_area_ha": 87.2
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0028,
+            "control_share": 0.0008,
+            "excess_share": 0.002,
+            "measured_excess_ha": 10.3,
+            "suspected_area_ha": 10.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0195,
+            "control_share": 0.0048,
+            "excess_share": 0.0147,
+            "measured_excess_ha": 76.3,
+            "suspected_area_ha": 76.8
+          },
+          "any": {
+            "typhoon_share": 0.0801,
+            "control_share": 0.0082,
+            "excess_share": 0.0719,
+            "measured_excess_ha": 372.2,
+            "suspected_area_ha": 374.6
+          },
+          "drop": {
+            "typhoon_share": 0.0033,
+            "control_share": 0.0012,
+            "excess_share": 0.0021,
+            "measured_excess_ha": 11.0,
+            "suspected_area_ha": 11.0
+          },
+          "rise": {
+            "typhoon_share": 0.0769,
+            "control_share": 0.0071,
+            "excess_share": 0.0698,
+            "measured_excess_ha": 361.5,
+            "suspected_area_ha": 363.9
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0021,
+            "control_share": 0.0014,
+            "excess_share": 0.0007,
+            "measured_excess_ha": 3.8,
+            "suspected_area_ha": 3.8
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0011,
+            "control_share": 0.0004,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 3.9,
+            "suspected_area_ha": 4.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.001,
+            "control_share": 0.0011,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0204,
+            "control_share": 0.0017,
+            "excess_share": 0.0186,
+            "measured_excess_ha": 96.4,
+            "suspected_area_ha": 97.1
+          },
+          "drop": {
+            "typhoon_share": 0.0016,
+            "control_share": 0.0005,
+            "excess_share": 0.0011,
+            "measured_excess_ha": 5.5,
+            "suspected_area_ha": 5.6
+          },
+          "rise": {
+            "typhoon_share": 0.0188,
+            "control_share": 0.0013,
+            "excess_share": 0.0175,
+            "measured_excess_ha": 90.6,
+            "suspected_area_ha": 91.2
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0006,
+            "excess_share": 0.0001,
+            "measured_excess_ha": 0.3,
+            "suspected_area_ha": 0.3
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0001,
+            "excess_share": 0.0005,
+            "measured_excess_ha": 2.5,
+            "suspected_area_ha": 2.5
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0005,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.008,
+            "control_share": 0.0007,
+            "excess_share": 0.0073,
+            "measured_excess_ha": 37.8,
+            "suspected_area_ha": 38.0
+          },
+          "drop": {
+            "typhoon_share": 0.0008,
+            "control_share": 0.0001,
+            "excess_share": 0.0006,
+            "measured_excess_ha": 3.3,
+            "suspected_area_ha": 3.3
+          },
+          "rise": {
+            "typhoon_share": 0.0072,
+            "control_share": 0.0005,
+            "excess_share": 0.0067,
+            "measured_excess_ha": 34.5,
+            "suspected_area_ha": 34.7
+          }
+        }
+      }
+    },
+    "臺西鄉": {
+      "parcels": 1449,
+      "area_ha": 2089.6,
+      "measured_area_ha": 2075.9,
+      "measured_share": 0.993,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.12,
+          "HV": 0.95
+        },
+        "control": {
+          "HH": 0.25,
+          "HV": 0.24
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.009,
+            "control_share": 0.0115,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0048,
+            "control_share": 0.0029,
+            "excess_share": 0.0018,
+            "measured_excess_ha": 3.8,
+            "suspected_area_ha": 3.9
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0042,
+            "control_share": 0.0086,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.3023,
+            "control_share": 0.0168,
+            "excess_share": 0.2854,
+            "measured_excess_ha": 592.5,
+            "suspected_area_ha": 596.4
+          },
+          "drop": {
+            "typhoon_share": 0.0057,
+            "control_share": 0.005,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 1.6,
+            "suspected_area_ha": 1.6
+          },
+          "rise": {
+            "typhoon_share": 0.2981,
+            "control_share": 0.0119,
+            "excess_share": 0.2862,
+            "measured_excess_ha": 594.0,
+            "suspected_area_ha": 598.0
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0031,
+            "control_share": 0.0026,
+            "excess_share": 0.0005,
+            "measured_excess_ha": 0.9,
+            "suspected_area_ha": 1.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0017,
+            "control_share": 0.0006,
+            "excess_share": 0.0011,
+            "measured_excess_ha": 2.3,
+            "suspected_area_ha": 2.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0014,
+            "control_share": 0.002,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0958,
+            "control_share": 0.0037,
+            "excess_share": 0.0921,
+            "measured_excess_ha": 191.2,
+            "suspected_area_ha": 192.5
+          },
+          "drop": {
+            "typhoon_share": 0.0022,
+            "control_share": 0.0012,
+            "excess_share": 0.0009,
+            "measured_excess_ha": 1.9,
+            "suspected_area_ha": 2.0
+          },
+          "rise": {
+            "typhoon_share": 0.0936,
+            "control_share": 0.0025,
+            "excess_share": 0.0912,
+            "measured_excess_ha": 189.3,
+            "suspected_area_ha": 190.5
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0008,
+            "control_share": 0.0004,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 0.7,
+            "suspected_area_ha": 0.7
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0,
+            "excess_share": 0.0006,
+            "measured_excess_ha": 1.2,
+            "suspected_area_ha": 1.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0004,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0129,
+            "control_share": 0.0007,
+            "excess_share": 0.0121,
+            "measured_excess_ha": 25.2,
+            "suspected_area_ha": 25.3
+          },
+          "drop": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0,
+            "excess_share": 0.0006,
+            "measured_excess_ha": 1.2,
+            "suspected_area_ha": 1.3
+          },
+          "rise": {
+            "typhoon_share": 0.0122,
+            "control_share": 0.0007,
+            "excess_share": 0.0115,
+            "measured_excess_ha": 23.9,
+            "suspected_area_ha": 24.1
+          }
+        }
+      }
+    },
+    "莿桐鄉": {
+      "parcels": 5307,
+      "area_ha": 3373.5,
+      "measured_area_ha": 3323.7,
+      "measured_share": 0.985,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.48,
+          "HV": 0.61
+        },
+        "control": {
+          "HH": 0.08,
+          "HV": 0.02
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0529,
+            "control_share": 0.0243,
+            "excess_share": 0.0287,
+            "measured_excess_ha": 95.2,
+            "suspected_area_ha": 96.7
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0455,
+            "control_share": 0.0107,
+            "excess_share": 0.0348,
+            "measured_excess_ha": 115.6,
+            "suspected_area_ha": 117.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0074,
+            "control_share": 0.0135,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.112,
+            "control_share": 0.0465,
+            "excess_share": 0.0656,
+            "measured_excess_ha": 217.9,
+            "suspected_area_ha": 221.1
+          },
+          "drop": {
+            "typhoon_share": 0.0496,
+            "control_share": 0.0232,
+            "excess_share": 0.0264,
+            "measured_excess_ha": 87.8,
+            "suspected_area_ha": 89.1
+          },
+          "rise": {
+            "typhoon_share": 0.0662,
+            "control_share": 0.0234,
+            "excess_share": 0.0428,
+            "measured_excess_ha": 142.2,
+            "suspected_area_ha": 144.4
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0124,
+            "control_share": 0.0053,
+            "excess_share": 0.0071,
+            "measured_excess_ha": 23.6,
+            "suspected_area_ha": 23.9
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0105,
+            "control_share": 0.0026,
+            "excess_share": 0.0079,
+            "measured_excess_ha": 26.3,
+            "suspected_area_ha": 26.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0019,
+            "control_share": 0.0027,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0262,
+            "control_share": 0.0119,
+            "excess_share": 0.0143,
+            "measured_excess_ha": 47.4,
+            "suspected_area_ha": 48.1
+          },
+          "drop": {
+            "typhoon_share": 0.0113,
+            "control_share": 0.0075,
+            "excess_share": 0.0039,
+            "measured_excess_ha": 12.9,
+            "suspected_area_ha": 13.1
+          },
+          "rise": {
+            "typhoon_share": 0.015,
+            "control_share": 0.0044,
+            "excess_share": 0.0106,
+            "measured_excess_ha": 35.2,
+            "suspected_area_ha": 35.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0038,
+            "control_share": 0.0012,
+            "excess_share": 0.0025,
+            "measured_excess_ha": 8.4,
+            "suspected_area_ha": 8.5
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0033,
+            "control_share": 0.0005,
+            "excess_share": 0.0028,
+            "measured_excess_ha": 9.2,
+            "suspected_area_ha": 9.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0005,
+            "control_share": 0.0007,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0081,
+            "control_share": 0.0035,
+            "excess_share": 0.0046,
+            "measured_excess_ha": 15.4,
+            "suspected_area_ha": 15.7
+          },
+          "drop": {
+            "typhoon_share": 0.0034,
+            "control_share": 0.0019,
+            "excess_share": 0.0015,
+            "measured_excess_ha": 5.0,
+            "suspected_area_ha": 5.1
+          },
+          "rise": {
+            "typhoon_share": 0.0047,
+            "control_share": 0.0016,
+            "excess_share": 0.0031,
+            "measured_excess_ha": 10.4,
+            "suspected_area_ha": 10.6
+          }
+        }
+      }
+    },
+    "虎尾鎮": {
+      "parcels": 5286,
+      "area_ha": 3769.2,
+      "measured_area_ha": 3708.2,
+      "measured_share": 0.984,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.29,
+          "HV": 0.79
+        },
+        "control": {
+          "HH": 0.08,
+          "HV": 0.03
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0403,
+            "control_share": 0.0245,
+            "excess_share": 0.0159,
+            "measured_excess_ha": 58.8,
+            "suspected_area_ha": 59.8
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0275,
+            "control_share": 0.0113,
+            "excess_share": 0.0162,
+            "measured_excess_ha": 60.1,
+            "suspected_area_ha": 61.1
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0129,
+            "control_share": 0.0132,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.117,
+            "control_share": 0.0434,
+            "excess_share": 0.0736,
+            "measured_excess_ha": 272.9,
+            "suspected_area_ha": 277.3
+          },
+          "drop": {
+            "typhoon_share": 0.03,
+            "control_share": 0.0222,
+            "excess_share": 0.0079,
+            "measured_excess_ha": 29.1,
+            "suspected_area_ha": 29.6
+          },
+          "rise": {
+            "typhoon_share": 0.088,
+            "control_share": 0.0213,
+            "excess_share": 0.0667,
+            "measured_excess_ha": 247.5,
+            "suspected_area_ha": 251.5
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0096,
+            "control_share": 0.0079,
+            "excess_share": 0.0016,
+            "measured_excess_ha": 6.1,
+            "suspected_area_ha": 6.2
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0075,
+            "control_share": 0.0045,
+            "excess_share": 0.003,
+            "measured_excess_ha": 11.3,
+            "suspected_area_ha": 11.5
+          },
+          "HH_rise": {
+            "typhoon_share": 0.002,
+            "control_share": 0.0034,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0231,
+            "control_share": 0.0137,
+            "excess_share": 0.0094,
+            "measured_excess_ha": 34.9,
+            "suspected_area_ha": 35.5
+          },
+          "drop": {
+            "typhoon_share": 0.0086,
+            "control_share": 0.0079,
+            "excess_share": 0.0007,
+            "measured_excess_ha": 2.7,
+            "suspected_area_ha": 2.7
+          },
+          "rise": {
+            "typhoon_share": 0.0145,
+            "control_share": 0.0058,
+            "excess_share": 0.0087,
+            "measured_excess_ha": 32.1,
+            "suspected_area_ha": 32.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0034,
+            "control_share": 0.0024,
+            "excess_share": 0.001,
+            "measured_excess_ha": 3.8,
+            "suspected_area_ha": 3.9
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0033,
+            "control_share": 0.0018,
+            "excess_share": 0.0014,
+            "measured_excess_ha": 5.3,
+            "suspected_area_ha": 5.4
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0001,
+            "control_share": 0.0005,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.008,
+            "control_share": 0.0051,
+            "excess_share": 0.0029,
+            "measured_excess_ha": 10.8,
+            "suspected_area_ha": 11.0
+          },
+          "drop": {
+            "typhoon_share": 0.0041,
+            "control_share": 0.0041,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.1,
+            "suspected_area_ha": 0.1
+          },
+          "rise": {
+            "typhoon_share": 0.0039,
+            "control_share": 0.001,
+            "excess_share": 0.0029,
+            "measured_excess_ha": 10.7,
+            "suspected_area_ha": 10.9
+          }
+        }
+      }
+    },
+    "褒忠鄉": {
+      "parcels": 1946,
+      "area_ha": 2714.5,
+      "measured_area_ha": 2695.1,
+      "measured_share": 0.993,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.17,
+          "HV": 1.39
+        },
+        "control": {
+          "HH": -0.09,
+          "HV": -0.02
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0227,
+            "control_share": 0.0258,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0154,
+            "control_share": 0.0168,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0074,
+            "control_share": 0.0089,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.2064,
+            "control_share": 0.0351,
+            "excess_share": 0.1713,
+            "measured_excess_ha": 461.8,
+            "suspected_area_ha": 465.1
+          },
+          "drop": {
+            "typhoon_share": 0.0162,
+            "control_share": 0.0221,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.198,
+            "control_share": 0.0131,
+            "excess_share": 0.1848,
+            "measured_excess_ha": 498.1,
+            "suspected_area_ha": 501.7
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.0054,
+            "control_share": 0.007,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0025,
+            "control_share": 0.0045,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0029,
+            "control_share": 0.0025,
+            "excess_share": 0.0003,
+            "measured_excess_ha": 0.9,
+            "suspected_area_ha": 0.9
+          },
+          "any": {
+            "typhoon_share": 0.0813,
+            "control_share": 0.0128,
+            "excess_share": 0.0684,
+            "measured_excess_ha": 184.4,
+            "suspected_area_ha": 185.7
+          },
+          "drop": {
+            "typhoon_share": 0.0038,
+            "control_share": 0.0092,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0779,
+            "control_share": 0.0036,
+            "excess_share": 0.0742,
+            "measured_excess_ha": 200.1,
+            "suspected_area_ha": 201.5
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0023,
+            "control_share": 0.0042,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0013,
+            "control_share": 0.0024,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_rise": {
+            "typhoon_share": 0.001,
+            "control_share": 0.0018,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0491,
+            "control_share": 0.0074,
+            "excess_share": 0.0417,
+            "measured_excess_ha": 112.5,
+            "suspected_area_ha": 113.3
+          },
+          "drop": {
+            "typhoon_share": 0.0015,
+            "control_share": 0.0051,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0476,
+            "control_share": 0.0023,
+            "excess_share": 0.0453,
+            "measured_excess_ha": 122.1,
+            "suspected_area_ha": 122.9
+          }
+        }
+      }
+    },
+    "西螺鎮": {
+      "parcels": 3962,
+      "area_ha": 2380.1,
+      "measured_area_ha": 2329.2,
+      "measured_share": 0.979,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.42,
+          "HV": 0.74
+        },
+        "control": {
+          "HH": 0.12,
+          "HV": -0.0
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0333,
+            "control_share": 0.025,
+            "excess_share": 0.0083,
+            "measured_excess_ha": 19.3,
+            "suspected_area_ha": 19.7
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0275,
+            "control_share": 0.0086,
+            "excess_share": 0.0188,
+            "measured_excess_ha": 43.9,
+            "suspected_area_ha": 44.8
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0058,
+            "control_share": 0.0164,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.1355,
+            "control_share": 0.0404,
+            "excess_share": 0.0952,
+            "measured_excess_ha": 221.6,
+            "suspected_area_ha": 226.5
+          },
+          "drop": {
+            "typhoon_share": 0.0291,
+            "control_share": 0.0169,
+            "excess_share": 0.0123,
+            "measured_excess_ha": 28.6,
+            "suspected_area_ha": 29.2
+          },
+          "rise": {
+            "typhoon_share": 0.1118,
+            "control_share": 0.0237,
+            "excess_share": 0.0882,
+            "measured_excess_ha": 205.4,
+            "suspected_area_ha": 209.9
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.008,
+            "control_share": 0.0054,
+            "excess_share": 0.0026,
+            "measured_excess_ha": 6.0,
+            "suspected_area_ha": 6.1
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0071,
+            "control_share": 0.0018,
+            "excess_share": 0.0053,
+            "measured_excess_ha": 12.3,
+            "suspected_area_ha": 12.5
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0036,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0413,
+            "control_share": 0.0094,
+            "excess_share": 0.0319,
+            "measured_excess_ha": 74.4,
+            "suspected_area_ha": 76.0
+          },
+          "drop": {
+            "typhoon_share": 0.0072,
+            "control_share": 0.0047,
+            "excess_share": 0.0025,
+            "measured_excess_ha": 5.8,
+            "suspected_area_ha": 6.0
+          },
+          "rise": {
+            "typhoon_share": 0.0356,
+            "control_share": 0.0046,
+            "excess_share": 0.031,
+            "measured_excess_ha": 72.2,
+            "suspected_area_ha": 73.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0021,
+            "control_share": 0.0032,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "HH_drop": {
+            "typhoon_share": 0.002,
+            "control_share": 0.0005,
+            "excess_share": 0.0015,
+            "measured_excess_ha": 3.5,
+            "suspected_area_ha": 3.6
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0,
+            "control_share": 0.0027,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.0164,
+            "control_share": 0.0044,
+            "excess_share": 0.0119,
+            "measured_excess_ha": 27.8,
+            "suspected_area_ha": 28.4
+          },
+          "drop": {
+            "typhoon_share": 0.0021,
+            "control_share": 0.0014,
+            "excess_share": 0.0007,
+            "measured_excess_ha": 1.6,
+            "suspected_area_ha": 1.6
+          },
+          "rise": {
+            "typhoon_share": 0.0145,
+            "control_share": 0.003,
+            "excess_share": 0.0114,
+            "measured_excess_ha": 26.6,
+            "suspected_area_ha": 27.2
+          }
+        }
+      }
+    },
+    "麥寮鄉": {
+      "parcels": 2301,
+      "area_ha": 2786.8,
+      "measured_area_ha": 2763.5,
+      "measured_share": 0.992,
+      "median_change_db": {
+        "typhoon": {
+          "HH": -0.3,
+          "HV": 1.23
+        },
+        "control": {
+          "HH": 0.12,
+          "HV": 0.11
+        }
+      },
+      "estimate": {
+        "2": {
+          "HH_any": {
+            "typhoon_share": 0.0209,
+            "control_share": 0.0145,
+            "excess_share": 0.0064,
+            "measured_excess_ha": 17.7,
+            "suspected_area_ha": 17.8
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0119,
+            "control_share": 0.005,
+            "excess_share": 0.0069,
+            "measured_excess_ha": 19.1,
+            "suspected_area_ha": 19.3
+          },
+          "HH_rise": {
+            "typhoon_share": 0.009,
+            "control_share": 0.0095,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "any": {
+            "typhoon_share": 0.1394,
+            "control_share": 0.023,
+            "excess_share": 0.1164,
+            "measured_excess_ha": 321.6,
+            "suspected_area_ha": 324.3
+          },
+          "drop": {
+            "typhoon_share": 0.0126,
+            "control_share": 0.0079,
+            "excess_share": 0.0047,
+            "measured_excess_ha": 13.0,
+            "suspected_area_ha": 13.1
+          },
+          "rise": {
+            "typhoon_share": 0.1281,
+            "control_share": 0.0152,
+            "excess_share": 0.1129,
+            "measured_excess_ha": 312.0,
+            "suspected_area_ha": 314.6
+          }
+        },
+        "3": {
+          "HH_any": {
+            "typhoon_share": 0.005,
+            "control_share": 0.0018,
+            "excess_share": 0.0033,
+            "measured_excess_ha": 9.0,
+            "suspected_area_ha": 9.1
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0028,
+            "control_share": 0.0004,
+            "excess_share": 0.0025,
+            "measured_excess_ha": 6.8,
+            "suspected_area_ha": 6.8
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0022,
+            "control_share": 0.0014,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 2.2,
+            "suspected_area_ha": 2.3
+          },
+          "any": {
+            "typhoon_share": 0.0356,
+            "control_share": 0.0043,
+            "excess_share": 0.0312,
+            "measured_excess_ha": 86.3,
+            "suspected_area_ha": 87.0
+          },
+          "drop": {
+            "typhoon_share": 0.0029,
+            "control_share": 0.0016,
+            "excess_share": 0.0013,
+            "measured_excess_ha": 3.6,
+            "suspected_area_ha": 3.6
+          },
+          "rise": {
+            "typhoon_share": 0.0331,
+            "control_share": 0.0027,
+            "excess_share": 0.0304,
+            "measured_excess_ha": 84.0,
+            "suspected_area_ha": 84.7
+          }
+        },
+        "4": {
+          "HH_any": {
+            "typhoon_share": 0.0015,
+            "control_share": 0.0001,
+            "excess_share": 0.0015,
+            "measured_excess_ha": 4.0,
+            "suspected_area_ha": 4.1
+          },
+          "HH_drop": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.0,
+            "excess_share": 0.0006,
+            "measured_excess_ha": 1.7,
+            "suspected_area_ha": 1.7
+          },
+          "HH_rise": {
+            "typhoon_share": 0.0009,
+            "control_share": 0.0001,
+            "excess_share": 0.0008,
+            "measured_excess_ha": 2.3,
+            "suspected_area_ha": 2.3
+          },
+          "any": {
+            "typhoon_share": 0.0118,
+            "control_share": 0.0013,
+            "excess_share": 0.0105,
+            "measured_excess_ha": 29.0,
+            "suspected_area_ha": 29.3
+          },
+          "drop": {
+            "typhoon_share": 0.0006,
+            "control_share": 0.001,
+            "excess_share": 0.0,
+            "measured_excess_ha": 0.0,
+            "suspected_area_ha": 0.0
+          },
+          "rise": {
+            "typhoon_share": 0.0112,
+            "control_share": 0.0003,
+            "excess_share": 0.0109,
+            "measured_excess_ha": 30.0,
+            "suspected_area_ha": 30.3
+          }
+        }
+      }
+    }
+  }
+}

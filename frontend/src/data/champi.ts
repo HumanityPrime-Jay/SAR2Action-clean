@@ -298,6 +298,8 @@ export const YUNLIN_AREA = {
   excessHa: yunlinArea.excess_ha,
   excessShare: yunlinArea.excess_share,
   excessHaAt3Db: yunlinArea.excess_ha_at_3db,
+  /** NISAR (scripts/estimate_yunlin_nisar_change.py): parcels whose HH darkened beyond an ordinary 12 days, 3 dB to 2 dB. */
+  flattenedHa: [yunlinArea.flattened_or_flooded.low_ha, yunlinArea.flattened_or_flooded.high_ha] as [number, number],
 };
 
 /** Large NT$ amount: 1.58 億 / 157.7 million. */

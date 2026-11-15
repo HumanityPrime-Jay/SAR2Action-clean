@@ -29,5 +29,14 @@
     "Radar change is not confirmed damage; irrigation, harvest, planting and soil moisture also change backscatter.",
     "Crop types inside each class are unknown; the survey predates the typhoon.",
     "The control interval is one 12-day window; ordinary change varies through the season."
-  ]
+  ],
+  "flattened_or_flooded": {
+    "source": "data/exports/yunlin_nisar_change/yunlin_nisar_change.json (scripts/estimate_yunlin_nisar_change.py)",
+    "imagery": "NASA/ASF NISAR L2 GCOV, descending orbit 061 frames 076/077 and ascending orbit 039 frame 013",
+    "rule": "HH per-parcel median drop beyond what an ordinary 12 days produces; low = 3 dB, high = 2 dB",
+    "measured_share": 0.988,
+    "low_ha": 120.0,
+    "high_ha": 621.0,
+    "note": "The 2 dB figure comes mostly from the descending pass, where the same parcels read ~0.4 dB darker overall than on the ascending pass; treat it as an upper bound."
+  }
 }

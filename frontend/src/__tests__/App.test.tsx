@@ -239,15 +239,13 @@ describe('App', () => {
     vi.unstubAllGlobals();
   });
 
-  it('the damage map leads with our county-wide radar estimate, says it is not loss, and keeps the official figures as a reference', () => {
+  it('the damage map sums up our county-wide radar estimate in one sentence and keeps the official figures as a reference', () => {
     render(<App />);
     const map = openChampiMap();
-    const summary = within(map).getByRole('region', { name: '這次颱風的受影響面積' });
+    const summary = within(map).getByRole('region', { name: '這次颱風的受損面積' });
     expect(within(summary).getByText(/全雲林農地/)).toBeInTheDocument();
-    expect(within(summary).getByText('颱風期間雷達變化比平常多').previousElementSibling).toHaveTextContent('約 2,800 公頃');
-    expect(within(summary).getByText('占全縣 71 千公頃農地').previousElementSibling).toHaveTextContent('4%');
-    expect(within(summary).getByText(/10\/10→10\/22 對照平常 12 天/)).toHaveTextContent('不等於損失');
-    expect(within(summary).getByText(/核對用官方數據/)).toHaveTextContent('全台農作物受害 12,938 公頃');
+    expect(summary.querySelector('.loss-line')).toHaveTextContent('颱風期間約 2,800 公頃農地雷達明顯變化，其中約 100–600 公頃整片倒伏或淹水。');
+    expect(within(summary).getByText(/官方（農業部/)).toHaveTextContent('全台農作物受害 12,938 公頃');
     expect(within(summary).getByRole('link', { name: '原始報告' })).toHaveAttribute('href', expect.stringContaining('moa.gov.tw'));
   });
 
