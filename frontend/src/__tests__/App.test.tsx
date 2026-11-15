@@ -253,7 +253,7 @@ describe('App', () => {
   it('rejects unknown or cross-case parcel IDs instead of falling back to the first parcel', () => {
     const noop = vi.fn();
     const { rerender } = render(
-      <CompareScreen selectedId="4183" onSelect={noop} go={noop} eventId={null} onEvent={noop} farmer={null} onFarmer={noop} />,
+      <CompareScreen selectedId="4183" onSelect={noop} go={noop} eventId="champi-2026-yunlin" onEvent={noop} farmer={null} onFarmer={noop} />,
     );
     expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
 
@@ -263,15 +263,37 @@ describe('App', () => {
     expect(screen.getByRole('status')).toHaveTextContent('Taixi field not found');
   });
 
-  it('compare screen shows the team QA, including the failed cross-version NISAR check', () => {
+  it('the comparison waits for a disaster picked on the damage map', () => {
     render(<App />);
     const compare = screen.getByRole('region', { name: '田區比對' });
+    expect(within(compare).getByRole('heading', { name: '先在受災地圖選一場災害' })).toBeInTheDocument();
+    fireEvent.click(within(compare).getByRole('button', { name: /到受災地圖/ }));
+    expect(screen.getByRole('region', { name: '受災地圖' })).toHaveClass('active');
+  });
+
+  it('compare screen notes what the VH series shows, each point numbered on the chart', () => {
+    render(<App />);
+    openChampiMap();
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    const notes = within(compare).getAllByRole('listitem');
+    expect(notes).toHaveLength(3);
+    expect(notes[0]).toHaveTextContent('警報期間回波升高 +4.02 dB');
+    expect(notes[1]).toHaveTextContent('颱風後回到接近颱風前');
+    expect(notes[2]).toHaveTextContent('去年同期變化');
+  });
+
+  it('compare screen shows the team QA, including the failed cross-version NISAR check', () => {
+    render(<App />);
+    openChampiMap();
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    fireEvent.click(within(compare).getByRole('tab', { name: '判讀檢核' }));
     expect(within(compare).getByText('NISAR 前後兩期可直接比較強度')).toBeInTheDocument();
     expect(within(compare).getAllByText('未通過').length).toBeGreaterThan(0);
   });
 
   it('compare screen lists the open causes; none is presented as confirmed', () => {
     render(<App />);
+    openChampiMap();
     const compare = screen.getByRole('region', { name: '田區比對' });
     fireEvent.click(within(compare).getByRole('button', { name: /5 個可能原因/ }));
     expect(within(compare).getByRole('tab', { name: '可能原因' })).toHaveAttribute('aria-selected', 'true');
@@ -284,6 +306,7 @@ describe('App', () => {
 
   it('the evidence graph opens only on request and links a cause to its checks', () => {
     render(<App />);
+    openChampiMap();
     const compare = screen.getByRole('region', { name: '田區比對' });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     const opener = within(compare).getByRole('button', { name: '證據關係圖' });

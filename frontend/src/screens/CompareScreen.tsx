@@ -12,16 +12,17 @@ import {
   parcelById,
   polygonRings,
 } from '../data/champi';
+import { EVENTS } from '../data/events';
 import { cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
-import { type Lang, useLang, useT } from '../i18n';
+import { type Lang, type Text, useLang, useT } from '../i18n';
 import { Icon } from '../ui/shared';
 import { EvidenceGraph } from './EvidenceGraph';
 import type { ScreenProps } from './types';
 
 type Mode = 'side' | 'swipe';
 type Pol = 'HH' | 'HV';
-type Tab = 'checks' | 'causes';
+type Tab = 'findings' | 'checks' | 'causes';
 type Scene = (typeof NISAR_TAIXI.scenes)[number];
 
 /** Half-width of the area shown around the selected field, metres. */
@@ -114,16 +115,85 @@ function SwipeViewer({ pol, parcel }: { pol: Pol; parcel: Parcel }) {
   );
 }
 
-export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
+/** A point on the VH chart worth a note: which series, which date, and what it shows. */
+interface Finding {
+  year: 2025 | 2026;
+  date: string;
+  db: number;
+  text: Text;
+}
+
+/** VH changes smaller than these, in dB, are read as "about the same". */
+const EVENT_DB = 2;
+const AFTER_DB = 1.5;
+
+/** Up to three plain-language notes on the field's VH series; descriptive only, never a cause. */
+function findings(parcel: Parcel): Finding[] {
+  const [pre, mid, post] = parcel.vh2026;
+  const [pre25, mid25] = parcel.vh2025;
+  const d = parcel.preToWarning;
+  const after = parcel.preToPost;
+  const d25 = mid25.db - pre25.db;
+  const big = Math.abs(d) >= EVENT_DB;
+  const notes: Finding[] = [
+    {
+      year: 2026,
+      date: mid.date,
+      db: mid.db,
+      text: !big
+        ? { zh: `警報期間變化不大（${formatDb(d)}）。`, en: `Little change during the warning (${formatDb(d)}).` }
+        : d > 0
+          ? { zh: `警報期間回波升高 ${formatDb(d)}。地表變粗糙或變濕，回波都會變強。`, en: `Return rose ${formatDb(d)} during the warning. Rougher or wetter ground both raise it.` }
+          : { zh: `警報期間回波降低 ${formatDb(d)}。積水會讓回波變弱。`, en: `Return fell ${formatDb(d)} during the warning. Standing water lowers it.` },
+    },
+    {
+      year: 2026,
+      date: post.date,
+      db: post.db,
+      text:
+        Math.abs(after) < AFTER_DB
+          ? { zh: `颱風後回到接近颱風前（${formatDb(after)}），變化沒有留下來。`, en: `Back near the pre-typhoon level (${formatDb(after)}); the change did not last.` }
+          : after > 0
+            ? { zh: `颱風後仍比颱風前高 ${formatDb(after)}。`, en: `Still ${formatDb(after)} above the pre-typhoon level.` }
+            : { zh: `颱風後仍比颱風前低 ${formatDb(after)}。`, en: `Still ${formatDb(after)} below the pre-typhoon level.` },
+    },
+    {
+      year: 2025,
+      date: mid25.date,
+      db: mid25.db,
+      text:
+        big && Math.sign(d25) === Math.sign(d) && Math.abs(d25) >= Math.abs(d) / 2
+          ? { zh: `去年同期也${d25 > 0 ? '升高' : '降低'} ${formatDb(d25)}，可能是季節變化，不一定是颱風。`, en: `Same period last year also moved ${formatDb(d25)}: possibly seasonal, not necessarily the typhoon.` }
+          : { zh: `去年同期變化 ${formatDb(d25)}。`, en: `Same period last year: ${formatDb(d25)}.` },
+    },
+  ];
+  return notes;
+}
+
+export function CompareScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
   const t = useT();
   const { lang } = useLang();
   const [mode, setMode] = useState<Mode>('side');
   const [pol, setPol] = useState<Pol>('HH');
-  const [tab, setTab] = useState<Tab>('checks');
+  const [tab, setTab] = useState<Tab>('findings');
   const [graphOpen, setGraphOpen] = useState(false);
+  const [activeNote, setActiveNote] = useState<number | null>(null);
+  const event = EVENTS.find((e) => e.id === eventId);
+  // The comparison follows the damage map: pick a disaster (and a field) there first.
+  if (!event?.hasImagery) {
+    return (
+      <div className="cmp-empty">
+        <h1 className="h2">{event ? t('這場災害還沒有雷達影像', 'No radar imagery for this disaster yet') : t('先在受災地圖選一場災害', 'Pick a disaster on the damage map first')}</h1>
+        <button className="btn btn-primary" onClick={() => go('map')}>
+          {t('到受災地圖 →', 'Go to the damage map →')}
+        </button>
+      </div>
+    );
+  }
   const parcel = parcelById(selectedId);
   if (!parcel) return <p role="status">Taixi field not found</p>;
   const [pre, post] = NISAR_TAIXI.scenes;
+  const notes = findings(parcel);
 
   return (
     <>
@@ -216,6 +286,7 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
           <div className="seg" role="tablist" aria-label={t('判讀', 'Interpretation')}>
             {(
               [
+                ['findings', t('看出什麼', 'What it shows')],
                 ['checks', t('判讀檢核', 'Evidence checks')],
                 ['causes', t('可能原因', 'Possible causes')],
               ] as [Tab, string][]
@@ -232,26 +303,40 @@ export function CompareScreen({ selectedId, go, farmer }: ScreenProps) {
           )}
         </div>
         <div className="panel-body" id={`tabpanel-${tab}`} role="tabpanel" aria-labelledby={`tab-${tab}`}>
-          {tab === 'checks' ? (
-            <>
-              <ul className="qa-list">
-                {QA_TESTS.map((q) => (
-                  <li key={q.id}>
-                    <span className={`qa-mark ${q.pass ? 'pass' : 'fail'}`}>{q.pass ? t('通過', 'Pass') : t('未通過', 'Fail')}</span>
+          {tab === 'findings' ? (
+            <div className="findings">
+              <div className="eyebrow">
+                {t('VH 回波時序 (dB)', 'VH backscatter (dB)')} · {parcel.id}
+              </div>
+              <VhChart parcel={parcel} notes={notes} active={activeNote} />
+              <ol className="finding-list">
+                {notes.map((n, i) => (
+                  <li key={i} className={activeNote === i ? 'on' : undefined} onMouseEnter={() => setActiveNote(i)} onMouseLeave={() => setActiveNote(null)}>
+                    <span className="finding-no" aria-hidden="true">
+                      {i + 1}
+                    </span>
                     <span>
-                      <b>{t(q.label)}</b>
-                      <span className="cap">{t(q.result)}</span>
+                      <span className="cap mono">
+                        {n.year} · {md(n.date)}
+                      </span>
+                      {t(n.text)}
                     </span>
                   </li>
                 ))}
-              </ul>
-              <div style={{ padding: '8px 20px 0' }}>
-                <div className="eyebrow" style={{ marginBottom: 6 }}>
-                  {t('VH 回波時序 (dB)', 'VH backscatter (dB)')} · {parcel.id}
-                </div>
-                <VhChart parcel={parcel} />
-              </div>
-            </>
+              </ol>
+            </div>
+          ) : tab === 'checks' ? (
+            <ul className="qa-list">
+              {QA_TESTS.map((q) => (
+                <li key={q.id}>
+                  <span className={`qa-mark ${q.pass ? 'pass' : 'fail'}`}>{q.pass ? t('通過', 'Pass') : t('未通過', 'Fail')}</span>
+                  <span>
+                    <b>{t(q.label)}</b>
+                    <span className="cap">{t(q.result)}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
           ) : (
             <ul className="qa-list">
               {CAUSES.map((c) => (
@@ -289,7 +374,7 @@ const seasonDay = (date: string) => {
   return (m === 10 ? 0 : 31) + d - 1;
 };
 
-function VhChart({ parcel }: { parcel: Parcel }) {
+function VhChart({ parcel, notes, active }: { parcel: Parcel; notes: Finding[]; active: number | null }) {
   const t = useT();
   const all = [...parcel.vh2025, ...parcel.vh2026].map((p) => p.db);
   const lo = Math.floor(Math.min(...all) - 1);
@@ -331,6 +416,26 @@ function VhChart({ parcel }: { parcel: Parcel }) {
       {parcel.vh2026.map((p) => (
         <rect key={p.date} x={X(seasonDay(p.date)) - 4} y={Y(p.db) - 4} width="8" height="8" fill="#FFFFFF" stroke="#0A0A0A" strokeWidth="1.5" />
       ))}
+      {notes.map((n, i) => {
+        const cx = X(seasonDay(n.date));
+        const cy = Y(n.db);
+        // The number sits off the dot, joined by a short leader: 2026 notes up and right, 2025
+        // notes down and left, so notes on nearby dates do not collide; flipped where the chart ends.
+        const right = n.year === 2026 ? cx < 250 : cx < 60;
+        const up = n.year === 2026 ? cy > 40 : cy > 84;
+        const lx = cx + (right ? 16 : -16);
+        const ly = cy + (up ? -16 : 16);
+        return (
+          <g key={i} className={`finding-dot${active === i ? ' on' : ''}`}>
+            <circle cx={cx} cy={cy} r={active === i ? 11 : 9} />
+            <line x1={cx} y1={cy} x2={lx} y2={ly} />
+            <circle className="badge" cx={lx} cy={ly} r="6" />
+            <text x={lx} y={ly + 3} textAnchor="middle">
+              {i + 1}
+            </text>
+          </g>
+        );
+      })}
       <g fontFamily="IBM Plex Mono" fontSize="9">
         <text x="236" y="128" fill="#0A0A0A">
           ━ 2026
