@@ -215,7 +215,22 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .globe-dot{width:14px;height:14px;border-radius:50%;background:var(--red);border:2px solid #fff;position:relative;z-index:1}
 .globe-pulse{position:absolute;left:0;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--red);animation:globe-pulse 1.8s ease-out infinite}
 @keyframes globe-pulse{from{transform:scale(1);opacity:.7}to{transform:scale(3.2);opacity:0}}
-.globe-label{font-family:var(--f-sans);font-size:14px;font-weight:700;color:#fff;background:rgba(0,0,0,.78);border:1px solid #fff;padding:4px 10px;white-space:nowrap}
+.globe-label{font-family:var(--f-sans);font-size:14px;font-weight:700;color:#fff;background:rgba(0,0,0,.78);border:1px solid #fff;padding:4px 10px;white-space:nowrap;pointer-events:auto;cursor:pointer}
+.globe-label:hover{background:#fff;color:#000}
+.globe-back{position:absolute;left:50%;top:24px;transform:translateX(-50%);z-index:3;min-height:var(--tap);padding:8px 16px;
+  font-size:14px;font-weight:700;color:#fff;background:rgba(0,0,0,.72);border:1px solid rgba(126,232,250,.6);box-shadow:0 0 14px rgba(126,232,250,.3);cursor:pointer}
+.globe-back:hover{background:rgba(126,232,250,.18)}
+/* Clouds that sweep past the camera during the dive (DIVE_MS in Globe.tsx). */
+.cloud-veil{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;overflow:hidden}
+.cloud-veil::before,.cloud-veil::after{content:"";position:absolute;inset:-20%;filter:blur(22px);
+  background:radial-gradient(28% 22% at 30% 40%,rgba(255,255,255,.95),transparent 70%),radial-gradient(30% 24% at 70% 55%,rgba(240,246,255,.9),transparent 70%),
+    radial-gradient(22% 18% at 50% 25%,rgba(255,255,255,.85),transparent 70%),radial-gradient(26% 20% at 45% 75%,rgba(230,238,250,.9),transparent 70%)}
+.cloud-veil::after{transform:rotate(35deg);opacity:.8}
+.cloud-veil.pass{animation:veil-pass 3.2s ease-in-out}
+.cloud-veil.pass::before{animation:veil-near 3.2s ease-in forwards}
+.cloud-veil.pass::after{animation:veil-near 3.2s ease-in .25s forwards}
+@keyframes veil-pass{0%,15%{opacity:0}40%{opacity:1}62%{opacity:.95}85%,100%{opacity:0}}
+@keyframes veil-near{from{transform:scale(.7)}to{transform:scale(2.4)}}
 /* The topbar already says DEMO; free the corner for the imagery credit. */
 .stage:has(.screen-home.active) .demo-note{display:none}
 .home-globe .maplibregl-ctrl-attrib{background:rgba(0,0,0,.6);color:var(--text-2)}
@@ -439,6 +454,7 @@ button:disabled{cursor:not-allowed;opacity:.4}
   *,*::before,*::after{transition-duration:1ms!important;animation-duration:1ms!important;scroll-behavior:auto!important}
   .screen,.screen.drill{transform:none}
   .globe-pulse{animation:none;opacity:0}
+  .cloud-veil{display:none}
   .mascot .mascot-sprite{animation:none}
   .btn:active,.box:active,.chip:active,.row:active,.tab:active,.seg button:active,.back:active,.zoom button:active,.suggest button:active,.send:active,.logo:active,.link:active{transform:none}
 }

@@ -13,6 +13,13 @@ maplibregl.setWorkerUrl(workerUrl);
 /** Taixi Township, Yunlin County — the CHAMPI case location. */
 export const YUNLIN: [number, number] = [120.19, 23.72];
 
+/** Clicks inside this box count as clicking Taiwan. */
+const TAIWAN_BOX = { west: 119.2, east: 122.2, south: 21.8, north: 25.4 };
+const TAIWAN_VIEW = { center: [120.85, 23.65] as [number, number], zoom: 7, pitch: 40, bearing: -12 };
+const START_CENTER: [number, number] = [112, 18];
+/** Length of the dive; the cloud veil animation in styles.css runs for the same time. */
+const DIVE_MS = 3200;
+
 const GIBS = 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best';
 
 /** Optional home layers; `shield` is a decorative ring, not data. */
@@ -58,14 +65,49 @@ function fitZoom(el: HTMLElement) {
  * Spins slowly until the user grabs it; WebGL failures fall back to a static message.
  */
 const MARKER_LABEL: Record<Lang, string> = { zh: '雲林台西 · Taiwan', en: 'Taixi, Yunlin · Taiwan' };
+const DIVE_LABEL: Record<Lang, string> = { zh: '飛進台灣', en: 'Fly into Taiwan' };
 
 const Globe = forwardRef<GlobeHandle, { layers: GlobeLayers; lang: Lang }>(function Globe({ layers, lang }, ref) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const labelRef = useRef<HTMLSpanElement | null>(null);
   const shieldRef = useRef<HTMLDivElement>(null);
+  const veilRef = useRef<HTMLDivElement>(null);
   const spinningRef = useRef(false);
+  const diveRef = useRef<() => void>(() => {});
   const [failed, setFailed] = useState(false);
+  const [dived, setDived] = useState(false);
+
+  // Click on Taiwan: dive through the typhoon-day clouds (they fade out with zoom) down to the island.
+  diveRef.current = () => {
+    const map = mapRef.current;
+    if (!map || dived) return;
+    spinningRef.current = false;
+    map.stop();
+    if (prefersReducedMotion()) {
+      map.jumpTo(TAIWAN_VIEW);
+      setDived(true);
+      return;
+    }
+    const veil = veilRef.current;
+    if (veil) {
+      veil.classList.remove('pass');
+      void veil.offsetWidth; // restart the CSS animation
+      veil.classList.add('pass');
+    }
+    map.once('moveend', () => setDived(true));
+    map.flyTo({ ...TAIWAN_VIEW, duration: DIVE_MS, curve: 1.6, essential: true });
+  };
+
+  const backToGlobe = () => {
+    const map = mapRef.current;
+    const el = containerRef.current;
+    if (!map || !el) return;
+    setDived(false);
+    const view = { center: START_CENTER, zoom: fitZoom(el), pitch: 0, bearing: 0 };
+    if (prefersReducedMotion()) map.jumpTo(view);
+    else map.flyTo({ ...view, duration: 2200, essential: true });
+  };
 
   useImperativeHandle(ref, () => ({
     flyToTaiwan() {
@@ -89,7 +131,7 @@ const Globe = forwardRef<GlobeHandle, { layers: GlobeLayers; lang: Lang }>(funct
     try {
       map = new maplibregl.Map({
         container: el,
-        center: [112, 18],
+        center: START_CENTER,
         zoom: fitZoom(el),
         minZoom: 0.5,
         maxZoom: 8,
@@ -131,12 +173,14 @@ const Globe = forwardRef<GlobeHandle, { layers: GlobeLayers; lang: Lang }>(funct
           layers: [
             { id: 'space', type: 'background', paint: { 'background-color': '#000' } },
             { id: 'bluemarble', type: 'raster', source: 'bluemarble' },
-            { id: 'viirs', type: 'raster', source: 'viirs', layout: { visibility: 'none' } },
+            // The clouds thin out as the camera dives, so the island shows through.
+            { id: 'viirs', type: 'raster', source: 'viirs', layout: { visibility: 'none' }, paint: { 'raster-opacity': ['interpolate', ['linear'], ['zoom'], 3.5, 1, 5, 0] } },
             { id: 'imerg', type: 'raster', source: 'imerg', layout: { visibility: 'none' }, paint: { 'raster-opacity': 0.7 } },
-            // Fades in as the camera nears Taiwan.
-            { id: 'nisar', type: 'raster', source: 'nisar', paint: { 'raster-opacity': ['interpolate', ['linear'], ['zoom'], 3, 0, 5, 0.9], 'raster-fade-duration': 0 } },
+            // Fades in as the camera nears Taiwan, then eases off so the island shows under it.
+            { id: 'nisar', type: 'raster', source: 'nisar', paint: { 'raster-opacity': ['interpolate', ['linear'], ['zoom'], 3, 0, 5, 0.9, 6.5, 0.45], 'raster-fade-duration': 0 } },
             // brightness-min 1 turns the dark coastline strokes white; alpha keeps the rest clear.
-            { id: 'borders', type: 'raster', source: 'borders', paint: { 'raster-opacity': 0.55, 'raster-brightness-min': 1 } },
+            // Faded out close in: a few GIBS tiles there are opaque and would turn into grey blocks.
+            { id: 'borders', type: 'raster', source: 'borders', paint: { 'raster-opacity': ['interpolate', ['linear'], ['zoom'], 4.5, 0.55, 5.5, 0], 'raster-brightness-min': 1 } },
           ],
         },
       });
@@ -154,8 +198,18 @@ const Globe = forwardRef<GlobeHandle, { layers: GlobeLayers; lang: Lang }>(funct
     // Taiwan marker with label.
     const markerEl = document.createElement('div');
     markerEl.className = 'globe-marker';
-    markerEl.innerHTML = '<span class="globe-pulse"></span><span class="globe-dot"></span><span class="globe-label"></span>';
+    markerEl.innerHTML = '<span class="globe-pulse"></span><span class="globe-dot"></span><button type="button" class="globe-label"></button>';
     labelRef.current = markerEl.querySelector('.globe-label');
+    labelRef.current?.addEventListener('click', () => diveRef.current());
+
+    // Clicking anywhere on Taiwan also dives.
+    const onTaiwan = (p: maplibregl.LngLat) => p.lng >= TAIWAN_BOX.west && p.lng <= TAIWAN_BOX.east && p.lat >= TAIWAN_BOX.south && p.lat <= TAIWAN_BOX.north;
+    map.on('click', (e: maplibregl.MapMouseEvent) => {
+      if (onTaiwan(e.lngLat)) diveRef.current();
+    });
+    map.on('mousemove', (e: maplibregl.MapMouseEvent) => {
+      map.getCanvas().style.cursor = map.getZoom() < 6 && onTaiwan(e.lngLat) ? 'pointer' : '';
+    });
     new maplibregl.Marker({ element: markerEl, anchor: 'left', offset: [-8, 0] }).setLngLat(YUNLIN).addTo(map);
 
     // Slow idle spin; any user interaction stops it for good.
@@ -204,7 +258,10 @@ const Globe = forwardRef<GlobeHandle, { layers: GlobeLayers; lang: Lang }>(funct
   }, []);
 
   useEffect(() => {
-    if (labelRef.current) labelRef.current.textContent = MARKER_LABEL[lang];
+    const label = labelRef.current;
+    if (!label) return;
+    label.textContent = MARKER_LABEL[lang];
+    label.setAttribute('aria-label', `${MARKER_LABEL[lang]}：${DIVE_LABEL[lang]}`);
   }, [lang]);
 
   const { borders, clouds, rain } = layers;
@@ -234,6 +291,12 @@ const Globe = forwardRef<GlobeHandle, { layers: GlobeLayers; lang: Lang }>(funct
       <div ref={shieldRef} className="globe-shield" hidden={!layers.shield} aria-hidden="true">
         <span className="sweep" />
       </div>
+      <div ref={veilRef} className="cloud-veil" aria-hidden="true" onAnimationEnd={(e) => e.currentTarget.classList.remove('pass')} />
+      {dived && (
+        <button type="button" className="globe-back" onClick={backToGlobe}>
+          ← {lang === 'zh' ? '返回地球' : 'Back to globe'}
+        </button>
+      )}
     </>
   );
 });
