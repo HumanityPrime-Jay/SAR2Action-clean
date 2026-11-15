@@ -1,0 +1,418 @@
+{
+  "schedule_version_id": "MOA-RELIEF-SCHEDULE-1150629-V1",
+  "regulation_title": "農業天然災害救助辦法（含第六條附表二：農業天然災害現金救助項目及額度）",
+  "regulation_amendment_date_roc": "115年6月29日",
+  "regulation_amendment_date_iso": "2026-06-29",
+  "statutory_basis_articles": [
+    "第5條",
+    "第6條",
+    "第6條附表二",
+    "第12條",
+    "第12條之1"
+  ],
+  "min_application_area_ha": 0.01,
+  "min_application_area_rule": "依《農業天然災害救助辦法》第5條第2項第5款及第4項規定，農產業每筆土地申請面積不足 0.01 公頃（100 m²）者不予現金救助及補助，但相毗鄰土地得合併計算。同條第1項及第5項另定：救助對象限實際從事農業生產之自然人、應符合合法土地使用及登記核准規定，且短期作同產季、長期作同曆年（附表一定以產季者同產季）救助以一次為限。",
+  "statutory_loss_threshold_fraction": 0.2,
+  "statutory_loss_threshold_rule": "依《農業天然災害救助辦法》第12條之1第1項第3款規定，一般勘查案件申報項目損失率未達 20% 者不予現金救助；但符合同款第1目但書及第12條第1項第3款公告簡化程序者（具中央主管機關公告災損天氣參數或災損嚴重公告，且具客觀種植證明得免勘查、或無證明由公所抽樣勘查 20% 以上申請案件），依法不受個別田區損失率須達 20% 之限制。20% 僅為資格門檻（binary gate），不得將每公頃法定額度乘以損失百分比，亦不得由 SAR dB 換算損失率。",
+  "official_law_url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=M0090005",
+  "official_afa_schedule_url": "https://www.afa.gov.tw/cht/index.php?code=list&ids=717",
+  "items": [
+    {
+      "item_id": "unknown_crop",
+      "display_name": "未知作物／尚未現場勘查確認",
+      "statutory_category": "未確認作物或設施類別",
+      "item_group": "unconfirmed",
+      "rate_twd_per_ha": null,
+      "unit": "元／公頃",
+      "examples": [
+        "尚未取得現地作物調查紀錄",
+        "衛星無法直接辨識之田區作物"
+      ],
+      "announced_in_yunlin_11510": false,
+      "announcement_doc_id": null,
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": "尚未確認實際種植作物別或設施類型。本系統嚴禁在未知作物狀態下輸出任何救助試算金額。"
+    },
+    {
+      "item_id": "grains_1",
+      "display_name": "雜糧（一）：紅豆、綠豆、大豆、硬質玉米、高粱、蕎麥、薏苡、樹豆等",
+      "statutory_category": "農產類 — 雜糧（一）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 28000,
+      "unit": "元／公頃",
+      "examples": [
+        "紅豆",
+        "綠豆",
+        "大豆（黑豆／黃豆）",
+        "硬質玉米（飼料玉米）",
+        "高粱",
+        "蕎麥",
+        "薏苡",
+        "樹豆及其他雜糧"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "statutory_conditions": "依第5條（自然人、單筆或毗鄰合併≥0.01公頃、同產季一次）及第12/12-1條（一般損失率≥20%或第12條第1項第3款公告簡化程序）",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "grains_2",
+      "display_name": "雜糧（二）：胡（芝）麻",
+      "statutory_category": "農產類 — 雜糧（二）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 30000,
+      "unit": "元／公頃",
+      "examples": [
+        "胡麻",
+        "芝麻"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "statutory_conditions": "依第5條（自然人、單筆或毗鄰合併≥0.01公頃、同產季一次）及第12/12-1條（一般損失率≥20%或第12條第1項第3款公告簡化程序）",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "grains_3_peanut_sweetpotato",
+      "display_name": "雜糧（三）：落花生、甘藷、小米",
+      "statutory_category": "農產類 — 雜糧（三）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 36000,
+      "unit": "元／公頃",
+      "examples": [
+        "落花生（土豆）",
+        "甘藷（地瓜）",
+        "小米"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "statutory_conditions": "依第5條（自然人、單筆或毗鄰合併≥0.01公頃、同產季一次）及第12/12-1條（一般損失率≥20%或第12條第1項第3款公告簡化程序）",
+      "special_note": "雲林縣2期作較晚種植之落花生（6月下旬至8月上旬向公所申報種植者），若已於115年8月下旬豪雨向公所申請救助有案者，依1151112527F號公告免重複申請，由公所逕予合併審理。",
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "veg_1",
+      "display_name": "蔬菜（一）：山蕨、金針菜、毛豆、菠菜、芫荽及其他短期葉菜類",
+      "statutory_category": "農產類 — 蔬菜（一）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 30000,
+      "unit": "元／公頃",
+      "examples": [
+        "短期葉菜類（小白菜、青江菜、油菜）",
+        "山蕨",
+        "金針菜",
+        "毛豆",
+        "菠菜",
+        "芫荽（香菜）"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "statutory_conditions": "依第5條（自然人、單筆或毗鄰合併≥0.01公頃、同產季一次）及第12/12-1條（一般損失率≥20%或第12條第1項第3款公告簡化程序）",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "veg_2",
+      "display_name": "蔬菜（二）：空心菜、莧菜、萵苣、蘿蔔、胡蘿蔔、食用玉米、牛蒡、蓮藕等（非屬森林副產物之竹筍除外）",
+      "statutory_category": "農產類 — 蔬菜（二）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 41000,
+      "unit": "元／公頃",
+      "examples": [
+        "不結球白菜",
+        "空心菜（蕹菜）",
+        "莧菜",
+        "萵苣",
+        "芥藍",
+        "茴香",
+        "蘿蔔",
+        "胡蘿蔔",
+        "牛蒡",
+        "蓮藕（蓮子）",
+        "菱角",
+        "豌豆",
+        "食用玉米（甜玉米）"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "statutory_conditions": "依第5條（自然人、單筆或毗鄰合併≥0.01公頃、同產季一次）及第12/12-1條（一般損失率≥20%或第12條第1項第3款公告簡化程序）",
+      "special_note": "注意：農業部115年10月26日農糧字第1151112527F號公告已明文排除「非屬森林副產物之竹筍」。",
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "veg_3",
+      "display_name": "蔬菜（三）：馬鈴薯、南瓜、冬瓜、花椰菜、青花菜、芹菜、四季豆、長豇豆、胡瓜等",
+      "statutory_category": "農產類 — 蔬菜（三）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 47000,
+      "unit": "元／公頃",
+      "examples": [
+        "馬鈴薯",
+        "南瓜",
+        "冬瓜",
+        "花椰菜",
+        "青花菜",
+        "芹菜",
+        "敏豆（四季豆）",
+        "長豇豆",
+        "胡瓜"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "statutory_conditions": "依第5條（自然人、單筆或毗鄰合併≥0.01公頃、同產季一次）及第12/12-1條（一般損失率≥20%或第12條第1項第3款公告簡化程序）",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "veg_4",
+      "display_name": "蔬菜（四）：甘藍（高麗菜）、結球白菜、西瓜、辣椒、芋等",
+      "statutory_category": "農產類 — 蔬菜（四）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 64000,
+      "unit": "元／公頃",
+      "examples": [
+        "甘藍（高麗菜）",
+        "結球白菜（大白菜）",
+        "西瓜",
+        "辣椒",
+        "芋"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "veg_5",
+      "display_name": "蔬菜（五）：香瓜、洋香瓜、絲瓜等",
+      "statutory_category": "農產類 — 蔬菜（五）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 80000,
+      "unit": "元／公頃",
+      "examples": [
+        "香瓜（美濃瓜）",
+        "洋香瓜（哈密瓜）",
+        "絲瓜"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "veg_6",
+      "display_name": "蔬菜（六）：蘆筍、大蒜、青蒜、洋蔥、甜椒等",
+      "statutory_category": "農產類 — 蔬菜（六）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 95000,
+      "unit": "元／公頃",
+      "examples": [
+        "蘆筍",
+        "大蒜（蒜頭）",
+        "青蒜",
+        "洋蔥",
+        "甜椒（彩椒）"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "veg_7",
+      "display_name": "蔬菜（七）：食用番茄、茄子、苦瓜、青蔥、薑、山藥、茭白筍、韭菜等",
+      "statutory_category": "農產類 — 蔬菜（七）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 140000,
+      "unit": "元／公頃",
+      "examples": [
+        "食用番茄",
+        "茄子",
+        "苦瓜",
+        "青蔥",
+        "薑",
+        "山藥",
+        "茭白筍",
+        "韭菜"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "onion_nursery",
+      "display_name": "洋蔥苗圃（115/10/30 增列公告品項）",
+      "statutory_category": "農產類 — 蔬菜特殊項目（洋蔥苗圃）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 373000,
+      "unit": "元／公頃",
+      "examples": [
+        "洋蔥育苗圃（育苗面積依公所實測核認）"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112552B",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "statutory_conditions": "依第5條（單筆≥0.01公頃、同產季一次）及第12/12-1條（一般損失率≥20%或第12條第1項第3款公告簡化程序）",
+      "special_note": "農業部 115年10月30日農糧字第1151112552B號公告增列，獨立受理期間為 115年10月31日至11月13日。",
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "sugar_cane_raw",
+      "display_name": "原料甘蔗",
+      "statutory_category": "農產類 — 特用作物（一）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 41000,
+      "unit": "元／公頃",
+      "examples": [
+        "台糖或契作原料甘蔗"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": "虎尾／土庫示範區周邊常見甘蔗田區，需現地查核實際品項。",
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "forage_corn",
+      "display_name": "青割玉米",
+      "statutory_category": "農產類 — 牧草類（青割玉米）",
+      "item_group": "crop",
+      "rate_twd_per_ha": 16000,
+      "unit": "元／公頃",
+      "examples": [
+        "青割玉米（酪農芻料作物）"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "facility_plastic_greenhouse_film",
+      "display_name": "塑膠布溫網室 — 塑膠布（網）",
+      "statutory_category": "農業設施類 — 塑膠布溫網室（披覆組件）",
+      "item_group": "facility",
+      "rate_twd_per_ha": 180000,
+      "unit": "元／公頃",
+      "examples": [
+        "塑膠布溫網室之塑膠布或防蟲網破損達 20% 以上"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": "依農業設施實際面積並參酌合法設施登記或公所現勘認定為準。",
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "facility_plastic_greenhouse_simple",
+      "display_name": "塑膠布溫網室 — 整體結構（簡易式）",
+      "statutory_category": "農業設施類 — 塑膠布溫網室（整體結構・簡易式）",
+      "item_group": "facility",
+      "rate_twd_per_ha": 1800000,
+      "unit": "元／公頃",
+      "examples": [
+        "簡易式塑膠布溫網室整體結構倒塌或毀損達 20% 以上"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": "僅供條件式額度參考，實務須符合農業設施容許使用及公所查驗規範。",
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "facility_plastic_greenhouse_steel",
+      "display_name": "塑膠布溫網室 — 整體結構（結構型鋼骨）",
+      "statutory_category": "農業設施類 — 塑膠布溫網室（整體結構・結構型鋼骨）",
+      "item_group": "facility",
+      "rate_twd_per_ha": 3600000,
+      "unit": "元／公頃",
+      "examples": [
+        "結構型鋼骨塑膠布溫網室整體結構受損達 20% 以上"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": "僅供條件式額度參考，實務須符合農業設施容許使用及公所查驗規範。",
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "facility_trellis_net_film",
+      "display_name": "水平棚架網室 — 塑膠布（網）",
+      "statutory_category": "農業設施類 — 水平棚架網室（披覆組件）",
+      "item_group": "facility",
+      "rate_twd_per_ha": 60000,
+      "unit": "元／公頃",
+      "examples": [
+        "水平棚架網室塑膠布或防蟲網受損達 20% 以上"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "facility_trellis_net_structure",
+      "display_name": "水平棚架網室 — 整體結構",
+      "statutory_category": "農業設施類 — 水平棚架網室（整體結構）",
+      "item_group": "facility",
+      "rate_twd_per_ha": 200000,
+      "unit": "元／公頃",
+      "examples": [
+        "水平棚架網室整體支架結構受損達 20% 以上"
+      ],
+      "announced_in_yunlin_11510": true,
+      "announcement_doc_id": "MOA-1151112527F",
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": null
+    },
+    {
+      "item_id": "excluded_bamboo_shoot",
+      "display_name": "非屬森林副產物之竹筍（本次公告明文排除）",
+      "statutory_category": "農產類 — 蔬菜（二）（1151112527F 號公告除外品項）",
+      "item_group": "excluded",
+      "rate_twd_per_ha": 41000,
+      "unit": "元／公頃",
+      "examples": [
+        "非屬森林副產物之竹筍（麻竹筍、綠竹筍等農地竹筍）"
+      ],
+      "announced_in_yunlin_11510": false,
+      "announcement_doc_id": null,
+      "regulation_version": "115年6月29日修正版本附表二（僅列法定表列基準，非本次公告適用）",
+      "special_note": "附表二雖將竹筍列於蔬菜（二）（41,000 元/公頃），但 115年10月26日農糧字第1151112527F號公告雲林縣適用範圍明文規定「蔬菜（一）至（七）（非屬森林副產物之竹筍除外）」。",
+      "exclusion_reason": "「非屬森林副產物之竹筍」已遭農業部 115年10月26日農糧字第1151112527F號公告明文排除於雲林縣本次救助範圍之外，系統依法拒絕輸出試算金額。"
+    },
+    {
+      "item_id": "unannounced_other_crop",
+      "display_name": "其他未列入本次雲林縣公告品項（如水稻、休耕田、未公告果樹）",
+      "statutory_category": "未列入本次災害公告品項",
+      "item_group": "unannounced",
+      "rate_twd_per_ha": null,
+      "unit": "元／公頃",
+      "examples": [
+        "水稻（未列入 1151112527F／1151112552B 公告）",
+        "未公告果樹或休耕綠肥田"
+      ],
+      "announced_in_yunlin_11510": false,
+      "announcement_doc_id": null,
+      "regulation_version": "115年6月29日修正版本附表二",
+      "special_note": null,
+      "exclusion_reason": "該作物或土地利用型態未列入農業部 1151112527F 號或 1151112552B 號雲林縣現金救助公告品項，不提供現金救助試算。"
+    }
+  ]
+}

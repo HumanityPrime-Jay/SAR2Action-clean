@@ -25,6 +25,6 @@
 | E. Hybrid + Fallback Reranker | 43/44 (97.73%) | 0.823 | 10.18 ms |
 
 ## Limitations
-- Neural `Qwen/Qwen3-Embedding-0.6B` and `Qwen/Qwen3-Reranker-0.6B` were not loaded from HuggingFace cache in this offline run; deterministic fallback was used and explicitly flagged.
+- Legal RAG uses model-free deterministic concept + BM25 semantic retrieval (`uses_neural_models=False`, `requires_gpu=False`), not neural embedding/reranker models.
 - Historical law revisions prior to `2026-06-29` return `VERSION_NOT_VERIFIED` rather than guessing.
 - Appendix PDF tables remain `EXTRACTION_REQUIRES_REVIEW`.

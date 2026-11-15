@@ -1,0 +1,1217 @@
+{
+  "schema_version": "tw08a-stac-inputs/1.0",
+  "generated_utc": "2026-11-14T16:54:34.510302+00:00",
+  "stac_endpoint": "https://earth-search.aws.element84.com/v1/search",
+  "collection": "sentinel-2-l2a",
+  "aoi_crs": "EPSG:32651",
+  "aoi_bounds_epsg32651": [
+    222140.0,
+    2622180.0,
+    227260.0,
+    2627280.0
+  ],
+  "aoi_bbox_wgs84": [
+    120.2745,
+    23.6865,
+    120.3256,
+    23.7335
+  ],
+  "scenes": [
+    {
+      "date": "2026-10-11",
+      "stac_id": "S2B_51QTG_20261011_0_L2A",
+      "product_uri": "S2B_MSIL2A_20261011T022619_N0513_R046_T51QTG_20261011T044410.SAFE",
+      "datetime_utc": "2026-10-11T02:41:07.482000Z",
+      "platform": "sentinel-2b",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 4.994147,
+      "earthsearch_boa_offset_applied": true,
+      "bands": {
+        "B02": {
+          "band": "B02",
+          "asset_key": "blue",
+          "filename": "S2B_51QTG_20261011_0_L2A_B02.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 389916,
+          "sha256": "eb726a117c6deb430032f4e471006c82f5fe27e2e6f436c7ec46cdceec6682c3",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B02.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B03": {
+          "band": "B03",
+          "asset_key": "green",
+          "filename": "S2B_51QTG_20261011_0_L2A_B03.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 390668,
+          "sha256": "67933c22f0380b09502a86909282f71f72c4015072feb5dc0e1bab9b09a390e0",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B03.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B04": {
+          "band": "B04",
+          "asset_key": "red",
+          "filename": "S2B_51QTG_20261011_0_L2A_B04.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 405502,
+          "sha256": "1f9302c774d64fd8895196d56ed5d3efa39e3cbe7b488cf33abf957c9a863628",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B04.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B08": {
+          "band": "B08",
+          "asset_key": "nir",
+          "filename": "S2B_51QTG_20261011_0_L2A_B08.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 438108,
+          "sha256": "26eb9418436ffe6e841ab0068f7df978e914bff9a5696ae75281e78c998c561d",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B08.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B05": {
+          "band": "B05",
+          "asset_key": "rededge1",
+          "filename": "S2B_51QTG_20261011_0_L2A_B05.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 101564,
+          "sha256": "cdfa67b6cab2597fba4a57599406fa96de8d4598f4a313c6cf21f5a46913041c",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B05.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B8A": {
+          "band": "B8A",
+          "asset_key": "nir08",
+          "filename": "S2B_51QTG_20261011_0_L2A_B8A.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 111288,
+          "sha256": "2648612e2432b3b672bb7d52aaa84d83b8aa46512cb2b16e64d2e68fcdccf2f5",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B8A.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B11": {
+          "band": "B11",
+          "asset_key": "swir16",
+          "filename": "S2B_51QTG_20261011_0_L2A_B11.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 104704,
+          "sha256": "018d4acd8a52f2e2288ebda57076f82b60d91150968a793913a092a39fa13fc0",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B11.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B12": {
+          "band": "B12",
+          "asset_key": "swir22",
+          "filename": "S2B_51QTG_20261011_0_L2A_B12.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 104734,
+          "sha256": "cd1a09d9498e29fbb1f04e23f6e8d6fe31e71370b20606c86c7218450bd5035b",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/B12.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "SCL": {
+          "band": "SCL",
+          "asset_key": "scl",
+          "filename": "S2B_51QTG_20261011_0_L2A_SCL.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint8",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 9404,
+          "sha256": "b97dc75ca0b1334ff6f03d9dcfbd096faf51860580cb4faacf8570481e4e5d51",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2B_51QTG_20261011_0_L2A/SCL.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint8",
+              "spatial_resolution": 20
+            }
+          ]
+        }
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "stac_id": "S2C_51QTG_20261016_0_L2A",
+      "product_uri": "S2C_MSIL2A_20261016T022701_N0513_R046_T51QTG_20261016T054811.SAFE",
+      "datetime_utc": "2026-10-16T02:41:09.182000Z",
+      "platform": "sentinel-2c",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 29.568475,
+      "earthsearch_boa_offset_applied": true,
+      "bands": {
+        "B02": {
+          "band": "B02",
+          "asset_key": "blue",
+          "filename": "S2C_51QTG_20261016_0_L2A_B02.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 376594,
+          "sha256": "61f946dfaaa086cec26b3d2777cc120b94c90d3e32bd6f60f3be27ae252388db",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B02.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B03": {
+          "band": "B03",
+          "asset_key": "green",
+          "filename": "S2C_51QTG_20261016_0_L2A_B03.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 379098,
+          "sha256": "b993992c17d184dfe2bc6156b30c39b3b20e64b6862ab810a49b896a1c8fc28b",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B03.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B04": {
+          "band": "B04",
+          "asset_key": "red",
+          "filename": "S2C_51QTG_20261016_0_L2A_B04.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 392094,
+          "sha256": "66ac22ae15a649fdf8fe77b1627b6e4f212333a5b48f338fb3067e49bbf42f32",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B04.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B08": {
+          "band": "B08",
+          "asset_key": "nir",
+          "filename": "S2C_51QTG_20261016_0_L2A_B08.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 421472,
+          "sha256": "9eea7d9647f1d01e489a238d083896e0f7f88618b8cf683257e66a5c7ccd8bdf",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B08.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B05": {
+          "band": "B05",
+          "asset_key": "rededge1",
+          "filename": "S2C_51QTG_20261016_0_L2A_B05.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 98222,
+          "sha256": "bf2c01dffbaa48dbcaa8ec23b3fb930eff3c43e32c583d3aa71c986fd560ec13",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B05.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B8A": {
+          "band": "B8A",
+          "asset_key": "nir08",
+          "filename": "S2C_51QTG_20261016_0_L2A_B8A.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 108522,
+          "sha256": "7f1ed1ed0fe5b617683e89f1aa34e9312a1491c80a0f8977f44ef141b931b81e",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B8A.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B11": {
+          "band": "B11",
+          "asset_key": "swir16",
+          "filename": "S2C_51QTG_20261016_0_L2A_B11.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 101020,
+          "sha256": "c7fbd7cf4d37f559047a8a249d473078048de2c87094d3a90f2fca487de03d9f",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B11.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B12": {
+          "band": "B12",
+          "asset_key": "swir22",
+          "filename": "S2C_51QTG_20261016_0_L2A_B12.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 99304,
+          "sha256": "666cd6f62941e5ce32be4bd3692d24e6850ae8c948d5785bedadff5f26413902",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/B12.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "SCL": {
+          "band": "SCL",
+          "asset_key": "scl",
+          "filename": "S2C_51QTG_20261016_0_L2A_SCL.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint8",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 5804,
+          "sha256": "bf2b8907285dc66371910194a410b3eb870032ea6ff453ce404c587f34fd3610",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261016_0_L2A/SCL.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint8",
+              "spatial_resolution": 20
+            }
+          ]
+        }
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "stac_id": "S2C_51QTG_20261026_0_L2A",
+      "product_uri": "S2C_MSIL2A_20261026T022801_N0513_R046_T51QTG_20261026T055005.SAFE",
+      "datetime_utc": "2026-10-26T02:41:06.994000Z",
+      "platform": "sentinel-2c",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 13.566256,
+      "earthsearch_boa_offset_applied": true,
+      "bands": {
+        "B02": {
+          "band": "B02",
+          "asset_key": "blue",
+          "filename": "S2C_51QTG_20261026_0_L2A_B02.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 433040,
+          "sha256": "c96e15d20d11c19493825a69bab89e626811ac854c9d43f10d3020a39385af2e",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B02.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B03": {
+          "band": "B03",
+          "asset_key": "green",
+          "filename": "S2C_51QTG_20261026_0_L2A_B03.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 430194,
+          "sha256": "336315f8a95a27f620ddc33500967f0b4e7ded49a839551fe6e1e29c3c23aed9",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B03.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B04": {
+          "band": "B04",
+          "asset_key": "red",
+          "filename": "S2C_51QTG_20261026_0_L2A_B04.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 430712,
+          "sha256": "e97238f09ff61ed0eea1f75651a1ce7b6728e8fdad9ef710121c03abaecb2e35",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B04.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B08": {
+          "band": "B08",
+          "asset_key": "nir",
+          "filename": "S2C_51QTG_20261026_0_L2A_B08.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 437428,
+          "sha256": "ced3e95a4f48984dd9f51cb11ebc6a3b9a7d47736e7218e66c9fce8b6596b397",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B08.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B05": {
+          "band": "B05",
+          "asset_key": "rededge1",
+          "filename": "S2C_51QTG_20261026_0_L2A_B05.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 112048,
+          "sha256": "21343790764d1b8ed453b4437691396a4bd22b2540b1fce7e745bdd8f2555c14",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B05.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B8A": {
+          "band": "B8A",
+          "asset_key": "nir08",
+          "filename": "S2C_51QTG_20261026_0_L2A_B8A.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 112110,
+          "sha256": "1d335fac33facc86edd9501a2372beca6bab0de0e330205a71518baff8789ba3",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B8A.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B11": {
+          "band": "B11",
+          "asset_key": "swir16",
+          "filename": "S2C_51QTG_20261026_0_L2A_B11.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 111090,
+          "sha256": "f8e00a75708f2c1d4f71c4fd94edf97946726730ddd9cc81370d65940fea577e",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B11.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B12": {
+          "band": "B12",
+          "asset_key": "swir22",
+          "filename": "S2C_51QTG_20261026_0_L2A_B12.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 111020,
+          "sha256": "5c5fe9783b67fabe3ed38ed18b41c9ce0215d69694328179c16981417d97b404",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/B12.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "SCL": {
+          "band": "SCL",
+          "asset_key": "scl",
+          "filename": "S2C_51QTG_20261026_0_L2A_SCL.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint8",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 9698,
+          "sha256": "2d360a08e328361f6f53e440bc31d7736c8b5fb95aca1aa3f716e65f80d12f9c",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/10/S2C_51QTG_20261026_0_L2A/SCL.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint8",
+              "spatial_resolution": 20
+            }
+          ]
+        }
+      }
+    },
+    {
+      "date": "2026-11-05",
+      "stac_id": "S2C_51QTG_20261105_0_L2A",
+      "product_uri": "S2C_MSIL2A_20261105T022851_N0513_R046_T51QTG_20261105T055007.SAFE",
+      "datetime_utc": "2026-11-05T02:41:03.452000Z",
+      "platform": "sentinel-2c",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 3.075156,
+      "earthsearch_boa_offset_applied": true,
+      "bands": {
+        "B02": {
+          "band": "B02",
+          "asset_key": "blue",
+          "filename": "S2C_51QTG_20261105_0_L2A_B02.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 400404,
+          "sha256": "13c0d88436521a7c0fa51a49faf528dcfac728cf3d0e7b16646b6616bbb94904",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B02.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B03": {
+          "band": "B03",
+          "asset_key": "green",
+          "filename": "S2C_51QTG_20261105_0_L2A_B03.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 402502,
+          "sha256": "5850541ca095ca28d4ad0c3c1931965fcbd01891558aca01cf69a490e88ebc3c",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B03.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B04": {
+          "band": "B04",
+          "asset_key": "red",
+          "filename": "S2C_51QTG_20261105_0_L2A_B04.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 410096,
+          "sha256": "3347610ba3e7b4909f91c274c0e784e9d271f316ab613c88722f64a176987f18",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B04.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B08": {
+          "band": "B08",
+          "asset_key": "nir",
+          "filename": "S2C_51QTG_20261105_0_L2A_B08.tif",
+          "resolution_m": 10,
+          "shape": [
+            510,
+            512
+          ],
+          "dtype": "uint16",
+          "transform": [
+            10.0,
+            0.0,
+            222140.0,
+            0.0,
+            -10.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 261120,
+          "file_bytes": 428492,
+          "sha256": "df28d87e24a6cc898a4603432b9f6f395ee18410091491affec831264854be67",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B08.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 10,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B05": {
+          "band": "B05",
+          "asset_key": "rededge1",
+          "filename": "S2C_51QTG_20261105_0_L2A_B05.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 104016,
+          "sha256": "8565f235653c068e5dcc865d02f896ce8cf2fc24ef5e1fcd260d71fa23e31475",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B05.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B8A": {
+          "band": "B8A",
+          "asset_key": "nir08",
+          "filename": "S2C_51QTG_20261105_0_L2A_B8A.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 110124,
+          "sha256": "9a55e01e0accd51c4573e3dbba6d582a084cc9137a58afa916b0e9fd8d686b9e",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B8A.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B11": {
+          "band": "B11",
+          "asset_key": "swir16",
+          "filename": "S2C_51QTG_20261105_0_L2A_B11.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 107524,
+          "sha256": "4c8c8062005c38a316e2897e74110f59f64dff33e0e5ca81c1d8290d6645624c",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B11.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "B12": {
+          "band": "B12",
+          "asset_key": "swir22",
+          "filename": "S2C_51QTG_20261105_0_L2A_B12.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint16",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 105942,
+          "sha256": "e173fb894cbc07d41ceccc50e8624498b548fd81020a3aecd921adacf33970be",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/B12.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint16",
+              "spatial_resolution": 20,
+              "scale": 0.0001,
+              "offset": -0.1
+            }
+          ]
+        },
+        "SCL": {
+          "band": "SCL",
+          "asset_key": "scl",
+          "filename": "S2C_51QTG_20261105_0_L2A_SCL.tif",
+          "resolution_m": 20,
+          "shape": [
+            255,
+            256
+          ],
+          "dtype": "uint8",
+          "transform": [
+            20.0,
+            0.0,
+            222140.0,
+            0.0,
+            -20.0,
+            2627280.0
+          ],
+          "nonzero_pixels": 65280,
+          "file_bytes": 10436,
+          "sha256": "afbac50160f993fe8717211b8ed79ea319cfdb77c95011cbd45c293d46189140",
+          "source_href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/51/Q/TG/2026/11/S2C_51QTG_20261105_0_L2A/SCL.tif",
+          "stac_raster_bands": [
+            {
+              "nodata": 0,
+              "data_type": "uint8",
+              "spatial_resolution": 20
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

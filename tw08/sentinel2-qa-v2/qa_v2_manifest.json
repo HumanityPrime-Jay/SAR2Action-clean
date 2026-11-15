@@ -1,0 +1,1433 @@
+{
+  "schema_version": "tw08a-scientific-qa/2.0",
+  "generated_utc": "2026-11-14T17:26:23.900953+00:00",
+  "v1_reference_dir": "tw08\\sentinel2-demo-v1",
+  "v1_unmodified_verified": true,
+  "overall_qa_gate": "PASS",
+  "audit_1_scl_4_5_6_semantics": {
+    "semantic_note": "SCL classes {4, 5, 6} represent all clear-sky unoccluded land/water surface classes used in cloud masking, NOT 'healthy vegetation'. SCL=4 is Vegetation, SCL=5 is Not Vegetated (bare/harvested/plowed soil or urban), and SCL=6 is Water (fishponds/canals/inundated paddy fields). Downsampled water pixels (SCL=6) must NEVER be labeled healthy vegetation.",
+    "scenes": [
+      {
+        "date_utc": "2026-10-11",
+        "clear_456_aoi_fraction_20m": 0.975708,
+        "water_spectral_separation_verified": true,
+        "veg_gt_bare_ndvi_verified": true,
+        "classes": {
+          "SCL_4_vegetation": {
+            "pixel_count_20m": 28691,
+            "aoi_fraction_20m": 0.458528,
+            "share_within_clear_456": 0.469944,
+            "pixel_count_10m_nested": 114770,
+            "aoi_fraction_10m": 0.45855,
+            "ndvi_10m_stats": {
+              "count": 114770,
+              "min": 0.116362,
+              "p10": 0.4399,
+              "median": 0.650401,
+              "mean": 0.630826,
+              "p90": 0.798387,
+              "max": 0.872531
+            },
+            "ndvi_20m_block_stats": {
+              "count": 28691,
+              "min": 0.297963,
+              "p10": 0.473578,
+              "median": 0.636897,
+              "mean": 0.630818,
+              "p90": 0.786336,
+              "max": 0.866269
+            },
+            "ndre_20m_stats": {
+              "count": 28691,
+              "min": 0.203899,
+              "p10": 0.363549,
+              "median": 0.484688,
+              "mean": 0.484424,
+              "p90": 0.607882,
+              "max": 0.71288
+            },
+            "lswi_20m_stats": {
+              "count": 28691,
+              "min": -0.187574,
+              "p10": 0.156575,
+              "median": 0.269978,
+              "mean": 0.270334,
+              "p90": 0.390941,
+              "max": 0.520647
+            }
+          },
+          "SCL_5_not_vegetated_bare_soil": {
+            "pixel_count_20m": 32361,
+            "aoi_fraction_20m": 0.51718,
+            "share_within_clear_456": 0.530056,
+            "pixel_count_10m_nested": 129430,
+            "aoi_fraction_10m": 0.517122,
+            "ndvi_10m_stats": {
+              "count": 129430,
+              "min": -0.041899,
+              "p10": 0.094456,
+              "median": 0.220768,
+              "mean": 0.239769,
+              "p90": 0.41394,
+              "max": 0.787113
+            },
+            "ndvi_20m_block_stats": {
+              "count": 32361,
+              "min": -0.00272,
+              "p10": 0.102719,
+              "median": 0.234945,
+              "mean": 0.239806,
+              "p90": 0.387114,
+              "max": 0.645532
+            },
+            "ndre_20m_stats": {
+              "count": 32361,
+              "min": -0.280273,
+              "p10": 0.059422,
+              "median": 0.178707,
+              "mean": 0.178765,
+              "p90": 0.30063,
+              "max": 0.537508
+            },
+            "lswi_20m_stats": {
+              "count": 32361,
+              "min": -0.494028,
+              "p10": -0.066308,
+              "median": 0.034562,
+              "mean": 0.035443,
+              "p90": 0.147811,
+              "max": 0.410036
+            }
+          },
+          "SCL_6_water": {
+            "pixel_count_20m": 0,
+            "aoi_fraction_20m": 0.0,
+            "share_within_clear_456": 0.0,
+            "pixel_count_10m_nested": 0,
+            "aoi_fraction_10m": 0.0,
+            "ndvi_10m_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            },
+            "ndvi_20m_block_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            },
+            "ndre_20m_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            },
+            "lswi_20m_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            }
+          }
+        }
+      },
+      {
+        "date_utc": "2026-10-16",
+        "clear_456_aoi_fraction_20m": 0.046427,
+        "water_spectral_separation_verified": true,
+        "veg_gt_bare_ndvi_verified": true,
+        "classes": {
+          "SCL_4_vegetation": {
+            "pixel_count_20m": 1087,
+            "aoi_fraction_20m": 0.017372,
+            "share_within_clear_456": 0.374182,
+            "pixel_count_10m_nested": 4343,
+            "aoi_fraction_10m": 0.017352,
+            "ndvi_10m_stats": {
+              "count": 4343,
+              "min": 0.158454,
+              "p10": 0.41105,
+              "median": 0.659407,
+              "mean": 0.631884,
+              "p90": 0.807218,
+              "max": 0.846625
+            },
+            "ndvi_20m_block_stats": {
+              "count": 1087,
+              "min": 0.278911,
+              "p10": 0.45907,
+              "median": 0.637213,
+              "mean": 0.630908,
+              "p90": 0.799244,
+              "max": 0.839995
+            },
+            "ndre_20m_stats": {
+              "count": 1087,
+              "min": 0.240913,
+              "p10": 0.337362,
+              "median": 0.444612,
+              "mean": 0.449368,
+              "p90": 0.577404,
+              "max": 0.637969
+            },
+            "lswi_20m_stats": {
+              "count": 1087,
+              "min": -0.053457,
+              "p10": 0.182492,
+              "median": 0.287199,
+              "mean": 0.288336,
+              "p90": 0.394672,
+              "max": 0.484742
+            }
+          },
+          "SCL_5_not_vegetated_bare_soil": {
+            "pixel_count_20m": 1818,
+            "aoi_fraction_20m": 0.029055,
+            "share_within_clear_456": 0.625818,
+            "pixel_count_10m_nested": 7275,
+            "aoi_fraction_10m": 0.029066,
+            "ndvi_10m_stats": {
+              "count": 7275,
+              "min": -0.06894,
+              "p10": 0.088519,
+              "median": 0.202611,
+              "mean": 0.223368,
+              "p90": 0.39245,
+              "max": 0.729056
+            },
+            "ndvi_20m_block_stats": {
+              "count": 1818,
+              "min": -0.006075,
+              "p10": 0.09664,
+              "median": 0.212611,
+              "mean": 0.223291,
+              "p90": 0.370595,
+              "max": 0.49896
+            },
+            "ndre_20m_stats": {
+              "count": 1818,
+              "min": -0.049373,
+              "p10": 0.072766,
+              "median": 0.163724,
+              "mean": 0.16905,
+              "p90": 0.278126,
+              "max": 0.375739
+            },
+            "lswi_20m_stats": {
+              "count": 1818,
+              "min": -0.314335,
+              "p10": -0.02085,
+              "median": 0.057377,
+              "mean": 0.062686,
+              "p90": 0.156639,
+              "max": 0.26949
+            }
+          },
+          "SCL_6_water": {
+            "pixel_count_20m": 0,
+            "aoi_fraction_20m": 0.0,
+            "share_within_clear_456": 0.0,
+            "pixel_count_10m_nested": 0,
+            "aoi_fraction_10m": 0.0,
+            "ndvi_10m_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            },
+            "ndvi_20m_block_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            },
+            "ndre_20m_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            },
+            "lswi_20m_stats": {
+              "count": 0,
+              "min": null,
+              "p10": null,
+              "median": null,
+              "mean": null,
+              "p90": null,
+              "max": null
+            }
+          }
+        }
+      },
+      {
+        "date_utc": "2026-10-26",
+        "clear_456_aoi_fraction_20m": 0.161238,
+        "water_spectral_separation_verified": false,
+        "veg_gt_bare_ndvi_verified": true,
+        "classes": {
+          "SCL_4_vegetation": {
+            "pixel_count_20m": 3896,
+            "aoi_fraction_20m": 0.062264,
+            "share_within_clear_456": 0.386163,
+            "pixel_count_10m_nested": 15603,
+            "aoi_fraction_10m": 0.06234,
+            "ndvi_10m_stats": {
+              "count": 15603,
+              "min": -0.108557,
+              "p10": 0.408044,
+              "median": 0.552398,
+              "mean": 0.562192,
+              "p90": 0.743674,
+              "max": 0.85101
+            },
+            "ndvi_20m_block_stats": {
+              "count": 3896,
+              "min": 0.007137,
+              "p10": 0.440779,
+              "median": 0.538667,
+              "mean": 0.562327,
+              "p90": 0.726918,
+              "max": 0.829877
+            },
+            "ndre_20m_stats": {
+              "count": 3896,
+              "min": 0.184203,
+              "p10": 0.310444,
+              "median": 0.37625,
+              "mean": 0.388665,
+              "p90": 0.486287,
+              "max": 0.622867
+            },
+            "lswi_20m_stats": {
+              "count": 3896,
+              "min": -0.061117,
+              "p10": 0.116524,
+              "median": 0.195312,
+              "mean": 0.200992,
+              "p90": 0.293962,
+              "max": 0.447293
+            }
+          },
+          "SCL_5_not_vegetated_bare_soil": {
+            "pixel_count_20m": 6192,
+            "aoi_fraction_20m": 0.098958,
+            "share_within_clear_456": 0.613738,
+            "pixel_count_10m_nested": 24800,
+            "aoi_fraction_10m": 0.099085,
+            "ndvi_10m_stats": {
+              "count": 24800,
+              "min": -0.200195,
+              "p10": 0.083855,
+              "median": 0.209212,
+              "mean": 0.231467,
+              "p90": 0.408814,
+              "max": 0.678364
+            },
+            "ndvi_20m_block_stats": {
+              "count": 6192,
+              "min": -0.165901,
+              "p10": 0.095473,
+              "median": 0.220511,
+              "mean": 0.231556,
+              "p90": 0.38484,
+              "max": 0.599299
+            },
+            "ndre_20m_stats": {
+              "count": 6192,
+              "min": -0.172264,
+              "p10": 0.058768,
+              "median": 0.1663,
+              "mean": 0.165631,
+              "p90": 0.274178,
+              "max": 0.453237
+            },
+            "lswi_20m_stats": {
+              "count": 6192,
+              "min": -0.399958,
+              "p10": -0.065901,
+              "median": 0.019514,
+              "mean": 0.022947,
+              "p90": 0.121452,
+              "max": 0.263051
+            }
+          },
+          "SCL_6_water": {
+            "pixel_count_20m": 1,
+            "aoi_fraction_20m": 1.6e-05,
+            "share_within_clear_456": 9.9e-05,
+            "pixel_count_10m_nested": 4,
+            "aoi_fraction_10m": 1.6e-05,
+            "ndvi_10m_stats": {
+              "count": 4,
+              "min": 0.036613,
+              "p10": 0.051964,
+              "median": 0.09457,
+              "mean": 0.085395,
+              "p90": 0.111487,
+              "max": 0.115829
+            },
+            "ndvi_20m_block_stats": {
+              "count": 1,
+              "min": 0.085395,
+              "p10": 0.085395,
+              "median": 0.085395,
+              "mean": 0.085395,
+              "p90": 0.085395,
+              "max": 0.085395
+            },
+            "ndre_20m_stats": {
+              "count": 1,
+              "min": -0.054841,
+              "p10": -0.054841,
+              "median": -0.054841,
+              "mean": -0.054841,
+              "p90": -0.054841,
+              "max": -0.054841
+            },
+            "lswi_20m_stats": {
+              "count": 1,
+              "min": -0.129783,
+              "p10": -0.129783,
+              "median": -0.129783,
+              "mean": -0.129783,
+              "p90": -0.129783,
+              "max": -0.129783
+            }
+          }
+        }
+      },
+      {
+        "date_utc": "2026-11-05",
+        "clear_456_aoi_fraction_20m": 0.790769,
+        "water_spectral_separation_verified": true,
+        "veg_gt_bare_ndvi_verified": true,
+        "classes": {
+          "SCL_4_vegetation": {
+            "pixel_count_20m": 17980,
+            "aoi_fraction_20m": 0.287349,
+            "share_within_clear_456": 0.363379,
+            "pixel_count_10m_nested": 71919,
+            "aoi_fraction_10m": 0.287344,
+            "ndvi_10m_stats": {
+              "count": 71919,
+              "min": 0.122469,
+              "p10": 0.429998,
+              "median": 0.555495,
+              "mean": 0.55746,
+              "p90": 0.692005,
+              "max": 0.812057
+            },
+            "ndvi_20m_block_stats": {
+              "count": 17980,
+              "min": 0.33369,
+              "p10": 0.453894,
+              "median": 0.545491,
+              "mean": 0.557406,
+              "p90": 0.679707,
+              "max": 0.801865
+            },
+            "ndre_20m_stats": {
+              "count": 17980,
+              "min": 0.147211,
+              "p10": 0.321742,
+              "median": 0.384575,
+              "mean": 0.389588,
+              "p90": 0.465072,
+              "max": 0.599418
+            },
+            "lswi_20m_stats": {
+              "count": 17980,
+              "min": -0.11642,
+              "p10": 0.07429,
+              "median": 0.182812,
+              "mean": 0.180173,
+              "p90": 0.277,
+              "max": 0.512995
+            }
+          },
+          "SCL_5_not_vegetated_bare_soil": {
+            "pixel_count_20m": 31494,
+            "aoi_fraction_20m": 0.503324,
+            "share_within_clear_456": 0.6365,
+            "pixel_count_10m_nested": 125954,
+            "aoi_fraction_10m": 0.503234,
+            "ndvi_10m_stats": {
+              "count": 125954,
+              "min": -0.254133,
+              "p10": 0.086142,
+              "median": 0.227799,
+              "mean": 0.243576,
+              "p90": 0.419064,
+              "max": 0.720328
+            },
+            "ndvi_20m_block_stats": {
+              "count": 31494,
+              "min": -0.134281,
+              "p10": 0.095289,
+              "median": 0.23884,
+              "mean": 0.243596,
+              "p90": 0.397724,
+              "max": 0.580042
+            },
+            "ndre_20m_stats": {
+              "count": 31494,
+              "min": -0.130402,
+              "p10": 0.0659,
+              "median": 0.181035,
+              "mean": 0.17886,
+              "p90": 0.289283,
+              "max": 0.564884
+            },
+            "lswi_20m_stats": {
+              "count": 31494,
+              "min": -0.540601,
+              "p10": -0.073094,
+              "median": 0.020345,
+              "mean": 0.021191,
+              "p90": 0.124315,
+              "max": 0.434211
+            }
+          },
+          "SCL_6_water": {
+            "pixel_count_20m": 6,
+            "aoi_fraction_20m": 9.6e-05,
+            "share_within_clear_456": 0.000121,
+            "pixel_count_10m_nested": 24,
+            "aoi_fraction_10m": 9.6e-05,
+            "ndvi_10m_stats": {
+              "count": 24,
+              "min": -0.006897,
+              "p10": 0.017496,
+              "median": 0.028969,
+              "mean": 0.10854,
+              "p90": 0.348365,
+              "max": 0.365473
+            },
+            "ndvi_20m_block_stats": {
+              "count": 6,
+              "min": 0.015042,
+              "p10": 0.019523,
+              "median": 0.0259,
+              "mean": 0.10854,
+              "p90": 0.280198,
+              "max": 0.3543
+            },
+            "ndre_20m_stats": {
+              "count": 6,
+              "min": -0.306306,
+              "p10": -0.24373,
+              "median": -0.150788,
+              "mean": -0.175047,
+              "p90": -0.130623,
+              "max": -0.117089
+            },
+            "lswi_20m_stats": {
+              "count": 6,
+              "min": -0.438866,
+              "p10": -0.310042,
+              "median": 0.350019,
+              "mean": 0.162902,
+              "p90": 0.44873,
+              "max": 0.457521
+            }
+          }
+        }
+      }
+    ]
+  },
+  "audit_2_boa_offset_and_grid_alignment": {
+    "crs_epsg": 32651,
+    "grid_10m_shape": [
+      510,
+      512
+    ],
+    "grid_20m_shape": [
+      255,
+      256
+    ],
+    "origin_x_offset_m": 0.0,
+    "origin_y_offset_m": 0.0,
+    "exact_2x_integer_nesting": true,
+    "tf10": [
+      10.0,
+      0.0,
+      222140.0,
+      0.0,
+      -10.0,
+      2627280.0
+    ],
+    "tf20": [
+      20.0,
+      0.0,
+      222140.0,
+      0.0,
+      -20.0,
+      2627280.0
+    ],
+    "scenes": [
+      {
+        "date_utc": "2026-10-11",
+        "stac_id": "S2B_51QTG_20261011_0_L2A",
+        "earthsearch_boa_offset_applied": true,
+        "all_bands_crs_shape_bounds_transform_ok": true,
+        "bands": {
+          "B02": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B03": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B04": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B08": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B05": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B8A": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B11": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B12": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "SCL": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint8",
+            "nonzero_pixels": 65280
+          }
+        },
+        "boa_dn_and_reflectance_audit": {
+          "scl4_vegetation": {
+            "b04_dn_min": 316,
+            "b04_dn_median": 660.0,
+            "b04_reflectance_scale_only_min": 0.0316,
+            "b04_reflectance_erroneous_minus_0_1_min": -0.0684,
+            "b08_dn_median": 3154.0,
+            "b11_dn_median": 1917.0,
+            "scale_only_nonnegative": true
+          },
+          "scl6_water": {
+            "b04_dn_min": null,
+            "b04_dn_median": null,
+            "b04_reflectance_scale_only_min": null,
+            "b04_reflectance_erroneous_minus_0_1_min": null,
+            "b08_dn_median": null,
+            "b11_dn_median": null,
+            "scale_only_nonnegative": true
+          }
+        },
+        "v1_geotiff_audit": {
+          "ndvi_20261011.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 244200,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "ndre_20261011.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 61052,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "lswi_20261011.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 61052,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          }
+        }
+      },
+      {
+        "date_utc": "2026-10-16",
+        "stac_id": "S2C_51QTG_20261016_0_L2A",
+        "earthsearch_boa_offset_applied": true,
+        "all_bands_crs_shape_bounds_transform_ok": true,
+        "bands": {
+          "B02": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B03": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B04": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B08": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B05": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B8A": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B11": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B12": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "SCL": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint8",
+            "nonzero_pixels": 65280
+          }
+        },
+        "boa_dn_and_reflectance_audit": {
+          "scl4_vegetation": {
+            "b04_dn_min": 380,
+            "b04_dn_median": 644.0,
+            "b04_reflectance_scale_only_min": 0.038,
+            "b04_reflectance_erroneous_minus_0_1_min": -0.062,
+            "b08_dn_median": 3186.0,
+            "b11_dn_median": 1918.0,
+            "scale_only_nonnegative": true
+          },
+          "scl6_water": {
+            "b04_dn_min": null,
+            "b04_dn_median": null,
+            "b04_reflectance_scale_only_min": null,
+            "b04_reflectance_erroneous_minus_0_1_min": null,
+            "b08_dn_median": null,
+            "b11_dn_median": null,
+            "scale_only_nonnegative": true
+          }
+        },
+        "v1_geotiff_audit": {
+          "ndvi_20261016.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 11618,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "ndre_20261016.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 2905,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "lswi_20261016.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 2905,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          }
+        }
+      },
+      {
+        "date_utc": "2026-10-26",
+        "stac_id": "S2C_51QTG_20261026_0_L2A",
+        "earthsearch_boa_offset_applied": true,
+        "all_bands_crs_shape_bounds_transform_ok": true,
+        "bands": {
+          "B02": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B03": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B04": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B08": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B05": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B8A": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B11": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B12": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "SCL": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint8",
+            "nonzero_pixels": 65280
+          }
+        },
+        "boa_dn_and_reflectance_audit": {
+          "scl4_vegetation": {
+            "b04_dn_min": 293,
+            "b04_dn_median": 723.0,
+            "b04_reflectance_scale_only_min": 0.0293,
+            "b04_reflectance_erroneous_minus_0_1_min": -0.0707,
+            "b08_dn_median": 2686.0,
+            "b11_dn_median": 1992.0,
+            "scale_only_nonnegative": true
+          },
+          "scl6_water": {
+            "b04_dn_min": 1187,
+            "b04_dn_median": 1253.0,
+            "b04_reflectance_scale_only_min": 0.1187,
+            "b04_reflectance_erroneous_minus_0_1_min": 0.0187,
+            "b08_dn_median": 1492.5,
+            "b11_dn_median": 1432.0,
+            "scale_only_nonnegative": true
+          }
+        },
+        "v1_geotiff_audit": {
+          "ndvi_20261026.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 40407,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "ndre_20261026.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 10089,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "lswi_20261026.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 10089,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          }
+        }
+      },
+      {
+        "date_utc": "2026-11-05",
+        "stac_id": "S2C_51QTG_20261105_0_L2A",
+        "earthsearch_boa_offset_applied": true,
+        "all_bands_crs_shape_bounds_transform_ok": true,
+        "bands": {
+          "B02": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B03": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B04": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B08": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 261120
+          },
+          "B05": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B8A": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B11": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "B12": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint16",
+            "nonzero_pixels": 65280
+          },
+          "SCL": {
+            "epsg": 32651,
+            "shape_ok": true,
+            "bounds_ok": true,
+            "transform_identical_to_grid": true,
+            "dtype": "uint8",
+            "nonzero_pixels": 65280
+          }
+        },
+        "boa_dn_and_reflectance_audit": {
+          "scl4_vegetation": {
+            "b04_dn_min": 337,
+            "b04_dn_median": 706.0,
+            "b04_reflectance_scale_only_min": 0.0337,
+            "b04_reflectance_erroneous_minus_0_1_min": -0.0663,
+            "b08_dn_median": 2529.0,
+            "b11_dn_median": 1928.0,
+            "scale_only_nonnegative": true
+          },
+          "scl6_water": {
+            "b04_dn_min": 895,
+            "b04_dn_median": 981.0,
+            "b04_reflectance_scale_only_min": 0.0895,
+            "b04_reflectance_erroneous_minus_0_1_min": -0.0105,
+            "b08_dn_median": 1042.5,
+            "b11_dn_median": 451.0,
+            "scale_only_nonnegative": true
+          }
+        },
+        "v1_geotiff_audit": {
+          "ndvi_20261105.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 197897,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "ndre_20261105.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 49480,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          },
+          "lswi_20261105.tif": {
+            "exists": true,
+            "shape_ok": true,
+            "crs_epsg": 32651,
+            "finite_count": 49480,
+            "within_bounds_minus1_plus1": true,
+            "boa_tag": "True"
+          }
+        }
+      }
+    ],
+    "v1_delta_geotiffs_20261011_20261105": {
+      "delta_ndvi_20261011_20261105.tif": {
+        "shape_ok": true,
+        "finite_count": 195550,
+        "within_bounds_minus2_plus2": true
+      },
+      "delta_ndre_20261011_20261105.tif": {
+        "shape_ok": true,
+        "finite_count": 48895,
+        "within_bounds_minus2_plus2": true
+      },
+      "delta_lswi_20261011_20261105.tif": {
+        "shape_ok": true,
+        "finite_count": 48895,
+        "within_bounds_minus2_plus2": true
+      }
+    },
+    "overall_status": "PASS"
+  },
+  "audit_3_candidates_119_vs_62_and_farmland_4863": {
+    "candidates_181": {
+      "counts": {
+        "total_candidates": 181,
+        "included_10m_strict_both": 119,
+        "included_10m_and_20m_strict_both": 119,
+        "excluded_insufficient_total": 62,
+        "excluded_breakdown": {
+          "fail_20261011_only": 4,
+          "fail_20261105_only": 47,
+          "fail_both_dates": 11
+        },
+        "all_touched_fallback_10m_count": 0,
+        "all_touched_fallback_20m_count": 0
+      },
+      "exclusion_cause_scl_summary": {
+        "median_cloud_shadow_frac_1105_in_excluded": 0.3484,
+        "median_cloud_shadow_frac_1011_in_excluded": 0.0,
+        "excluded_with_any_water_scl6_1011_gt_20pct": 0,
+        "included_with_water_scl6_1011_gt_20pct": 0,
+        "included_with_water_scl6_1105_gt_20pct": 0
+      },
+      "mann_whitney_covariate_balance": {
+        "clipped_area_ha": {
+          "n_included": 119,
+          "included_median": 0.4724,
+          "included_iqr": [
+            0.4161,
+            0.5634
+          ],
+          "n_excluded": 62,
+          "excluded_median": 0.5091,
+          "excluded_iqr": [
+            0.4447,
+            0.5978
+          ],
+          "mann_whitney_p": 0.129235
+        },
+        "sar_median_delta_vv_db": {
+          "n_included": 119,
+          "included_median": 1.3414,
+          "included_iqr": [
+            -0.8337,
+            3.1676
+          ],
+          "n_excluded": 62,
+          "excluded_median": 2.5889,
+          "excluded_iqr": [
+            -0.2325,
+            3.5472
+          ],
+          "mann_whitney_p": 0.150037
+        },
+        "sar_median_delta_vh_db": {
+          "n_included": 119,
+          "included_median": 3.2146,
+          "included_iqr": [
+            0.6959,
+            4.0063
+          ],
+          "n_excluded": 62,
+          "excluded_median": 3.0382,
+          "excluded_iqr": [
+            0.4623,
+            3.7482
+          ],
+          "mann_whitney_p": 0.22089
+        },
+        "ndvi_med_20261011": {
+          "n_included": 119,
+          "included_median": 0.3685,
+          "included_iqr": [
+            0.2052,
+            0.6682
+          ],
+          "n_excluded": 62,
+          "excluded_median": 0.2458,
+          "excluded_iqr": [
+            0.155,
+            0.6232
+          ],
+          "mann_whitney_p": 0.050398
+        },
+        "centroid_easting_32651": {
+          "n_included": 119,
+          "included_median": 225156.11,
+          "included_iqr": [
+            223433.3,
+            226283.22
+          ],
+          "n_excluded": 62,
+          "excluded_median": 224175.155,
+          "excluded_iqr": [
+            223667.21,
+            225263.125
+          ],
+          "mann_whitney_p": 0.092657
+        },
+        "centroid_northing_32651": {
+          "n_included": 119,
+          "included_median": 2623716.43,
+          "included_iqr": [
+            2623094.835,
+            2625131.74
+          ],
+          "n_excluded": 62,
+          "excluded_median": 2624181.935,
+          "excluded_iqr": [
+            2623060.9375,
+            2625003.985
+          ],
+          "mann_whitney_p": 0.936858
+        }
+      }
+    },
+    "farmland_4863": {
+      "total_parcels": 4863,
+      "sufficient_clear_both_1011_1105": 3166,
+      "insufficient_optical_evidence_parcels": 1697
+    }
+  },
+  "audit_4_spatial_and_selection_bias_sensitivity": {
+    "morans_i_spatial_autocorrelation": {
+      "sar_delta_vh_119": {
+        "n": 119,
+        "weights": "row_standardized_knn_5",
+        "morans_I": 0.036706,
+        "expected_I": -0.008475,
+        "permutation_p_two_sided": 0.478,
+        "n_permutations": 999
+      },
+      "sar_delta_vv_119": {
+        "n": 119,
+        "weights": "row_standardized_knn_5",
+        "morans_I": 0.066572,
+        "expected_I": -0.008475,
+        "permutation_p_two_sided": 0.209,
+        "n_permutations": 999
+      },
+      "delta_ndvi_119": {
+        "n": 119,
+        "weights": "row_standardized_knn_5",
+        "morans_I": -0.046084,
+        "expected_I": -0.008475,
+        "permutation_p_two_sided": 0.408,
+        "n_permutations": 999
+      },
+      "ols_residual_ndvi_on_vh": {
+        "n": 119,
+        "weights": "row_standardized_knn_5",
+        "morans_I": -0.015338,
+        "expected_I": -0.008475,
+        "permutation_p_two_sided": 0.779,
+        "n_permutations": 999
+      },
+      "ols_residual_ndvi_on_vv": {
+        "n": 119,
+        "weights": "row_standardized_knn_5",
+        "morans_I": -0.046184,
+        "expected_I": -0.008475,
+        "permutation_p_two_sided": 0.391,
+        "n_permutations": 999
+      }
+    },
+    "spatial_block_bootstrap": {
+      "block_1000m_vh": {
+        "block_size_m": 1000.0,
+        "n_parcels": 119,
+        "n_spatial_blocks": 28,
+        "observed_spearman_rho": 0.27855,
+        "naive_iid_p_value": 0.00215858,
+        "bootstrap_median_rho": 0.283812,
+        "bootstrap_ci95": [
+          0.048545,
+          0.480933
+        ],
+        "bootstrap_sign_p_value": 0.016,
+        "positive_correlation_holds_at_95ci": true
+      },
+      "block_1000m_vv": {
+        "block_size_m": 1000.0,
+        "n_parcels": 119,
+        "n_spatial_blocks": 28,
+        "observed_spearman_rho": 0.229262,
+        "naive_iid_p_value": 0.0121397,
+        "bootstrap_median_rho": 0.233425,
+        "bootstrap_ci95": [
+          0.081901,
+          0.408247
+        ],
+        "bootstrap_sign_p_value": 0.0,
+        "positive_correlation_holds_at_95ci": true
+      },
+      "block_500m_vh": {
+        "block_size_m": 500.0,
+        "n_parcels": 119,
+        "n_spatial_blocks": 63,
+        "observed_spearman_rho": 0.27855,
+        "naive_iid_p_value": 0.00215858,
+        "bootstrap_median_rho": 0.285125,
+        "bootstrap_ci95": [
+          0.048554,
+          0.474093
+        ],
+        "bootstrap_sign_p_value": 0.016,
+        "positive_correlation_holds_at_95ci": true
+      },
+      "block_500m_vv": {
+        "block_size_m": 500.0,
+        "n_parcels": 119,
+        "n_spatial_blocks": 63,
+        "observed_spearman_rho": 0.229262,
+        "naive_iid_p_value": 0.0121397,
+        "bootstrap_median_rho": 0.230846,
+        "bootstrap_ci95": [
+          0.054864,
+          0.415222
+        ],
+        "bootstrap_sign_p_value": 0.015,
+        "positive_correlation_holds_at_95ci": true
+      }
+    },
+    "spatial_thinning_250m": {
+      "vh": {
+        "min_centroid_distance_m": 250.0,
+        "n_trials": 200,
+        "median_kept_n": 69,
+        "median_spearman_rho": 0.410212,
+        "iqr_spearman_rho": [
+          0.377067,
+          0.451815
+        ],
+        "range_spearman_rho": [
+          0.281063,
+          0.542734
+        ],
+        "median_p_value": 0.000482252,
+        "fraction_trials_p_lt_0_05": 1.0
+      },
+      "vv": {
+        "min_centroid_distance_m": 250.0,
+        "n_trials": 200,
+        "median_kept_n": 69,
+        "median_spearman_rho": 0.261388,
+        "iqr_spearman_rho": [
+          0.230168,
+          0.302393
+        ],
+        "range_spearman_rho": [
+          0.128144,
+          0.393518
+        ],
+        "median_p_value": 0.0307617,
+        "fraction_trials_p_lt_0_05": 0.72
+      }
+    },
+    "sample_selection_and_scl_sensitivity": {
+      "baseline_strict_119_scl456": {
+        "label": "Baseline Strict >=80% cov, SCL {4,5,6}",
+        "n": 119,
+        "spearman_vh_rho": 0.27855,
+        "spearman_vh_p": 0.00215858,
+        "spearman_vv_rho": 0.229262,
+        "spearman_vv_p": 0.0121397
+      },
+      "relaxed_cov50_scl456": {
+        "label": "Relaxed >=50% cov, SCL {4,5,6}",
+        "n": 135,
+        "spearman_vh_rho": 0.300166,
+        "spearman_vh_p": 0.000404537,
+        "spearman_vv_rho": 0.244801,
+        "spearman_vv_p": 0.00421577
+      },
+      "relaxed_any_pixel_scl456": {
+        "label": "Relaxed >=1 px both dates, SCL {4,5,6}",
+        "n": 158,
+        "spearman_vh_rho": 0.337987,
+        "spearman_vh_p": 1.40414e-05,
+        "spearman_vv_rho": 0.263982,
+        "spearman_vv_p": 0.000803723
+      },
+      "ipw_propensity_weighted_119": {
+        "n": 119,
+        "weight_min": 0.7456,
+        "weight_max": 1.5653,
+        "weighted_spearman_vh": 0.306764,
+        "weighted_spearman_vv": 0.255777,
+        "weighted_pearson_vh": 0.384447
+      },
+      "scl45_exclude_water_strict": {
+        "label": "Strict >=80% cov, SCL {4,5} (no water)",
+        "n": 119,
+        "spearman_vh_rho": 0.27855,
+        "spearman_vh_p": 0.00215858,
+        "spearman_vv_rho": 0.229262,
+        "spearman_vv_p": 0.0121397
+      },
+      "scl4_vegetation_only_strict": {
+        "label": "Strict >=80% cov, SCL {4} (veg only both dates)",
+        "n": 19,
+        "spearman_vh_rho": 0.317544,
+        "spearman_vh_p": 0.185247,
+        "spearman_vv_rho": -0.305263,
+        "spearman_vv_p": 0.203773
+      }
+    }
+  },
+  "outputs": {
+    "candidate_csv": "candidate_181_quality_and_scl_v2.csv",
+    "candidate_csv_sha256": "3d81c6fcb13a08a64150c4a27cb0ee0ad4d871f882f189fb5f9d98634325815f",
+    "diagnostic_figure": "qa_v2_sensitivity_diagnostics.png",
+    "diagnostic_figure_sha256": "8dc44acf3888adbea02a4b5836ba8a28d64f54790969b954854656e70a2bd4a7"
+  },
+  "scientific_conclusions": [
+    "SCL=4 (Vegetation: 11/05 median NDVI 0.555, NDRE 0.385), SCL=5 (Not Vegetated/Bare Soil: 11/05 median NDVI 0.228, LSWI 0.020 — comprising 53.0% of clear pixels on 10/11 and 63.7% on 11/05), and SCL=6 (Water: 11/05 median NDVI 0.029, NDRE -0.151, LSWI 0.350) are strictly distinct; water/bare soil are separated from healthy vegetation.",
+    "All 36 input bands and 16 v1 GeoTIFFs confirm zero duplicate BOA offset (min SCL=4 B04 reflectance 0.0316 on 10/11 and 0.0337 on 11/05 vs erroneous -0.0684/-0.0663 if -0.1 re-subtracted) and exact 0.0 m 10m/20m affine nesting on EPSG:32651.",
+    "Of 181 TW-01 SAR candidates, 119 pass strict >=80% clear coverage on both 10/11 and 11/05 while 62 fail (47 on 11/05 SW cloud bank, 4 on 10/11, 11 on both). Area and SAR dVV/dVH medians do not differ significantly (MW p=0.129–0.221), though exclusion is spatially patterned along the 11/05 SW cloud corridor.",
+    "KNN-5 Moran's I on delta NDVI (-0.046, p=0.408) and OLS residuals (-0.015, p=0.779) is not significant, and positive SAR dVH–delta NDVI association persists under 1 km block bootstrap (95% CI [0.049, 0.481], p_boot=0.016), 500 m block bootstrap, 250 m spatial thinning (med rho=0.410), relaxed coverage (n=135/158), IPW weighting (rho=0.307), and SCL {4,5} water exclusion (n=119, rho=0.279); SCL=4-only on both dates retains only n=19 parcels because land-cover transitions drive much of the signal. All associations remain descriptive without crop or causal damage claims."
+  ]
+}

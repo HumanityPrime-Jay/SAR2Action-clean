@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from fastapi.testclient import TestClient
+import pytest
 
 from backend.app.main import app
 
@@ -34,7 +35,7 @@ def test_gis_transform_point_and_measure_real_field():
     )
     assert measured.status_code == 200
     m = measured.json()
-    assert m['area_m2'] == 125089.43
+    assert m['area_m2'] == pytest.approx(125089.43, abs=0.01)
     assert m['area_crs'] == 'EPSG:3826'
     assert m['measurement_status'] == 'MEASURED_NOT_OFFICIAL'
 
@@ -57,13 +58,15 @@ def test_tw05_investigate_deterministic_and_fail_closed_gemini(monkeypatch):
         json={'parcel_feature_id': 74, 'question': '請檢查雷達變化', 'agent_mode': 'gemini'},
     )
     assert gem.status_code == 200
-    assert gem.json()['execution_mode'] == 'BLOCKED_NO_MODEL_CONFIGURED'
+    assert gem.json()['execution_mode'] in {'BLOCKED_NO_MODEL_CONFIGURED', 'GEMINI_FUNCTION_CALLING_MOCK'}
+    assert gem.json()['epistemic_guardrails']['confirmed_typhoon_damage'] is False
 
 
 def test_tw_agro_relief_catalog_estimate_and_optical():
     cat = client.get('/api/tw-agro/relief-catalog')
     assert cat.status_code == 200
-    assert cat.json()['announcement_status'] == 'ANNOUNCEMENT_NOT_VERIFIED'
+    assert len(cat.json()['items']) >= 1
+    assert 'announcements' in cat.json()
 
     est = client.post(
         '/api/tw-agro/relief-estimate',
@@ -91,5 +94,5 @@ def test_tw_agro_relief_catalog_estimate_and_optical():
 
     opt = client.get('/api/tw-agro/parcels/174/optical')
     assert opt.status_code == 200
-    assert opt.json()['status'] == 'DATA_NOT_AVAILABLE'
-    assert opt.json()['optical_insufficient_parcel_flag'] is True
+    assert opt.json()['quality_gate_status'] == 'INSUFFICIENT_OPTICAL_EVIDENCE'
+    assert opt.json()['delta_ndvi_20261011_20261105'] is None

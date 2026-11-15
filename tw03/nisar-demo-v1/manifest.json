@@ -1,0 +1,232 @@
+{
+  "schema_version": "nisar-tw03-demo/1.0",
+  "status": "verified_observation",
+  "case_id": "TW03-YUNLIN",
+  "evidence_id": "E-TW03-B82BA14BAC9F8501",
+  "evidence_href": "evidence.json",
+  "statistics_href": "statistics.json",
+  "aoi_href": "aoi.geojson",
+  "sensor": "NASA-ISRO NISAR L-band",
+  "collection": "NISAR_L2_GCOV_PROVISIONAL_V1",
+  "frequency_group": "frequencyA",
+  "algorithm_version": "sar2action-change-engine-v1.0.0",
+  "quality_status": "COMPARABLE",
+  "grid": {
+    "epsg": 32651,
+    "spacing_m": [
+      20.0,
+      20.0
+    ],
+    "full_shape": [
+      17100,
+      17424
+    ],
+    "window_shape": [
+      255,
+      254
+    ]
+  },
+  "scenes": [
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001",
+      "granule_id": "G4343404696-ASF",
+      "bytes": 1535115264,
+      "sha256": "a35db56ba9af78f88f845342638e21bab4e3e5ea693ca000f2f0e7a9e60d0ded",
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_061_D_076_2005_DHDH_A_20261004T103752_20261004T103826_P05023_N_F_J_001.h5",
+      "metadata_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4343404696-ASF.umm_json",
+      "track_number": 61,
+      "frame_number": 76,
+      "crid": "P05023",
+      "product_version": "1.0.11",
+      "data_maturity": "PROVISIONAL",
+      "is_full_frame": true,
+      "acquisition_start_utc": "2026-10-04T10:37:52.000000000Z",
+      "acquisition_end_utc": "2026-10-04T10:38:26.999342105Z",
+      "orbit_pass_direction": "Descending",
+      "look_direction": "Left",
+      "frequency_group": "frequencyA",
+      "polarizations": [
+        "HH",
+        "HV"
+      ]
+    },
+    {
+      "scene_id": "NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001",
+      "granule_id": "G4374517324-ASF",
+      "bytes": 1535115264,
+      "sha256": "07b429e7e3681acbecf63581f89863cc7274a2fc3ad26f90e9f70fea19eb1849",
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_061_D_076_2005_DHDH_A_20261016T103752_20261016T103826_P05023_N_F_J_001.h5",
+      "metadata_url": "https://cmr.earthdata.nasa.gov/search/concepts/G4374517324-ASF.umm_json",
+      "track_number": 61,
+      "frame_number": 76,
+      "crid": "P05023",
+      "product_version": "1.0.11",
+      "data_maturity": "PROVISIONAL",
+      "is_full_frame": true,
+      "acquisition_start_utc": "2026-10-16T10:37:52.000000000Z",
+      "acquisition_end_utc": "2026-10-16T10:38:26.999342105Z",
+      "orbit_pass_direction": "Descending",
+      "look_direction": "Left",
+      "frequency_group": "frequencyA",
+      "polarizations": [
+        "HH",
+        "HV"
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "layer_id": "delta_hh",
+      "polarization": "HH",
+      "units": "dB",
+      "geotiff_href": "delta_hh_db.tif",
+      "evidence_id": "E-TW03-B82BA14BAC9F8501",
+      "legend": {
+        "title": "Signed ΔHH (T1 − T0, dB)",
+        "units": "dB",
+        "min_value": -4.0,
+        "max_value": 4.0,
+        "palette_type": "signed_diverging_db",
+        "stops": [
+          {
+            "value": -4.0,
+            "color": "#082f87",
+            "label": "-4.0 dB (Negative radar change: T1 < T0)"
+          },
+          {
+            "value": -2.0,
+            "color": "#388ee6",
+            "label": "-2.0 dB (Backscatter decrease)"
+          },
+          {
+            "value": 0.0,
+            "color": "#f1f5f9",
+            "label": "0.0 dB (No net dB shift)"
+          },
+          {
+            "value": 2.0,
+            "color": "#f59e0b",
+            "label": "+2.0 dB (Backscatter increase)"
+          },
+          {
+            "value": 4.0,
+            "color": "#b43403",
+            "label": "+4.0 dB (Positive radar change: T1 > T0)"
+          }
+        ],
+        "positive_change_meaning": "Positive radar change (ΔHH > 0 dB): Backscatter power increased from T0 to T1.",
+        "negative_change_meaning": "Negative radar change (ΔHH < 0 dB): Backscatter power decreased from T0 to T1.",
+        "invalid_observation_meaning": "Invalid / unavailable observation (mask == 0 partially focused, mask == 255 outside swath, or non-positive power) — excluded as NaN.",
+        "prohibited_labels_notice": "Radar backscatter or change in dB only — never labeled as wildfire, burn severity, damage, or risk."
+      },
+      "overlay": {
+        "href": "delta_hh.png",
+        "crs": "EPSG:3857",
+        "coordinates_lon_lat": [
+          [
+            120.27464416358795,
+            23.733443071627327
+          ],
+          [
+            120.32535415465722,
+            23.733443071627327
+          ],
+          [
+            120.32535415465722,
+            23.686473494627652
+          ],
+          [
+            120.27464416358795,
+            23.686473494627652
+          ]
+        ]
+      }
+    },
+    {
+      "layer_id": "delta_hv",
+      "polarization": "HV",
+      "units": "dB",
+      "geotiff_href": "delta_hv_db.tif",
+      "evidence_id": "E-TW03-B82BA14BAC9F8501",
+      "legend": {
+        "title": "Signed ΔHV (T1 − T0, dB)",
+        "units": "dB",
+        "min_value": -4.0,
+        "max_value": 4.0,
+        "palette_type": "signed_diverging_db",
+        "stops": [
+          {
+            "value": -4.0,
+            "color": "#082f87",
+            "label": "-4.0 dB (Negative radar change: T1 < T0)"
+          },
+          {
+            "value": -2.0,
+            "color": "#388ee6",
+            "label": "-2.0 dB (Backscatter decrease)"
+          },
+          {
+            "value": 0.0,
+            "color": "#f1f5f9",
+            "label": "0.0 dB (No net dB shift)"
+          },
+          {
+            "value": 2.0,
+            "color": "#f59e0b",
+            "label": "+2.0 dB (Backscatter increase)"
+          },
+          {
+            "value": 4.0,
+            "color": "#b43403",
+            "label": "+4.0 dB (Positive radar change: T1 > T0)"
+          }
+        ],
+        "positive_change_meaning": "Positive radar change (ΔHV > 0 dB): Backscatter power increased from T0 to T1.",
+        "negative_change_meaning": "Negative radar change (ΔHV < 0 dB): Backscatter power decreased from T0 to T1.",
+        "invalid_observation_meaning": "Invalid / unavailable observation (mask == 0 partially focused, mask == 255 outside swath, or non-positive power) — excluded as NaN.",
+        "prohibited_labels_notice": "Radar backscatter or change in dB only — never labeled as wildfire, burn severity, damage, or risk."
+      },
+      "overlay": {
+        "href": "delta_hv.png",
+        "crs": "EPSG:3857",
+        "coordinates_lon_lat": [
+          [
+            120.27464416358795,
+            23.733443071627327
+          ],
+          [
+            120.32535415465722,
+            23.733443071627327
+          ],
+          [
+            120.32535415465722,
+            23.686473494627652
+          ],
+          [
+            120.27464416358795,
+            23.686473494627652
+          ]
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "cause_not_determined",
+    "not_burn_severity_or_fire_damage",
+    "provisional_product",
+    "Both acquisitions predate the 2026-10-23/24 typhoon impact window in Taiwan.",
+    "Backscatter change alone does not establish cause, crop damage, yield loss or monetary loss.",
+    "Both NISAR GCOV products are Provisional P05023.",
+    "NISAR HH/HV and Sentinel-1 VV/VH are independent observations; no cross-sensor difference was computed.",
+    "QA RFI likelihood is not used as a cross-scene quantitative quality score."
+  ],
+  "asset_sha256": {
+    "aoi.geojson": "0f2205096e4b48cc1f832acddde1442f6074e3400e7d2742019e1454ae0cfee0",
+    "delta_hh.png": "366e42d37236195f137c13dd5fcf1022f4c416668040bc6c50c6b33e26a2cec5",
+    "delta_hh_db.tif": "9c4c334a1800a4bf9e8c2743b1bc47e9c7da6f5908e633f12b510e33f2b7c8d5",
+    "delta_hv.png": "bd2398a72c1ec82b38c56f1e7ba5ca3c765219949ec505d91c05d7ff90314a0f",
+    "delta_hv_db.tif": "db64a228c0565718bd469998b77964493608cced3b2285c0ad9eb115cee252f5",
+    "evidence.json": "742031e4a1eb5d6fc28de3acc31e49be2b58bb914b8a222194191d61ec296c13",
+    "statistics.json": "f7814923ef516b9fe386e18204c48651819fcd35b9c28af3adabe5121b16e425"
+  }
+}

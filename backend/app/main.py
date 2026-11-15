@@ -42,23 +42,21 @@ from backend.app.schemas.investigation_v3 import InvestigationV3Request, Investi
 from backend.app.services.investigation_v3 import InvestigationV3Service, get_champi_evidence
 from backend.app.services.agent_orchestrator import AgentOrchestrator, InvestigateRequest, StoryRequest as AgentStoryRequest
 from backend.app.services.spatial_ranking import SpatialRequest, SpatialDataUnavailable
-from backend.app.services.gis_service import (
-    MeasureGeometryRequest,
-    MeasureGeometryResponse,
-    TransformPointRequest,
-    TransformPointResponse,
-    measure_geometry,
-    transform_point,
-)
-from backend.app.services.tw05_compat import (
-    Tw05InvestigateRequest,
+from backend.app.api.gis import router as gis_router
+from backend.app.schemas.taiwan_agro import (
+    TwAgroOverviewResponse,
+    TwAgroParcelOpticalMetrics,
+    TwAgroReliefCatalog,
     TwAgroReliefEstimateRequest,
-    build_agent_status_extras,
-    estimate_relief as estimate_tw_agro_relief,
-    get_parcel_optical as get_tw_agro_parcel_optical,
-    get_relief_catalog as get_tw_agro_relief_catalog,
-    investigate_tw05 as run_tw05_investigation,
+    TwAgroReliefEstimateResponse,
 )
+from backend.app.schemas.tw05_agent import (
+    Tw05EvidenceCitation,
+    Tw05InvestigationRequest,
+    Tw05InvestigationResponse,
+)
+from backend.app.services.taiwan_agro_service import TaiwanAgroService
+from backend.app.services.tw05_agent_adapter import TW05_TOOLS
 from fastapi import HTTPException
 
 app = FastAPI(
@@ -82,8 +80,10 @@ if _cors_origins:
         allow_headers=["*"],
     )
 
+app.include_router(gis_router)
 science_service = ScienceService()
-agent_orchestrator = AgentOrchestrator(science_service)
+taiwan_agro_service = TaiwanAgroService()
+agent_orchestrator = AgentOrchestrator(science_service, taiwan_agro_service)
 scientific_investigator = ScientificInvestigator(science=science_service)
 investigation_v2 = InvestigationV2Service()
 investigation_v3 = InvestigationV3Service()
@@ -176,56 +176,14 @@ def get_investigation_evidence_graph(investigation_id: str) -> EvidenceGraph:
 def agent_status():
     return {
         'agent': agent_orchestrator.model.status(),
+        'gemini': agent_orchestrator.gemini_model.status(),
         'demo_available': True,
         'cached_evidence': ScienceEvidenceProvider('cache').status(),
         'spatial_manifest_configured': bool(os.environ.get('SAR2ACTION_SPATIAL_MANIFEST')),
-        **build_agent_status_extras(),
+        'tw05_agent_available': True,
+        'tw05_tools': list(TW05_TOOLS.keys()),
+        'legacy_agent_routes_enabled': True,
     }
-
-
-@app.post('/api/agent/tw05/investigate', tags=['Agent'])
-def tw05_investigate(request: Tw05InvestigateRequest) -> dict:
-    """Compatibility adapter for TW-05 agricultural parcel investigation."""
-    try:
-        return run_tw05_investigation(request)
-    except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
-
-
-@app.get('/api/tw-agro/relief-catalog', tags=['Relief'])
-def tw_agro_relief_catalog() -> dict:
-    """Return statutory relief schedule under 《農業天然災害救助辦法》."""
-    return get_tw_agro_relief_catalog()
-
-
-@app.post('/api/tw-agro/relief-estimate', tags=['Relief'])
-def tw_agro_relief_estimate(request: TwAgroReliefEstimateRequest) -> dict:
-    """Compute conditional statutory relief estimate under user assumptions."""
-    return estimate_tw_agro_relief(request)
-
-
-@app.get('/api/tw-agro/parcels/{parcel_feature_id}/optical', tags=['Relief'])
-def tw_agro_parcel_optical(parcel_feature_id: int) -> dict:
-    """Return structured parcel-level optical raster availability status."""
-    return get_tw_agro_parcel_optical(parcel_feature_id)
-
-
-@app.post('/api/gis/transform-point', response_model=TransformPointResponse, tags=['GIS'])
-def gis_transform_point(request: TransformPointRequest) -> TransformPointResponse:
-    """Transform a 2D point between supported CRS (EPSG:4326 <-> EPSG:3826)."""
-    try:
-        return transform_point(request)
-    except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
-
-
-@app.post('/api/gis/measure', response_model=MeasureGeometryResponse, tags=['GIS'])
-def gis_measure_geometry(request: MeasureGeometryRequest) -> MeasureGeometryResponse:
-    """Measure polygon area and perimeter in TWD97 (EPSG:3826)."""
-    try:
-        return measure_geometry(request)
-    except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 @app.get('/api/agent/operations/{session_id}', tags=['Agent'])
@@ -369,6 +327,74 @@ def get_layer_image(layer_id: str) -> Response:
     """Serve the georeferenced EPSG:4326 RGBA PNG overlay for MapLibre GL JS."""
     png_bytes = science_service.get_layer_png_bytes(layer_id)
     return Response(content=png_bytes, media_type="image/png")
+
+
+# --- TW-05: Taiwan Yunlin Agricultural Surface Change Investigation (NISAR x Sentinel-1D) ---
+
+
+@app.get("/api/tw-agro/overview", response_model=TwAgroOverviewResponse, tags=["TW-05 Agro"])
+def get_tw_agro_overview() -> TwAgroOverviewResponse:
+    """Return dynamic verified TW-01 (Sentinel-1D) + TW-03 (NISAR) Taiwan agricultural payload."""
+    return taiwan_agro_service.get_overview()
+
+
+@app.get("/api/tw-agro/geojson/{layer_name}", tags=["TW-05 Agro"])
+def get_tw_agro_geojson(layer_name: str) -> Response:
+    """Serve real GeoJSON boundaries/parcels (`aoi`, `farmland`, `candidate-parcels`, `nisar-aoi`)."""
+    raw_bytes = taiwan_agro_service.get_geojson_bytes(layer_name)
+    return Response(content=raw_bytes, media_type="application/geo+json")
+
+
+@app.get("/api/tw-agro/assets/{package_id}/{filename}", tags=["TW-05 Agro"])
+def get_tw_agro_asset_png(package_id: str, filename: str) -> Response:
+    """Serve real transparent PNG radar overlays from TW-01 and TW-03 packages."""
+    png_bytes = taiwan_agro_service.get_asset_png_bytes(package_id, filename)
+    return Response(content=png_bytes, media_type="image/png")
+
+
+@app.get("/api/tw-agro/relief-catalog", response_model=TwAgroReliefCatalog, tags=["TW-07 Relief Estimator"])
+def get_tw_agro_relief_catalog() -> TwAgroReliefCatalog:
+    """Return versioned statutory cash relief schedule (MOA 115/06/29 Schedule II) and Yunlin announcements."""
+    return taiwan_agro_service.get_relief_catalog()
+
+
+@app.post("/api/tw-agro/relief-estimate", response_model=TwAgroReliefEstimateResponse, tags=["TW-07 Relief Estimator"])
+def compute_tw_agro_relief_estimate(request: TwAgroReliefEstimateRequest) -> TwAgroReliefEstimateResponse:
+    """Compute Phase 1 conditional statutory relief reference amount with strict epistemic separation."""
+    return taiwan_agro_service.compute_relief_estimate(request)
+
+
+@app.get("/api/tw-agro/parcels/{parcel_feature_id}/optical", response_model=TwAgroParcelOpticalMetrics, tags=["TW-08A Optical QA"])
+def get_tw_agro_parcel_optical(parcel_feature_id: int) -> TwAgroParcelOpticalMetrics:
+    """Return supplementary Sentinel-2 L2A multi-temporal metrics & QA gate status for one farmland parcel."""
+    return taiwan_agro_service.get_parcel_optical_metrics(parcel_feature_id)
+
+
+@app.post("/api/agent/tw05/investigate", response_model=Tw05InvestigationResponse, tags=["TW-05 Agent"])
+def investigate_tw05_endpoint(request: Tw05InvestigationRequest) -> Tw05InvestigationResponse:
+    """Run bounded Gemini Function Calling or deterministic tool pipeline over verified TW-05 data."""
+    try:
+        return agent_orchestrator.investigate_tw05(request)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@app.get("/api/agent/tw05/evidence/{evidence_id}", response_model=Tw05EvidenceCitation, tags=["TW-05 Agent"])
+def get_tw05_evidence_endpoint(evidence_id: str) -> Tw05EvidenceCitation:
+    """Retrieve a verified TW-05 Evidence record after allowlist and cross-case validation."""
+    try:
+        item = agent_orchestrator.get_tw05_evidence(evidence_id)
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=422,
+            detail={"error_code": "INVALID_OR_CROSS_CASE_EVIDENCE_ID", "message": str(exc)},
+        ) from exc
+    if item is None:
+        raise HTTPException(
+            status_code=404,
+            detail={"error_code": "TW05_EVIDENCE_NOT_FOUND", "message": "TW-05 Agent Evidence ID not found"},
+        )
+    return item
 
 
 from backend.app.advanced.api_router import create_fastapi_router

@@ -1,0 +1,1378 @@
+{
+  "schema_version": "tw08a-sentinel2-feasibility/1.0",
+  "generated_utc": "2026-11-14T17:01:06.721569+00:00",
+  "status": "real_multispectral_observation_qa",
+  "aoi_name": "雲林縣虎尾／土庫／元長農田調查示範區 (TW-01 Yunlin 5 x 5 km AOI)",
+  "aoi_crs": "EPSG:32651",
+  "aoi_bounds_epsg32651": [
+    222140.0,
+    2622180.0,
+    227260.0,
+    2627280.0
+  ],
+  "grids": {
+    "native_10m_bands": {
+      "bands": [
+        "B02",
+        "B03",
+        "B04",
+        "B08"
+      ],
+      "indices": [
+        "NDVI = (B08 - B04) / (B08 + B04)"
+      ],
+      "spacing_m": [
+        10,
+        10
+      ],
+      "shape": [
+        510,
+        512
+      ],
+      "transform": [
+        10.0,
+        0.0,
+        222140.0,
+        0.0,
+        -10.0,
+        2627280.0
+      ]
+    },
+    "native_20m_bands": {
+      "bands": [
+        "B05",
+        "B8A",
+        "B11",
+        "B12",
+        "SCL"
+      ],
+      "indices": [
+        "NDRE = (B8A - B05) / (B8A + B05)",
+        "LSWI = (B8A - B11) / (B8A + B11)"
+      ],
+      "spacing_m": [
+        20,
+        20
+      ],
+      "shape": [
+        255,
+        256
+      ],
+      "transform": [
+        20.0,
+        0.0,
+        222140.0,
+        0.0,
+        -20.0,
+        2627280.0
+      ]
+    }
+  },
+  "radiometry_and_cloud_masking": {
+    "stac_source": "https://earth-search.aws.element84.com/v1/search",
+    "collection": "sentinel-2-l2a",
+    "earthsearch_boa_offset_applied_verified": true,
+    "reflectance_conversion": "reflectance = uint16_dn * 0.0001 where uint16_dn > 0 (verified on SCL=4 vegetation pixels; no duplicate -0.1 subtraction)",
+    "scl_clear_classes": [
+      4,
+      5,
+      6
+    ],
+    "scl_cloud_shadow_classes": [
+      3,
+      8,
+      9,
+      10
+    ],
+    "no_synthetic_gap_filling": true
+  },
+  "scenes": [
+    {
+      "date_utc": "2026-10-11",
+      "acquisition_utc": "2026-10-11T02:41:07.482000Z",
+      "stac_id": "S2B_51QTG_20261011_0_L2A",
+      "product_uri": "S2B_MSIL2A_20261011T022619_N0513_R046_T51QTG_20261011T044410.SAFE",
+      "platform": "sentinel-2b",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 4.994147,
+      "earthsearch_boa_offset_applied": true,
+      "aoi_10m_pixels": 250289,
+      "aoi_20m_pixels": 62572,
+      "aoi_valid_pixels_10m": 244200,
+      "aoi_valid_fraction_10m": 0.975672,
+      "aoi_valid_pixels_20m": 61052,
+      "aoi_valid_fraction_20m": 0.975708,
+      "aoi_cloud_shadow_fraction_20m": 0.0,
+      "usability_status": "USABLE_CLEAR",
+      "scl_counts_20m": {
+        "0_no_data": 0,
+        "1_saturated_or_defective": 0,
+        "2_dark_area_pixels": 18,
+        "3_cloud_shadows": 0,
+        "4_vegetation": 28691,
+        "5_not_vegetated": 32361,
+        "6_water": 0,
+        "7_unclassified": 1502,
+        "8_cloud_medium_probability": 0,
+        "9_cloud_high_probability": 0,
+        "10_thin_cirrus": 0,
+        "11_snow_or_ice": 0
+      },
+      "scl_fractions_20m": {
+        "0_no_data": 0.0,
+        "1_saturated_or_defective": 0.0,
+        "2_dark_area_pixels": 0.000288,
+        "3_cloud_shadows": 0.0,
+        "4_vegetation": 0.458528,
+        "5_not_vegetated": 0.51718,
+        "6_water": 0.0,
+        "7_unclassified": 0.024004,
+        "8_cloud_medium_probability": 0.0,
+        "9_cloud_high_probability": 0.0,
+        "10_thin_cirrus": 0.0,
+        "11_snow_or_ice": 0.0
+      },
+      "aoi_ndvi_stats_10m": {
+        "count": 244200,
+        "mean": 0.42356,
+        "std": 0.233876,
+        "p10": 0.125956,
+        "p25": 0.210392,
+        "median": 0.401445,
+        "p75": 0.641281,
+        "p90": 0.747099
+      },
+      "aoi_ndre_stats_20m": {
+        "count": 61052,
+        "mean": 0.322408,
+        "std": 0.177174,
+        "p10": 0.087937,
+        "p25": 0.170633,
+        "median": 0.313938,
+        "p75": 0.476081,
+        "p90": 0.565432
+      },
+      "aoi_lswi_stats_20m": {
+        "count": 61052,
+        "mean": 0.145828,
+        "std": 0.146823,
+        "p10": -0.03716,
+        "p25": 0.027396,
+        "median": 0.139925,
+        "p75": 0.263197,
+        "p90": 0.346606
+      },
+      "outputs": {
+        "ndvi_tif": "ndvi_20261011.tif",
+        "ndre_tif": "ndre_20261011.tif",
+        "lswi_tif": "lswi_20261011.tif",
+        "scl_tif": "scl_20261011.tif",
+        "ndvi_overlay": {
+          "href": "ndvi_20261011_overlay.png",
+          "crs": "EPSG:3857",
+          "render_range": [
+            -0.2,
+            0.9
+          ],
+          "coordinates_lon_lat": [
+            [
+              120.27444815456178,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.686567921450052
+            ],
+            [
+              120.27444815456178,
+              23.686567921450052
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "date_utc": "2026-10-16",
+      "acquisition_utc": "2026-10-16T02:41:09.182000Z",
+      "stac_id": "S2C_51QTG_20261016_0_L2A",
+      "product_uri": "S2C_MSIL2A_20261016T022701_N0513_R046_T51QTG_20261016T054811.SAFE",
+      "platform": "sentinel-2c",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 29.568475,
+      "earthsearch_boa_offset_applied": true,
+      "aoi_10m_pixels": 250289,
+      "aoi_20m_pixels": 62572,
+      "aoi_valid_pixels_10m": 11618,
+      "aoi_valid_fraction_10m": 0.046418,
+      "aoi_valid_pixels_20m": 2905,
+      "aoi_valid_fraction_20m": 0.046427,
+      "aoi_cloud_shadow_fraction_20m": 0.952087,
+      "usability_status": "CLOUD_OBSCURED_UNUSABLE",
+      "scl_counts_20m": {
+        "0_no_data": 0,
+        "1_saturated_or_defective": 0,
+        "2_dark_area_pixels": 1,
+        "3_cloud_shadows": 0,
+        "4_vegetation": 1087,
+        "5_not_vegetated": 1818,
+        "6_water": 0,
+        "7_unclassified": 92,
+        "8_cloud_medium_probability": 6148,
+        "9_cloud_high_probability": 209,
+        "10_thin_cirrus": 53217,
+        "11_snow_or_ice": 0
+      },
+      "scl_fractions_20m": {
+        "0_no_data": 0.0,
+        "1_saturated_or_defective": 0.0,
+        "2_dark_area_pixels": 1.6e-05,
+        "3_cloud_shadows": 0.0,
+        "4_vegetation": 0.017372,
+        "5_not_vegetated": 0.029055,
+        "6_water": 0.0,
+        "7_unclassified": 0.00147,
+        "8_cloud_medium_probability": 0.098255,
+        "9_cloud_high_probability": 0.00334,
+        "10_thin_cirrus": 0.850492,
+        "11_snow_or_ice": 0.0
+      },
+      "aoi_ndvi_stats_10m": {
+        "count": 11618,
+        "mean": 0.376078,
+        "std": 0.237851,
+        "p10": 0.107934,
+        "p25": 0.171645,
+        "median": 0.314586,
+        "p75": 0.586728,
+        "p90": 0.74983
+      },
+      "aoi_ndre_stats_20m": {
+        "count": 2905,
+        "mean": 0.27394,
+        "std": 0.158552,
+        "p10": 0.087541,
+        "p25": 0.139994,
+        "median": 0.243277,
+        "p75": 0.398669,
+        "p90": 0.515162
+      },
+      "aoi_lswi_stats_20m": {
+        "count": 2905,
+        "mean": 0.14712,
+        "std": 0.135035,
+        "p10": -0.003156,
+        "p25": 0.039321,
+        "median": 0.125848,
+        "p75": 0.252474,
+        "p90": 0.344356
+      },
+      "outputs": {
+        "ndvi_tif": "ndvi_20261016.tif",
+        "ndre_tif": "ndre_20261016.tif",
+        "lswi_tif": "lswi_20261016.tif",
+        "scl_tif": "scl_20261016.tif",
+        "ndvi_overlay": {
+          "href": "ndvi_20261016_overlay.png",
+          "crs": "EPSG:3857",
+          "render_range": [
+            -0.2,
+            0.9
+          ],
+          "coordinates_lon_lat": [
+            [
+              120.27444815456178,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.686567921450052
+            ],
+            [
+              120.27444815456178,
+              23.686567921450052
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "date_utc": "2026-10-26",
+      "acquisition_utc": "2026-10-26T02:41:06.994000Z",
+      "stac_id": "S2C_51QTG_20261026_0_L2A",
+      "product_uri": "S2C_MSIL2A_20261026T022801_N0513_R046_T51QTG_20261026T055005.SAFE",
+      "platform": "sentinel-2c",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 13.566256,
+      "earthsearch_boa_offset_applied": true,
+      "aoi_10m_pixels": 250289,
+      "aoi_20m_pixels": 62572,
+      "aoi_valid_pixels_10m": 40407,
+      "aoi_valid_fraction_10m": 0.161441,
+      "aoi_valid_pixels_20m": 10089,
+      "aoi_valid_fraction_20m": 0.161238,
+      "aoi_cloud_shadow_fraction_20m": 0.663396,
+      "usability_status": "CLOUD_OBSCURED_UNUSABLE",
+      "scl_counts_20m": {
+        "0_no_data": 0,
+        "1_saturated_or_defective": 0,
+        "2_dark_area_pixels": 12,
+        "3_cloud_shadows": 1615,
+        "4_vegetation": 3896,
+        "5_not_vegetated": 6192,
+        "6_water": 1,
+        "7_unclassified": 10961,
+        "8_cloud_medium_probability": 17711,
+        "9_cloud_high_probability": 22184,
+        "10_thin_cirrus": 0,
+        "11_snow_or_ice": 0
+      },
+      "scl_fractions_20m": {
+        "0_no_data": 0.0,
+        "1_saturated_or_defective": 0.0,
+        "2_dark_area_pixels": 0.000192,
+        "3_cloud_shadows": 0.02581,
+        "4_vegetation": 0.062264,
+        "5_not_vegetated": 0.098958,
+        "6_water": 1.6e-05,
+        "7_unclassified": 0.175174,
+        "8_cloud_medium_probability": 0.28305,
+        "9_cloud_high_probability": 0.354536,
+        "10_thin_cirrus": 0.0,
+        "11_snow_or_ice": 0.0
+      },
+      "aoi_ndvi_stats_10m": {
+        "count": 40407,
+        "mean": 0.359161,
+        "std": 0.20524,
+        "p10": 0.109131,
+        "p25": 0.18183,
+        "median": 0.338017,
+        "p75": 0.51282,
+        "p90": 0.66088
+      },
+      "aoi_ndre_stats_20m": {
+        "count": 10089,
+        "mean": 0.251737,
+        "std": 0.132736,
+        "p10": 0.07881,
+        "p25": 0.143087,
+        "median": 0.245788,
+        "p75": 0.351385,
+        "p90": 0.435106
+      },
+      "aoi_lswi_stats_20m": {
+        "count": 10089,
+        "mean": 0.091686,
+        "std": 0.113569,
+        "p10": -0.044287,
+        "p25": 0.002764,
+        "median": 0.085275,
+        "p75": 0.176296,
+        "p90": 0.247761
+      },
+      "outputs": {
+        "ndvi_tif": "ndvi_20261026.tif",
+        "ndre_tif": "ndre_20261026.tif",
+        "lswi_tif": "lswi_20261026.tif",
+        "scl_tif": "scl_20261026.tif",
+        "ndvi_overlay": {
+          "href": "ndvi_20261026_overlay.png",
+          "crs": "EPSG:3857",
+          "render_range": [
+            -0.2,
+            0.9
+          ],
+          "coordinates_lon_lat": [
+            [
+              120.27444815456178,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.686567921450052
+            ],
+            [
+              120.27444815456178,
+              23.686567921450052
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "date_utc": "2026-11-05",
+      "acquisition_utc": "2026-11-05T02:41:03.452000Z",
+      "stac_id": "S2C_51QTG_20261105_0_L2A",
+      "product_uri": "S2C_MSIL2A_20261105T022851_N0513_R046_T51QTG_20261105T055007.SAFE",
+      "platform": "sentinel-2c",
+      "mgrs_tile": "MGRS-51QTG",
+      "processing_baseline": "05.13",
+      "tile_cloud_cover_percent": 3.075156,
+      "earthsearch_boa_offset_applied": true,
+      "aoi_10m_pixels": 250289,
+      "aoi_20m_pixels": 62572,
+      "aoi_valid_pixels_10m": 197897,
+      "aoi_valid_fraction_10m": 0.790674,
+      "aoi_valid_pixels_20m": 49480,
+      "aoi_valid_fraction_20m": 0.790769,
+      "aoi_cloud_shadow_fraction_20m": 0.158953,
+      "usability_status": "USABLE_CLEAR",
+      "scl_counts_20m": {
+        "0_no_data": 0,
+        "1_saturated_or_defective": 0,
+        "2_dark_area_pixels": 8,
+        "3_cloud_shadows": 4025,
+        "4_vegetation": 17980,
+        "5_not_vegetated": 31494,
+        "6_water": 6,
+        "7_unclassified": 3138,
+        "8_cloud_medium_probability": 3312,
+        "9_cloud_high_probability": 2609,
+        "10_thin_cirrus": 0,
+        "11_snow_or_ice": 0
+      },
+      "scl_fractions_20m": {
+        "0_no_data": 0.0,
+        "1_saturated_or_defective": 0.0,
+        "2_dark_area_pixels": 0.000128,
+        "3_cloud_shadows": 0.064326,
+        "4_vegetation": 0.287349,
+        "5_not_vegetated": 0.503324,
+        "6_water": 9.6e-05,
+        "7_unclassified": 0.05015,
+        "8_cloud_medium_probability": 0.052931,
+        "9_cloud_high_probability": 0.041696,
+        "10_thin_cirrus": 0.0,
+        "11_snow_or_ice": 0.0
+      },
+      "aoi_ndvi_stats_10m": {
+        "count": 197897,
+        "mean": 0.35763,
+        "std": 0.19162,
+        "p10": 0.111607,
+        "p25": 0.192218,
+        "median": 0.346628,
+        "p75": 0.51411,
+        "p90": 0.628913
+      },
+      "aoi_ndre_stats_20m": {
+        "count": 49480,
+        "mean": 0.255391,
+        "std": 0.126025,
+        "p10": 0.085487,
+        "p25": 0.153779,
+        "median": 0.256755,
+        "p75": 0.356718,
+        "p90": 0.422599
+      },
+      "aoi_lswi_stats_20m": {
+        "count": 49480,
+        "mean": 0.078979,
+        "std": 0.111475,
+        "p10": -0.053571,
+        "p25": -0.002236,
+        "median": 0.071591,
+        "p75": 0.158385,
+        "p90": 0.229899
+      },
+      "outputs": {
+        "ndvi_tif": "ndvi_20261105.tif",
+        "ndre_tif": "ndre_20261105.tif",
+        "lswi_tif": "lswi_20261105.tif",
+        "scl_tif": "scl_20261105.tif",
+        "ndvi_overlay": {
+          "href": "ndvi_20261105_overlay.png",
+          "crs": "EPSG:3857",
+          "render_range": [
+            -0.2,
+            0.9
+          ],
+          "coordinates_lon_lat": [
+            [
+              120.27444815456178,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.686567921450052
+            ],
+            [
+              120.27444815456178,
+              23.686567921450052
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "temporal_index_deltas": [
+    {
+      "t0_date": "2026-10-11",
+      "t1_date": "2026-11-05",
+      "common_valid_fraction_10m": 0.781297,
+      "common_valid_fraction_20m": 0.78142,
+      "delta_ndvi_stats": {
+        "count": 195550,
+        "mean": -0.075705,
+        "std": 0.145792,
+        "p10": -0.22976,
+        "p25": -0.150559,
+        "median": -0.073714,
+        "p75": -0.00439,
+        "p90": 0.080152
+      },
+      "delta_ndre_stats": {
+        "count": 48895,
+        "mean": -0.074981,
+        "std": 0.11326,
+        "p10": -0.201613,
+        "p25": -0.146244,
+        "median": -0.07327,
+        "p75": -0.006059,
+        "p90": 0.052826
+      },
+      "delta_lswi_stats": {
+        "count": 48895,
+        "mean": -0.072439,
+        "std": 0.107426,
+        "p10": -0.209023,
+        "p25": -0.141303,
+        "median": -0.066466,
+        "p75": -0.003613,
+        "p90": 0.050438
+      },
+      "outputs": {
+        "delta_ndvi_tif": "delta_ndvi_20261011_20261105.tif",
+        "delta_ndre_tif": "delta_ndre_20261011_20261105.tif",
+        "delta_lswi_tif": "delta_lswi_20261011_20261105.tif",
+        "delta_ndvi_overlay": {
+          "href": "delta_ndvi_20261011_20261105_overlay.png",
+          "crs": "EPSG:3857",
+          "render_range": [
+            -0.5,
+            0.5
+          ],
+          "coordinates_lon_lat": [
+            [
+              120.27444815456178,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.73344646562407
+            ],
+            [
+              120.32555011784586,
+              23.686567921450052
+            ],
+            [
+              120.27444815456178,
+              23.686567921450052
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "ground_truth_and_classification_audit": {
+    "farmland_geojson_columns": [
+      "parcel_feature_id",
+      "PARCEL_NO",
+      "clipped_area_m2"
+    ],
+    "ground_truth_labels_available": false,
+    "classifier_trained": false,
+    "reason": "MOA open farmland layer (I75 RID=44143) contains only parcel_feature_id, PARCEL_NO, and clipped_area_m2 with zero parcel-level 2026 crop-type labels. Supervised classification accuracy or crop identification is strictly withheld."
+  },
+  "parcel_analysis": {
+    "counts": {
+      "total_farmland_parcels": 4863,
+      "candidate_181_parcels": 181,
+      "other_farmland_parcels": 4682,
+      "other_size_matched_parcels_ge1600m2": 3418,
+      "usable_clear_dates": [
+        "2026-10-11",
+        "2026-11-05"
+      ],
+      "candidate_181_all_clear_dates_valid_10m": 119,
+      "candidate_181_all_clear_dates_valid_20m": 120,
+      "farmland_4863_all_clear_dates_valid_10m": 3166
+    },
+    "per_date_parcel_validity": {
+      "candidate_181": {
+        "2026-10-11": {
+          "valid_10m_strict_ge5px_80pct": 166,
+          "valid_10m_any_pixel": 181,
+          "valid_20m_strict_ge2px_80pct": 168,
+          "valid_20m_any_pixel": 181
+        },
+        "2026-10-16": {
+          "valid_10m_strict_ge5px_80pct": 11,
+          "valid_10m_any_pixel": 16,
+          "valid_20m_strict_ge2px_80pct": 11,
+          "valid_20m_any_pixel": 15
+        },
+        "2026-10-26": {
+          "valid_10m_strict_ge5px_80pct": 24,
+          "valid_10m_any_pixel": 38,
+          "valid_20m_strict_ge2px_80pct": 24,
+          "valid_20m_any_pixel": 37
+        },
+        "2026-11-05": {
+          "valid_10m_strict_ge5px_80pct": 123,
+          "valid_10m_any_pixel": 158,
+          "valid_20m_strict_ge2px_80pct": 124,
+          "valid_20m_any_pixel": 157
+        }
+      },
+      "farmland_4863": {
+        "2026-10-11": {
+          "valid_10m_strict_ge5px_80pct": 4359,
+          "valid_10m_any_pixel": 4861,
+          "valid_20m_strict_ge2px_80pct": 4329
+        },
+        "2026-10-16": {
+          "valid_10m_strict_ge5px_80pct": 218,
+          "valid_10m_any_pixel": 346,
+          "valid_20m_strict_ge2px_80pct": 217
+        },
+        "2026-10-26": {
+          "valid_10m_strict_ge5px_80pct": 786,
+          "valid_10m_any_pixel": 1246,
+          "valid_20m_strict_ge2px_80pct": 808
+        },
+        "2026-11-05": {
+          "valid_10m_strict_ge5px_80pct": 3258,
+          "valid_10m_any_pixel": 4081,
+          "valid_20m_strict_ge2px_80pct": 3259
+        }
+      }
+    },
+    "distribution_comparison": {
+      "candidate_181_vs_all_other_farmland": {
+        "ndvi_med_20261011": {
+          "candidate_181": {
+            "count": 181,
+            "mean": 0.407124,
+            "std": 0.245871,
+            "p10": 0.127169,
+            "p25": 0.179944,
+            "median": 0.322479,
+            "p75": 0.664764,
+            "p90": 0.788979
+          },
+          "other_farmland": {
+            "count": 4680,
+            "mean": 0.430066,
+            "std": 0.23487,
+            "p10": 0.14285,
+            "p25": 0.208891,
+            "median": 0.394229,
+            "p75": 0.661542,
+            "p90": 0.759614
+          },
+          "mannwhitney_u_pvalue": 0.2019,
+          "ks_stat": 0.1009,
+          "ks_pvalue": 0.0534
+        },
+        "ndvi_med_20261105": {
+          "candidate_181": {
+            "count": 158,
+            "mean": 0.378938,
+            "std": 0.197702,
+            "p10": 0.133716,
+            "p25": 0.19555,
+            "median": 0.334655,
+            "p75": 0.572201,
+            "p90": 0.644694
+          },
+          "other_farmland": {
+            "count": 3923,
+            "mean": 0.369909,
+            "std": 0.194417,
+            "p10": 0.131579,
+            "p25": 0.195719,
+            "median": 0.3395,
+            "p75": 0.551544,
+            "p90": 0.644321
+          },
+          "mannwhitney_u_pvalue": 0.5654,
+          "ks_stat": 0.0489,
+          "ks_pvalue": 0.8418
+        },
+        "ndre_med_20261011": {
+          "candidate_181": {
+            "count": 181,
+            "mean": 0.301978,
+            "std": 0.183576,
+            "p10": 0.102859,
+            "p25": 0.144375,
+            "median": 0.250754,
+            "p75": 0.471064,
+            "p90": 0.576407
+          },
+          "other_farmland": {
+            "count": 4661,
+            "mean": 0.32231,
+            "std": 0.169089,
+            "p10": 0.103029,
+            "p25": 0.174079,
+            "median": 0.308558,
+            "p75": 0.471007,
+            "p90": 0.561341
+          },
+          "mannwhitney_u_pvalue": 0.07219,
+          "ks_stat": 0.1208,
+          "ks_pvalue": 0.01126
+        },
+        "ndre_med_20261105": {
+          "candidate_181": {
+            "count": 157,
+            "mean": 0.257996,
+            "std": 0.128192,
+            "p10": 0.092555,
+            "p25": 0.143242,
+            "median": 0.235973,
+            "p75": 0.37102,
+            "p90": 0.430477
+          },
+          "other_farmland": {
+            "count": 3853,
+            "mean": 0.255029,
+            "std": 0.121516,
+            "p10": 0.096574,
+            "p25": 0.150895,
+            "median": 0.248587,
+            "p75": 0.361279,
+            "p90": 0.42116
+          },
+          "mannwhitney_u_pvalue": 0.8441,
+          "ks_stat": 0.0636,
+          "ks_pvalue": 0.5536
+        },
+        "lswi_med_20261011": {
+          "candidate_181": {
+            "count": 181,
+            "mean": 0.156723,
+            "std": 0.13286,
+            "p10": -0.001898,
+            "p25": 0.041806,
+            "median": 0.131999,
+            "p75": 0.26568,
+            "p90": 0.35646
+          },
+          "other_farmland": {
+            "count": 4661,
+            "mean": 0.162438,
+            "std": 0.135932,
+            "p10": -0.007397,
+            "p25": 0.046348,
+            "median": 0.152674,
+            "p75": 0.272098,
+            "p90": 0.35725
+          },
+          "mannwhitney_u_pvalue": 0.5079,
+          "ks_stat": 0.078,
+          "ks_pvalue": 0.2269
+        },
+        "lswi_med_20261105": {
+          "candidate_181": {
+            "count": 157,
+            "mean": 0.122142,
+            "std": 0.107125,
+            "p10": -0.008397,
+            "p25": 0.0283,
+            "median": 0.119035,
+            "p75": 0.198442,
+            "p90": 0.258402
+          },
+          "other_farmland": {
+            "count": 3853,
+            "mean": 0.102312,
+            "std": 0.102483,
+            "p10": -0.023352,
+            "p25": 0.023118,
+            "median": 0.094784,
+            "p75": 0.180208,
+            "p90": 0.240518
+          },
+          "mannwhitney_u_pvalue": 0.05434,
+          "ks_stat": 0.1299,
+          "ks_pvalue": 0.01112
+        },
+        "delta_ndvi_20261011_20261105": {
+          "candidate_181": {
+            "count": 119,
+            "mean": -0.024056,
+            "std": 0.252562,
+            "p10": -0.423038,
+            "p25": -0.130995,
+            "median": -0.005206,
+            "p75": 0.1415,
+            "p90": 0.269899
+          },
+          "other_farmland": {
+            "count": 3047,
+            "mean": -0.065725,
+            "std": 0.165425,
+            "p10": -0.2418,
+            "p25": -0.144509,
+            "median": -0.066585,
+            "p75": 0.011457,
+            "p90": 0.121483
+          },
+          "mannwhitney_u_pvalue": 0.001012,
+          "ks_stat": 0.2387,
+          "ks_pvalue": 3.174e-06
+        },
+        "delta_ndre_20261011_20261105": {
+          "candidate_181": {
+            "count": 120,
+            "mean": -0.047227,
+            "std": 0.186566,
+            "p10": -0.340593,
+            "p25": -0.152342,
+            "median": -0.020522,
+            "p75": 0.087149,
+            "p90": 0.165118
+          },
+          "other_farmland": {
+            "count": 3051,
+            "mean": -0.075228,
+            "std": 0.120922,
+            "p10": -0.216273,
+            "p25": -0.151211,
+            "median": -0.074761,
+            "p75": -0.005356,
+            "p90": 0.067057
+          },
+          "mannwhitney_u_pvalue": 0.002812,
+          "ks_stat": 0.2376,
+          "ks_pvalue": 3.234e-06
+        },
+        "delta_lswi_20261011_20261105": {
+          "candidate_181": {
+            "count": 120,
+            "mean": -0.034868,
+            "std": 0.154873,
+            "p10": -0.251126,
+            "p25": -0.140135,
+            "median": -0.025185,
+            "p75": 0.093454,
+            "p90": 0.143866
+          },
+          "other_farmland": {
+            "count": 3051,
+            "mean": -0.066957,
+            "std": 0.105814,
+            "p10": -0.195818,
+            "p25": -0.135485,
+            "median": -0.067771,
+            "p75": -0.001459,
+            "p90": 0.062482
+          },
+          "mannwhitney_u_pvalue": 0.007199,
+          "ks_stat": 0.2141,
+          "ks_pvalue": 4.016e-05
+        }
+      },
+      "candidate_181_vs_size_matched_farmland": {
+        "ndvi_med_20261011": {
+          "candidate_181": {
+            "count": 181,
+            "mean": 0.407124,
+            "std": 0.245871,
+            "p10": 0.127169,
+            "p25": 0.179944,
+            "median": 0.322479,
+            "p75": 0.664764,
+            "p90": 0.788979
+          },
+          "other_farmland": {
+            "count": 3418,
+            "mean": 0.443818,
+            "std": 0.245478,
+            "p10": 0.140384,
+            "p25": 0.206979,
+            "median": 0.415726,
+            "p75": 0.688729,
+            "p90": 0.773177
+          },
+          "mannwhitney_u_pvalue": 0.0799,
+          "ks_stat": 0.1235,
+          "ks_pvalue": 0.009571
+        },
+        "ndvi_med_20261105": {
+          "candidate_181": {
+            "count": 158,
+            "mean": 0.378938,
+            "std": 0.197702,
+            "p10": 0.133716,
+            "p25": 0.19555,
+            "median": 0.334655,
+            "p75": 0.572201,
+            "p90": 0.644694
+          },
+          "other_farmland": {
+            "count": 2910,
+            "mean": 0.382747,
+            "std": 0.201049,
+            "p10": 0.131773,
+            "p25": 0.196133,
+            "median": 0.36234,
+            "p75": 0.574148,
+            "p90": 0.656254
+          },
+          "mannwhitney_u_pvalue": 0.8723,
+          "ks_stat": 0.0323,
+          "ks_pvalue": 0.9962
+        },
+        "ndre_med_20261011": {
+          "candidate_181": {
+            "count": 181,
+            "mean": 0.301978,
+            "std": 0.183576,
+            "p10": 0.102859,
+            "p25": 0.144375,
+            "median": 0.250754,
+            "p75": 0.471064,
+            "p90": 0.576407
+          },
+          "other_farmland": {
+            "count": 3410,
+            "mean": 0.333676,
+            "std": 0.176588,
+            "p10": 0.100655,
+            "p25": 0.175131,
+            "median": 0.325834,
+            "p75": 0.495488,
+            "p90": 0.575373
+          },
+          "mannwhitney_u_pvalue": 0.0192,
+          "ks_stat": 0.1446,
+          "ks_pvalue": 0.001329
+        },
+        "ndre_med_20261105": {
+          "candidate_181": {
+            "count": 157,
+            "mean": 0.257996,
+            "std": 0.128192,
+            "p10": 0.092555,
+            "p25": 0.143242,
+            "median": 0.235973,
+            "p75": 0.37102,
+            "p90": 0.430477
+          },
+          "other_farmland": {
+            "count": 2865,
+            "mean": 0.26256,
+            "std": 0.125495,
+            "p10": 0.095424,
+            "p25": 0.15429,
+            "median": 0.261689,
+            "p75": 0.376305,
+            "p90": 0.428186
+          },
+          "mannwhitney_u_pvalue": 0.6344,
+          "ks_stat": 0.061,
+          "ks_pvalue": 0.6128
+        },
+        "lswi_med_20261011": {
+          "candidate_181": {
+            "count": 181,
+            "mean": 0.156723,
+            "std": 0.13286,
+            "p10": -0.001898,
+            "p25": 0.041806,
+            "median": 0.131999,
+            "p75": 0.26568,
+            "p90": 0.35646
+          },
+          "other_farmland": {
+            "count": 3410,
+            "mean": 0.17504,
+            "std": 0.140189,
+            "p10": -0.00367,
+            "p25": 0.052923,
+            "median": 0.168306,
+            "p75": 0.294651,
+            "p90": 0.371141
+          },
+          "mannwhitney_u_pvalue": 0.07185,
+          "ks_stat": 0.1134,
+          "ks_pvalue": 0.0221
+        },
+        "lswi_med_20261105": {
+          "candidate_181": {
+            "count": 157,
+            "mean": 0.122142,
+            "std": 0.107125,
+            "p10": -0.008397,
+            "p25": 0.0283,
+            "median": 0.119035,
+            "p75": 0.198442,
+            "p90": 0.258402
+          },
+          "other_farmland": {
+            "count": 2865,
+            "mean": 0.110017,
+            "std": 0.104828,
+            "p10": -0.021308,
+            "p25": 0.029551,
+            "median": 0.105827,
+            "p75": 0.194214,
+            "p90": 0.245881
+          },
+          "mannwhitney_u_pvalue": 0.3467,
+          "ks_stat": 0.0949,
+          "ks_pvalue": 0.1279
+        },
+        "delta_ndvi_20261011_20261105": {
+          "candidate_181": {
+            "count": 119,
+            "mean": -0.024056,
+            "std": 0.252562,
+            "p10": -0.423038,
+            "p25": -0.130995,
+            "median": -0.005206,
+            "p75": 0.1415,
+            "p90": 0.269899
+          },
+          "other_farmland": {
+            "count": 2313,
+            "mean": -0.065466,
+            "std": 0.17308,
+            "p10": -0.251225,
+            "p25": -0.147395,
+            "median": -0.068229,
+            "p75": 0.018347,
+            "p90": 0.135692
+          },
+          "mannwhitney_u_pvalue": 0.001486,
+          "ks_stat": 0.2273,
+          "ks_pvalue": 1.279e-05
+        },
+        "delta_ndre_20261011_20261105": {
+          "candidate_181": {
+            "count": 120,
+            "mean": -0.047227,
+            "std": 0.186566,
+            "p10": -0.340593,
+            "p25": -0.152342,
+            "median": -0.020522,
+            "p75": 0.087149,
+            "p90": 0.165118
+          },
+          "other_farmland": {
+            "count": 2335,
+            "mean": -0.077323,
+            "std": 0.126322,
+            "p10": -0.22155,
+            "p25": -0.158223,
+            "median": -0.077625,
+            "p75": -0.001445,
+            "p90": 0.070669
+          },
+          "mannwhitney_u_pvalue": 0.002445,
+          "ks_stat": 0.2272,
+          "ks_pvalue": 1.17e-05
+        },
+        "delta_lswi_20261011_20261105": {
+          "candidate_181": {
+            "count": 120,
+            "mean": -0.034868,
+            "std": 0.154873,
+            "p10": -0.251126,
+            "p25": -0.140135,
+            "median": -0.025185,
+            "p75": 0.093454,
+            "p90": 0.143866
+          },
+          "other_farmland": {
+            "count": 2335,
+            "mean": -0.070198,
+            "std": 0.109654,
+            "p10": -0.203427,
+            "p25": -0.141221,
+            "median": -0.072925,
+            "p75": -0.000361,
+            "p90": 0.06529
+          },
+          "mannwhitney_u_pvalue": 0.003923,
+          "ks_stat": 0.2075,
+          "ks_pvalue": 8.646e-05
+        }
+      },
+      "ndvi_drop_rates_comparison": {
+        "candidate_181_n_valid_clear_pair_1011_1105": 119,
+        "size_matched_other_n_valid_clear_pair_1011_1105": 2313,
+        "candidate_181_delta_ndvi_1011_1105_le_neg015": 0.2269,
+        "size_matched_other_delta_ndvi_1011_1105_le_neg015": 0.2412,
+        "candidate_181_abs_delta_ndvi_1011_1105_ge_015": 0.4706,
+        "size_matched_other_abs_delta_ndvi_1011_1105_ge_015": 0.3316
+      }
+    },
+    "sar_optical_correlations_within_181": {
+      "delta_ndvi_20261011_20261105": {
+        "n_valid": 119,
+        "spearman_vv_vs_opt": {
+          "rho": 0.2293,
+          "pvalue": 0.01214
+        },
+        "spearman_vh_vs_opt": {
+          "rho": 0.2786,
+          "pvalue": 0.002159
+        },
+        "spearman_max_abs_sar_vs_opt": {
+          "rho": 0.0957,
+          "pvalue": 0.3003
+        },
+        "spearman_max_abs_sar_vs_abs_opt": {
+          "rho": -0.0146,
+          "pvalue": 0.8745
+        }
+      },
+      "delta_ndre_20261011_20261105": {
+        "n_valid": 120,
+        "spearman_vv_vs_opt": {
+          "rho": 0.2081,
+          "pvalue": 0.02259
+        },
+        "spearman_vh_vs_opt": {
+          "rho": 0.2821,
+          "pvalue": 0.001802
+        },
+        "spearman_max_abs_sar_vs_opt": {
+          "rho": 0.0188,
+          "pvalue": 0.8387
+        },
+        "spearman_max_abs_sar_vs_abs_opt": {
+          "rho": -0.0177,
+          "pvalue": 0.8478
+        }
+      },
+      "delta_lswi_20261011_20261105": {
+        "n_valid": 120,
+        "spearman_vv_vs_opt": {
+          "rho": 0.2006,
+          "pvalue": 0.02804
+        },
+        "spearman_vh_vs_opt": {
+          "rho": 0.2686,
+          "pvalue": 0.003017
+        },
+        "spearman_max_abs_sar_vs_opt": {
+          "rho": 0.0085,
+          "pvalue": 0.9264
+        },
+        "spearman_max_abs_sar_vs_abs_opt": {
+          "rho": -0.0664,
+          "pvalue": 0.4715
+        }
+      }
+    },
+    "sar_direction_subgroups_within_181": {
+      "sar_vv_le_neg3db": {
+        "parcel_count": 33,
+        "delta_ndvi_1011_1105": {
+          "count": 23,
+          "mean": -0.101834,
+          "std": 0.298819,
+          "p10": -0.534897,
+          "p25": -0.338271,
+          "median": -0.054795,
+          "p75": 0.103436,
+          "p90": 0.232015
+        },
+        "frac_ndvi_drop_ge_015_by_1105": 0.3478,
+        "delta_ndre_1011_1105": {
+          "count": 24,
+          "mean": -0.107691,
+          "std": 0.217845,
+          "p10": -0.408359,
+          "p25": -0.332482,
+          "median": -0.061567,
+          "p75": 0.067492,
+          "p90": 0.105585
+        },
+        "delta_lswi_1011_1105": {
+          "count": 24,
+          "mean": -0.086122,
+          "std": 0.166501,
+          "p10": -0.317878,
+          "p25": -0.246355,
+          "median": -0.03668,
+          "p75": 0.052183,
+          "p90": 0.096016
+        }
+      },
+      "sar_vv_ge_pos3db": {
+        "parcel_count": 62,
+        "delta_ndvi_1011_1105": {
+          "count": 34,
+          "mean": 0.021345,
+          "std": 0.206228,
+          "p10": -0.175193,
+          "p25": -0.077515,
+          "median": 0.052104,
+          "p75": 0.130324,
+          "p90": 0.24388
+        },
+        "frac_ndvi_drop_ge_015_by_1105": 0.1176,
+        "delta_ndre_1011_1105": {
+          "count": 34,
+          "mean": -0.016866,
+          "std": 0.144318,
+          "p10": -0.156551,
+          "p25": -0.116639,
+          "median": 0.000891,
+          "p75": 0.088072,
+          "p90": 0.151327
+        },
+        "delta_lswi_1011_1105": {
+          "count": 34,
+          "mean": -0.019521,
+          "std": 0.119142,
+          "p10": -0.155983,
+          "p25": -0.112916,
+          "median": -0.005568,
+          "p75": 0.094931,
+          "p90": 0.129535
+        }
+      },
+      "sar_vh_le_neg3db": {
+        "parcel_count": 19,
+        "delta_ndvi_1011_1105": {
+          "count": 12,
+          "mean": -0.269878,
+          "std": 0.22838,
+          "p10": -0.522514,
+          "p25": -0.443059,
+          "median": -0.281185,
+          "p75": -0.092232,
+          "p90": -0.052739
+        },
+        "frac_ndvi_drop_ge_015_by_1105": 0.6667,
+        "delta_ndre_1011_1105": {
+          "count": 13,
+          "mean": -0.230964,
+          "std": 0.149565,
+          "p10": -0.411182,
+          "p25": -0.355124,
+          "median": -0.213031,
+          "p75": -0.096054,
+          "p90": -0.058009
+        },
+        "delta_lswi_1011_1105": {
+          "count": 13,
+          "mean": -0.156648,
+          "std": 0.104801,
+          "p10": -0.303333,
+          "p25": -0.244311,
+          "median": -0.161639,
+          "p75": -0.095183,
+          "p90": -0.014317
+        }
+      },
+      "sar_vh_ge_pos3db": {
+        "parcel_count": 107,
+        "delta_ndvi_1011_1105": {
+          "count": 74,
+          "mean": 0.018831,
+          "std": 0.244231,
+          "p10": -0.355705,
+          "p25": -0.105899,
+          "median": 0.036914,
+          "p75": 0.21302,
+          "p90": 0.311935
+        },
+        "frac_ndvi_drop_ge_015_by_1105": 0.1757,
+        "delta_ndre_1011_1105": {
+          "count": 74,
+          "mean": -0.012929,
+          "std": 0.183177,
+          "p10": -0.29083,
+          "p25": -0.124835,
+          "median": 0.012065,
+          "p75": 0.111197,
+          "p90": 0.193349
+        },
+        "delta_lswi_1011_1105": {
+          "count": 74,
+          "mean": -0.004992,
+          "std": 0.157341,
+          "p10": -0.21695,
+          "p25": -0.113442,
+          "median": 0.01056,
+          "p75": 0.106485,
+          "p90": 0.1964
+        }
+      }
+    }
+  },
+  "csv_outputs": {
+    "candidate_181": "candidate_181_multitemporal_metrics.csv",
+    "farmland_4863": "farmland_4863_multitemporal_metrics.csv"
+  },
+  "diagnostic_figures": [
+    "s2_multitemporal_rgb_scl_overview.png",
+    "s2_ndvi_ndre_lswi_timeseries_map.png",
+    "s2_vs_sar_candidate_comparison.png"
+  ],
+  "scientific_limitations": [
+    "No parcel-level 2026 crop-type ground truth exists; NDVI/NDRE/LSWI patterns cannot establish crop species or relief eligibility.",
+    "2026-10-16 (95.21% cloud/shadow) and 2026-10-26 (66.34% cloud/shadow) Sentinel-2 acquisitions are heavily cloud-obscured over the 5x5 km AOI and excluded from change/trajectory analysis rather than gap-filled.",
+    "Cross-sensor co-variation between TW-01 Sentinel-1D delta dB and Sentinel-2 delta NDVI/LSWI is descriptive only and does not prove typhoon crop damage.",
+    "TW-01 181 SAR candidates, NISAR tw03/, sar/ engine, and TW-07 relief rules were kept read-only and unmodified."
+  ],
+  "artifact_sha256": {
+    "candidate_181_multitemporal_metrics.csv": "5ca68c41bb50d37c8e76000625fc1cee8c948e88a115e9a0c750b540c80f6fbd",
+    "delta_lswi_20261011_20261105.tif": "2779507c0a1f918dd11edfb7ee4be030844f94032d6165d681a463aa2b699584",
+    "delta_ndre_20261011_20261105.tif": "fdb4bfe0ed8cc901127164abbcfec59a32529931cf6c075de03cb2684d22525d",
+    "delta_ndvi_20261011_20261105.tif": "76e5a711369177eedb00ef11f18c4b130f930d693f2375269c8eac68d6af4102",
+    "delta_ndvi_20261011_20261105_overlay.png": "fb0e039101bda7c8764d2a71f7ec5c26574da35582ee0022cfbae2ba745bb757",
+    "farmland_4863_multitemporal_metrics.csv": "4f92676431acb73ec0797d13b977fadbb070f1babcf44d7cc4ef3e12474580fe",
+    "lswi_20261011.tif": "631dca009ecf9d837f28d602a7d0749349c2a59572a3f5494faa73711018e8b3",
+    "lswi_20261016.tif": "bde65259d142814a7070b46154931fff5f16abe73a01939fb37b66e6c4fecdc2",
+    "lswi_20261026.tif": "485edadaf55c8e03a0893926f759352d5f68d771e21d05d84b14551cbf499d95",
+    "lswi_20261105.tif": "bf2700b939c7506d499b65da17de2e3f36bf265a31b372e879daf7c4e2c843c1",
+    "ndre_20261011.tif": "83d0a726d9147bbf12e4a5803a838dff4bec3477fa6a876aea065d6c9773d133",
+    "ndre_20261016.tif": "47ff39cfdd31681594889e9a6de037b182eb2075c27297c272c06ef3e33f7598",
+    "ndre_20261026.tif": "74d75014936d764795f831188471aaf3e37fd246c456c0c1fa5d6c1b50aec664",
+    "ndre_20261105.tif": "6e31a0badfe1f54fdc766144b67eef6ff1b1780b93aa12c41245adb49890af10",
+    "ndvi_20261011.tif": "fab0d363101f1a94660a55eaf36de6160630c883d49e655d9a4a14066ef6546f",
+    "ndvi_20261011_overlay.png": "2164439343cb1105ee2a1644fea85e813a7f7d6d3711780670759fb15bacdaae",
+    "ndvi_20261016.tif": "39721a9cc1493af7f1ab48cdf78e0e81127a92ecea8fbeb124ff5f623e175b93",
+    "ndvi_20261016_overlay.png": "765e838551bd863cb93f493f28ae4fbd6d0e54c3f74670c75331e0769ce8a5b4",
+    "ndvi_20261026.tif": "8767452c2c5a3c06ef4c2b184745c9ff07b1ccb2b5a2d96e1de6aa717447c47e",
+    "ndvi_20261026_overlay.png": "e5e003bbcab6526c1654548ecb273b27b438eb380a232b187570b6cb7ba78573",
+    "ndvi_20261105.tif": "5139cacd0a4e20d7f9f6617b942a1c23a40a21da2edcfaef0d349947c90be4ce",
+    "ndvi_20261105_overlay.png": "844ef453c47299a698c95435b8522a28f71d763cc7fa5102cd3057ac7cbf8156",
+    "s2_multitemporal_rgb_scl_overview.png": "339cc0a53cea7067f294c2ea6f6c6ef770b7652073d67a78dd65c182b59ecfe2",
+    "s2_ndvi_ndre_lswi_timeseries_map.png": "60cbc38f3bd456039cb63be9ec42748180dc39ecec3acdacfd33fa19ff7f4df4",
+    "s2_vs_sar_candidate_comparison.png": "11d7c34eb53f578e315cc92d785eb8044322bb928d7c0de1cabc9ef01a6bd776",
+    "scl_20261011.tif": "40741f54a568a8082b3f1fa143ddd7e3e6b2a6d7b1498e0f028ef31d8c032d47",
+    "scl_20261016.tif": "69555d497271132e080589c2ddd367f201bd9587f474502715f5cee85c1e479c",
+    "scl_20261026.tif": "8e7f3c1c4db1d23b985e0c4e438ff0f665e4cea1f0da3cd888a24529f5d9ad7b",
+    "scl_20261105.tif": "c6b88b8f7134c68290e612df2a07af51f8f2dccd23fd1688f5b4ce7b4102c0be"
+  }
+}
