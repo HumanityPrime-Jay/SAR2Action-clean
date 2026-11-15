@@ -1,6 +1,9 @@
 """FastAPI Router & Pure-Python Endpoint Handlers for Advanced Scientific Intelligence, Legal RAG, Farmer Agent & Dual-Mode GIS."""
-from __future__ import annotations
+# No `from __future__ import annotations` here: the request models are local to
+# create_fastapi_router(), and FastAPI cannot resolve string annotations that point at
+# local classes, so every POST body would be read as a required `req` query parameter.
 
+import os
 from typing import Any
 
 from backend.app.advanced.dual_mode import AuthorityGISService, ModeCapabilityRegistry
@@ -17,7 +20,8 @@ _orchestrator = AdvancedOrchestrator()
 _sci_legal = ScientificLegalOrchestrator()
 _legal_service = LegalRAGService()
 _legal_db = LegalDatabase()
-_farmer_service = FarmerConversationService()
+# Gemini only rephrases the rule-based draft; numbers and approval claims are guarded.
+_farmer_service = FarmerConversationService(use_gemini=os.getenv("SAR2ACTION_LLM_PROVIDER", "").lower() == "gemini")
 _mode_registry = ModeCapabilityRegistry()
 _gis_service = AuthorityGISService()
 
@@ -78,6 +82,7 @@ def handle_farmer_chat(payload: dict[str, Any]) -> dict[str, Any]:
         optional_map_geometry=payload.get("optional_map_geometry"),
         optional_damage_geometry=payload.get("optional_damage_geometry"),
         optional_event_id=payload.get("optional_event_id"),
+        crop=payload.get("crop"),
     ).to_dict()
 
 
@@ -188,6 +193,7 @@ def create_fastapi_router():
         optional_map_geometry: dict[str, Any] | None = None
         optional_damage_geometry: dict[str, Any] | None = None
         optional_event_id: str | None = None
+        crop: str | None = Field(default=None, max_length=40)
 
     class ExplainIndicatorReq(BaseModel):
         indicator_id: str
