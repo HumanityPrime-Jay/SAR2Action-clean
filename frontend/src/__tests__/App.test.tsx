@@ -31,6 +31,51 @@ function openChampiMap() {
   return map;
 }
 
+const ARTICLE_12 = '農業天然災害現金救助除第十二條之二規定情形外，其作業程序及辦理期限如下：';
+
+/** An authority-mode reply shaped like `POST /api/agent/chat`, trimmed to what the assistant reads. */
+function authorityReply() {
+  return {
+    mode: 'AUTHORITY',
+    field_id: 'YL-CAND-01',
+    summary: '【科學觀測】YL-CAND-01 於警報前至警報期間之 Sentinel-1 VH 中位數變化為 +4.019 dB（狀態：OBSERVED）。',
+    scientific_evidence: {
+      crop_damage_confirmed: false,
+      vh_change: { status: 'OBSERVED', median_change_db: 4.01907, pre_median_db: -29.77, warning_median_db: -25.76, post_median_db: -29.26 },
+      sar_quality: { qa_passed: true, valid_pixels: 60, valid_coverage_ratio: 1 },
+      spatial_reference_matching: { matched_fields: [{ field_id: 'YL-CAND-02' }], excluded_fields: [{ field_id: 'YL-CAND-05' }] },
+    },
+    legal_authority: {
+      status: 'ANSWERED',
+      applicable_law_version: { version: '2026-06-29' },
+      citations: [
+        {
+          law_name: '農業天然災害救助辦法',
+          article: '第12條',
+          version: '2026-06-29',
+          official_url: 'https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=M0090019&flno=12',
+          exact_source_text: ARTICLE_12,
+          source_id: 'M0090019-ARTICLE-12',
+        },
+      ],
+      rule_evaluations: {
+        overall_status: 'INSUFFICIENT_FACTS_FOR_ELIGIBILITY_DETERMINATION',
+        rule_evaluations: [
+          { rule_id: '1_disaster_type', rule_name: 'Disaster Type', state: 'TRUE', citation_id: 'M0090019-ARTICLE-2', reason: '', missing_fields: [] },
+          { rule_id: '10_crop_eligibility', rule_name: 'Crop', state: 'UNKNOWN', citation_id: 'M0090019-ARTICLE-6', reason: '', missing_fields: [] },
+        ],
+        missing_information: ['Relief type'],
+      },
+    },
+    required_follow_up: {
+      farmer: ['確認實際耕作作物種類與種植/養殖客觀證明文件'],
+      authority: ['核對農業部或地方政府是否已正式公告雲林縣台西鄉為救助地區與品項'],
+      field_survey: [],
+    },
+    limitations: ['DECISION_SUPPORT_ONLY'],
+  };
+}
+
 describe('App', () => {
   beforeEach(() => {
     window.location.hash = '';
@@ -162,51 +207,64 @@ describe('App', () => {
     expect(send).toBeEnabled();
   });
 
-  it('relief assistant asks the backend agent and shows the cited article', async () => {
-    const fetchMock = vi.fn(() =>
-      Promise.resolve(
-        new Response(
-          JSON.stringify({
-            reply: '要帶身分證、印章、土地或耕作證明。',
-            intent: 'REQUIRED_DOCUMENTS',
-            conversation_state: 'APPLICATION_GUIDANCE_PROVIDED',
-            sources: ['M0090019-ARTICLE-12'],
-            result_cards: [],
-          }),
-          { status: 200 },
-        ),
-      ),
-    );
+  it('relief assistant: a farmer gets plain words, the law stays verbatim, and the switch shows the authority view', async () => {
+    const fetchMock = vi.fn(() => Promise.resolve(new Response(JSON.stringify(authorityReply()), { status: 200 })));
     vi.stubGlobal('fetch', fetchMock);
     render(<App />);
     openChampiMap();
     fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
     const assist = screen.getByRole('region', { name: '補助助手' });
+    const viewSwitch = within(assist).getByRole('switch', { name: '農政專業模式' });
+    expect(viewSwitch).toHaveAttribute('aria-checked', 'false');
+
     fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
-    expect(await within(assist).findByText('要帶身分證、印章、土地或耕作證明。')).toBeInTheDocument();
-    expect(within(assist).getByRole('link', { name: '農業天然災害救助辦法 第 12 條' })).toHaveAttribute('href', expect.stringContaining('flno=12'));
+    expect(await within(assist).findByText(/回波升高 \+4\.02 dB/)).toBeInTheDocument();
+    expect(within(assist).getByText('你登記的作物是大蒜；能不能申請，要看政府有沒有公告這個品項。')).toBeInTheDocument();
+    expect(within(assist).getByText('資料不足，還不能判斷是否符合救助資格。')).toBeInTheDocument();
+    expect(within(assist).getByText('準備實際種植的作物種類和種植證明文件')).toBeInTheDocument();
+    expect(within(assist).getByRole('link', { name: '《農業天然災害救助辦法》第12條' })).toHaveAttribute('href', expect.stringContaining('flno=12'));
+    expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
+    expect(within(assist).getByText(/公告救助地區的隔天起 10 個工作日內/)).toBeInTheDocument();
     const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
-    expect(url).toBe('/api/farmer/chat');
-    expect(JSON.parse(init.body as string)).toMatchObject({ message: '申請需要哪些文件？', crop: '大蒜', optional_event_id: 'champi-2026-yunlin' });
+    expect(url).toBe('/api/agent/chat');
+    expect(JSON.parse(init.body as string)).toMatchObject({ mode: 'AUTHORITY', message: '申請需要哪些文件？', field_id: 'YL-CAND-01', crop: '大蒜', lang: 'zh' });
+
+    fireEvent.click(viewSwitch);
+    expect(viewSwitch).toHaveAttribute('aria-checked', 'true');
+    expect(within(assist).getByText(/【科學觀測】YL-CAND-01 警報前至警報期間，Sentinel-1 VH 中位數變化 \+4\.02 dB/)).toBeInTheDocument();
+    expect(within(assist).getByText(/【法規檢核】依《農業天然災害救助辦法》2026-06-29 版/)).toHaveTextContent('資料不足，還不能判斷是否符合救助資格。');
+    expect(within(assist).getByText(/符合 1 · 待確認 1/)).toBeInTheDocument();
+    expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
+    expect(within(assist).queryByText(/公告救助地區的隔天起 10 個工作日內/)).not.toBeInTheDocument();
     vi.unstubAllGlobals();
   });
 
-  it('relief assistant asks for English and flags a reply that stayed in Chinese', async () => {
-    const reply = (text: string, lang: 'zh' | 'en') =>
-      new Response(JSON.stringify({ reply: text, intent: 'X', conversation_state: 'X', sources: [], result_cards: [], reply_language: lang }), { status: 200 });
-    const fetchMock = vi.fn().mockResolvedValueOnce(reply('Bring your ID.', 'en')).mockResolvedValueOnce(reply('要帶身分證。', 'zh'));
+  it('relief assistant says plainly when no article matches, instead of citing nothing', async () => {
+    const reply = authorityReply();
+    reply.legal_authority.status = 'INSUFFICIENT_LEGAL_BASIS';
+    reply.legal_authority.citations = [];
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify(reply), { status: 200 }))));
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '補助助手' }));
+    const assist = screen.getByRole('region', { name: '補助助手' });
+    fireEvent.click(within(assist).getByRole('button', { name: '申請需要哪些文件？' }));
+    expect(await within(assist).findByText('《農業天然災害救助辦法》裡找不到能完整對應這個問題的條文。')).toBeInTheDocument();
+    vi.unstubAllGlobals();
+  });
+
+  it('relief assistant in English: authority view by default, Chinese law text kept as the official wording', async () => {
+    const fetchMock = vi.fn(() => Promise.resolve(new Response(JSON.stringify(authorityReply()), { status: 200 })));
     vi.stubGlobal('fetch', fetchMock);
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: 'EN' }));
     fireEvent.click(screen.getByRole('button', { name: 'Relief assistant' }));
     const assist = screen.getByRole('region', { name: 'Relief assistant' });
+    expect(within(assist).getByRole('switch', { name: 'Authority view' })).toHaveAttribute('aria-checked', 'true');
     fireEvent.click(within(assist).getByRole('button', { name: 'What documents do I need?' }));
-    expect(await within(assist).findByText('Bring your ID.')).toBeInTheDocument();
+    expect(await within(assist).findByText(/\[Observation\] YL-CAND-01/)).toBeInTheDocument();
+    expect(within(assist).getByText(ARTICLE_12)).toBeInTheDocument();
+    expect(within(assist).getByText('Official text in Chinese.')).toBeInTheDocument();
     expect(JSON.parse((fetchMock.mock.calls[0] as unknown as [string, RequestInit])[1].body as string)).toMatchObject({ lang: 'en' });
-    expect(within(assist).queryByText(/Shown in Chinese/)).not.toBeInTheDocument();
-    fireEvent.click(within(assist).getByRole('button', { name: 'When is the deadline?' }));
-    expect(await within(assist).findByText('要帶身分證。')).toBeInTheDocument();
-    expect(within(assist).getByText(/Shown in Chinese/)).toBeInTheDocument();
     vi.unstubAllGlobals();
   });
 

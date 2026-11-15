@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { describeSource, farmerChat, replySources } from '../api/farmerAgent';
+import { type AuthorityReply, authorityChat } from '../api/authorityAgent';
+import { describeSource } from '../api/farmerAgent';
 import { CASE, OFFICIAL_LOSS, type Parcel, bigNtd, parcelById } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { RELIEF_RATE_PER_HA, SUGGESTED_QUESTIONS, formatDb } from '../demo/fields';
 import { useMascotCue } from '../mascot/Mascot';
 import { type Lang, type Text, useLang, useT } from '../i18n';
 import { Earth, Icon } from '../ui/shared';
+import { type AnswerView, AuthorityAnswer } from './AuthorityAnswer';
 import type { ScreenProps } from './types';
 import {
   type AgentStatusInfo,
@@ -28,6 +30,8 @@ interface Message {
   sources?: string[];
   /** The English UI asked for English but the agent could only answer in Chinese. */
   untranslated?: boolean;
+  /** Authority-mode reply, shown in the farmer or authority view. */
+  authority?: AuthorityReply;
   executionMode?: string;
   facts?: Array<{ statement: string; metric: string; value: string; sensor: string; evidenceIds: string[] }>;
   inferences?: Array<{ statement: string; status: string; reason: string }>;
@@ -93,6 +97,9 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
   const cue = useMascotCue();
   const msgsRef = useRef<HTMLDivElement>(null);
   const session = useRef(newSessionId());
+  // Authority view by default; someone who said they are a farmer starts in the plain farmer view.
+  const [view, setView] = useState<AnswerView>(farmer ? 'farmer' : 'authority');
+  useEffect(() => setView(farmer ? 'farmer' : 'authority'), [!!farmer]);
   const inflight = useRef<AbortController | null>(null);
   const abortCtrl = useRef<AbortController | null>(null);
 
@@ -220,18 +227,11 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
       setMessages((m) => [...m, { role: 'user', text: shown }, { role: 'bot', text: t('助手查詢法規中…', 'Checking the regulations…'), pending: true }]);
       let answer: Message;
       try {
-        const r = await farmerChat(
-          {
-            session_id: session.current,
-            message: sent,
-            selected_field_id: field.id,
-            optional_event_id: eventId ?? undefined,
-            crop: farmer ? cropName(farmer, 'zh') : undefined,
-            lang,
-          },
+        const r = await authorityChat(
+          { message: sent, field_id: field.id, crop: farmer ? cropName(farmer, 'zh') : undefined, lang },
           ctrl.signal,
         );
-        answer = { role: 'bot', text: r.reply, sources: replySources(r), untranslated: lang === 'en' && r.reply_language !== 'en' };
+        answer = { role: 'bot', text: '', authority: r };
         cue('happy');
       } catch (err) {
         if ((err as Error).name === 'AbortError') return;
@@ -408,6 +408,26 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
               <span>FIELD</span>
               <b>{activeScope === 'taixi' ? field.id : `#${tw05ParcelId}`}</b>
             </span>
+
+            {activeScope === 'taixi' && (
+              <div className="view-switch">
+                <span aria-hidden="true" onClick={() => setView('farmer')}>
+                  {t('農民', 'Farmer')}
+                </span>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={view === 'authority'}
+                  aria-label={t('農政專業模式', 'Authority view')}
+                  onClick={() => setView(view === 'authority' ? 'farmer' : 'authority')}
+                >
+                  <span className="knob" />
+                </button>
+                <span aria-hidden="true" onClick={() => setView('authority')}>
+                  {t('農政', 'Authority')}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -425,7 +445,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
             ) : (
               <div key={i} className={`msg ${m.role}`}>
                 {m.untranslated && <span className="eyebrow note">Shown in Chinese</span>}
-                {m.role === 'bot' && !m.sources ? withCitations(m.text) : m.text}
+                {m.authority ? <AuthorityAnswer reply={m.authority} view={view} farmer={farmer} /> : m.role === 'bot' && !m.sources ? withCitations(m.text) : m.text}
 
                 {/* Additional Agent Inspection Badges & Details for TW-05 */}
                 {m.executionMode && (
@@ -495,7 +515,7 @@ function RecordedAssist({ field, go, farmer, eventId }: Pick<ScreenProps, 'go' |
                 )}
 
                 {/* Traditional Citations for opening summary */}
-                {m.role === 'bot' && !m.evidenceIds && !m.sources && (
+                {m.role === 'bot' && !m.evidenceIds && !m.sources && !m.authority && (
                   <div className="cites">
                     {CITATIONS.map((c, k) => (
                       <span key={c.title.zh}>

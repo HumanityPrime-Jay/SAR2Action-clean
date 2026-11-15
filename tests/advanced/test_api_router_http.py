@@ -41,3 +41,15 @@ def test_farmer_chat_uses_registered_crop():
 def test_farmer_chat_rejects_unknown_language():
     r = client.post('/api/farmer/chat', json={'message': '可以申請救助嗎？', 'lang': 'fr'})
     assert r.status_code == 422
+
+
+def test_authority_chat_passes_the_registered_crop_to_the_legal_check():
+    r = client.post('/api/agent/chat', json={'mode': 'AUTHORITY', 'message': '可以申請補助嗎？', 'field_id': 'YL-CAND-01', 'crop': '大蒜'})
+    assert r.status_code == 200, r.text
+    rules = {x['rule_id']: x for x in r.json()['legal_authority']['rule_evaluations']['rule_evaluations']}
+    assert "'大蒜'" in rules['10_crop_eligibility']['reason']
+
+
+def test_authority_chat_rejects_unknown_language():
+    r = client.post('/api/agent/chat', json={'mode': 'AUTHORITY', 'message': '可以申請補助嗎？', 'lang': 'fr'})
+    assert r.status_code == 422
