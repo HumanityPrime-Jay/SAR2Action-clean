@@ -139,7 +139,8 @@ function DamageMap({
   const { lang } = useLang();
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
-  const [layers, setLayers] = useState({ trend: true, post: true, pre: false, bnd: true, landuse: false });
+  // The post-typhoon NISAR pass only reached the northern part of Taixi, so the complete pre pass is shown first.
+  const [layers, setLayers] = useState({ trend: true, pre: true, post: false, bnd: true, landuse: false });
   const landuse = useLanduse(layers.landuse);
   const [sheetRef, sheet] = useElementSize<HTMLDivElement>();
   const [zoom, setZoom] = useState(1);
@@ -182,7 +183,7 @@ function DamageMap({
           {([['pre', pre], ['post', post]] as const).map(
             ([key, scene]) =>
               layers[key] && (
-                <image key={key} href={scene.image.HH} {...sceneRect(scene.corners)} preserveAspectRatio="none" opacity={0.85} style={{ imageRendering: 'pixelated' }} />
+                <image key={key} href={scene.image.RGB} {...sceneRect(scene.corners)} preserveAspectRatio="none" opacity={0.9} style={{ imageRendering: 'pixelated' }} />
               ),
           )}
           {layers.landuse && Array.isArray(landuse) && (
@@ -265,8 +266,8 @@ function DamageMap({
           {(
             [
               ['trend', t('VH 變化（田區著色）', 'VH change (field colour)')],
-              ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}`],
               ['pre', `NISAR ${t('颱風前', 'pre')} ${md(pre.date)}`],
+              ['post', `NISAR ${t('颱風後', 'post')} ${md(post.date)}${t('（只拍到北半部）', ' (north part only)')}`],
               ['bnd', t('田區邊界', 'Field boundaries')],
               ['landuse', t('農地類型（國土利用）', 'Farmland type (land use)')],
             ] as const

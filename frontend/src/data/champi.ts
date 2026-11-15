@@ -236,7 +236,7 @@ export const EVIDENCE_SOURCES: EvidenceSource[] = [...new Set(Object.values(TEST
   label: SOURCE_TEXT[id] ?? observationLabel.get(id) ?? { zh: id, en: id },
 })).sort((a, b) => a.label.en.localeCompare(b.label.en));
 
-/** Two separate NISAR scenes over Taixi; each is stretched on its own, so not comparable in value. */
+/** Two separate NISAR scenes over Taixi, drawn as dual-pol false colour; never subtracted (processing versions differ). */
 export const NISAR_TAIXI = {
   crossVersionVerified: nisarMap.cross_crid_radiometric_equivalence_verified,
   scenes: nisarMap.scenes.map((s) => ({
@@ -248,6 +248,7 @@ export const NISAR_TAIXI = {
     image: {
       HH: `${import.meta.env.BASE_URL}studio/${s.layers.HH.image}`,
       HV: `${import.meta.env.BASE_URL}studio/${s.layers.HV.image}`,
+      RGB: `${import.meta.env.BASE_URL}studio/${s.layers.RGB.image}`,
     },
   })),
 };
