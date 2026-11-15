@@ -15,7 +15,7 @@ def classify_farmer_intent(message: str, *, has_selected_field: bool = False) ->
         return FarmerIntent.REQUIRED_DOCUMENTS
     if any(k in m for k in ("去哪", "哪裡辦", "怎麼申請", "如何申請", "公所", "流程")):
         return FarmerIntent.HOW_TO_APPLY
-    if any(k in m for k in ("有沒有補助", "救助方案", "公告", "符合補助", "申請資格", "核准", "可以申請", "申請救助", "救助嗎", "補助嗎")):
+    if any(k in m for k in ("有沒有補助", "救助方案", "公告", "符合補助", "申請資格", "核准", "可以申請", "能申請", "申請救助", "申請補助", "救助嗎", "補助嗎", "救濟")):
         return FarmerIntent.CHECK_RELIEF_PROGRAMS
     if any(k in m for k in ("賠多少", "虧多少", "損失金額", "收入損失", "成本")):
         return FarmerIntent.ESTIMATE_FINANCIAL_LOSS

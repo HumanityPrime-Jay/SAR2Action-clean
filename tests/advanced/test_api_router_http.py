@@ -36,3 +36,8 @@ def test_farmer_chat_uses_registered_crop():
     body = r.json()
     assert body['session_state']['crop'] == '大蒜'
     assert body['intent'] == 'CHECK_RELIEF_PROGRAMS'
+
+
+def test_farmer_chat_rejects_unknown_language():
+    r = client.post('/api/farmer/chat', json={'message': '可以申請救助嗎？', 'lang': 'fr'})
+    assert r.status_code == 422

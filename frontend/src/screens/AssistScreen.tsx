@@ -15,6 +15,8 @@ interface Message {
   error?: boolean;
   /** Agent reply sources (regulation articles). The opening summary uses CITATIONS instead. */
   sources?: string[];
+  /** The English UI asked for English but the agent could only answer in Chinese. */
+  untranslated?: boolean;
 }
 
 const newSessionId = () => `assist-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -82,7 +84,7 @@ export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
 
   useEffect(() => () => inflight.current?.abort(), []);
 
-  /** `shown` is what the chat displays; `sent` is what the agent receives (it reads Chinese). */
+  /** `shown` is what the chat displays; `sent` is what the agent receives (Chinese skips a translation step). */
   const ask = async (shown: string, sent = shown) => {
     if (!shown.trim() || busy) return;
     const ctrl = new AbortController();
@@ -98,10 +100,11 @@ export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
           selected_field_id: field.id,
           optional_event_id: eventId ?? undefined,
           crop: farmer ? cropName(farmer, 'zh') : undefined,
+          lang,
         },
         ctrl.signal,
       );
-      answer = { role: 'bot', text: r.reply, sources: replySources(r) };
+      answer = { role: 'bot', text: r.reply, sources: replySources(r), untranslated: lang === 'en' && r.reply_language !== 'en' };
     } catch (err) {
       if ((err as Error).name === 'AbortError') return;
       answer = {
@@ -130,7 +133,6 @@ export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
             <h1 className="h3">{t('補助與損失估算助手', 'Relief and loss assistant')}</h1>
             <div className="cap">
               {t('依農業災害救助相關法規回答，並附上依據的條文', 'Answers from the agricultural relief regulations, with the articles they rely on')}
-              {lang === 'en' && ' · The agent replies in Traditional Chinese for now.'}
             </div>
           </div>
           <span className="event" style={{ padding: '5px 9px' }}>
@@ -151,6 +153,7 @@ export function AssistScreen({ selectedId, go, farmer, eventId }: ScreenProps) {
               </div>
             ) : (
               <div key={i} className={`msg ${m.role}`}>
+                {m.untranslated && <span className="eyebrow note">Shown in Chinese: English translation is unavailable right now</span>}
                 {m.role === 'bot' && !m.sources ? withCitations(m.text) : m.text}
                 {m.role === 'bot' && !m.sources && (
                   <div className="cites">

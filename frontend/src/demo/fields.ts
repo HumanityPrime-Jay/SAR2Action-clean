@@ -7,7 +7,7 @@ import type { Text } from '../i18n';
 /** Illustrative relief rate, NT$ per hectare. Real rates come from each relief announcement. */
 export const RELIEF_RATE_PER_HA = 26_000;
 
-/** Questions the relief agent understands; the agent is sent the Chinese text. */
+/** Questions the relief agent understands; the agent is sent the Chinese text in either language. */
 export const SUGGESTED_QUESTIONS: { key: 'relief' | 'docs' | 'deadline'; text: Text }[] = [
   { key: 'relief', text: { zh: '我可以申請救助嗎？', en: 'Can I apply for relief?' } },
   { key: 'docs', text: { zh: '申請需要哪些文件？', en: 'What documents do I need?' } },
