@@ -256,7 +256,12 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .change-event:hover{background:#B8241D;border-color:#B8241D}
 
 /* Event picker (step before the damage map) */
-.picker{flex:1;display:flex;flex-direction:column;gap:24px;max-width:960px;margin:0 auto;padding:32px 0;overflow:auto}
+.picker{flex:1;display:flex;flex-direction:column;gap:24px;max-width:960px;margin:0 auto;padding:32px 0;overflow:auto;position:relative;z-index:1}
+/* Decorative pixel crops under the picker (PixelPlayground.tsx); only the sprites take the pointer. */
+.playground{position:absolute;left:0;right:200px;bottom:0;height:46%;z-index:0;pointer-events:none;overflow:hidden}
+.playground svg{display:block}
+.playground .prop{pointer-events:auto;cursor:grab}
+.playground .prop:active{cursor:grabbing}
 .picker-head .h1{margin:6px 0 8px}
 .picker-head .body{color:var(--text-2);margin:0}
 .picker-steps{display:flex;align-items:stretch;gap:12px}
@@ -461,6 +466,7 @@ button:disabled{cursor:not-allowed;opacity:.4}
 
 /* Narrow screens: stack main area and side panel, let the page scroll. */
 @media (max-width: 1000px){
+  .playground{display:none}
   .stage{height:auto;min-height:100%;overflow:visible}
   .topbar{flex-wrap:wrap;height:auto;gap:8px 16px;padding:10px 16px}
   .tabs{height:var(--tap);order:3;width:100%;overflow-x:auto}

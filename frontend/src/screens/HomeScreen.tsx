@@ -24,7 +24,7 @@ export function HomeScreen({ go }: ScreenProps) {
   const t = useT();
   const { lang } = useLang();
   const globeRef = useRef<GlobeHandle>(null);
-  const [layers, setLayers] = useState<GlobeLayers>({ borders: true, clouds: true, rain: false, shield: true });
+  const [layers, setLayers] = useState<GlobeLayers>({ borders: true, clouds: true, rain: true, shield: false });
   const toggle = (key: keyof GlobeLayers) => (e: React.ChangeEvent<HTMLInputElement>) => setLayers((l) => ({ ...l, [key]: e.target.checked }));
   const [flying, setFlying] = useState(false);
 

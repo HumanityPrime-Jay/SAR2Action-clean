@@ -4,6 +4,7 @@ import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
 import { FieldRow, Icon, TrendTag } from '../ui/shared';
+import { PixelPlayground } from '../ui/PixelPlayground';
 import { EventPicker } from './EventPicker';
 import type { ScreenProps } from './types';
 
@@ -108,15 +109,18 @@ export function MapScreen({ eventId, onEvent, farmer, onFarmer, ...props }: Scre
   const [changing, setChanging] = useState(false);
   if (!eventId || changing) {
     return (
-      <EventPicker
-        initialId={eventId}
-        initialFarmer={farmer}
-        onPick={(id, info) => {
-          onEvent(id);
-          onFarmer(info);
-          setChanging(false);
-        }}
-      />
+      <>
+        <EventPicker
+          initialId={eventId}
+          initialFarmer={farmer}
+          onPick={(id, info) => {
+            onEvent(id);
+            onFarmer(info);
+            setChanging(false);
+          }}
+        />
+        <PixelPlayground />
+      </>
     );
   }
   return <DamageMap {...props} farmer={farmer} onChangeEvent={() => setChanging(true)} />;

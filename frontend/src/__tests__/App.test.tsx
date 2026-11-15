@@ -111,6 +111,27 @@ describe('App', () => {
     expect(within(actions).getAllByRole('button')).toHaveLength(3);
   });
 
+  it('home opens with clouds, rain and coastlines on, and the scan ring off', async () => {
+    render(<App />);
+    await screen.findByTestId('globe');
+    const layers = screen.getByRole('group', { name: '地球圖層' });
+    for (const on of ['颱風雲圖', '降雨強度', '海岸線']) expect(within(layers).getByRole('checkbox', { name: new RegExp(on) })).toBeChecked();
+    expect(within(layers).getByRole('checkbox', { name: '掃描光環' })).not.toBeChecked();
+  });
+
+  it('the event picker has the pixel crop playground, hidden from assistive tech, and the map does not', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: '受災地圖' }));
+    const map = screen.getByRole('region', { name: '受災地圖' });
+    const playground = map.querySelector('.playground');
+    expect(playground).toHaveAttribute('aria-hidden', 'true');
+    expect(playground!.querySelectorAll('.prop')).toHaveLength(14);
+    fireEvent.change(within(map).getByRole('combobox', { name: /地區/ }), { target: { value: 'central' } });
+    fireEvent.change(within(map).getByRole('combobox', { name: /災害事件/ }), { target: { value: 'champi-2026-yunlin' } });
+    fireEvent.click(within(map).getByRole('button', { name: /進入受災地圖/ }));
+    expect(map.querySelector('.playground')).toBeNull();
+  });
+
   it('an entry button flies to Taiwan, then opens its screen', async () => {
     render(<App />);
     await screen.findByTestId('globe');
