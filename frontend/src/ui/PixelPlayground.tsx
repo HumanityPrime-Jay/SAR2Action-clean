@@ -51,6 +51,10 @@ const makeBodies = (): Body[] =>
     return { kind, w, h, r: ((w + h) / 4) * 0.82, x: 0, y: 0, vx: 0, vy: 0, a: 0, va: 0, held: false, el: null };
   });
 
+/** Fling speed limit, px/s, so a fast flick cannot tunnel through the walls. */
+const MAX_FLING = 1800;
+const clamp = (v: number) => Math.max(-MAX_FLING, Math.min(MAX_FLING, v));
+
 const place = (el: SVGGElement | null, x: number, y: number, w: number, h: number, a = 0) =>
   el?.setAttribute('transform', `translate(${x} ${y}) rotate(${a}) translate(${-w / 2} ${-h / 2}) scale(${SCALE})`);
 
@@ -115,6 +119,11 @@ export function PixelPlayground() {
           b.va += ((b.vx / b.r) * (180 / Math.PI) - b.va) * 0.3;
           b.vx *= 0.86;
           b.va *= 0.86;
+        }
+        // The playground clips its contents, so a crop thrown up bounces off its top edge.
+        if (b.y - b.r < 0 && b.vy < 0) {
+          b.y = b.r;
+          b.vy = -b.vy * 0.4;
         }
         if (b.x - b.r < 0 || b.x + b.r > W) {
           b.x = Math.min(Math.max(b.x, b.r), W - b.r);
@@ -219,8 +228,8 @@ export function PixelPlayground() {
       const box = root.getBoundingClientRect();
       const now = performance.now();
       const dt = Math.max(0.008, (now - prev.t) / 1000);
-      b.vx = (ev.clientX - prev.x) / dt;
-      b.vy = (ev.clientY - prev.y) / dt;
+      b.vx = clamp((ev.clientX - prev.x) / dt);
+      b.vy = clamp((ev.clientY - prev.y) / dt);
       b.x = ev.clientX - box.left;
       b.y = ev.clientY - box.top;
       prev = { x: ev.clientX, y: ev.clientY, t: now };
