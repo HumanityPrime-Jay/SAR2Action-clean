@@ -9,6 +9,7 @@ import comparison from '../../public/studio/field_comparison.json';
 import fieldsGeojson from '../../public/studio/fields.geojson?raw';
 import nisarMap from '../../public/studio/nisar_map_manifest.json';
 import official from '../../public/studio/official_loss_record.json';
+import screening from '../../public/studio/radar_screening_summary.json';
 import investigation from '../../public/studio/recorded_investigation.json';
 import type { Lang, Text } from '../i18n';
 
@@ -262,6 +263,20 @@ export const OFFICIAL_LOSS = {
   noHarvestHa: official.taiwan_crop_no_harvest_equiv_ha,
   yunlinSharePct: official.yunlin_share_pct,
   yunlinRank: official.yunlin_rank,
+};
+
+/**
+ * Our own radar screening over one ~25 km² coastal Yunlin area (Sentinel-1 before/after).
+ * Fields whose radar changed by ≥3 dB: a change, not confirmed damage.
+ */
+export const RADAR_SCREENING = {
+  pre: screening.pre_utc.slice(0, 10),
+  post: screening.post_utc.slice(0, 10),
+  aoiKm2: screening.aoi_area_km2,
+  farmlandHa: screening.farmland_area_ha,
+  screenedParcels: screening.screened_parcels,
+  changedParcels: screening.changed_parcels,
+  changedHa: screening.changed_area_ha,
 };
 
 /** Large NT$ amount: 1.58 億 / 157.7 million. */

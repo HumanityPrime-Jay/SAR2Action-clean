@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
+import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, RADAR_SCREENING, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
@@ -351,32 +351,43 @@ function DamageMap({
 
       <aside className="panel">
         <section className="loss-summary" aria-labelledby="loss-title">
-          <div className="eyebrow">{t(`農業部災情報告 · ${OFFICIAL_LOSS.date}`, `MOA loss report · ${OFFICIAL_LOSS.date}`)}</div>
+          <div className="eyebrow">
+            {t('SAR2Action 雷達估算', 'SAR2Action radar estimate')} · {RADAR_SCREENING.pre.slice(5).replace('-', '/')} → {RADAR_SCREENING.post.slice(5).replace('-', '/')}
+          </div>
           <h2 id="loss-title" className="h3">
-            {t('這次颱風的農業災損', "This typhoon's farm losses")}
+            {t('這次颱風的受災面積估算', "This typhoon's damaged-area estimate")}
           </h2>
           <div className="loss-figures">
             <div>
               <b>
-                {OFFICIAL_LOSS.cropAreaHa.toLocaleString()}
+                {Math.round(RADAR_SCREENING.changedHa).toLocaleString()}
                 <small>{t(' 公頃', ' ha')}</small>
               </b>
-              <span>{t('全台農作物受害面積', 'Crop area damaged, all Taiwan')}</span>
+              <span>{t(`${RADAR_SCREENING.changedParcels} 塊田雷達明顯變化`, `Farmland with strong radar change (${RADAR_SCREENING.changedParcels} fields)`)}</span>
             </div>
             <div>
-              <b>{lang === 'zh' ? bigNtd(OFFICIAL_LOSS.yunlinNtd, lang) : `NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}`}</b>
+              <b>
+                {Math.round((RADAR_SCREENING.changedHa / RADAR_SCREENING.farmlandHa) * 100)}
+                <small>%</small>
+              </b>
               <span>
                 {t(
-                  `雲林縣損失，全台第 ${OFFICIAL_LOSS.yunlinRank}（占 ${OFFICIAL_LOSS.yunlinSharePct}%）`,
-                  `Yunlin County loss, #${OFFICIAL_LOSS.yunlinRank} in Taiwan (${OFFICIAL_LOSS.yunlinSharePct}%)`,
+                  `占 ${Math.round(RADAR_SCREENING.farmlandHa).toLocaleString()} 公頃農地`,
+                  `of the ${Math.round(RADAR_SCREENING.farmlandHa).toLocaleString()} ha of farmland observed`,
                 )}
               </span>
             </div>
           </div>
           <p className="cap">
             {t(
-              `受害程度 ${OFFICIAL_LOSS.damagePct}%，約 ${OFFICIAL_LOSS.noHarvestHa.toLocaleString()} 公頃完全沒收成；未公布縣市面積。`,
-              `${OFFICIAL_LOSS.damagePct}% damage, about ${OFFICIAL_LOSS.noHarvestHa.toLocaleString()} ha with no harvest; no county areas given.`,
+              `雲林沿海 ${RADAR_SCREENING.aoiKm2} km² 觀測區，非全縣；需現場確認。`,
+              `A ${RADAR_SCREENING.aoiKm2} km² area of coastal Yunlin, not the whole county; radar change needs a field check.`,
+            )}
+          </p>
+          <p className="loss-official">
+            {t(
+              `核對用官方數據（農業部 ${OFFICIAL_LOSS.date}）：全台農作物受害 ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} 公頃，雲林損失 ${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}；未公布縣市面積，不能直接比較。`,
+              `Official figures for reference (MOA ${OFFICIAL_LOSS.date}): ${OFFICIAL_LOSS.cropAreaHa.toLocaleString()} ha of crops damaged across Taiwan; Yunlin lost NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}. No county areas were published, so they can't be compared directly.`,
             )}{' '}
             <a href={OFFICIAL_LOSS.url} target="_blank" rel="noreferrer">
               {t('原始報告', 'Source')}

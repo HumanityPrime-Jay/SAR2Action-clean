@@ -239,13 +239,15 @@ describe('App', () => {
     vi.unstubAllGlobals();
   });
 
-  it('the damage map leads with the official loss area and Yunlin loss, with its source', () => {
+  it('the damage map leads with our radar area estimate, with the official figures as a reference', () => {
     render(<App />);
     const map = openChampiMap();
-    const summary = within(map).getByRole('region', { name: '這次颱風的農業災損' });
-    expect(within(summary).getByText('全台農作物受害面積').previousElementSibling).toHaveTextContent('12,938 公頃');
-    expect(within(summary).getByText(/雲林縣損失，全台第 2（占 16%）/).previousElementSibling).toHaveTextContent('1.58 億');
-    expect(within(summary).getByText(/未公布縣市面積/)).toBeInTheDocument();
+    const summary = within(map).getByRole('region', { name: '這次颱風的受災面積估算' });
+    expect(within(summary).getByText('181 塊田雷達明顯變化').previousElementSibling).toHaveTextContent('95 公頃');
+    expect(within(summary).getByText('占 1,877 公頃農地').previousElementSibling).toHaveTextContent('5%');
+    expect(within(summary).getByText(/非全縣/)).toBeInTheDocument();
+    expect(within(summary).getByText(/核對用官方數據/)).toHaveTextContent('全台農作物受害 12,938 公頃');
+    expect(within(summary).getByText(/核對用官方數據/)).toHaveTextContent('不能直接比較');
     expect(within(summary).getByRole('link', { name: '原始報告' })).toHaveAttribute('href', expect.stringContaining('moa.gov.tw'));
   });
 

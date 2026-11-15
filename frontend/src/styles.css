@@ -629,7 +629,9 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .loss-summary{padding:12px 20px 10px;border-bottom:1px solid var(--border);background:var(--surface-3)}
 .loss-summary .h3{margin:2px 0 6px}
 .loss-figures{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
-.loss-figures b{display:block;font-size:28px;font-weight:800;line-height:1.1;letter-spacing:-.5px;color:var(--red-hi);font-variant-numeric:tabular-nums}
+.loss-figures b{display:block;font-size:28px;font-weight:800;line-height:1.1;letter-spacing:-.5px;color:var(--blue-ink);font-variant-numeric:tabular-nums}
 .loss-figures b small{font-size:14px;font-weight:700;letter-spacing:0}
 .loss-figures span{display:block;font-size:13px;line-height:1.35;color:var(--text-2);margin-top:2px}
-.loss-summary a{color:var(--blue-ink);text-decoration:underline}
+.loss-summary .cap{margin-bottom:6px}
+.loss-official{font-size:12px;line-height:1.5;color:var(--text-3);margin:0}
+.loss-summary a{color:inherit;text-decoration:underline}
