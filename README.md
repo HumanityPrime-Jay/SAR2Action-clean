@@ -1,12 +1,14 @@
 <div align="center">
 
+<p><b>中文</b> &nbsp;|&nbsp; <a href="README.en.md">English</a></p>
+
 <h6>SAR2ACTION · NASA SPACE APPS CHALLENGE 2026 · DANCING WITH THE SARS</h6>
 
 # SAR2Action · 受損面積與金額評估
 
 **用衛星雷達估算颱風後的農地受損面積與金額，再告訴農民能申請什麼救助。**
 
-[English](README.en.md) · [線上版本](https://sar2action-cd27vrua4a-de.a.run.app) · [架構](#1-痛點與架構) · [首頁](#2-首頁) · [受災地圖與田區比對](#3-受災地圖與田區比對) · [補助助手](#4-補助助手) · [本機執行](#本機執行)
+[線上版本](https://sar2action-cd27vrua4a-de.a.run.app) · [架構](#1-痛點與架構) · [首頁](#2-首頁) · [受災地圖與田區比對](#3-受災地圖與田區比對) · [補助助手](#4-補助助手) · [本機執行](#本機執行)
 
 <img src="docs/readme-assets/03-damage-map.png" alt="受災地圖：雲林台西鄉的 NISAR 雷達底圖、候選田區與全縣受損面積和金額估算" width="100%" />
 

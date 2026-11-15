@@ -1,12 +1,14 @@
 <div align="center">
 
+<p><a href="README.md">中文</a> &nbsp;|&nbsp; <b>English</b></p>
+
 <h6>SAR2ACTION · NASA SPACE APPS CHALLENGE 2026 · DANCING WITH THE SARS</h6>
 
 # SAR2Action · Crop damage area and loss
 
 **Radar tells us how much farmland a typhoon hit and roughly what it cost. Then we tell farmers what relief they can apply for.**
 
-[中文](README.md) · [Live site](https://sar2action-cd27vrua4a-de.a.run.app) · [Architecture](#1-the-problem-and-how-it-works) · [Home](#2-home) · [Damage map and field compare](#3-damage-map-and-field-compare) · [Relief assistant](#4-relief-assistant) · [Run it](#run-it-locally)
+[Live site](https://sar2action-cd27vrua4a-de.a.run.app) · [Architecture](#1-the-problem-and-how-it-works) · [Home](#2-home) · [Damage map and field compare](#3-damage-map-and-field-compare) · [Relief assistant](#4-relief-assistant) · [Run it](#run-it-locally)
 
 <img src="docs/readme-assets/03-damage-map.en.png" alt="Damage map: NISAR radar over Taixi, Yunlin, candidate fields, and the county-wide damage area and loss estimate" width="100%" />
 
