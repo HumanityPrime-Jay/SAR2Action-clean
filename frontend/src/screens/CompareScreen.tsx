@@ -22,7 +22,8 @@ import type { ScreenProps } from './types';
 
 type Mode = 'side' | 'swipe';
 type Pol = 'HH' | 'HV';
-type Scene = (typeof NISAR_TAIXI.scenes)[number];
+type Scene = (typeof NISAR_TAIXI.comparePair)[number];
+const isPre = (s: Scene) => s.period.startsWith('PRE');
 
 /** Half-width of the area shown around the selected field, metres. */
 const HALF_M = 1200;
@@ -60,8 +61,8 @@ function SceneView({ scene, pol, parcel, label }: { scene: Scene; pol: Pol; parc
 
 const sceneLabel = (s: Scene, pol: Pol, parcel: Parcel, lang: Lang) =>
   lang === 'zh'
-    ? `NISAR ${pol} 雷達影像，${s.date}（${s.period === 'PRE' ? '颱風前' : '颱風後'}），田區 ${parcel.id} 周邊 2.4 公里`
-    : `NISAR ${pol} radar image, ${s.date} (${s.period === 'PRE' ? 'pre-typhoon' : 'post-typhoon'}), 2.4 km around field ${parcel.id}`;
+    ? `NISAR ${pol} 雷達影像，${s.date}（${isPre(s) ? '颱風前' : '颱風後'}），田區 ${parcel.id} 周邊 2.4 公里`
+    : `NISAR ${pol} radar image, ${s.date} (${isPre(s) ? 'pre-typhoon' : 'post-typhoon'}), 2.4 km around field ${parcel.id}`;
 
 const md = (d: string) => d.slice(5).replace('-', '/');
 
@@ -69,7 +70,7 @@ function SwipeViewer({ pol, parcel }: { pol: Pol; parcel: Parcel }) {
   const t = useT();
   const { lang } = useLang();
   if (!parcel) return <p role="status">Taixi field not found</p>;
-  const [pre, post] = NISAR_TAIXI.scenes;
+  const [pre, post] = NISAR_TAIXI.comparePair;
   const [pct, setPct] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
@@ -190,7 +191,7 @@ export function CompareScreen({ selectedId, go, farmer, eventId }: ScreenProps) 
   }
   const parcel = parcelById(selectedId);
   if (!parcel) return <p role="status">Taixi field not found</p>;
-  const [pre, post] = NISAR_TAIXI.scenes;
+  const [pre, post] = NISAR_TAIXI.comparePair;
   const notes = findings(parcel);
   const passed = QA_TESTS.filter((q) => q.pass).length;
 
@@ -240,9 +241,9 @@ export function CompareScreen({ selectedId, go, farmer, eventId }: ScreenProps) 
             <SwipeViewer pol={pol} parcel={parcel} />
           ) : (
             [pre, post].map((s) => (
-              <div key={s.period} className={`frame ${s.period.toLowerCase()}`}>
+              <div key={s.period} className={`frame ${isPre(s) ? 'pre' : 'post'}`}>
                 <span className="cap-tl">
-                  {s.period} · NISAR L-BAND · {s.date}
+                  {isPre(s) ? 'PRE' : 'POST'} · NISAR L-BAND · {s.date}
                 </span>
                 <SceneView scene={s} pol={pol} parcel={parcel} label={sceneLabel(s, pol, parcel, lang)} />
                 <span className="ticks" />

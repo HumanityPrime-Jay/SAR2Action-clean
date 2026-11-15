@@ -417,6 +417,15 @@ describe('App', () => {
     expect(notes[2]).toHaveTextContent('去年同期變化');
   });
 
+  it('compare screen shows the ascending 10/14 -> 10/26 NISAR pair, which covers all of Taixi', () => {
+    render(<App />);
+    openChampiMap();
+    const compare = screen.getByRole('region', { name: '田區比對' });
+    expect(within(compare).getByRole('img', { name: /NISAR HH 雷達影像，2026-10-14（颱風前）/ })).toBeInTheDocument();
+    expect(within(compare).getByRole('img', { name: /NISAR HH 雷達影像，2026-10-26（颱風後）/ })).toBeInTheDocument();
+    expect(compare.querySelector('image')?.getAttribute('href')).toContain('nisar_pre_asc_hh_map.png');
+  });
+
   it('compare screen shows the team QA, including the failed cross-version NISAR check', () => {
     render(<App />);
     openChampiMap();

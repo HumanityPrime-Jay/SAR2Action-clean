@@ -253,7 +253,7 @@ type NisarScene = {
 };
 const studio = (file: string) => `${import.meta.env.BASE_URL}studio/${file}`;
 const nisarScene = (s: NisarScene) => ({
-  period: s.period as 'PRE' | 'POST' | 'POST_ASC',
+  period: s.period as 'PRE' | 'POST' | 'PRE_ASC' | 'POST_ASC',
   date: s.acquisition_start_utc.slice(0, 10),
   crid: s.crid,
   maturity: s.product_maturity,
@@ -262,14 +262,17 @@ const nisarScene = (s: NisarScene) => ({
 });
 
 /**
- * NISAR passes over Taixi, drawn as dual-pol false colour, each stretched on its own; never subtracted
- * (processing versions and orbits differ). `scenes` are the 10/16 and 10/28 descending passes on one
- * track; `ascending` is the 10/26 pass on another track, which covers the south the 10/28 pass missed.
+ * NISAR passes over Taixi, each stretched on its own. `scenes` are the 10/16 and 10/28 descending passes
+ * on one track; `ascending` is the 10/26 pass on another track, which covers the south the 10/28 pass
+ * missed. `comparePair` is that track's 10/14 -> 10/26 pair: both cover all of Taixi, so the field
+ * comparison uses it.
  */
+const ascending = nisarScene(nisarAscending.scene as NisarScene);
 export const NISAR_TAIXI = {
   crossVersionVerified: nisarMap.cross_crid_radiometric_equivalence_verified,
   scenes: (nisarMap.scenes as NisarScene[]).map(nisarScene),
-  ascending: nisarScene(nisarAscending.scene as NisarScene),
+  ascending,
+  comparePair: [nisarScene(nisarAscending.pre_scene as NisarScene), ascending],
 };
 
 export const OFFICIAL_LOSS = {

@@ -1,15 +1,15 @@
 {
   "case_id": "CHAMPI-YUNLIN-TAIXI",
-  "note": "Another track (ascending 039) that covers the part of Taixi the 10/28 descending pass missed. Display only; never compared in value with the descending passes.",
-  "display_method": "Dual-pol false colour (R=HH, G=HV, B=HH-HV), each scene stretched to its own p02-p98 inside Taixi, 3x3 speckle mean; transparent outside the township and where a scene has no valid pixels; colours are not comparable across dates",
-  "scene": {
-    "period": "POST_ASC",
-    "scene_id": "NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001",
-    "acquisition_start_utc": "2026-10-26T21:24:24.000000000",
-    "crid": "P05036",
-    "product_maturity": "VALIDATED",
-    "track": 39,
+  "note": "Ascending track 039 pair around the typhoon. Both passes cover all of Taixi, unlike the 10/28 descending pass. Display only; each image keeps its own stretch.",
+  "display_method": "HH/HV: own p05/p95 stretch per image, transparent where no valid pixel. RGB: Dual-pol false colour (R=HH, G=HV, B=HH-HV), each scene stretched to its own p02-p98 inside Taixi, 3x3 speckle mean; transparent outside the township and where a scene has no valid pixels; colours are not comparable across dates",
+  "pre_scene": {
+    "period": "PRE_ASC",
+    "scene_id": "NISAR_L2_PR_GCOV_033_039_A_013_4005_DHDH_A_20261014T212424_20261014T212501_P05023_N_F_J_001",
+    "acquisition_start_utc": "2026-10-14T21:24:24.000000000",
     "orbit_direction": "ASCENDING",
+    "track": 39,
+    "crid": "P05023",
+    "product_maturity": "PROVISIONAL",
     "crs": "EPSG:32651",
     "grid_shape": [
       591,
@@ -33,7 +33,94 @@
         23.65633754548637
       ]
     ],
+    "township_coverage": 1.0,
     "layers": {
+      "HH": {
+        "image": "nisar_pre_asc_hh_map.png",
+        "valid_pixels": 313230,
+        "display_stretch_db": [
+          -19.95,
+          -5.5
+        ]
+      },
+      "HV": {
+        "image": "nisar_pre_asc_hv_map.png",
+        "valid_pixels": 313230,
+        "display_stretch_db": [
+          -25.26,
+          -11.89
+        ]
+      },
+      "RGB": {
+        "image": "nisar_pre_asc_rgb_map.png",
+        "composite": "R=HH G=HV B=HH-HV",
+        "display_stretch_db": {
+          "HH": [
+            -19.39,
+            -3.22
+          ],
+          "HV": [
+            -24.5,
+            -10.47
+          ],
+          "HH-HV": [
+            3.68,
+            11.67
+          ]
+        },
+        "smoothing": "2x2 block mean to 20 m, then 3x3 mean on linear power"
+      }
+    }
+  },
+  "scene": {
+    "period": "POST_ASC",
+    "scene_id": "NISAR_L2_PR_GCOV_034_039_A_013_4005_DHDH_A_20261026T212424_20261026T212501_P05036_N_F_J_001",
+    "acquisition_start_utc": "2026-10-26T21:24:24.000000000",
+    "orbit_direction": "ASCENDING",
+    "track": 39,
+    "crid": "P05036",
+    "product_maturity": "VALIDATED",
+    "crs": "EPSG:32651",
+    "grid_shape": [
+      591,
+      530
+    ],
+    "coordinates": [
+      [
+        120.13888505545845,
+        23.762969606490373
+      ],
+      [
+        120.24278732403062,
+        23.764860519602106
+      ],
+      [
+        120.24502946356351,
+        23.658218958463408
+      ],
+      [
+        120.14121141170796,
+        23.65633754548637
+      ]
+    ],
+    "township_coverage": 1.0,
+    "layers": {
+      "HH": {
+        "image": "nisar_post_asc_hh_map.png",
+        "valid_pixels": 313230,
+        "display_stretch_db": [
+          -17.91,
+          -5.43
+        ]
+      },
+      "HV": {
+        "image": "nisar_post_asc_hv_map.png",
+        "valid_pixels": 313230,
+        "display_stretch_db": [
+          -24.97,
+          -11.49
+        ]
+      },
       "RGB": {
         "image": "nisar_post_asc_rgb_map.png",
         "composite": "R=HH G=HV B=HH-HV",
@@ -51,8 +138,7 @@
             11.49
           ]
         },
-        "smoothing": "2x2 block mean to 20 m, then 3x3 mean on linear power",
-        "township_coverage": 1.0
+        "smoothing": "2x2 block mean to 20 m, then 3x3 mean on linear power"
       }
     }
   }
