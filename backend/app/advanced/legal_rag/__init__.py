@@ -7,7 +7,13 @@ from backend.app.advanced.legal_rag.legal_concepts import (
 )
 from backend.app.advanced.legal_rag.parser import LAW_ID, LAW_NAME, build_legal_dataset
 from backend.app.advanced.legal_rag.retriever import HybridLegalRetriever, analyze_legal_query
-from backend.app.advanced.legal_rag.rules import RuleEvaluationItem, RuleState, evaluate_legal_rules
+from backend.app.advanced.legal_rag.rules import (
+    LegalDecisionEvaluator,
+    LegalDecisionResult,
+    RuleEvaluationItem,
+    RuleState,
+    evaluate_legal_rules,
+)
 from backend.app.advanced.legal_rag.semantic_retriever import (
     DeterministicSemanticRetriever,
     StructuredLegalQuery,
@@ -23,6 +29,8 @@ __all__ = [
     "LAW_NAME",
     "LegalConceptDictionary",
     "LegalDatabase",
+    "LegalDecisionEvaluator",
+    "LegalDecisionResult",
     "LegalRAGResponse",
     "LegalRAGService",
     "RuleEvaluationItem",

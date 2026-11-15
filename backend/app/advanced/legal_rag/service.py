@@ -12,14 +12,24 @@ from backend.app.advanced.legal_rag.retriever import HybridLegalRetriever
 from backend.app.advanced.legal_rag.rules.engine import evaluate_legal_rules
 
 PROMPT_INJECTION_PATTERNS = (
-    "ignore previous", "ignore all", "ignore instructions", "忽略之前", "忽略規則",
+    "ignore previous", "ignore all", "ignore instructions", "忽略之前", "忽略前面",
+    "忽略規則", "所有限制", "直接告訴我政府已經核准",
     "無視規則", "編造", "虛構", "直接核准", "假裝已核准", "override",
     "system prompt", "jailbreak", "approve 500000", "approve 100000",
 )
 
 OUT_OF_SCOPE_LAWS = (
-    "勞動基準法", "勞基法", "民法", "刑法", "所得稅法", "建築法", "公司法", "交通", "健保",
+    "勞動基準法", "勞基法", "民法", "刑法", "所得稅法", "建築法", "交通", "健保",
+    "水土保持法", "農民健康保險條例", "農保條例", "農業發展條例第",
 )
+
+
+def _is_out_of_scope_law(question: str) -> bool:
+    if any(law in question for law in OUT_OF_SCOPE_LAWS):
+        return True
+    if re.search(r"公司法(?!人)", question):
+        return True
+    return False
 
 
 @dataclass
@@ -141,7 +151,7 @@ class LegalRAGService:
                 citation_verification={"verified": True, "checked_count": 0, "errors": []},
             )
 
-        if any(law in question for law in OUT_OF_SCOPE_LAWS):
+        if _is_out_of_scope_law(question):
             rules = evaluate_legal_rules(applicable_version_verified=True)
             return LegalRAGResponse(
                 status="OUT_OF_SCOPE",

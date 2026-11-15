@@ -32,7 +32,13 @@ class ConceptMatch:
 def normalize_taiwan_legal_query(query: str) -> str:
     """Normalize Traditional Chinese variants & colloquial numerals deterministically."""
     q = query.strip()
-    q = q.replace("臺", "台").replace("％", "%")
+    q = (
+        q.replace("臺", "台")
+        .replace("％", "%")
+        .replace("颱瘋", "颱風")
+        .replace("補註", "補助")
+        .replace("蕃茄", "番茄")
+    )
     q = re.sub(r"\s+", " ", q)
     return q
 
