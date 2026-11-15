@@ -1,6 +1,6 @@
 import type { FarmerInfo } from '../data/farmer';
 
-export type ScreenKey = 'home' | 'map' | 'compare' | 'assist';
+export type ScreenKey = 'home' | 'map' | 'compare' | 'assist' | 'intelligence';
 
 export interface ScreenProps {
   selectedId: string;

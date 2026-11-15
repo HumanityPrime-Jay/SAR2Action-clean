@@ -7,14 +7,16 @@ import { AssistScreen } from './screens/AssistScreen';
 import { CompareScreen } from './screens/CompareScreen';
 import { HomeScreen } from './screens/HomeScreen';
 import { MapScreen } from './screens/MapScreen';
+import { EarthIntelligenceScreen } from './earth/EarthIntelligenceScreen';
 import type { ScreenKey, ScreenProps } from './screens/types';
 import { Earth, Icon, SvgDefs } from './ui/shared';
 
-const SCREENS: { key: ScreenKey; label: Text; drill?: boolean; Component: (p: ScreenProps) => React.ReactElement }[] = [
-  { key: 'home', label: { zh: '首頁', en: 'Home' }, Component: HomeScreen },
-  { key: 'map', label: { zh: '受災地圖', en: 'Damage map' }, Component: MapScreen },
-  { key: 'compare', label: { zh: '田區比對', en: 'Field compare' }, drill: true, Component: CompareScreen },
-  { key: 'assist', label: { zh: '補助助手', en: 'Relief assistant' }, drill: true, Component: AssistScreen },
+const SCREENS: { key: ScreenKey; label: Text; drill?: boolean; inMainTabs?: boolean; Component: (p: ScreenProps) => React.ReactElement }[] = [
+  { key: 'home', label: { zh: '首頁', en: 'Home' }, inMainTabs: true, Component: HomeScreen },
+  { key: 'map', label: { zh: '受災地圖', en: 'Damage map' }, inMainTabs: true, Component: MapScreen },
+  { key: 'compare', label: { zh: '田區比對', en: 'Field compare' }, drill: true, inMainTabs: true, Component: CompareScreen },
+  { key: 'assist', label: { zh: '補助助手', en: 'Relief assistant' }, drill: true, inMainTabs: true, Component: AssistScreen },
+  { key: 'intelligence', label: { zh: '地球變化智慧', en: 'Earth Intelligence' }, drill: true, inMainTabs: false, Component: EarthIntelligenceScreen },
 ];
 
 function screenFromHash(): ScreenKey {
@@ -79,14 +81,22 @@ function Shell() {
           SAR2Action
         </a>
         <nav className="tabs" aria-label={t('主選單', 'Main menu')}>
-          {SCREENS.map((s) => (
+          {SCREENS.filter((s) => s.inMainTabs).map((s) => (
             <button key={s.key} className="tab" aria-current={screen === s.key ? 'page' : undefined} onClick={() => go(s.key)}>
-              <Icon name={s.key} />
+              <Icon name={s.key as 'home' | 'map' | 'compare' | 'assist'} />
               {t(s.label)}
             </button>
           ))}
         </nav>
         <div className="spacer" />
+        <button
+          type="button"
+          className="tab"
+          aria-current={screen === 'intelligence' ? 'page' : undefined}
+          onClick={() => go('intelligence')}
+        >
+          {t('地球變化智慧', 'Earth Intelligence')}
+        </button>
         <a className="link" href={`${import.meta.env.BASE_URL}studio`}>Investigation Studio</a>
         <div className="event">
           <span>EVENT</span>
@@ -113,7 +123,9 @@ function Shell() {
             // Hidden screens stay mounted for the page transition but must not be reachable.
             {...(screen !== key ? { inert: '' } : {})}
           >
-            <Component selectedId={selectedId} onSelect={setSelectedId} go={go} eventId={eventId} onEvent={setEventId} farmer={farmer} onFarmer={setFarmer} />
+            {(key !== 'intelligence' || screen === 'intelligence') && (
+              <Component selectedId={selectedId} onSelect={setSelectedId} go={go} eventId={eventId} onEvent={setEventId} farmer={farmer} onFarmer={setFarmer} />
+            )}
           </section>
         ))}
       </main>

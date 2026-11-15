@@ -398,8 +398,10 @@ def get_tw05_evidence_endpoint(evidence_id: str) -> Tw05EvidenceCitation:
 
 
 from backend.app.advanced.api_router import create_fastapi_router
+from backend.app.earth_intelligence import create_earth_intelligence_router
 
 app.include_router(create_fastapi_router())
+app.include_router(create_earth_intelligence_router())
 
 
 # Serve the built React app (frontend/dist) from the same origin as the API. Mounted last so
