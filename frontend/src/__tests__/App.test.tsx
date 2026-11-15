@@ -239,6 +239,16 @@ describe('App', () => {
     vi.unstubAllGlobals();
   });
 
+  it('the damage map leads with the official loss area and Yunlin loss, with its source', () => {
+    render(<App />);
+    const map = openChampiMap();
+    const summary = within(map).getByRole('region', { name: '這次颱風的農業災損' });
+    expect(within(summary).getByText('全台農作物受害面積').previousElementSibling).toHaveTextContent('12,938 公頃');
+    expect(within(summary).getByText(/雲林縣損失，全台第 2（占 16%）/).previousElementSibling).toHaveTextContent('1.58 億');
+    expect(within(summary).getByText(/未公布縣市面積/)).toBeInTheDocument();
+    expect(within(summary).getByRole('link', { name: '原始報告' })).toHaveAttribute('href', expect.stringContaining('moa.gov.tw'));
+  });
+
   it('shows the five real candidate fields and filters them by VH trend', () => {
     render(<App />);
     const map = openChampiMap();

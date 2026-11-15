@@ -626,3 +626,10 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .receipt .keep button{min-height:36px;padding:6px 14px;border-radius:8px;border:1px solid var(--border-strong);background:transparent;color:inherit;font:inherit;cursor:pointer}
 .receipt .keep button:hover:not(:disabled){background:var(--surface-2)}
 .receipt .keep button:disabled{opacity:.6;cursor:default}
+.loss-summary{padding:12px 20px 10px;border-bottom:1px solid var(--border);background:var(--surface-3)}
+.loss-summary .h3{margin:2px 0 6px}
+.loss-figures{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+.loss-figures b{display:block;font-size:28px;font-weight:800;line-height:1.1;letter-spacing:-.5px;color:var(--red-hi);font-variant-numeric:tabular-nums}
+.loss-figures b small{font-size:14px;font-weight:700;letter-spacing:0}
+.loss-figures span{display:block;font-size:13px;line-height:1.35;color:var(--text-2);margin-top:2px}
+.loss-summary a{color:var(--blue-ink);text-decoration:underline}

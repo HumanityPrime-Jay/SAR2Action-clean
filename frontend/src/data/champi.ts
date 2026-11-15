@@ -256,6 +256,12 @@ export const OFFICIAL_LOSS = {
   url: official.source_url,
   yunlinNtd: official.yunlin_county_ntd,
   taiwanNtd: official.taiwan_total_ntd,
+  /** National crop figures; the report gives no county areas. */
+  cropAreaHa: official.taiwan_crop_damaged_area_ha,
+  damagePct: official.taiwan_crop_damage_level_pct,
+  noHarvestHa: official.taiwan_crop_no_harvest_equiv_ha,
+  yunlinSharePct: official.yunlin_share_pct,
+  yunlinRank: official.yunlin_rank,
 };
 
 /** Large NT$ amount: 1.58 億 / 157.7 million. */

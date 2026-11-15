@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CASE, type LngLat, NISAR_TAIXI, PARCELS, type Parcel, TREND_COLOR, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
+import { CASE, type LngLat, NISAR_TAIXI, OFFICIAL_LOSS, PARCELS, type Parcel, TREND_COLOR, bigNtd, TREND_LABEL, type Trend, geometryPath, parcelById, polygonRings, trendOf } from '../data/champi';
 import { type FarmerInfo, cropName } from '../data/farmer';
 import { formatDb } from '../demo/fields';
 import { type Lang, type Text, useLang, useT } from '../i18n';
@@ -350,6 +350,39 @@ function DamageMap({
       </div>
 
       <aside className="panel">
+        <section className="loss-summary" aria-labelledby="loss-title">
+          <div className="eyebrow">{t(`農業部災情報告 · ${OFFICIAL_LOSS.date}`, `MOA loss report · ${OFFICIAL_LOSS.date}`)}</div>
+          <h2 id="loss-title" className="h3">
+            {t('這次颱風的農業災損', "This typhoon's farm losses")}
+          </h2>
+          <div className="loss-figures">
+            <div>
+              <b>
+                {OFFICIAL_LOSS.cropAreaHa.toLocaleString()}
+                <small>{t(' 公頃', ' ha')}</small>
+              </b>
+              <span>{t('全台農作物受害面積', 'Crop area damaged, all Taiwan')}</span>
+            </div>
+            <div>
+              <b>{lang === 'zh' ? bigNtd(OFFICIAL_LOSS.yunlinNtd, lang) : `NT$${bigNtd(OFFICIAL_LOSS.yunlinNtd, lang)}`}</b>
+              <span>
+                {t(
+                  `雲林縣損失，全台第 ${OFFICIAL_LOSS.yunlinRank}（占 ${OFFICIAL_LOSS.yunlinSharePct}%）`,
+                  `Yunlin County loss, #${OFFICIAL_LOSS.yunlinRank} in Taiwan (${OFFICIAL_LOSS.yunlinSharePct}%)`,
+                )}
+              </span>
+            </div>
+          </div>
+          <p className="cap">
+            {t(
+              `受害程度 ${OFFICIAL_LOSS.damagePct}%，約 ${OFFICIAL_LOSS.noHarvestHa.toLocaleString()} 公頃完全沒收成；未公布縣市面積。`,
+              `${OFFICIAL_LOSS.damagePct}% damage, about ${OFFICIAL_LOSS.noHarvestHa.toLocaleString()} ha with no harvest; no county areas given.`,
+            )}{' '}
+            <a href={OFFICIAL_LOSS.url} target="_blank" rel="noreferrer">
+              {t('原始報告', 'Source')}
+            </a>
+          </p>
+        </section>
         <div className="panel-head" style={{ paddingBottom: 0, border: 0 }}>
           <div className="eyebrow">{t('Candidate fields · 農田坵塊圖', 'Official farmland map')}</div>
           <h2 className="h2">{t('候選田區', 'Candidate fields')}</h2>
